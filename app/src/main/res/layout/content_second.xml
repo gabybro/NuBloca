@@ -8,7 +8,7 @@
     tools:context="ro.nubloca.SecondActivity"
     tools:showIn="@layout/activity_second">
 
-    <ScrollView
+    <ro.nubloca.ObservableScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
@@ -30,7 +30,7 @@
 
 
 
-    </ScrollView>
+    </ro.nubloca.ObservableScrollView>
 
 
     <RelativeLayout
@@ -49,7 +49,6 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/hello"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="0dp"
@@ -58,7 +57,7 @@
             android:textAllCaps="false"
             android:background="@drawable/acord_btn"
             android:text="@string/acord"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="@color/btn_white" />
 

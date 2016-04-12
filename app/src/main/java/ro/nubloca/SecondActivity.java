@@ -16,7 +16,9 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-public class SecondActivity extends AppCompatActivity {
+public class SecondActivity extends AppCompatActivity implements ScrollViewListener{
+
+    private ObservableScrollView scrollView = null;
     public static final String MyPREFERENCES = "MyPrefs" ;
     SharedPreferences sharedpreferences;
     public boolean tos_check = false;
@@ -25,15 +27,15 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
+        scrollView = (ObservableScrollView) findViewById(R.id.scrollView1);
+        scrollView.setScrollViewListener(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle("                 Termeni si conditii");
         toolbar.setTitleTextColor(0xFFFFFFFF);
-
-        ScrollView scroll = (ScrollView) findViewById(R.id.scrollView1);
-
-        //final Button btnOpenPopup = (Button)findViewById(R.id.openpopup);
 
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -43,16 +45,16 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                if (tos_check==true) {
+                if (tos_check) {
                     Toast.makeText(SecondActivity.this, "Thanks", Toast.LENGTH_LONG).show();
 
                     editor.putBoolean("TOS", true);
-                    editor.apply(); // commit or apply ?
+                    editor.apply();
                     finish();
                     startActivity(new Intent(SecondActivity.this, ThirdActivity.class));
                 }
                 else {
-                   final RelativeLayout back_dim_layout = (RelativeLayout) findViewById(R.id.bac_dim_layout);
+                    final RelativeLayout back_dim_layout = (RelativeLayout) findViewById(R.id.bac_dim_layout);
                     back_dim_layout.setVisibility(View.VISIBLE);
                     Toast.makeText(SecondActivity.this, "Nu ati citit tot textul!", Toast.LENGTH_LONG).show();
                     LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -110,42 +112,22 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
-        final ScrollView sv = (ScrollView) findViewById(R.id.scrollView1);
 
-        sv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override public void onScrollChanged() {
+    }
 
-                if (sv.getScrollY() >= 1000)
-                    tos_check=true;
-                    //Toast.makeText(SecondActivity.this, "asd", Toast.LENGTH_LONG).show();
+    public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
 
-            } });
+        View view = (View) scrollView.getChildAt(scrollView.getChildCount()-1);
+        int diff = (view.getBottom()-(scrollView.getHeight()+scrollView.getScrollY()));
+
+        if( diff == 0 ){
+            tos_check=true;
+            Toast.makeText(SecondActivity.this, "Jos", Toast.LENGTH_LONG).show();
+
+        }
+
 
     }
 
 
-
-
-
-    // @Override
-    //public boolean onCreateOptionsMenu(Menu menu) {
-    //Inflate the menu; this adds items to the action bar if it is present.
-    // getMenuInflater().inflate(R.menu.menu_main, menu);
-    //return true;
-    //}
-
-    //@Override
-    //   public boolean onOptionsItemSelected(MenuItem item) {
-    //Handle action bar item clicks here. The action bar will
-    //automatically handle clicks on the Home/Up button, so long
-    //as you specify a parent activity in AndroidManifest.xml.
-    //    int id = item.getItemId();
-
-    //noinspection SimplifiableIfStatement
-    // if (id == R.id.action_settings) {
-    //  return true;
-    //}
-
-    //return super.onOptionsItemSelected(item);
-    //}
 }
