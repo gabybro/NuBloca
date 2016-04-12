@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="red">#FF0E53</color>
+    <color name="main_bkg">#FF0E53</color>
+    <color name="btn_green">#2FDB9E</color>
+    <color name="btn_grey">#CCCCCC</color>
+    <color name="tos_text_color">#595959</color>
+    <color name="btn_white">#ffffff</color>
+
+
+</resources>
