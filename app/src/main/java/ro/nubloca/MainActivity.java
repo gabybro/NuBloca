@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Tos = (sharedpreferences.getBoolean("TOS",false));
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+        //comment for git hub
         new Thread(new Runnable() {
             public void run() {
                 while (progressStatus < 100) {
