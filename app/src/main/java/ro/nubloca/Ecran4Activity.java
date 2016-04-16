@@ -1,9 +1,11 @@
 package ro.nubloca;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -57,46 +59,16 @@ public class Ecran4Activity extends AppCompatActivity implements ScrollViewListe
                     //TOS-ul nu a fost citit
                     final RelativeLayout back_dim_layout = (RelativeLayout) findViewById(R.id.bac_dim_layout);
                     //background-ul negru
-                    back_dim_layout.setVisibility(View.VISIBLE);
-                    LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    //******back_dim_layout.setVisibility(View.VISIBLE);
+                    //******LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                     //popup-ul de interogare ecran 4.2
-                    View popupView = layoutInflater.inflate(R.layout.popup, null);
-                    final PopupWindow popupWindow = new PopupWindow(
-                            popupView,
-                            Toolbar.LayoutParams.WRAP_CONTENT,
-                            Toolbar.LayoutParams.WRAP_CONTENT, true);
+                    //******View popupView = layoutInflater.inflate(R.layout.popup, null);
+                    //******final PopupWindow popupWindow = new PopupWindow(
+                    //******      popupView,
+                    //******    Toolbar.LayoutParams.WRAP_CONTENT,
+                    //******  Toolbar.LayoutParams.WRAP_CONTENT, true);
+                    openAlert(v);
 
-                    Button btnDismiss = (Button) popupView.findViewById(R.id.button1);
-                    btnDismiss.setOnClickListener(new Button.OnClickListener() {
-                        //a fost apasat butonul "Nu" si popup-ul dispare
-                        @Override
-                        public void onClick(View v) {
-                            back_dim_layout.setVisibility(View.GONE);
-                            popupWindow.dismiss();
-                        }
-                    });
-
-
-                    Button btnDa = (Button) popupView.findViewById(R.id.button2);
-                    btnDa.setOnClickListener(new Button.OnClickListener() {
-                        //a fost apasat butonul "Da"
-                        @Override
-                        public void onClick(View v) {
-
-                            back_dim_layout.setVisibility(View.GONE);
-                            popupWindow.dismiss();
-                            SharedPreferences.Editor editor = sharedpreferences.edit();
-                            editor.putBoolean("TOS", true);
-                            editor.apply();
-                            //se trece la ecranul 7
-                            finish();
-                            startActivity(new Intent(Ecran4Activity.this, Ecran7Activity.class));
-
-                        }
-                    });
-
-
-                    popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
                 }
                 //Toast.makeText(Ecran4Activity.this, "Thanks", Toast.LENGTH_LONG).show();
 
@@ -136,5 +108,44 @@ public class Ecran4Activity extends AppCompatActivity implements ScrollViewListe
 
     }
 
+    private void openAlert(View view) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Ecran4Activity.this);
 
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        View dialogView = inflater.inflate(R.layout.popup, null);
+        Button btnDa = (Button) dialogView.findViewById(R.id.button2);
+        Button btnDismiss = (Button) dialogView.findViewById(R.id.button1);
+
+        alertDialogBuilder.setView(dialogView);
+
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // set positive button: Yes message
+        btnDa.setOnClickListener(new Button.OnClickListener() {
+            //a fost apasat butonul "Da"
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putBoolean("TOS", true);
+                editor.apply();
+                //se trece la ecranul 7
+                finish();
+                startActivity(new Intent(Ecran4Activity.this, Ecran7Activity.class));
+
+            }
+        });
+        // set negative button: No message
+
+        btnDismiss.setOnClickListener(new Button.OnClickListener() {
+            //a fost apasat butonul "Da"
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        // show alert
+        alertDialog.show();
+    }
 }
