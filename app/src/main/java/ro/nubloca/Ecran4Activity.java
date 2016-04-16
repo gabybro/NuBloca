@@ -1,6 +1,5 @@
 package ro.nubloca;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,13 +14,14 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class Ecran4Activity extends AppCompatActivity implements ScrollViewListener{
+public class Ecran4Activity extends AppCompatActivity implements ScrollViewListener {
 
     private ObservableScrollView scrollView = null;
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
     public boolean tos_check = false;
-    Button b1,b2;
+    Button b1, b2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,60 +35,65 @@ public class Ecran4Activity extends AppCompatActivity implements ScrollViewListe
 
         getSupportActionBar().setTitle("                 Termeni si conditii");
         toolbar.setTitleTextColor(0xFFFFFFFF);
-        
-        //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        //getSupportActionBar().setCustomView(R.layout.abs_layout);
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        b1=(Button)findViewById(R.id.acord);
+        b1 = (Button) findViewById(R.id.acord);
         b1.setOnClickListener(new View.OnClickListener() {
+            //ecran 4, buton "De acord"
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = sharedpreferences.edit();
+                //verifica daca TOS-ul a fost citit
                 if (tos_check) {
                     Toast.makeText(Ecran4Activity.this, "Thanks", Toast.LENGTH_LONG).show();
-
+                    //TOS-ul a fost acceptat
                     editor.putBoolean("TOS", true);
                     editor.apply();
                     finish();
+                    //merge la ecranul 7
                     startActivity(new Intent(Ecran4Activity.this, Ecran7Activity.class));
-                }
-                else {
+                } else {
+                    //TOS-ul nu a fost citit
                     final RelativeLayout back_dim_layout = (RelativeLayout) findViewById(R.id.bac_dim_layout);
+                    //background-ul negru
                     back_dim_layout.setVisibility(View.VISIBLE);
-                    Toast.makeText(Ecran4Activity.this, "Nu ati citit tot textul!", Toast.LENGTH_LONG).show();
-                    LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    //popup-ul de interogare ecran 4.2
                     View popupView = layoutInflater.inflate(R.layout.popup, null);
                     final PopupWindow popupWindow = new PopupWindow(
                             popupView,
                             Toolbar.LayoutParams.WRAP_CONTENT,
                             Toolbar.LayoutParams.WRAP_CONTENT, true);
 
-                    Button btnDismiss = (Button)popupView.findViewById(R.id.button1);
-                    btnDismiss.setOnClickListener(new Button.OnClickListener(){
-
+                    Button btnDismiss = (Button) popupView.findViewById(R.id.button1);
+                    btnDismiss.setOnClickListener(new Button.OnClickListener() {
+                        //a fost apasat butonul "Nu" si popup-ul dispare
                         @Override
                         public void onClick(View v) {
                             back_dim_layout.setVisibility(View.GONE);
                             popupWindow.dismiss();
-                        }});
+                        }
+                    });
 
 
-                    Button btnDa = (Button)popupView.findViewById(R.id.button2);
-                    btnDa.setOnClickListener(new Button.OnClickListener(){
-
+                    Button btnDa = (Button) popupView.findViewById(R.id.button2);
+                    btnDa.setOnClickListener(new Button.OnClickListener() {
+                        //a fost apasat butonul "Da"
                         @Override
                         public void onClick(View v) {
+
                             back_dim_layout.setVisibility(View.GONE);
                             popupWindow.dismiss();
-                            //go to ecran5
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putBoolean("TOS", true);
+                            editor.apply();
+                            //se trece la ecranul 7
                             finish();
-                            startActivity(new Intent(Ecran4Activity.this, Ecran5Activity.class));
+                            startActivity(new Intent(Ecran4Activity.this, Ecran7Activity.class));
 
-
-                        }});
-
+                        }
+                    });
 
 
                     popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
@@ -99,18 +104,18 @@ public class Ecran4Activity extends AppCompatActivity implements ScrollViewListe
             }
         });
 
-        b2=(Button)findViewById(R.id.refuz);
+        b2 = (Button) findViewById(R.id.refuz);
         b2.setOnClickListener(new View.OnClickListener() {
+            //a fost apasat butonul "Refuz" din ecranul 4.1 si se trece la ecranul 5
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putBoolean("TOS", false);
                 editor.apply();
-                Toast.makeText(Ecran4Activity.this, ":(", Toast.LENGTH_LONG).show();
-                //finish();
-                moveTaskToBack(true);
-                android.os.Process.killProcess(android.os.Process.myPid());
-                System.exit(1);
+                finish();
+                startActivity(new Intent(Ecran4Activity.this, Ecran5Activity.class));
+
+
             }
         });
 
@@ -118,13 +123,13 @@ public class Ecran4Activity extends AppCompatActivity implements ScrollViewListe
     }
 
     public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
+        //verifica citirea TOS-ului
+        View view = (View) scrollView.getChildAt(scrollView.getChildCount() - 1);
+        int diff = (view.getBottom() - (scrollView.getHeight() + scrollView.getScrollY()));
 
-        View view = (View) scrollView.getChildAt(scrollView.getChildCount()-1);
-        int diff = (view.getBottom()-(scrollView.getHeight()+scrollView.getScrollY()));
-
-        if( diff == 0 ){
-            tos_check=true;
-            Toast.makeText(Ecran4Activity.this, "Jos", Toast.LENGTH_LONG).show();
+        if (diff == 0) {
+            tos_check = true;
+            //Toast.makeText(Ecran4Activity.this, "Jos", Toast.LENGTH_LONG).show();
 
         }
 

@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 
 public class Ecran7Activity extends AppCompatActivity {
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
 
 
@@ -29,7 +29,7 @@ public class Ecran7Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.logo);
+        getSupportActionBar().setLogo(R.drawable.logo1);
         //getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -38,10 +38,8 @@ public class Ecran7Activity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        //getSupportActionBar().setTitle("Nu Bloca!");
-        //toolbar.setTitleTextColor(0xFFFFEA00);
 
-        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.menu_whell);
+        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.whell1);
         toolbar.setOverflowIcon(drawable);
 
 
@@ -51,7 +49,8 @@ public class Ecran7Activity extends AppCompatActivity {
 
         lay.setOnClickListener(new View.OnClickListener() {
 
-            ImageView iv=(ImageView)findViewById(R.id.imageView5);
+            ImageView iv = (ImageView) findViewById(R.id.imageView5);
+
             @Override
             public void onClick(View v) {
                 iv.setImageResource(R.drawable.car_small71);
@@ -73,6 +72,7 @@ public class Ecran7Activity extends AppCompatActivity {
         });
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
