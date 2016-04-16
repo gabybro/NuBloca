@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">NuBloca</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_second">SecondActivity</string>
+    <string name="title_activity_second">Termeni si conditii</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_third">ThirdActivity</string>
     <string name="app_title">NuBloca</string>
@@ -18,4 +18,7 @@
         \n \n Movet quidam id per. Habeo ubique detracto in pri, te iusto soluta antiopam mei. Eum no elit nobis soleat, mutat tollit vix ut. Pro ex atomorum conclusionemque, hinc disputationi ut vim. Eam ex decore volutpat, ad vero adipiscing nec. Cu verterem urbanitas vim, per in essent sententiae.
         \n \n Ad per alia fabellas corrumpit, his labore tamquam accusata ne, est clita perpetua ad. Est an ubique comprehensam, id persecuti assueverit nec, sumo singulis cum in. Id quot regione necessitatibus quo, probo viris pertinax pro eu, falli nobis est ex. Et meis audire inermis vim, rebum timeam indoctum nam in, tota aperiam qualisque eos in. In vix alii eripuit invidunt, quo ei malorum ocurreret urbanitas, vim eu nisl oratio option. Mel no libris ridens utroque, euismod deseruisse eos at. \n \n \n </string>
     <string name="title_activity_ecran5">Ecran5Activity</string>
+    <string name="title_activity_screen">Screen</string>
+    <string name="vezi_termeni">Vezi Termeni si Conditii</string>
+    <string name="inchide_app">Inchide aplicatia</string>
 </resources>
