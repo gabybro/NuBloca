@@ -9,8 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Ecran10Activity"
-    tools:showIn="@layout/activity_ecran10"
-    android:background="@drawable/screen">
+    tools:context="ro.nubloca.Ecran9Activity"
+    tools:showIn="@layout/activity_ecran9"
+    android:background="@drawable/screen1">
 
 </RelativeLayout>

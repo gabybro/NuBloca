@@ -47,16 +47,27 @@ public class Ecran7Activity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        LinearLayout newsMenu = (LinearLayout) this.findViewById(R.id.linearLayout);
+        LinearLayout lay = (LinearLayout) this.findViewById(R.id.linearLayout);
 
-        newsMenu.setOnClickListener(new View.OnClickListener() {
+        lay.setOnClickListener(new View.OnClickListener() {
 
             ImageView iv=(ImageView)findViewById(R.id.imageView5);
             @Override
             public void onClick(View v) {
                 iv.setImageResource(R.drawable.car_small71);
-                Toast.makeText(Ecran7Activity.this, ":(", Toast.LENGTH_LONG).show();
+                //Toast.makeText(Ecran7Activity.this, ":(", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(Ecran7Activity.this, Ecran10Activity.class));
+
+            }
+        });
+
+        LinearLayout lay1 = (LinearLayout) this.findViewById(R.id.linearLayout1);
+
+        lay1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Ecran7Activity.this, Ecran9Activity.class));
 
             }
         });

@@ -28,4 +28,7 @@
     <string name="contacteaza_proprietar_auto">Contacteaza proprietar auto</string>
     <string name="plus_sign">plus sign</string>
     <string name="adauga_numarul_masinii_tale">Adauga numarul masinii tale</string>
+    <string name="title_activity_ecran9">Ecran9Activity</string>
+    <string name="trimite">Trimite</string>
+    <string name="ok">OK</string>
 </resources>

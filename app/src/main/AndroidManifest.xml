@@ -25,29 +25,32 @@
             android:name=".Ecran4Activity"
             android:label="@string/title_activity_second"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Ecran7Activity"
-            android:label="@string/title_activity_third"
-            android:screenOrientation="portrait"
             android:icon="@drawable/logo"
+            android:label="@string/title_activity_third"
             android:logo="@drawable/logo"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Ecran5Activity"
             android:label="@string/title_activity_ecran5"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Ecran10Activity"
             android:label="@string/title_activity_screen"
             android:parentActivityName=".Ecran7Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran7Activity" />
+        </activity>
+        <activity
+            android:name=".Ecran9Activity"
+            android:label="@string/title_activity_ecran9"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
