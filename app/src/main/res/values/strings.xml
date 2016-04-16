@@ -21,4 +21,11 @@
     <string name="title_activity_screen">Screen</string>
     <string name="vezi_termeni">Vezi Termeni si Conditii</string>
     <string name="inchide_app">Inchide aplicatia</string>
+    <string name="background">Background</string>
+    <string name="car_background">car background</string>
+    <string name="actionbar_main">main actionbar</string>
+    <string name="small_car">small car</string>
+    <string name="contacteaza_proprietar_auto">Contacteaza proprietar auto</string>
+    <string name="plus_sign">plus sign</string>
+    <string name="adauga_numarul_masinii_tale">Adauga numarul masinii tale</string>
 </resources>
