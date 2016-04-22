@@ -10,21 +10,24 @@ public class Ecran10Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_ecran10);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("Contact auto");
-        toolbar.setTitleTextColor(0xFFFFFFFF);
+        //getSupportActionBar().setTitle("Contact auto");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        /*getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_text);*/
+        //toolbar.setTitleTextColor(0xFFFFFFFF);
 
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
     }
 
 
-    public boolean onCreateOptionsMenu(Menu menu) {
+   /* public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu1, menu);
         return true;
-    }
+    }*/
 }

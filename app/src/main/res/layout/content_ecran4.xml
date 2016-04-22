@@ -9,25 +9,24 @@
     tools:showIn="@layout/activity_ecran4">
 
     <ro.nubloca.ObservableScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/scrollView1">
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true">
 
         <TextView
+            android:id="@+id/editText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tos_text"
-            android:textColor="@color/tos_text_color"
-            android:id="@+id/editText2"
-            android:textSize="20sp"
             android:paddingLeft="22dp"
             android:paddingRight="22dp"
-            android:paddingTop="22dp" />
-
+            android:paddingTop="22dp"
+            android:text="@string/tos_text"
+            android:textColor="@color/tos_text_color"
+            android:textSize="20sp" />
 
 
     </ro.nubloca.ObservableScrollView>
@@ -44,26 +43,28 @@
         android:orientation="horizontal">
 
 
-        <Button
+        <ro.nubloca.CustomFontTitilliumBold
             android:id="@+id/acord"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="2dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginRight="0dp"
             android:layout_marginEnd="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="3dp"
-            android:layout_toRightOf="@+id/view"
             android:layout_toEndOf="@+id/view"
-            android:textAllCaps="false"
+            android:layout_toRightOf="@+id/view"
             android:background="@drawable/acord_btn"
+            android:clickable="true"
             android:text="@string/acord"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="@color/btn_white" />
+            android:gravity="center"
+
+            android:textAllCaps="false"
+            android:textColor="@color/btn_white"
+            android:textSize="25sp" />
 
         <View
             android:id="@+id/view"
@@ -71,34 +72,37 @@
             android:layout_height="1dp"
             android:layout_centerHorizontal="true" />
 
-        <Button
+        <ro.nubloca.CustomFontTitilliumBold
             android:id="@+id/refuz"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="2dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginRight="20dp"
             android:layout_marginEnd="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="3dp"
-            android:textAllCaps="false"
             android:layout_toLeftOf="@+id/view"
             android:layout_toStartOf="@+id/view"
             android:background="@drawable/refuz_btn1"
-            android:textColor="@color/btn_grey_text"
+            android:clickable="true"
             android:longClickable="false"
             android:text="@string/refuz"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/btn_grey_text"
+            android:textSize="25sp" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/bac_dim_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#C0000000"
-        android:visibility="gone" >
+        android:visibility="gone">
+
     </RelativeLayout>
 </RelativeLayout>

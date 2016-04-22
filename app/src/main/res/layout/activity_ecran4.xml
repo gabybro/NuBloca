@@ -16,12 +16,24 @@
             android:id="@+id/toolbar1"
             android:layout_width="match_parent"
             android:layout_height="66dp"
-            android:layout_gravity="center"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            </android.support.design.widget.AppBarLayout>
+
+
+            <ro.nubloca.CustomFontTitilliumRegular
+                android:id="@+id/toolbar_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Termeni si Conditii"
+                android:textColor="#FFFFFF"
+                android:textSize="25dp" />
+
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_ecran4" />
 
 </android.support.design.widget.CoordinatorLayout>
-

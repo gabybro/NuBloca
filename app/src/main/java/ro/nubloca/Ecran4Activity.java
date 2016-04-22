@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Ecran4Activity extends AppCompatActivity implements ScrollViewListener {
@@ -22,11 +24,12 @@ public class Ecran4Activity extends AppCompatActivity implements ScrollViewListe
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
     public boolean tos_check = false;
-    Button b1, b2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_ecran4);
 
         scrollView = (ObservableScrollView) findViewById(R.id.scrollView1);
@@ -35,12 +38,27 @@ public class Ecran4Activity extends AppCompatActivity implements ScrollViewListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("                 Termeni si conditii");
-        toolbar.setTitleTextColor(0xFFFFFFFF);
+        /*getSupportActionBar().setTitle("                 Termeni si conditii");
+        toolbar.setTitleTextColor(0xFFFFFFFF);*/
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        b1 = (Button) findViewById(R.id.acord);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        /*TextView textCustomFont = (TextView) findViewById(R.id.editText2);
+        Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/TitilliumText22L003.otf");
+        textCustomFont.setTypeface(myCustomFont);*/
+
+       /* TextView textCustomFont1 = (TextView) findViewById(R.id.refuz);
+        Typeface myCustomFont1 = Typeface.createFromAsset(getAssets(), "fonts/TitilliumText22L005.otf");
+        textCustomFont1.setTypeface(myCustomFont1);
+
+        TextView textCustomFont2 = (TextView) findViewById(R.id.acord);
+        Typeface myCustomFont2 = Typeface.createFromAsset(getAssets(), "fonts/TitilliumText22L005.otf");
+        textCustomFont2.setTypeface(myCustomFont2);*/
+
+
+
+        View b1 = (View) findViewById(R.id.acord);
         b1.setOnClickListener(new View.OnClickListener() {
             //ecran 4, buton "De acord"
             @Override
@@ -76,7 +94,7 @@ public class Ecran4Activity extends AppCompatActivity implements ScrollViewListe
             }
         });
 
-        b2 = (Button) findViewById(R.id.refuz);
+       View b2 = (View) findViewById(R.id.refuz);
         b2.setOnClickListener(new View.OnClickListener() {
             //a fost apasat butonul "Refuz" din ecranul 4.1 si se trece la ecranul 5
             @Override
@@ -114,8 +132,23 @@ public class Ecran4Activity extends AppCompatActivity implements ScrollViewListe
         LayoutInflater inflater = this.getLayoutInflater();
 
         View dialogView = inflater.inflate(R.layout.popup, null);
-        Button btnDa = (Button) dialogView.findViewById(R.id.button2);
-        Button btnDismiss = (Button) dialogView.findViewById(R.id.button1);
+
+
+        /*TextView textCustomFont3 = (TextView) dialogView.findViewById(R.id.popup_text);
+        Typeface myCustomFont3 = Typeface.createFromAsset(getAssets(), "fonts/TitilliumText22L003.otf");
+        textCustomFont3.setTypeface(myCustomFont3);*/
+
+        /*TextView textCustomFont4 = (TextView) dialogView.findViewById(R.id.button1);
+        Typeface myCustomFont4 = Typeface.createFromAsset(getAssets(), "fonts/TitilliumText22L005.otf");
+        textCustomFont4.setTypeface(myCustomFont4);
+
+        TextView textCustomFont5 = (TextView) dialogView.findViewById(R.id.button2);
+        Typeface myCustomFont5 = Typeface.createFromAsset(getAssets(), "fonts/TitilliumText22L005.otf");
+        textCustomFont5.setTypeface(myCustomFont5);*/
+
+        View btnDa = (View) dialogView.findViewById(R.id.button2);
+        View btnDismiss = (View) dialogView.findViewById(R.id.button1);
+
 
         alertDialogBuilder.setView(dialogView);
 

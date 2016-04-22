@@ -12,50 +12,55 @@
     tools:context="ro.nubloca.Ecran5Activity"
     tools:showIn="@layout/activity_ecran5">
 
-    <TextView
+    <ro.nubloca.CustomFontTitilliumRegular
         android:id="@+id/editText"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"
-        android:contextClickable="false"
+        android:paddingTop="35dp"
         android:text="@string/tos_text2"
         android:textColor="@color/tos_text_color"
         android:textSize="19sp" />
 
-    <Button
+    <ro.nubloca.CustomFontTitilliumBold
         android:id="@+id/button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/acord_btn"
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
         android:text="@string/vezi_termeni"
         android:textAllCaps="false"
         android:textColor="#ffffff"
         android:textSize="22sp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp" />
+        android:clickable="true" />
 
-    <Button
+    <ro.nubloca.CustomFontTitilliumBold
         android:id="@+id/button3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button"
-        android:layout_marginTop="140dp"
-        android:background="@drawable/refuz_btn"
-        android:text="@string/inchide_app"
-        android:textAllCaps="false"
-        android:textColor="#ffffff"
-        android:textSize="22sp"
-        android:layout_marginRight="30dp"
         android:layout_alignLeft="@+id/button"
         android:layout_alignStart="@+id/button"
+        android:layout_below="@+id/button"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/refuz_btn"
+        android:gravity="center"
+        android:paddingBottom="15dp"
         android:paddingTop="15dp"
-        android:paddingBottom="15dp" />
+        android:text="@string/inchide_app"
+        android:textAllCaps="false"
+
+        android:textColor="#ffffff"
+        android:textSize="22sp"
+        android:clickable="true" />
 </RelativeLayout>
 
 

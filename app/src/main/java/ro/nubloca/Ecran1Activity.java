@@ -19,6 +19,7 @@ public class Ecran1Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_ecran1);
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -39,7 +40,7 @@ public class Ecran1Activity extends AppCompatActivity {
                     try {
                         // Sleep for 20 milliseconds.
                         //Just to display the progress slowly
-                        Thread.sleep(20);
+                        Thread.sleep(10);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
