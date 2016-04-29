@@ -36,6 +36,7 @@ public class Ecran10Activity extends AppCompatActivity {
                 finish();
             }
         });
+
         return true;
     }
 }
