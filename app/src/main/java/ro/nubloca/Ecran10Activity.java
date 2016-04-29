@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
 
 public class Ecran10Activity extends AppCompatActivity {
 
@@ -25,9 +26,16 @@ public class Ecran10Activity extends AppCompatActivity {
     }
 
 
-   /* public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu1, menu);
+       // getMenuInflater().inflate(R.menu.menu1, menu);
+        View button = (View) this.findViewById(R.id.toolbar_title);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         return true;
-    }*/
+    }
 }
