@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".Ecran9Activity">
+    tools:context=".EcranContactAutoActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="&lt; Inapoi"
+                android:text="Anulati"
                 android:textColor="#FFEA00"
                 android:textSize="24dp" />
 
@@ -33,14 +33,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Despre"
+                android:text="Contact Auto"
                 android:textColor="#FFFFFF"
                 android:textSize="25dp" />
 
+            <ro.nubloca.CustomFontTitilliumBold
+                android:id="@+id/toolbar_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="Trimite"
+                android:textColor="#FFEA00"
+                android:textSize="24dp"
+                android:paddingRight="20dp" />
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-    <include layout="@layout/content_ecran9" />
+
+    <include layout="@layout/content_ecran_contact_auto" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -11,5 +11,7 @@
     <color name="btn_white">#ffffff</color>
     <color name="btn_grey_text">#333333</color>
     <color name="btn_grey_text1">#8B8B8B</color>
+    <color name="progressBar">#fcd116</color>
+
 
 </resources>

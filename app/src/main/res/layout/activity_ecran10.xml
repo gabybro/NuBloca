@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="Anulati"
+                android:text="&lt; Inapoi"
                 android:textColor="#FFEA00"
                 android:textSize="24dp" />
 
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Contact Auto"
+                android:text="Contact"
                 android:textColor="#FFFFFF"
                 android:textSize="25dp" />
 
@@ -50,7 +50,6 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-
     <include layout="@layout/content_ecran10" />
 
 </android.support.design.widget.CoordinatorLayout>

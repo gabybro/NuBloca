@@ -6,8 +6,8 @@
     <string name="title_activity_third">ThirdActivity</string>
     <string name="app_title">NuBloca</string>
     <string name="tos">TOS CLEAN</string>
-    <string name="menu2">MenuItem2</string>
-    <string name="menu3">MenuItem3</string>
+    <string name="menu2">admin2</string>
+    <string name="menu3">admin3</string>
     <string name="acord">De acord</string>
     <string name="refuz">Refuz</string>
     <string name="tos_esti_sigur"> Esti sigur ca ai citit tot textul?</string>
@@ -29,6 +29,12 @@
     <string name="plus_sign">plus sign</string>
     <string name="adauga_numarul_masinii_tale">Adauga numarul masinii tale</string>
     <string name="title_activity_ecran9">Ecran9Activity</string>
+    <string name="title_activity_ecran8">Ecran8Activity</string>
+    <string name="title_activity_ecran10">Ecran10Activity</string>
+    <string name="nav_drawer_menu_setari">Setari</string>
+    <string name="nav_drawer_menu_despre">Despre</string>
+    <string name="text_ecran_despre">Aplicati nuBloca conecteaza conducatorii auto pentru diverse probleme dupa numerele de masina.
+    \n \n Acceseaza sectiunea Ajutor pentru a afla despre functionalitatile ei.</string>
     <string name="trimite">Trimite</string>
     <string name="ok">OK</string>
     <!--******-->

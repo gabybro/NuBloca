@@ -1,11 +1,13 @@
 package ro.nubloca;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class Ecran9Activity extends AppCompatActivity {
 
@@ -17,14 +19,26 @@ public class Ecran9Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*getSupportActionBar().setTitle("Inscrie auto");
-        toolbar.setTitleTextColor(0xFFFFFFFF);*/
+
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
+
+
+        Button btn = (Button) this.findViewById(R.id.contact);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Ecran9Activity.this, Ecran10Activity.class));
+
+            }
+        });
+
     }
+
+
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu2, menu);
+
         View button = (View) this.findViewById(R.id.toolbar_title);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +46,7 @@ public class Ecran9Activity extends AppCompatActivity {
                 finish();
             }
         });
+
         return true;
     }
 }

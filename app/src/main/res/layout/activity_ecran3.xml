@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:customAttrs="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".Ecran9Activity">
+    tools:context=".Ecran3Activity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -14,26 +13,19 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar1"
             android:layout_width="match_parent"
             android:layout_height="66dp"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <ro.nubloca.CustomFontTitilliumBold
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="&lt; Inapoi"
-                android:textColor="#FFEA00"
-                android:textSize="24dp" />
+
 
             <ro.nubloca.CustomFontTitilliumRegular
                 android:id="@+id/toolbar_title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Despre"
+                android:text="Termeni si Conditii"
                 android:textColor="#FFFFFF"
                 android:textSize="25dp" />
 
@@ -41,6 +33,7 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-    <include layout="@layout/content_ecran9" />
+
+    <include layout="@layout/content_ecran3" />
 
 </android.support.design.widget.CoordinatorLayout>

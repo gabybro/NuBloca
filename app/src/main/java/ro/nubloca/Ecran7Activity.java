@@ -83,7 +83,7 @@ public class Ecran7Activity extends AppCompatActivity
             public void onClick(View v) {
                 iv.setImageResource(R.drawable.car_small71);
                 //Toast.makeText(Ecran7Activity.this, ":(", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(Ecran7Activity.this, Ecran10Activity.class));
+                startActivity(new Intent(Ecran7Activity.this, EcranContactAutoActivity.class));
 
             }
         });
@@ -94,7 +94,7 @@ public class Ecran7Activity extends AppCompatActivity
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ecran7Activity.this, Ecran9Activity.class));
+                startActivity(new Intent(Ecran7Activity.this, Ecran2Activity.class));
 
             }
         });
@@ -136,10 +136,12 @@ public class Ecran7Activity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            // Ecran SETARI
+            startActivity(new Intent(Ecran7Activity.this, Ecran8Activity.class));
 
-            // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            // Ecran Despre
+            startActivity(new Intent(Ecran7Activity.this, Ecran9Activity.class));
 
         } else if (id == R.id.nav_slideshow) {
 

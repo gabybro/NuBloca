@@ -3,6 +3,8 @@ package ro.nubloca;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +27,9 @@ public class Ecran1Activity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         Tos = (sharedpreferences.getBoolean("TOS", false));
-        new Thread(new Runnable() {
+
+
+        /*new Thread(new Runnable() {
             public void run() {
                 while (progressStatus < 100) {
                     progressStatus += 1;
@@ -49,14 +53,32 @@ public class Ecran1Activity extends AppCompatActivity {
                 if (!Tos) {
                     finish();
                     //merge la ecranul 4 (citirea TOS-ului)
-                    startActivity(new Intent(Ecran1Activity.this, Ecran4Activity.class));
+                    startActivity(new Intent(Ecran1Activity.this, Ecran3Activity.class));
                 } else {
                     finish();
                     //merge la ecranul 7(ecranul principal)
                     startActivity(new Intent(Ecran1Activity.this, Ecran7Activity.class));
                 }
             }
-        }).start();
+        }).start();*/
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_IN);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms
+                if (!Tos) {
+                    finish();
+                    //merge la ecranul 4 (citirea TOS-ului)
+                    startActivity(new Intent(Ecran1Activity.this, Ecran3Activity.class));
+                } else {
+                    finish();
+                    //merge la ecranul 7(ecranul principal)
+                    startActivity(new Intent(Ecran1Activity.this, Ecran7Activity.class));
+                }
+            }
+        }, 5000);
+
 
 
     }

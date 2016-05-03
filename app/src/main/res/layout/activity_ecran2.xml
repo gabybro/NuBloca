@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:customAttrs="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".Ecran9Activity">
+    tools:context=".Ecran2Activity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -24,23 +23,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="&lt; Inapoi"
+                android:text="Anulati"
                 android:textColor="#FFEA00"
-                android:textSize="24dp" />
+                android:textSize="24dp"
+                android:clickable="true" />
 
             <ro.nubloca.CustomFontTitilliumRegular
                 android:id="@+id/toolbar_title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Despre"
+                android:text="Inscrie Auto"
                 android:textColor="#FFFFFF"
                 android:textSize="25dp" />
 
+            <ro.nubloca.CustomFontTitilliumBold
+                android:id="@+id/toolbar_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="OK"
+                android:textColor="#FFEA00"
+                android:textSize="24dp"
+                android:paddingRight="20dp" />
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-    <include layout="@layout/content_ecran9" />
+
+    <include layout="@layout/content_ecran2" />
 
 </android.support.design.widget.CoordinatorLayout>
