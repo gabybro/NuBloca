@@ -90,6 +90,48 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ro.nubloca.Ecran9Activity" />
         </activity>
+        <activity
+            android:name=".Ecran29Activity"
+            android:label="@string/title_activity_ecran29"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran8Activity" />
+        </activity>
+
+        <activity
+            android:name=".Ecran12Activity"
+            android:label="@string/title_activity_ecran12"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran9Activity" />
+        </activity>
+
+        <activity
+            android:name=".Ecran11Activity"
+            android:label="@string/title_activity_ecran11"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran9Activity" />
+        </activity>
+
+        <activity
+            android:name=".Ecran13Activity"
+            android:label="@string/title_activity_ecran13"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran11Activity" />
+        </activity>
+
     </application>
+
+
 
 </manifest>

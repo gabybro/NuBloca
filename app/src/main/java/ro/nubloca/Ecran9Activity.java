@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class Ecran9Activity extends AppCompatActivity {
 
@@ -20,16 +22,48 @@ public class Ecran9Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        TextView ajutor_btn = (TextView) this.findViewById(R.id.textView91);
+        ajutor_btn.setOnClickListener(new View.OnClickListener() {
 
-        Button btn = (Button) this.findViewById(R.id.contact);
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Ecran9Activity.this, Ecran13Activity.class));
 
-        btn.setOnClickListener(new View.OnClickListener() {
+            }
+        });
+
+        RelativeLayout btn1 = (RelativeLayout) this.findViewById(R.id.rel_bar1);
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Ecran9Activity.this, Ecran11Activity.class));
+
+            }
+        });
+        RelativeLayout btn2 = (RelativeLayout) this.findViewById(R.id.rel_bar2);
+
+        btn2.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Ecran9Activity.this, Ecran10Activity.class));
+
+            }
+        });
+
+        RelativeLayout btn3 = (RelativeLayout) this.findViewById(R.id.rel_bar3);
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Ecran9Activity.this, Ecran12Activity.class));
 
             }
         });
@@ -39,13 +73,7 @@ public class Ecran9Activity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        View button = (View) this.findViewById(R.id.toolbar_title);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+
 
         return true;
     }

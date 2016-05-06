@@ -12,6 +12,12 @@
     <color name="btn_grey_text">#333333</color>
     <color name="btn_grey_text1">#8B8B8B</color>
     <color name="progressBar">#fcd116</color>
+    <color name="bkg_setari">#F0F0F0</color>
+    <color name="colorHighlight">#B6B6B6</color>
+    <color name="list_delimit">#D1D1CF</color>
+    <color name="text_layout_custom">#666666</color>
+    <color name="text_layout_custom_light">#999999</color>
+    <color name="tos_bot_bar">#b0000000</color>
 
 
 </resources>

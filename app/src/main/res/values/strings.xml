@@ -17,6 +17,7 @@
     <string name="tos_text">Lorem ipsum dolor sit amet, facilis sensibus intellegebat ex quo, et tale duis per. An odio reformidans intellegebat ius, etiam oratio abhorreant usu ei. In officiis gubergren honestatis vim. Omnis putant option pri ei, libris deterruisset delicatissimi in cum. Veri tation est eu, singulis accusata ei cum. Partem vituperata eu mel.
         \n \n Movet quidam id per. Habeo ubique detracto in pri, te iusto soluta antiopam mei. Eum no elit nobis soleat, mutat tollit vix ut. Pro ex atomorum conclusionemque, hinc disputationi ut vim. Eam ex decore volutpat, ad vero adipiscing nec. Cu verterem urbanitas vim, per in essent sententiae.
         \n \n Ad per alia fabellas corrumpit, his labore tamquam accusata ne, est clita perpetua ad. Est an ubique comprehensam, id persecuti assueverit nec, sumo singulis cum in. Id quot regione necessitatibus quo, probo viris pertinax pro eu, falli nobis est ex. Et meis audire inermis vim, rebum timeam indoctum nam in, tota aperiam qualisque eos in. In vix alii eripuit invidunt, quo ei malorum ocurreret urbanitas, vim eu nisl oratio option. Mel no libris ridens utroque, euismod deseruisse eos at. \n \n \n </string>
+    <string name="title_activity_ecran2">Inscrie auto</string>
     <string name="title_activity_ecran5">Ecran5Activity</string>
     <string name="title_activity_screen">Screen</string>
     <string name="vezi_termeni">Vezi Termeni si Conditii</string>
@@ -28,20 +29,122 @@
     <string name="contacteaza_proprietar_auto">Contacteaza proprietar auto</string>
     <string name="plus_sign">plus sign</string>
     <string name="adauga_numarul_masinii_tale">Adauga numarul masinii tale</string>
-    <string name="title_activity_ecran9">Ecran9Activity</string>
-    <string name="title_activity_ecran8">Ecran8Activity</string>
-    <string name="title_activity_ecran10">Ecran10Activity</string>
+    <string name="title_activity_ecran0">Conexiune internet</string>
+    <string name="title_activity_ecran6">Abonament expirat</string>
+    <string name="title_activity_ecran9">Despre</string>
+    <string name="title_activity_ecran8">Setari</string>
+    <string name="title_activity_ecran10">Contact</string>
+    <string name="title_activity_ecran11">Ajutor</string>
+    <string name="title_activity_ecran29">Limba Aplicatiei</string>
+    <string name="title_activity_ecran12">Termeni si conditii</string>
+    <string name="title_activity_ecran13">Sfat</string>
+    <string name="title_activity_ecran16">Autovehiculele tale</string>
+    <string name="title_activity_ecran20">Contact auto</string>
+    <string name="title_activity_ecran22">Mesaje Standard</string>
+    <string name="title_activity_ecran23">Tip inmatriculare</string>
+    <string name="title_activity_ecran24">Istoric numere</string>
+    <string name="title_activity_ecran25">Tara</string>
+    <string name="title_activity_ecran26">Exemplu</string>
+    <string name="title_activity_ecran27">Mesaj intreg</string>
+    <string name="title_activity_ecran28">Propune mesaj</string>
     <string name="nav_drawer_menu_setari">Setari</string>
     <string name="nav_drawer_menu_despre">Despre</string>
-    <string name="text_ecran_despre">Aplicati nuBloca conecteaza conducatorii auto pentru diverse probleme dupa numerele de masina.
-    \n \n Acceseaza sectiunea Ajutor pentru a afla despre functionalitatile ei.</string>
+
     <string name="trimite">Trimite</string>
     <string name="ok">OK</string>
+    <string name="tos_bot_text">Data acceptării: 20 Noiembrie 2016</string>
+
     <!--******-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!--string ecran9 <=> despre-->
+    <string name="despre_1">Aplicati nuBloca conecteaza conducatorii auto pentru diverse probleme dupa numerele de masina. \n \n</string>
+    <string name="despre_2">Acceseaza sectiunea</string>
+    <string name="despre_3"> Ajutor </string>
+    <string name="despre_4">pentru a </string>
+    <string name="despre_5">afla despre functionalitatile ei.</string>
+
+
+    <!--string ecran11 <=> Ajutor-->
+    <string name="ajutor_1">Cum functioneaza nuBloca?</string>
+    <string name="ajutor_2">Cum contactez un numar?</string>
+    <string name="ajutor_3">Pot trimite mesaje personalizate?</string>
+    <string name="ajutor_4">Cum aflu daca masina mea a fost </string>
+
+    <!--string ecran13 <=> Sfat-->
+    <string name="sfat_1">Cum functioneaza nuBloca? \n \n An entity is a thing that exists either physically or logically. An entity may be a physical object such as a house
+        or a car (they exist physically), an event such as a house sale or a car service, or a concept such as a customer transaction or order
+        (they exist logically-as a concept). Although the term entity is the one most commonly used, following Chen we should really distinguish
+        between an entity and an entity-type. An entity-type is a category. An entity, strictly speaking, is an instance of a given entity-type.
+        There are usually many instances of an entity-type. Because the term entity-type is somewhat cumbersome, most people tend to use the term
+        entity as a synonym for this term.</string>
+
+    <!--string ecran20 <=> Contact auto-->
+    <string name="contact_1">Catre ce numar auto vrei sa trimiti mesajul?</string>
+    <string name="contact_2">Tip inmatriculare</string>
+    <string name="contact_3">Permanenta</string>
+    <string name="contact_4">Alege alt tip de inmatriculare</string>
+    <string name="contact_5">Salut, ai parcat pe locul meu.</string>
+    <string name="contact_6">Cum functioneaza?</string>
+    <string name="contact_7">Istoric numere</string>
+
+    <!--string ecran22 <=> Mesaje standard-->
+    <string name="mesaje__standard_1">Masinile mele</string>
+    <string name="mesaje__standard_2">Notificari</string>
+    <string name="mesaje__standard_3">Istoric conversatii</string>
+    <string name="mesaje__standard_4">Despre</string>
+    <string name="mesaje__standard_5">Masinile mele</string>
+    <string name="mesaje__standard_6">Notificari</string>
+    <string name="mesaje__standard_7">Istoric conversatii</string>
+    <string name="mesaje__standard_8">Despre</string>
+    <string name="mesaje__standard_9">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
+
+    <!--string ecran23 <=> Tip inmatriculare-->
+    <string name="tip_inmatriculare_1">Masinile mele</string>
+    <string name="tip_inmatriculare_2">Notificari</string>
+    <string name="tip_inmatriculare_3">Istoric conversatii</string>
+    <string name="tip_inmatriculare_4">Despre</string>
+    <string name="tip_inmatriculare_5">Masinile mele</string>
+    <string name="tip_inmatriculare_6">Notificari</string>
+    <string name="tip_inmatriculare_7">Istoric conversatii</string>
+    <string name="tip_inmatriculare_8">Despre</string>
+    <string name="tip_inmatriculare_9">Exemplu</string>
+
+    <!--string ecran24 <=> Istoric numere-->
+    <string name="istoric_numere_1">B 23 GGF</string>
+    <string name="istoric_numere_2">TL 87 NGH</string>
+    <string name="istoric_numere_3">CD 101 109</string>
+    <string name="istoric_numere_4">B 66534</string>
+
+    <!--string ecran25 <=> Tara-->
+    <string name="tara_1">Alege tara:</string>
+    <string name="tara_2">Romania</string>
+    <string name="tara_3">Bulgaria</string>
+
+    <!--string ecran26 <=> Exemplu-->
+    <string name="Exemplu_1">B 225 BGG</string>
+    <string name="Exemplu_2">TL</string>
+    <string name="Exemplu_3">01</string>
+    <string name="Exemplu_4">DST</string>
+    <string name="Exemplu_5">Tip inmatriculare:</string>
+    <string name="Exemplu_6">Permanenta</string>
+
+    <!--string ecran27 <=> Mesaj intreg-->
+    <string name="Mesaj_intreg_1">Salut, ai parcat pe locul meu. Vino te rog si muta masina.</string>
+
+    <!--string ecran28 <=> Propune mesaj-->
+    <string name="propune_mesaj_1">Daca mesajul pe care vrei sa-l trimiti nu se afla in lista, il poti propune spre implementare mai jos:</string>
+    <string name="propune_mesaj_2">Mesaj:</string>
+    <string name="propune_mesaj_3">Trimite</string>
+    <string name="propune_mesaj_4">Afla mai multe</string>
+
+    <!--string ecran29 <=> Limba aplicatiei-->
+    <string name="limba_aplicatie_1">Romana</string>
+    <string name="limba_aplicatie_2">Engleza</string>
+
+
+    <!-- TODO: nice to know -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nu">Nu</string>
     <string name="da">Da</string>

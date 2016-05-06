@@ -4,70 +4,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bkg_setari"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="30dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Ecran8Activity"
-    tools:showIn="@layout/activity_ecran8"   >
+    tools:showIn="@layout/activity_ecran8">
 
-    <TextView
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Notificari"
-        android:id="@+id/textView2"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:background="#ffffff">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Limba"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Tara in care te afli"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignTop="@+id/rel_bar1"
+            android:background="@color/list_delimit" />
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/switch1"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        <RelativeLayout
+            android:id="@+id/rel_bar1"
+            style="@style/relative_custom">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Romana >"
-        android:id="@+id/textView5"
-        android:layout_above="@+id/textView4"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+            <ro.nubloca.CustomFontTitilliumRegular
+                android:id="@+id/textView2"
+                style="@style/text_layout_custom"
+                android:text="Notificari" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Automat >"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/textView5"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/activity_horizontal_margin" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/rel_bar2"
+            android:background="@color/list_delimit" />
+
+        <RelativeLayout
+            android:id="@+id/rel_bar2"
+            style="@style/relative_custom"
+            android:layout_below="@+id/rel_bar1">
+
+            <ro.nubloca.CustomFontTitilliumRegular
+                android:id="@+id/textView3"
+                style="@style/text_layout_custom"
+                android:text="Limba" />
+
+            <ro.nubloca.CustomFontTitilliumRegular
+                android:id="@+id/textView4"
+                style="@style/text_layout_custom_light"
+                android:layout_toLeftOf="@+id/chevron"
+                android:layout_toStartOf="@+id/chevron"
+                android:text="Romana"/>
+
+            <ImageView
+                android:id="@+id/chevron"
+                android:layout_width="7dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/chevron" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/rel_bar3"
+            android:background="@color/list_delimit" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rel_bar3"
+            android:background="@color/list_delimit" />
+
+        <RelativeLayout
+            android:id="@+id/rel_bar3"
+            style="@style/relative_custom"
+            android:layout_below="@+id/rel_bar2">
+
+            <ro.nubloca.CustomFontTitilliumRegular
+                android:id="@+id/textView5"
+                style="@style/text_layout_custom"
+                android:text="Tara in care te afli" />
+
+            <ro.nubloca.CustomFontTitilliumRegular
+                android:id="@+id/textView6"
+                style="@style/text_layout_custom_light"
+                android:layout_toLeftOf="@+id/chevron1"
+                android:layout_toStartOf="@+id/chevron1"
+                android:text="Automat" />
+
+            <ImageView
+                android:id="@+id/chevron1"
+                android:layout_width="7dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/chevron" />
+        </RelativeLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
