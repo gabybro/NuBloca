@@ -65,6 +65,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:text="Nume: "
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#999999" />
@@ -101,6 +103,8 @@
             android:id="@+id/telefon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_gravity="center_vertical"
             android:text="Telefon: "
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -137,6 +141,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:text="E-mail: "
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#999999" />
@@ -169,6 +175,8 @@
         <ro.nubloca.CustomFontTitilliumRegular
             android:id="@+id/mesaj"
             android:layout_width="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:text="Mesaj: "

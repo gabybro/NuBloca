@@ -18,6 +18,15 @@
     <color name="text_layout_custom">#666666</color>
     <color name="text_layout_custom_light">#999999</color>
     <color name="tos_bot_bar">#b0000000</color>
+    <color name="black">#000000</color>
+    <color name="contact_4_color">#F29341</color>
+    <color name="contact_67_color">#1D75D9</color>
+    <color name="mesaje_standard">#8C8C8C</color>
+    <color name="mesaje_standard_text">#BA2C64</color>
+
+
+
+
 
 
 </resources>

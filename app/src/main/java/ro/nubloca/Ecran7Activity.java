@@ -83,7 +83,7 @@ public class Ecran7Activity extends AppCompatActivity
             public void onClick(View v) {
                 iv.setImageResource(R.drawable.car_small71);
                 //Toast.makeText(Ecran7Activity.this, ":(", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(Ecran7Activity.this, EcranContactAutoActivity.class));
+                startActivity(new Intent(Ecran7Activity.this, Ecran20Activity.class));
 
             }
         });

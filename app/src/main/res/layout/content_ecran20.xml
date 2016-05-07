@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/btn_white"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Ecran20Activity"
+    tools:showIn="@layout/activity_ecran20">
+
+    <ro.nubloca.CustomFontTitilliumRegular
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="15dp"
+        android:text="@string/contact_1"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:textSize="17dp" />
+
+    <ro.nubloca.CustomFontTitilliumBold
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView13"
+        android:layout_marginLeft="40dp"
+        android:text="TL"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ro.nubloca.CustomFontTitilliumBold
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView17"
+        android:layout_marginRight="40dp"
+        android:text="DST"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ro.nubloca.CustomFontTitilliumBold
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView17"
+        android:layout_centerHorizontal="true"
+        android:text="01"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ro.nubloca.CustomFontTitilliumRegular
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView17"
+        android:layout_marginTop="15dp"
+        android:text="@string/contact_2"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:paddingLeft="@dimen/activity_horizontal_margin" />
+
+    <ro.nubloca.CustomFontTitilliumBold
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView20"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/textView20"
+        android:layout_toRightOf="@+id/textView20"
+        android:text="@string/contact_3"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView21"
+        android:layout_marginLeft="20dp"
+        android:layout_toEndOf="@+id/textView21"
+        android:layout_toRightOf="@+id/textView21"
+        android:background="@drawable/ro_flag" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView20"
+        android:layout_marginTop="10dp"
+        android:text="@string/contact_4"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/contact_4_color"
+        android:paddingLeft="@dimen/activity_horizontal_margin" />
+
+    <ImageView
+        android:id="@+id/chevron_orange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView22"
+        android:layout_toLeftOf="@+id/textView18"
+        android:layout_toStartOf="@+id/textView18"
+        android:background="@drawable/chevron_orange_right"
+        android:clickable="true" />
+
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/rel_bar2"
+        android:layout_below="@+id/chevron_orange"
+        android:layout_marginTop="20dp"
+        android:background="@color/list_delimit" />
+
+    <RelativeLayout
+        android:id="@+id/rel_bar1"
+        style="@style/relative_custom"
+        android:layout_below="@+id/view1"
+        android:gravity="center_vertical">
+
+        <ro.nubloca.CustomFontTitilliumRegular
+            android:id="@+id/salut"
+            style="@style/text_layout_custom"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:text="@string/contact_5"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/chevron1"
+            android:background="@drawable/bar" />
+
+        <ImageView
+            android:id="@+id/chevron1"
+            android:layout_width="7dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/chevron" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rel_bar1"
+        android:background="@color/list_delimit" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/rel_bar1"
+
+        android:background="@color/bkg_setari"
+        android:layout_marginTop="1dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/contact_6"
+            android:id="@+id/textView23"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/contact_67_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/contact_7"
+            android:id="@+id/textView24"
+            android:layout_alignBottom="@+id/textView23"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/contact_67_color"
+            android:clickable="true" />
+    </RelativeLayout>
+</RelativeLayout>

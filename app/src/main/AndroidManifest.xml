@@ -45,11 +45,12 @@
 
         </activity>
         <activity
-            android:name=".EcranContactAutoActivity"
+            android:name=".Ecran20Activity"
             android:label="@string/title_activity_screen"
             android:parentActivityName=".Ecran7Activity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysVisible" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ro.nubloca.Ecran7Activity" />
@@ -128,6 +129,65 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ro.nubloca.Ecran11Activity" />
+        </activity>
+
+        <activity
+            android:name=".Ecran16Activity"
+            android:label="@string/title_activity_ecran16"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran2Activity" />
+        </activity>
+        <activity
+            android:name=".Ecran22Activity"
+            android:label="@string/title_activity_ecran22"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran2Activity" />
+        </activity>
+
+        <activity
+            android:name=".Ecran23Activity"
+            android:label="@string/title_activity_ecran23"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran20Activity" />
+        </activity>
+
+        <activity
+            android:name=".Ecran24Activity"
+            android:label="@string/title_activity_ecran24"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran20Activity" />
+        </activity>
+
+        <activity
+            android:name=".Ecran25Activity"
+            android:label="@string/title_activity_ecran25"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran23Activity" />
+        </activity>
+
+        <activity
+            android:name=".Ecran26Activity"
+            android:label="@string/title_activity_ecran26"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran23Activity" />
         </activity>
 
     </application>

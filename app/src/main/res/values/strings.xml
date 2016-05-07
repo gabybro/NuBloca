@@ -80,9 +80,13 @@
         There are usually many instances of an entity-type. Because the term entity-type is somewhat cumbersome, most people tend to use the term
         entity as a synonym for this term.</string>
 
+    <!--string ecran16 <=> Autovehiculele tale-->
+    <string name="auto_tale_1">TL-01-DST</string>
+    <string name="auto_tale_2">24 sesizari, 3 situatii</string>
+
     <!--string ecran20 <=> Contact auto-->
     <string name="contact_1">Catre ce numar auto vrei sa trimiti mesajul?</string>
-    <string name="contact_2">Tip inmatriculare</string>
+    <string name="contact_2">Tip inmatriculare: </string>
     <string name="contact_3">Permanenta</string>
     <string name="contact_4">Alege alt tip de inmatriculare</string>
     <string name="contact_5">Salut, ai parcat pe locul meu.</string>
@@ -99,6 +103,7 @@
     <string name="mesaje__standard_7">Istoric conversatii</string>
     <string name="mesaje__standard_8">Despre</string>
     <string name="mesaje__standard_9">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
+    <string name="mesaje__standard_10">Vezi tot</string>
 
     <!--string ecran23 <=> Tip inmatriculare-->
     <string name="tip_inmatriculare_1">Masinile mele</string>
@@ -110,6 +115,7 @@
     <string name="tip_inmatriculare_7">Istoric conversatii</string>
     <string name="tip_inmatriculare_8">Despre</string>
     <string name="tip_inmatriculare_9">Exemplu</string>
+    <string name="tip_inmatriculare_10">Romania</string>
 
     <!--string ecran24 <=> Istoric numere-->
     <string name="istoric_numere_1">B 23 GGF</string>
@@ -123,12 +129,14 @@
     <string name="tara_3">Bulgaria</string>
 
     <!--string ecran26 <=> Exemplu-->
-    <string name="Exemplu_1">B 225 BGG</string>
-    <string name="Exemplu_2">TL</string>
-    <string name="Exemplu_3">01</string>
-    <string name="Exemplu_4">DST</string>
-    <string name="Exemplu_5">Tip inmatriculare:</string>
-    <string name="Exemplu_6">Permanenta</string>
+    <string name="exemplu_1">B</string>
+    <string name="exemplu_2">225</string>
+    <string name="exemplu_3">BGG</string>
+    <string name="exemplu_4">TL</string>
+    <string name="exemplu_5">01</string>
+    <string name="exemplu_6">DST</string>
+    <string name="exemplu_7">Tip inmatriculare:</string>
+    <string name="exemplu_8">Permanenta</string>
 
     <!--string ecran27 <=> Mesaj intreg-->
     <string name="Mesaj_intreg_1">Salut, ai parcat pe locul meu. Vino te rog si muta masina.</string>
