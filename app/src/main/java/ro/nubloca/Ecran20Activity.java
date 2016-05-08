@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 public class Ecran20Activity extends AppCompatActivity {
@@ -35,7 +37,18 @@ public class Ecran20Activity extends AppCompatActivity {
             }
         });
 
-        View btn2 = (View) this.findViewById(R.id.chevron_orange);
+        View btn5 = (View) this.findViewById(R.id.textView23);
+
+        btn5.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Ecran20Activity.this, Ecran13Activity.class));
+
+            }
+        });
+
+        View btn2 = (View) this.findViewById(R.id.lin1);
 
         btn2.setOnClickListener(new View.OnClickListener() {
 
@@ -47,7 +60,7 @@ public class Ecran20Activity extends AppCompatActivity {
         });
 
 
-        RelativeLayout btn1 = (RelativeLayout) this.findViewById(R.id.rel_bar1);
+        LinearLayout btn1 = (LinearLayout) this.findViewById(R.id.lin_bar1);
 
         btn1.setOnClickListener(new View.OnClickListener() {
 
@@ -63,16 +76,18 @@ public class Ecran20Activity extends AppCompatActivity {
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-       // getMenuInflater().inflate(R.menu.menu1, menu);
-       /* View button = (View) this.findViewById(R.id.toolbar_title);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });*/
+        getMenuInflater().inflate(R.menu.menu5, menu);
+
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu1) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

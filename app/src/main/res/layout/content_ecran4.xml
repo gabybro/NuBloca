@@ -12,7 +12,7 @@
     tools:context=".Ecran4Activity"
     tools:showIn="@layout/activity_ecran4">
 
-    <ro.nubloca.CustomFontTitilliumRegular
+    <ro.nubloca.extras.CustomFontTitilliumRegular
         android:id="@+id/editText"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
@@ -24,7 +24,7 @@
         android:textColor="@color/tos_text_color"
         android:textSize="19sp" />
 
-    <ro.nubloca.CustomFontTitilliumBold
+    <ro.nubloca.extras.CustomFontTitilliumBold
         android:id="@+id/button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         android:textSize="22sp"
         android:clickable="true" />
 
-    <ro.nubloca.CustomFontTitilliumBold
+    <ro.nubloca.extras.CustomFontTitilliumBold
         android:id="@+id/button3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

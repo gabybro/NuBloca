@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/btn_white"
     android:layout_marginTop="20dp"
+    android:background="@color/btn_white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Ecran22Activity"
     tools:showIn="@layout/activity_ecran22">
@@ -15,76 +15,82 @@
         android:id="@+id/rel1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border2">
+        android:background="@drawable/border2"
+        android:orientation="horizontal">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/rel_bar1"
+            style="@style/relative_custom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:clickable="false" />
+
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/mesaje__standard_1"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="23sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear1"
             style="@style/relative_custom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/radioButton2"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="20dp" />
-
-            <ro.nubloca.CustomFontTitilliumRegular
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_1"
-                android:textSize="23dp"
-                android:textColor="@color/text_layout_custom"
-                android:id="@+id/text1"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/radioButton2"
-                android:layout_toEndOf="@+id/radioButton2"
-                android:layout_marginLeft="20dp" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:paddingBottom="11dp"
+            android:paddingTop="10dp">
 
             <ImageView
                 android:id="@+id/imageView11"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_alignParentTop="true"
+                android:background="@drawable/bar" />
 
-                android:background="@drawable/bar"
-                android:layout_marginLeft="22dp"
-                android:layout_toLeftOf="@+id/exemplu1" />
-
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/exemplu1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
                 android:text="@string/mesaje__standard_10"
-                android:textSize="15dp"
                 android:textColor="@color/text_layout_custom"
-
-                android:id="@+id/exemplu1"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/chevron1"
-                android:layout_toStartOf="@+id/chevron1"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
-
+                android:textSize="15sp" />
 
 
             <ImageView
                 android:id="@+id/chevron1"
                 android:layout_width="7dp"
                 android:layout_height="30dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="right"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="15dp"
                 android:background="@drawable/chevron" />
 
-
-
-
-        </RelativeLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -100,28 +106,29 @@
             style="@style/relative_custom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
             <RadioButton
+                android:id="@+id/radioButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioButton3"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_2"
-                android:textSize="23dp"
-                android:textColor="@color/text_layout_custom"
-                android:id="@+id/text2"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/radioButton3"
+                android:layout_marginLeft="20dp"
                 android:layout_toEndOf="@+id/radioButton3"
-                android:layout_marginLeft="20dp" />
+                android:layout_toRightOf="@+id/radioButton3"
+                android:text="@string/mesaje__standard_2"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="23dp" />
 
             <ImageView
                 android:id="@+id/imageView12"
@@ -129,24 +136,23 @@
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
 
-                android:background="@drawable/bar"
                 android:layout_marginLeft="22dp"
-                android:layout_toLeftOf="@+id/vie5" />
+                android:layout_toLeftOf="@+id/vie5"
+                android:background="@drawable/bar" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/vie5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_10"
-                android:textSize="15dp"
-                android:textColor="@color/text_layout_custom"
-
-                android:id="@+id/vie5"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+
+                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/chevron2"
                 android:layout_toStartOf="@+id/chevron2"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
-
+                android:text="@string/mesaje__standard_10"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="15dp" />
 
 
             <ImageView
@@ -160,10 +166,9 @@
                 android:background="@drawable/chevron" />
 
 
-
-
         </RelativeLayout>
-</RelativeLayout>
+    </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rel3"
         android:layout_width="match_parent"
@@ -176,28 +181,29 @@
             style="@style/relative_custom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
             <RadioButton
+                android:id="@+id/radioButton4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioButton4"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/text3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_3"
-                android:textSize="23dp"
-                android:textColor="@color/text_layout_custom"
-                android:id="@+id/text3"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/radioButton4"
+                android:layout_marginLeft="20dp"
                 android:layout_toEndOf="@+id/radioButton4"
-                android:layout_marginLeft="20dp" />
+                android:layout_toRightOf="@+id/radioButton4"
+                android:text="@string/mesaje__standard_3"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="23dp" />
 
             <ImageView
                 android:id="@+id/imageView13"
@@ -205,24 +211,23 @@
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
 
-                android:background="@drawable/bar"
                 android:layout_marginLeft="22dp"
-                android:layout_toLeftOf="@+id/vie6" />
+                android:layout_toLeftOf="@+id/vie6"
+                android:background="@drawable/bar" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/vie6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_10"
-                android:textSize="15dp"
-                android:textColor="@color/text_layout_custom"
-
-                android:id="@+id/vie6"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+
+                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/chevron3"
                 android:layout_toStartOf="@+id/chevron3"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
-
+                android:text="@string/mesaje__standard_10"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="15dp" />
 
 
             <ImageView
@@ -236,10 +241,9 @@
                 android:background="@drawable/chevron" />
 
 
-
-
         </RelativeLayout>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rel4"
         android:layout_width="match_parent"
@@ -252,28 +256,29 @@
             style="@style/relative_custom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
             <RadioButton
+                android:id="@+id/radioButton5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioButton5"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/text4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_4"
-                android:textSize="23dp"
-                android:textColor="@color/text_layout_custom"
-                android:id="@+id/text4"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/radioButton5"
+                android:layout_marginLeft="20dp"
                 android:layout_toEndOf="@+id/radioButton5"
-                android:layout_marginLeft="20dp" />
+                android:layout_toRightOf="@+id/radioButton5"
+                android:text="@string/mesaje__standard_4"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="23dp" />
 
             <ImageView
                 android:id="@+id/imageView14"
@@ -281,24 +286,23 @@
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
 
-                android:background="@drawable/bar"
                 android:layout_marginLeft="22dp"
-                android:layout_toLeftOf="@+id/vie7" />
+                android:layout_toLeftOf="@+id/vie7"
+                android:background="@drawable/bar" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/vie7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_10"
-                android:textSize="15dp"
-                android:textColor="@color/text_layout_custom"
-
-                android:id="@+id/vie7"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+
+                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/chevron4"
                 android:layout_toStartOf="@+id/chevron4"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
-
+                android:text="@string/mesaje__standard_10"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="15dp" />
 
 
             <ImageView
@@ -312,10 +316,9 @@
                 android:background="@drawable/chevron" />
 
 
-
-
         </RelativeLayout>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rel5"
         android:layout_width="match_parent"
@@ -328,28 +331,29 @@
             style="@style/relative_custom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
             <RadioButton
+                android:id="@+id/radioButton6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioButton6"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/text5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_5"
-                android:textSize="23dp"
-                android:textColor="@color/text_layout_custom"
-                android:id="@+id/text5"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/radioButton6"
+                android:layout_marginLeft="20dp"
                 android:layout_toEndOf="@+id/radioButton6"
-                android:layout_marginLeft="20dp" />
+                android:layout_toRightOf="@+id/radioButton6"
+                android:text="@string/mesaje__standard_5"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="23dp" />
 
             <ImageView
                 android:id="@+id/imageView15"
@@ -357,24 +361,23 @@
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
 
-                android:background="@drawable/bar"
                 android:layout_marginLeft="22dp"
-                android:layout_toLeftOf="@+id/vie8" />
+                android:layout_toLeftOf="@+id/vie8"
+                android:background="@drawable/bar" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/vie8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_10"
-                android:textSize="15dp"
-                android:textColor="@color/text_layout_custom"
-
-                android:id="@+id/vie8"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+
+                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/chevron5"
                 android:layout_toStartOf="@+id/chevron5"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
-
+                android:text="@string/mesaje__standard_10"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="15dp" />
 
 
             <ImageView
@@ -388,10 +391,9 @@
                 android:background="@drawable/chevron" />
 
 
-
-
         </RelativeLayout>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rel6"
         android:layout_width="match_parent"
@@ -404,28 +406,29 @@
             style="@style/relative_custom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
             <RadioButton
+                android:id="@+id/radioButton7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioButton7"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/text6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_6"
-                android:textSize="23dp"
-                android:textColor="@color/text_layout_custom"
-                android:id="@+id/text6"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/radioButton7"
+                android:layout_marginLeft="20dp"
                 android:layout_toEndOf="@+id/radioButton7"
-                android:layout_marginLeft="20dp" />
+                android:layout_toRightOf="@+id/radioButton7"
+                android:text="@string/mesaje__standard_6"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="23dp" />
 
             <ImageView
                 android:id="@+id/imageView16"
@@ -433,24 +436,23 @@
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
 
-                android:background="@drawable/bar"
                 android:layout_marginLeft="22dp"
-                android:layout_toLeftOf="@+id/vie9" />
+                android:layout_toLeftOf="@+id/vie9"
+                android:background="@drawable/bar" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/vie9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_10"
-                android:textSize="15dp"
-                android:textColor="@color/text_layout_custom"
-
-                android:id="@+id/vie9"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+
+                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/chevron6"
                 android:layout_toStartOf="@+id/chevron6"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
-
+                android:text="@string/mesaje__standard_10"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="15dp" />
 
 
             <ImageView
@@ -464,10 +466,9 @@
                 android:background="@drawable/chevron" />
 
 
-
-
         </RelativeLayout>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rel7"
         android:layout_width="match_parent"
@@ -480,28 +481,29 @@
             style="@style/relative_custom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
             <RadioButton
+                android:id="@+id/radioButton8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioButton8"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/text7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_7"
-                android:textSize="23dp"
-                android:textColor="@color/text_layout_custom"
-                android:id="@+id/text7"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/radioButton8"
+                android:layout_marginLeft="20dp"
                 android:layout_toEndOf="@+id/radioButton8"
-                android:layout_marginLeft="20dp" />
+                android:layout_toRightOf="@+id/radioButton8"
+                android:text="@string/mesaje__standard_7"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="23dp" />
 
             <ImageView
                 android:id="@+id/imageView17"
@@ -509,24 +511,23 @@
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
 
-                android:background="@drawable/bar"
                 android:layout_marginLeft="22dp"
-                android:layout_toLeftOf="@+id/vie10" />
+                android:layout_toLeftOf="@+id/vie10"
+                android:background="@drawable/bar" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/vie10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_10"
-                android:textSize="15dp"
-                android:textColor="@color/text_layout_custom"
-
-                android:id="@+id/vie10"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+
+                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/chevron7"
                 android:layout_toStartOf="@+id/chevron7"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
-
+                android:text="@string/mesaje__standard_10"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="15dp" />
 
 
             <ImageView
@@ -540,10 +541,9 @@
                 android:background="@drawable/chevron" />
 
 
-
-
         </RelativeLayout>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rel8"
         android:layout_width="match_parent"
@@ -556,28 +556,29 @@
             style="@style/relative_custom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
             <RadioButton
+                android:id="@+id/radioButton9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioButton9"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/text8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_8"
-                android:textSize="23dp"
-                android:textColor="@color/text_layout_custom"
-                android:id="@+id/text8"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/radioButton9"
+                android:layout_marginLeft="20dp"
                 android:layout_toEndOf="@+id/radioButton9"
-                android:layout_marginLeft="20dp" />
+                android:layout_toRightOf="@+id/radioButton9"
+                android:text="@string/mesaje__standard_8"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="23dp" />
 
             <ImageView
                 android:id="@+id/imageView18"
@@ -585,24 +586,23 @@
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
 
-                android:background="@drawable/bar"
                 android:layout_marginLeft="22dp"
-                android:layout_toLeftOf="@+id/vie11" />
+                android:layout_toLeftOf="@+id/vie11"
+                android:background="@drawable/bar" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
+                android:id="@+id/vie11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mesaje__standard_10"
-                android:textSize="15dp"
-                android:textColor="@color/text_layout_custom"
-
-                android:id="@+id/vie11"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+
+                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/chevron8"
                 android:layout_toStartOf="@+id/chevron8"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
-
+                android:text="@string/mesaje__standard_10"
+                android:textColor="@color/text_layout_custom"
+                android:textSize="15dp" />
 
 
             <ImageView
@@ -616,10 +616,9 @@
                 android:background="@drawable/chevron" />
 
 
-
-
         </RelativeLayout>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rel9"
         android:layout_width="match_parent"
@@ -627,15 +626,15 @@
         android:layout_below="@+id/rel8"
         android:background="@color/bkg_setari">
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/propune_mesaj"
-            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/mesaje__standard_9"
-            android:textColor="@color/mesaje_standard_text"
-            android:paddingTop="15dp"
+            android:clickable="true"
             android:paddingLeft="25dp"
-            android:paddingRight="25dp" />
+            android:paddingRight="25dp"
+            android:paddingTop="15dp"
+            android:text="@string/mesaje__standard_9"
+            android:textColor="@color/mesaje_standard_text" />
     </RelativeLayout>
 </RelativeLayout>

@@ -8,7 +8,7 @@
     tools:context=".Ecran3Activity"
     tools:showIn="@layout/activity_ecran3">
 
-    <ro.nubloca.ObservableScrollView
+    <ro.nubloca.extras.ObservableScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -29,7 +29,7 @@
             android:textSize="20sp" />
 
 
-    </ro.nubloca.ObservableScrollView>
+    </ro.nubloca.extras.ObservableScrollView>
 
 
     <RelativeLayout
@@ -43,7 +43,7 @@
         android:orientation="horizontal">
 
 
-        <ro.nubloca.CustomFontTitilliumBold
+        <ro.nubloca.extras.CustomFontTitilliumBold
             android:id="@+id/acord"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
@@ -72,7 +72,7 @@
             android:layout_height="1dp"
             android:layout_centerHorizontal="true" />
 
-        <ro.nubloca.CustomFontTitilliumBold
+        <ro.nubloca.extras.CustomFontTitilliumBold
             android:id="@+id/refuz"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"

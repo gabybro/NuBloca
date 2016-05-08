@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import ro.nubloca.extras.ObservableScrollView;
+import ro.nubloca.extras.ScrollViewListener;
+
 public class Ecran3Activity extends AppCompatActivity implements ScrollViewListener {
 
     private ObservableScrollView scrollView = null;

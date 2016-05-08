@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
 public class Ecran24Activity extends AppCompatActivity {
@@ -25,23 +28,37 @@ public class Ecran24Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
+        LinearLayout relbar = (LinearLayout) findViewById(R.id.rel_bar1);
+        relbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RadioButton btn1 = (RadioButton) findViewById(R.id.radioButton1);
+                if (btn1.isChecked()) {
+                    btn1.setChecked(false);
+                }else{
+                    btn1.setChecked(true);
+                }
 
+            }
+        });
 
 
     }
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        // getMenuInflater().inflate(R.menu.menu1, menu);
-        /*View button = (View) this.findViewById(R.id.toolbar_title);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });*/
+        getMenuInflater().inflate(R.menu.menu6, menu);
+
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu1) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

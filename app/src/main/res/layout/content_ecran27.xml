@@ -13,17 +13,21 @@
 
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/border2"
+
+        android:orientation="vertical"
+
+
         android:layout_marginTop="90dp"
-        android:background="@color/btn_white"
+
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp">
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"

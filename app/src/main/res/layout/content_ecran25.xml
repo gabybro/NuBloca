@@ -32,7 +32,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="20dp" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tara_2"
@@ -72,7 +72,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="20dp" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tara_3"

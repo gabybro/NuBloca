@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,7 +29,7 @@ public class Ecran22Activity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TextView vezi = (TextView)findViewById(R.id.exemplu1);
+        LinearLayout vezi = (LinearLayout) findViewById(R.id.linear1);
         vezi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,8 +37,22 @@ public class Ecran22Activity extends AppCompatActivity {
             }
         });
 
+        LinearLayout relbar = (LinearLayout) findViewById(R.id.rel_bar1);
+        relbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RadioButton btn1 = (RadioButton) findViewById(R.id.radioButton2);
+                if (btn1.isChecked()) {
+                    btn1.setChecked(false);
+                }else{
+                    btn1.setChecked(true);
+                }
 
-        TextView prop=(TextView)findViewById(R.id.propune_mesaj);
+            }
+        });
+
+
+        TextView prop = (TextView) findViewById(R.id.propune_mesaj);
         prop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,6 +60,7 @@ public class Ecran22Activity extends AppCompatActivity {
             }
         });
     }
+
 
 
     public boolean onCreateOptionsMenu(Menu menu) {

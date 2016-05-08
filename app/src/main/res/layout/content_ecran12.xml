@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_ecran12"
     android:background="@color/btn_white">
 
-    <ro.nubloca.ObservableScrollView
+    <ro.nubloca.extras.ObservableScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -32,7 +32,7 @@
             android:background="@color/btn_white" />
 
 
-    </ro.nubloca.ObservableScrollView>
+    </ro.nubloca.extras.ObservableScrollView>
 
 
     <RelativeLayout
@@ -45,7 +45,7 @@
         android:layout_gravity="center">
 
 
-        <ro.nubloca.CustomFontTitilliumBold
+        <ro.nubloca.extras.CustomFontTitilliumBold
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"

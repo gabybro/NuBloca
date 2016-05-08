@@ -18,7 +18,7 @@
             android:layout_height="66dp"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <ro.nubloca.CustomFontTitilliumBold
+            <ro.nubloca.extras.CustomFontTitilliumBold
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
                 android:textSize="24dp"
                 android:clickable="true" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:id="@+id/toolbar_title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="25dp" />
 
-            <ro.nubloca.CustomFontTitilliumBold
+            <ro.nubloca.extras.CustomFontTitilliumBold
                 android:id="@+id/toolbar_title2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

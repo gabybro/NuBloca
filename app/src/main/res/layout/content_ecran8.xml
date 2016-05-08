@@ -28,7 +28,7 @@
             android:id="@+id/rel_bar1"
             style="@style/relative_custom">
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:id="@+id/textView2"
                 style="@style/text_layout_custom"
                 android:text="Notificari" />
@@ -54,12 +54,12 @@
             style="@style/relative_custom"
             android:layout_below="@+id/rel_bar1">
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:id="@+id/textView3"
                 style="@style/text_layout_custom"
                 android:text="Limba" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:id="@+id/textView4"
                 style="@style/text_layout_custom_light"
                 android:layout_toLeftOf="@+id/chevron"
@@ -94,12 +94,12 @@
             style="@style/relative_custom"
             android:layout_below="@+id/rel_bar2">
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:id="@+id/textView5"
                 style="@style/text_layout_custom"
                 android:text="Tara in care te afli" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:id="@+id/textView6"
                 style="@style/text_layout_custom_light"
                 android:layout_toLeftOf="@+id/chevron1"

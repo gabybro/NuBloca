@@ -24,7 +24,7 @@
         style="@style/relative_custom">
 
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/textView1"
             style="@style/text_layout_custom"
             android:text="@string/ajutor_1" />
@@ -53,7 +53,7 @@
         android:layout_below="@+id/rel_bar1">
 
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/contac"
             style="@style/text_layout_custom"
             android:text="@string/ajutor_2" />
@@ -87,7 +87,7 @@
         android:layout_below="@+id/rel_bar2">
 
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/textView9"
             style="@style/text_layout_custom"
             android:text="@string/ajutor_3" />
@@ -109,7 +109,7 @@
         android:layout_below="@+id/rel_bar3">
 
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/textView10"
             style="@style/text_layout_custom"
             android:text="@string/ajutor_4" />

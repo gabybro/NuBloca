@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,12 +36,26 @@ public class Ecran23Activity extends AppCompatActivity {
             }
         });
 
-        TextView exemplu1 = (TextView)findViewById(R.id.exemplu1);
+        LinearLayout exemplu1 = (LinearLayout)findViewById(R.id.linear1);
         exemplu1.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Ecran23Activity.this, Ecran26Activity.class));
+
+            }
+        });
+
+        LinearLayout relbar = (LinearLayout) findViewById(R.id.rel_bar1);
+        relbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RadioButton btn1 = (RadioButton) findViewById(R.id.radioButton2);
+                if (btn1.isChecked()) {
+                    btn1.setChecked(false);
+                }else{
+                    btn1.setChecked(true);
+                }
 
             }
         });

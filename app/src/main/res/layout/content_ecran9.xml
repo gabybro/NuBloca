@@ -11,7 +11,7 @@
     tools:context=".Ecran9Activity"
     tools:showIn="@layout/activity_ecran9">
 
-    <ro.nubloca.CustomFontTitilliumRegular
+    <ro.nubloca.extras.CustomFontTitilliumRegular
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         android:text="@string/despre_1"
         android:textSize="20dp" />
 
-    <ro.nubloca.CustomFontTitilliumRegular
+    <ro.nubloca.extras.CustomFontTitilliumRegular
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <ro.nubloca.CustomFontTitilliumBold
+    <ro.nubloca.extras.CustomFontTitilliumBold
         android:id="@+id/textView91"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         android:layout_toRightOf="@+id/textView8"
         android:layout_toEndOf="@+id/textView8" />
 
-    <ro.nubloca.CustomFontTitilliumRegular
+    <ro.nubloca.extras.CustomFontTitilliumRegular
         android:id="@+id/textView92"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
         android:layout_toRightOf="@+id/textView91"
         android:layout_toEndOf="@+id/textView91" />
 
-    <ro.nubloca.CustomFontTitilliumRegular
+    <ro.nubloca.extras.CustomFontTitilliumRegular
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/despre_5"
@@ -92,7 +92,7 @@
         android:layout_alignParentStart="true">
 
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/textView1"
             style="@style/text_layout_custom"
             android:text="Ajutor" />
@@ -121,7 +121,7 @@
         android:layout_below="@+id/rel_bar1">
 
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/contac"
             style="@style/text_layout_custom"
             android:text="Contact" />
@@ -155,7 +155,7 @@
         android:layout_below="@+id/rel_bar2">
 
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/textView9"
             style="@style/text_layout_custom"
             android:text="Termeni si Conditii" />
@@ -181,7 +181,7 @@
         android:layout_marginTop="33dp"
         android:background="@drawable/car_blue" />
 
-    <ro.nubloca.CustomFontTitilliumBold
+    <ro.nubloca.extras.CustomFontTitilliumBold
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

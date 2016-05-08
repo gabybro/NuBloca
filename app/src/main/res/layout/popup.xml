@@ -26,7 +26,7 @@
                 android:layout_marginTop="5dp"
                 android:paddingTop="5dp" />
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:id="@+id/popup_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:layout_height="70dp"
                 android:layout_marginTop="20dp">
 
-                <ro.nubloca.CustomFontTitilliumBold
+                <ro.nubloca.extras.CustomFontTitilliumBold
                     android:id="@+id/button1"
                     android:layout_width="100dp"
                     android:layout_height="fill_parent"
@@ -55,7 +55,7 @@
                     android:textSize="25sp"
                     android:clickable="true" />
 
-                <ro.nubloca.CustomFontTitilliumBold
+                <ro.nubloca.extras.CustomFontTitilliumBold
                     android:id="@+id/button2"
                     android:layout_width="100dp"
                     android:layout_height="fill_parent"

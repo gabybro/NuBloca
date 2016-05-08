@@ -16,27 +16,17 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
+            android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:id="@+id/toolbar_title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Contact Auto"
+                android:text="@string/title_activity_ecran20"
                 android:textColor="#FFFFFF"
                 android:textSize="25dp" />
-
-            <ro.nubloca.CustomFontTitilliumBold
-                android:id="@+id/toolbar_title2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="Trimite"
-                android:textColor="#FFEA00"
-                android:textSize="24dp"
-                android:paddingRight="20dp" />
 
         </android.support.v7.widget.Toolbar>
 

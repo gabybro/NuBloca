@@ -1,4 +1,4 @@
-package ro.nubloca;
+package ro.nubloca.extras;
 
 import android.content.Context;
 import android.graphics.Typeface;

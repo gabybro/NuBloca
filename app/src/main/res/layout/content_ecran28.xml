@@ -13,7 +13,7 @@
     tools:context=".Ecran28Activity"
     tools:showIn="@layout/activity_ecran28">
 
-    <ro.nubloca.CustomFontTitilliumRegular
+    <ro.nubloca.extras.CustomFontTitilliumRegular
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         android:minHeight="130dp"
         android:layout_below="@+id/textView15">
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/mesaj"
             android:layout_width="wrap_content"
             android:focusable="true"
@@ -61,7 +61,7 @@
             android:maxLines="4" />
     </LinearLayout>
 
-    <ro.nubloca.CustomFontTitilliumBold
+    <ro.nubloca.extras.CustomFontTitilliumBold
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="50dp"

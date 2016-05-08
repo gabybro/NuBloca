@@ -1,10 +1,8 @@
-package ro.nubloca;
+package ro.nubloca.extras;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
-
-import ro.nubloca.ScrollViewListener;
 
 public class ObservableScrollView extends ScrollView {
 

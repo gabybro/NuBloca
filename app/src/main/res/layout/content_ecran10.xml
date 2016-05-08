@@ -13,7 +13,7 @@
     tools:context=".Ecran10Activity"
     tools:showIn="@layout/activity_ecran10">
 
-    <ro.nubloca.CustomFontTitilliumRegular
+    <ro.nubloca.extras.CustomFontTitilliumRegular
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#666666" />
 
-    <ro.nubloca.CustomFontTitilliumRegular
+    <ro.nubloca.extras.CustomFontTitilliumRegular
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
         android:background="@drawable/border1"
         android:padding="10dp">
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
         android:padding="10dp">
 
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/telefon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
         android:background="@drawable/border1"
         android:padding="10dp">
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
         android:padding="10dp"
         android:minHeight="130dp">
 
-        <ro.nubloca.CustomFontTitilliumRegular
+        <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/mesaj"
             android:layout_width="wrap_content"
             android:focusable="true"

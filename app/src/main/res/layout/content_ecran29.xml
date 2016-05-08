@@ -27,7 +27,7 @@
             android:id="@+id/rel_bar1"
             style="@style/relative_custom">
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:id="@+id/textView2"
                 style="@style/text_layout_custom"
                 android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
             style="@style/relative_custom"
             android:layout_below="@+id/rel_bar1">
 
-            <ro.nubloca.CustomFontTitilliumRegular
+            <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:id="@+id/textView3"
                 style="@style/text_layout_custom"
 
