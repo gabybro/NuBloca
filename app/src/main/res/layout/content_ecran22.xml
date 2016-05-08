@@ -628,6 +628,8 @@
         android:background="@color/bkg_setari">
 
         <ro.nubloca.CustomFontTitilliumRegular
+            android:id="@+id/propune_mesaj"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/mesaje__standard_9"

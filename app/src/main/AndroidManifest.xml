@@ -190,6 +190,25 @@
                 android:value="ro.nubloca.Ecran23Activity" />
         </activity>
 
+        <activity
+            android:name=".Ecran27Activity"
+            android:label="@string/title_activity_ecran27"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran22Activity" />
+        </activity>
+        <activity
+            android:name=".Ecran28Activity"
+            android:label="@string/title_activity_ecran28"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran22Activity" />
+        </activity>
+
     </application>
 
 

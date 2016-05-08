@@ -9,13 +9,13 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class Ecran22Activity extends AppCompatActivity {
+public class Ecran27Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-        setContentView(R.layout.activity_ecran22);
+        setContentView(R.layout.activity_ecran27);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -25,22 +25,10 @@ public class Ecran22Activity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TextView vezi = (TextView)findViewById(R.id.exemplu1);
-        vezi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Ecran22Activity.this, Ecran27Activity.class));
-            }
-        });
 
 
-        TextView prop=(TextView)findViewById(R.id.propune_mesaj);
-        prop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Ecran22Activity.this, Ecran28Activity.class));
-            }
-        });
+
+
     }
 
 

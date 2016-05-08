@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Ecran16Activity">
+
+
+    <item
+        android:id="@+id/menu1"
+        android:orderInCategory="1"
+        android:title="@string/trimite"
+        android:icon="@drawable/fly1"
+        android:width="30dp"
+        android:height="30dp"
+        app:showAsAction="always" />
+
+</menu>

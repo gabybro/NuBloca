@@ -139,7 +139,7 @@
     <string name="exemplu_8">Permanenta</string>
 
     <!--string ecran27 <=> Mesaj intreg-->
-    <string name="Mesaj_intreg_1">Salut, ai parcat pe locul meu. Vino te rog si muta masina.</string>
+    <string name="mesaj_intreg_1">Salut, ai parcat pe locul meu. Vino te rog si muta masina.</string>
 
     <!--string ecran28 <=> Propune mesaj-->
     <string name="propune_mesaj_1">Daca mesajul pe care vrei sa-l trimiti nu se afla in lista, il poti propune spre implementare mai jos:</string>
