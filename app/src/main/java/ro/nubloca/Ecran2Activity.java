@@ -17,14 +17,11 @@ public class Ecran2Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*getSupportActionBar().setTitle("Inscrie auto");
-        toolbar.setTitleTextColor(0xFFFFFFFF);*/
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
+
     }
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu2, menu);
+
         View button = (View) this.findViewById(R.id.toolbar_title);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
