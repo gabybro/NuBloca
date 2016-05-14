@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,11 +17,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +28,10 @@ public class Ecran10Activity extends AppCompatActivity {
     JSONArray jsonobject_Three = new JSONArray();
     JSONObject jsonobject_TWO = new JSONObject();
     JSONObject jsonobject_one_one = new JSONObject();
+    JSONObject js = new JSONObject();
+
+   public String name, telefon, email, mesaj;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +45,7 @@ public class Ecran10Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
-
-
     }
-
-
-
-
-
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,43 +59,41 @@ public class Ecran10Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.menu1) {
+
             final EditText nameField = (EditText) findViewById(R.id.editText3);
             final EditText telefonField = (EditText) findViewById(R.id.editText4);
             final EditText emailField = (EditText) findViewById(R.id.editText5);
             final EditText mesajField = (EditText) findViewById(R.id.editText6);
 
-            String name = nameField.getText().toString();
-            String telefon = telefonField.getText().toString();
-            String email = emailField.getText().toString();
-            String mesaj = mesajField.getText().toString();
+            name = nameField.getText().toString();
+            telefon = telefonField.getText().toString();
+            email = emailField.getText().toString();
+            mesaj = mesajField.getText().toString();
 
             Context context = getApplicationContext();
             CharSequence text = "Thank You ";
             int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text+name+"!", duration);
+            toast.show();
 
+            sendJsonRequest();
+        }
 
-        JSONObject js = new JSONObject();
+        return super.onOptionsItemSelected(item);
+    }
+    private void prepJsonSend(){
+
         try {
             JSONObject jsonobject_one = new JSONObject();
-
             jsonobject_one.put("app_code", "abcdefghijkl123456");
-
             jsonobject_one_one.put("user", jsonobject_one);
-
-
             jsonobject_TWO.put("nume", name);
             jsonobject_TWO.put("id_email", 15);
             jsonobject_TWO.put("id_numar_telefon", 14);
             jsonobject_TWO.put("mesaj", mesaj);
-
-
             jsonobject_Three.put("id");
             jsonobject_Three.put("data");
             jsonobject_Three.put("status");
-
-
-            //js = new JSONObject("{\"identificare\":{\"user\":{\"app_code\":\"abcdefghijkl123456\"}},\"trimise\":{\"nume\":\"gaby dog\",\"id_email\":15,\"id_numar_telefon\":14,\"mesaj\":\"Mesaj\"},\"cerute\":[\"id\",\"data\",\"status\"]}");
-
             js.put("identificare",jsonobject_one_one);
             js.put("cerute",jsonobject_Three);
             js.put("trimise",jsonobject_TWO);
@@ -112,25 +103,30 @@ public class Ecran10Activity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
 
-
-
+    private void sendJsonRequest(){
         RequestQueue queue = Volley.newRequestQueue(this);
+        prepJsonSend();
+
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(
                 Request.Method.POST, url, js,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("gogo", response.toString());
-
-
+                        //Log.d("gogo", response.toString());
+                        // Context context = getApplicationContext();
+                        // int duration = Toast.LENGTH_SHORT;
+                        // Toast toast = Toast.makeText(context, response.toString(), duration);
+                        // toast.show();
+                        //   parseJSONResponse(response);
                     }
                 }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("dog", "Error: " + error.getMessage());
+                //VolleyLog.d("dog", "Error: " + error.getMessage());
 
             }
         }) {
@@ -149,20 +145,8 @@ public class Ecran10Activity extends AppCompatActivity {
                 return headers;
             }
 
+
         };
-
-
-
-
-
-
-
-            Toast toast = Toast.makeText(context, text+name+"!", duration);
-            toast.show();
-
-            queue.add(jsonObjReq);
-        }
-
-        return super.onOptionsItemSelected(item);
+        queue.add(jsonObjReq);
     }
 }

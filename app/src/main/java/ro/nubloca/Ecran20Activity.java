@@ -48,7 +48,7 @@ public class Ecran20Activity extends AppCompatActivity {
             }
         });
 
-        View btn2 = (View) this.findViewById(R.id.lin1);
+        View btn2 = (View) this.findViewById(R.id.relativ2);
 
         btn2.setOnClickListener(new View.OnClickListener() {
 
