@@ -117,6 +117,9 @@ public class Ecran7Activity extends AppCompatActivity
             Toast.makeText(Ecran7Activity.this, "TOS CLEAN", Toast.LENGTH_LONG).show();
 
         }
+        if (item.getItemId() == R.id.menu2) {
+            startActivity(new Intent(Ecran7Activity.this, Ecran99Activity.class));
+        }
 
         return super.onOptionsItemSelected(item);
     }

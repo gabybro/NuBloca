@@ -4,22 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,7 +69,7 @@ public class Ecran10Activity extends AppCompatActivity {
             Toast toast = Toast.makeText(context, text+name+"!", duration);
             toast.show();
 
-            sendJsonRequest();
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -105,48 +98,5 @@ public class Ecran10Activity extends AppCompatActivity {
 
     }
 
-    private void sendJsonRequest(){
-        RequestQueue queue = Volley.newRequestQueue(this);
-        prepJsonSend();
 
-
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(
-                Request.Method.POST, url, js,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        //Log.d("gogo", response.toString());
-                        // Context context = getApplicationContext();
-                        // int duration = Toast.LENGTH_SHORT;
-                        // Toast toast = Toast.makeText(context, response.toString(), duration);
-                        // toast.show();
-                        //   parseJSONResponse(response);
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //VolleyLog.d("dog", "Error: " + error.getMessage());
-
-            }
-        }) {
-
-            /**
-             * Passing some request headers
-             * */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-//                headers.put("Content-Type", "application/json; charset=utf-8");
-                headers.put("Accept-Language", "en");
-                headers.put("Content-Language", "fr");
-
-
-                return headers;
-            }
-
-
-        };
-        queue.add(jsonObjReq);
-    }
 }

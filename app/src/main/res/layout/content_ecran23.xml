@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/btn_white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Ecran23Activity"
     tools:showIn="@layout/activity_ecran23">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/btn_white">
 
     <ImageView
         android:id="@+id/img"
@@ -670,3 +673,4 @@
 
 
 </RelativeLayout>
+</ScrollView>

@@ -66,7 +66,7 @@ public class Ecran1Activity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Do something after 5s = 5000ms
+                // Do something after 3s = 3000ms
                 if (!Tos) {
                     finish();
                     //merge la ecranul 4 (citirea TOS-ului)
@@ -77,7 +77,7 @@ public class Ecran1Activity extends AppCompatActivity {
                     startActivity(new Intent(Ecran1Activity.this, Ecran7Activity.class));
                 }
             }
-        }, 5000);
+        }, 3000);
 
 
 
