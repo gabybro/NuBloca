@@ -88,11 +88,14 @@
     <!--string ecran20 <=> Contact auto-->
     <string name="contact_1">Către ce numar auto vrei sa trimiți mesajul?</string>
     <string name="contact_2">Tip înmatriculare: </string>
-    <string name="contact_3">Permanența</string>
+    <string name="contact_3">Permanenta</string>
     <string name="contact_4">Alege alt tip de înmatriculare</string>
     <string name="contact_5">Salut, ai parcat pe locul meu.</string>
     <string name="contact_6">Cum funcționează?</string>
     <string name="contact_7">Istoric numere</string>
+    <string name="contact_8">TL</string>
+    <string name="contact_9">01</string>
+    <string name="contact_10">DST</string>
 
     <!--string ecran22 <=> Mesaje standard-->
     <string name="mesaje__standard_1">Mașinile mele</string>
@@ -107,16 +110,17 @@
     <string name="mesaje__standard_10">Vezi tot</string>
 
     <!--string ecran23 <=> Tip inmatriculare-->
-    <string name="tip_inmatriculare_1">Mașinile mele</string>
-    <string name="tip_inmatriculare_2">Notificări</string>
-    <string name="tip_inmatriculare_3">Istoric conversații</string>
-    <string name="tip_inmatriculare_4">Despre</string>
-    <string name="tip_inmatriculare_5">Mașinile mele</string>
-    <string name="tip_inmatriculare_6">Notificări</string>
-    <string name="tip_inmatriculare_7">Istoric conversații</string>
-    <string name="tip_inmatriculare_8">Despre</string>
+    <string name="tip_inmatriculare_1">Permanent</string>
+    <string name="tip_inmatriculare_2">Temporară</string>
+    <string name="tip_inmatriculare_3">Corp Diplomatic</string>
+    <string name="tip_inmatriculare_4">Probe</string>
+    <string name="tip_inmatriculare_5">Provizorie</string>
+    <string name="tip_inmatriculare_6">M.Ap.N.</string>
+    <string name="tip_inmatriculare_7">M.A.I.</string>
+    <string name="tip_inmatriculare_8">Local</string>
     <string name="tip_inmatriculare_9">Exemplu</string>
     <string name="tip_inmatriculare_10">România</string>
+
 
     <!--string ecran24 <=> Istoric numere-->
     <string name="istoric_numere_1">B 23 GGF</string>
@@ -155,8 +159,12 @@
 
 
     <!-- TODO: nice to know -->
+    <string name="TODO1">TODO text</string>
+
+    <!--string ecran99 <=> Global Settings(admin)-->
+    <string name="title_activity_ecran99">Global Settings</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nu">Nu</string>
     <string name="da">Da</string>
-    <string name="title_activity_ecran99">Global Settings</string>
 </resources>

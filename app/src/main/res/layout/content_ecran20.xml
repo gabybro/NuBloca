@@ -10,18 +10,6 @@
     tools:context=".Ecran20Activity"
     tools:showIn="@layout/activity_ecran20">
 
-    <ImageView
-        android:id="@+id/imageView21"
-        android:layout_width="15dp"
-        android:layout_height="10dp"
-        android:layout_alignLeft="@+id/imageButton"
-        android:layout_alignParentBottom="false"
-        android:layout_alignStart="@+id/imageButton"
-        android:layout_alignTop="@+id/imageButton"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/chevron_down"
-        android:translationZ="2dp" />
 
     <ro.nubloca.extras.CustomFontTitilliumRegular
         android:id="@+id/textView13"
@@ -36,32 +24,44 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="17dp" />
 
+    <LinearLayout
+        android:layout_below="@+id/textView13"
+        android:id="@+id/linear_contact1"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView21"
+        android:layout_width="15dp"
+        android:layout_height="10dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/chevron_down"
+        android:translationZ="2dp"
+        android:visibility="gone" />
 
     <ro.nubloca.extras.CustomFontTitilliumBold
-        android:id="@+id/imageButton"
+        android:id="@+id/plate1"
         android:layout_width="105dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView13"
-        android:layout_marginLeft="20dp"
         android:background="@drawable/plate_border"
-        android:paddingStart="10dp"
-        android:text="@string/exemplu_4"
-        android:textAlignment="textStart"
+        android:text="@string/contact_8"
+        android:gravity="center_vertical|center"
+        android:textAlignment="gravity"
         android:textColor="@color/text_layout_custom"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <ro.nubloca.extras.CustomFontTitilliumBold
-        android:id="@+id/imageButton1"
+        android:id="@+id/plate2"
         android:layout_width="105dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageButton"
+        android:layout_alignTop="@+id/plate1"
         android:layout_centerHorizontal="true"
         android:background="@drawable/plate_border"
         android:gravity="center_vertical|center"
-        android:text="@string/exemplu_5"
+        android:text="@string/contact_9"
         android:textAlignment="gravity"
         android:textColor="@color/text_layout_custom"
         android:textSize="30sp" />
@@ -71,20 +71,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/imageButton1"
+        android:layout_alignTop="@+id/plate2"
         android:layout_marginRight="20dp"
         android:background="@drawable/plate_border"
         android:gravity="center_vertical|center"
-        android:text="@string/exemplu_6"
+        android:text="@string/contact_10"
         android:textAlignment="gravity"
         android:textColor="@color/text_layout_custom"
-        android:textSize="30sp" />
-
+        android:textSize="30sp"
+        android:id="@+id/plate3" />
+    </LinearLayout>
     <RelativeLayout
         android:id="@+id/relativ2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageButton">
+        android:layout_below="@+id/linear_contact1">
 
 
         <ro.nubloca.extras.CustomFontTitilliumRegular
@@ -143,8 +144,8 @@
 
             <ImageView
                 android:id="@+id/chevron_orange"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="10dp"
+                android:layout_height="14dp"
                 android:layout_marginLeft="30dp"
                 android:background="@drawable/chevron_orange_right"
                 android:clickable="true" />
@@ -292,4 +293,5 @@
 
         android:background="@drawable/bkg_contact"
         android:elevation="2dp" />
+
 </RelativeLayout>

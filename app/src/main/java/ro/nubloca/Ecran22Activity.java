@@ -6,11 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class Ecran22Activity extends AppCompatActivity {
@@ -30,37 +30,42 @@ public class Ecran22Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         LinearLayout vezi = (LinearLayout) findViewById(R.id.linear1);
-        vezi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Ecran22Activity.this, Ecran27Activity.class));
-            }
-        });
+        if (vezi != null)
+            vezi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(Ecran22Activity.this, Ecran27Activity.class));
+                }
+            });
 
         LinearLayout relbar = (LinearLayout) findViewById(R.id.rel_bar1);
-        relbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RadioButton btn1 = (RadioButton) findViewById(R.id.radioButton2);
-                if (btn1.isChecked()) {
-                    btn1.setChecked(false);
-                }else{
-                    btn1.setChecked(true);
-                }
+        if (relbar != null)
+            relbar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ImageView image = (ImageView) findViewById(R.id.chevron1);
+                    Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+                    image.startAnimation(animation1);
+                    RadioButton btn1 = (RadioButton) findViewById(R.id.radioButton2);
+                    if (btn1.isChecked()) {
+                        btn1.setChecked(false);
+                    } else {
+                        btn1.setChecked(true);
+                    }
 
-            }
-        });
+                }
+            });
 
 
         TextView prop = (TextView) findViewById(R.id.propune_mesaj);
-        prop.setOnClickListener(new View.OnClickListener() {
+        if (prop != null)
+            prop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Ecran22Activity.this, Ecran28Activity.class));
             }
         });
     }
-
 
 
     public boolean onCreateOptionsMenu(Menu menu) {

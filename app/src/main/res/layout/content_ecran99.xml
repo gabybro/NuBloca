@@ -9,7 +9,9 @@
     android:paddingTop="30dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Ecran99Activity"
-    tools:showIn="@layout/activity_ecran99">
+    tools:showIn="@layout/activity_ecran99"
+    android:paddingLeft="22dp"
+    android:paddingRight="22dp">
 
     <TextView
         android:id="@+id/textView17"
@@ -45,7 +47,8 @@
             android:layout_toRightOf="@+id/accept_lang"
             android:digits="abcdefghijklmnopqrstuvwxyz"
             android:text="en"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:background="@android:color/transparent" />
     </LinearLayout>
 
     <LinearLayout
@@ -73,7 +76,8 @@
             android:digits="abcdefghijklmnopqrstuvwxyz"
             android:inputType="text"
             android:text="ro"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:background="@android:color/transparent" />
     </LinearLayout>
 
     <LinearLayout
@@ -100,7 +104,8 @@
             android:layout_toRightOf="@+id/accept_lang"
             android:inputType="number"
             android:text="1"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:background="@android:color/transparent" />
     </LinearLayout>
 
     <LinearLayout
@@ -132,8 +137,45 @@
         android:id="@+id/ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:text="OK"
+        android:layout_below="@+id/line5"
+        android:layout_alignRight="@+id/textView18"
+        android:layout_alignEnd="@+id/textView18" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Content___________________________"
+        android:id="@+id/textView18"
         android:layout_below="@+id/line4"
-        android:text="OK" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:id="@+id/line5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView18">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="id_tara:"
+        android:id="@+id/textView19"
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/id_tara"
+
+        android:layout_toRightOf="@+id/textView19"
+        android:layout_toEndOf="@+id/textView19"
+        android:text="147"
+        android:layout_marginLeft="25dp"
+        android:background="@android:color/transparent" />
+    </LinearLayout>
 </RelativeLayout>

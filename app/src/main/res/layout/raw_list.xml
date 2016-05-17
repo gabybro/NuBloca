@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border2"
+    android:baselineAligned="false"
+    android:gravity="end"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        style="@style/relative_custom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.00"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:clickable="false" />
+
+        <ro.nubloca.extras.CustomFontTitilliumRegular
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/text_layout_custom"
+            android:paddingTop="10dp"
+            android:textSize="23sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear2"
+        style="@style/relative_custom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:paddingBottom="11dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/bar" />
+
+        <ro.nubloca.extras.CustomFontTitilliumRegular
+            android:id="@+id/exemplu1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/text_layout_custom"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:text="@string/tip_inmatriculare_9"
+            android:textSize="15sp" />
+
+
+        <ImageView
+            android:id="@+id/chevron"
+            android:layout_width="7dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/chevron" />
+
+    </LinearLayout>
+
+</LinearLayout>

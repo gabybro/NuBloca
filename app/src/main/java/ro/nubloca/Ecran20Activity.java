@@ -1,6 +1,8 @@
 package ro.nubloca;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,7 +13,29 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+import ro.nubloca.Networking.HttpBodyGet;
+
 public class Ecran20Activity extends AppCompatActivity {
+    public static final String MyPREFERENCES = "MyPrefs";
+    SharedPreferences sharedpreferences;
+    int campuri=3;
+    int id_tara=147;
+    String result;
+    String url="http://api.nubloca.ro/tipuri_inmatriculare/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,15 +45,24 @@ public class Ecran20Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        campuri = (sharedpreferences.getInt("campuri", 3));
+        id_tara = (sharedpreferences.getInt("id_tara", 147));
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        View plate3 = (View)findViewById(R.id.plate3);
+        if(campuri==2) {
+            plate3.setVisibility(View.GONE);
+        }
+
         View btn3 = (View) this.findViewById(R.id.textView24);
-
+        if(btn3!=null)
         btn3.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Ecran20Activity.this, Ecran24Activity.class));
@@ -38,7 +71,7 @@ public class Ecran20Activity extends AppCompatActivity {
         });
 
         View btn5 = (View) this.findViewById(R.id.textView23);
-
+        if (btn5!=null)
         btn5.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -49,31 +82,109 @@ public class Ecran20Activity extends AppCompatActivity {
         });
 
         View btn2 = (View) this.findViewById(R.id.relativ2);
-
+        if(btn2!=null)
         btn2.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
+                makePostRequestOnNewThread();
 
             }
         });
 
 
         LinearLayout btn1 = (LinearLayout) this.findViewById(R.id.lin_bar1);
-
+        if(btn1!=null)
         btn1.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Ecran20Activity.this, Ecran22Activity.class));
-
             }
         });
 
 
     }
+    private void makePostRequestOnNewThread() {
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                makePostRequest();
+                //handler.sendEmptyMessage(0);
+                Intent myIntent = new Intent(Ecran20Activity.this, Ecran23Activity.class);
+                myIntent.putExtra("array", result);
+                startActivity(myIntent);
 
+            }
+        });
+        t.start();
+    }
+
+    private void makePostRequest() {
+        JSONObject jsonobject_identificare = new JSONObject();
+        JSONArray jsonobject_cerute = new JSONArray();
+        JSONObject js = new JSONObject();
+
+        try {
+            JSONObject jsonobject_one = new JSONObject();
+            JSONObject jsonobject_resursa = new JSONObject();
+            JSONArray jsonobject_id = new JSONArray();
+
+            //TODO get app_code from phone
+            jsonobject_one.put("app_code", "abcdefghijkl123456");
+            //TODO replace tip_inmapt with onClick id
+            jsonobject_id.put(id_tara);
+            jsonobject_resursa.put("id_tara", jsonobject_id);
+
+            jsonobject_identificare.put("user", jsonobject_one);
+            jsonobject_identificare.put("resursa", jsonobject_resursa);
+            jsonobject_cerute.put("id");
+            jsonobject_cerute.put("nume");
+            jsonobject_cerute.put("ids_tipuri_inmatriculare_tipuri_elemente");
+            jsonobject_cerute.put("ordinea");
+
+            js.put("identificare", jsonobject_identificare);
+            js.put("cerute", jsonobject_cerute);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpBodyGet httpPost = new HttpBodyGet(url);
+        httpPost.setHeader("Content-Type", "application/json");
+        httpPost.setHeader("Content-Language", "ro");
+        httpPost.setHeader("Accept-Language", "ro");
+
+
+        //Encoding POST data
+        try {
+
+            httpPost.setEntity(new ByteArrayEntity(js.toString().getBytes("UTF8")));
+
+        } catch (UnsupportedEncodingException e) {
+            // log exception
+            e.printStackTrace();
+        }
+
+        //making POST request.
+        try {
+            HttpResponse response = httpClient.execute(httpPost);
+            result = EntityUtils.toString(response.getEntity());
+            //prelucrareRaspuns();
+
+        } catch (ClientProtocolException e) {
+            // Log exception
+            e.printStackTrace();
+        } catch (IOException e) {
+            // Log exception
+            e.printStackTrace();
+        }
+
+
+    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu5, menu);

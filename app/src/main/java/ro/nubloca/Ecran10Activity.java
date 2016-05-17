@@ -1,6 +1,8 @@
 package ro.nubloca;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,21 +11,36 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import ro.nubloca.Networking.HttpBodyGet;
+
 public class Ecran10Activity extends AppCompatActivity {
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "MyPrefs";
+    String acc_lang = "en";
+    String cont_lang = "ro";
     public String url = "http://api.nubloca.ro/contact/";
     JSONArray jsonobject_Three = new JSONArray();
     JSONObject jsonobject_TWO = new JSONObject();
     JSONObject jsonobject_one_one = new JSONObject();
     JSONObject js = new JSONObject();
 
-   public String name, telefon, email, mesaj;
+    public String name, telefon, email, mesaj;
 
 
     @Override
@@ -31,6 +48,9 @@ public class Ecran10Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_ecran10);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        acc_lang = (sharedpreferences.getString("acc_lang", "en"));
+        cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -63,18 +83,17 @@ public class Ecran10Activity extends AppCompatActivity {
             email = emailField.getText().toString();
             mesaj = mesajField.getText().toString();
 
-            Context context = getApplicationContext();
-            CharSequence text = "Thank You ";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text+name+"!", duration);
+            Toast toast = Toast.makeText(Ecran10Activity.this, "Thank You " + name + "!", Toast.LENGTH_SHORT);
             toast.show();
-
-
+            prepJsonSend();
+            makePostRequestOnNewThread();
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
-    private void prepJsonSend(){
+
+    private void prepJsonSend() {
 
         try {
             JSONObject jsonobject_one = new JSONObject();
@@ -87,9 +106,9 @@ public class Ecran10Activity extends AppCompatActivity {
             jsonobject_Three.put("id");
             jsonobject_Three.put("data");
             jsonobject_Three.put("status");
-            js.put("identificare",jsonobject_one_one);
-            js.put("cerute",jsonobject_Three);
-            js.put("trimise",jsonobject_TWO);
+            js.put("identificare", jsonobject_one_one);
+            js.put("cerute", jsonobject_Three);
+            js.put("trimise", jsonobject_TWO);
 
 
         } catch (JSONException e) {
@@ -98,5 +117,44 @@ public class Ecran10Activity extends AppCompatActivity {
 
     }
 
+    private void makePostRequestOnNewThread() {
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                makePostRequest();
+                //handler.sendEmptyMessage(0);
 
+            }
+        });
+        t.start();
+    }
+
+    private void makePostRequest() {
+
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setHeader("Content-Type", "application/json");
+        httpPost.setHeader("Content-Language", cont_lang);
+        httpPost.setHeader("Accept-Language", acc_lang);
+
+
+        //Encoding POST data
+        try {
+
+            httpPost.setEntity(new ByteArrayEntity(js.toString().getBytes("UTF8")));
+
+        } catch (UnsupportedEncodingException e) {
+            // log exception
+            e.printStackTrace();
+        }
+        try {
+            HttpResponse response = httpClient.execute(httpPost);
+        } catch (ClientProtocolException e) {
+            // Log exception
+            e.printStackTrace();
+        } catch (IOException e) {
+            // Log exception
+            e.printStackTrace();
+        }
+    }
 }
