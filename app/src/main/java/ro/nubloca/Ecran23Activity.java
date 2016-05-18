@@ -43,7 +43,7 @@ import ro.nubloca.Networking.HttpBodyGet;
 import ro.nubloca.Networking.Order;
 
 
-public class Ecran23Activity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class Ecran23Activity extends AppCompatActivity {
 //public class Ecran23Activity extends ListActivity {
 
     JSONArray response_ids_inmatriculare = new JSONArray();
@@ -60,7 +60,7 @@ public class Ecran23Activity extends AppCompatActivity implements AdapterView.On
     String acc_lang, cont_lang;
     int tip_inmat = 1;
     String maxLength1, maxLength2, maxLength3;
-    Boolean checkState;
+    //Boolean checkState;
     private ProgressDialog m_ProgressDialog = null;
     private ArrayList<Order> m_orders = null;
     private OrderAdapter m_adapter;
@@ -74,16 +74,14 @@ public class Ecran23Activity extends AppCompatActivity implements AdapterView.On
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_ecran23);
         Intent myIntent = getIntent();
-        result_tari = myIntent.getStringExtra("array");
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
-        //TODO remove from Global Settings(admin)
-        checkState = (sharedpreferences.getBoolean("http_req", true));
-
-
+        result_tari = (sharedpreferences.getString("array", null));
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
-        tip_inmat = (sharedpreferences.getInt("tip_inmat", 1));
+
+        //TODO remove from Global Settings(admin)
+        // checkState = (sharedpreferences.getBoolean("http_req", true));
+        //tip_inmat = (sharedpreferences.getInt("tip_inmat", 1));
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -94,7 +92,7 @@ public class Ecran23Activity extends AppCompatActivity implements AdapterView.On
 
         m_orders = new ArrayList<Order>();
         this.m_adapter = new OrderAdapter(this, R.layout.raw_list, m_orders);
-        ListView lv = (ListView)findViewById(R.id.list);
+        ListView lv = (ListView) findViewById(R.id.list);
         lv.setAdapter(this.m_adapter);
 
         viewOrders = new Runnable() {
@@ -109,34 +107,7 @@ public class Ecran23Activity extends AppCompatActivity implements AdapterView.On
                 "Please wait...", "Retrieving data ...", true);
 
 
-        try {
-            jsonArray = new JSONArray(result_tari);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        m_orders = new ArrayList<Order>();
-
-        JSONObject json_data = null;
-        for (int i = 0; i < jsonArray.length(); i++) {
-            try {
-                json_data = jsonArray.getJSONObject(i);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Order oz = new Order();
-            try {
-                oz.setOrderId(json_data.getString("id"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                oz.setOrderName(json_data.getString("nume"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            m_orders.add(oz);
-        }
+        populate_order();
 
 
         View flag = (View) findViewById(R.id.flag);
@@ -148,7 +119,7 @@ public class Ecran23Activity extends AppCompatActivity implements AdapterView.On
                 }
             });
 
-        LinearLayout exemplu1 = (LinearLayout) findViewById(R.id.linear1);
+       /* LinearLayout exemplu1 = (LinearLayout) findViewById(R.id.linear1);
         if (exemplu1 != null)
             exemplu1.setOnClickListener(new View.OnClickListener() {
 
@@ -161,12 +132,10 @@ public class Ecran23Activity extends AppCompatActivity implements AdapterView.On
 
 
                 }
-            });
-
-        lv.setOnItemClickListener(this);
+            });*/
 
 
-        LinearLayout relbar = (LinearLayout) findViewById(R.id.rel_bar1);
+       /* LinearLayout relbar = (LinearLayout) findViewById(R.id.rel_bar1);
         if (relbar != null)
             relbar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -184,7 +153,7 @@ public class Ecran23Activity extends AppCompatActivity implements AdapterView.On
                         //finish();
                     }
                 }
-            });
+            });*/
 
 
     }
@@ -208,11 +177,6 @@ public class Ecran23Activity extends AppCompatActivity implements AdapterView.On
         runOnUiThread(returnRes);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        LinearLayout temp= (LinearLayout) view;
-        Toast.makeText(this, ""+i,Toast.LENGTH_SHORT).show();
-    }
 
     private class OrderAdapter extends ArrayAdapter<Order> {
 
@@ -230,13 +194,45 @@ public class Ecran23Activity extends AppCompatActivity implements AdapterView.On
                 LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 v = vi.inflate(R.layout.raw_list, null);
             }
-            Order o = items.get(position);
+            final Order o = items.get(position);
             if (o != null) {
+                LinearLayout ll = (LinearLayout) v.findViewById(R.id.linear1);
+                LinearLayout lll = (LinearLayout) v.findViewById(R.id.linear2);
+                final String x = o.getOrderId();
                 TextView tt = (TextView) v.findViewById(R.id.text);
-                //TextView bt = (TextView) v.findViewById(R.id.bottomtext);
                 if (tt != null) {
                     tt.setText(o.getOrderName());
                 }
+                if (ll != null) {
+                    ll.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //Intent myIntent = new Intent(MainActivity.this, SecondActivity.class);
+                            //startActivity(myIntent);
+                            Toast.makeText(getBaseContext(), "asd" + x, Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    });
+                }
+                if (lll != null) {
+                    lll.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //makePostRequestOnNewThread();
+                            //startActivity(new Intent(Ecran23Activity.this, Ecran26Activity.class));
+                            Intent myIntent = new Intent(Ecran23Activity.this, Ecran26Activity.class);
+                            myIntent.putExtra("array", o.getOrderIdsTip());
+
+                            //myIntent.putExtra("array", m_orders.toString());
+
+                            startActivity(myIntent);
+                        }
+                    });
+                }
+
+                //TextView bt = (TextView) v.findViewById(R.id.bottomtext);
+
                 //if(bt != null){
                 //  bt.setText("Status: "+ o.getOrderId());
                 //}
@@ -257,11 +253,11 @@ public class Ecran23Activity extends AppCompatActivity implements AdapterView.On
                 handler.sendEmptyMessage(0);
                 //send data to -->next screen (Exemplu)
                 Intent myIntent = new Intent(Ecran23Activity.this, Ecran26Activity.class);
-                myIntent.putExtra("campuri", campuri + "");
-                myIntent.putExtra("name_tip_inmatriculare", name_tip_inmatriculare);
-                myIntent.putExtra("Campul unu", maxLength1);
-                myIntent.putExtra("Campul doi", maxLength2);
-                myIntent.putExtra("Campul trei", maxLength3);
+                // myIntent.putExtra("campuri", campuri + "");
+///                myIntent.putExtra("name_tip_inmatriculare", name_tip_inmatriculare);
+                //             myIntent.putExtra("Campul unu", maxLength1);
+                //           myIntent.putExtra("Campul doi", maxLength2);
+                //         myIntent.putExtra("Campul trei", maxLength3);
                 startActivity(myIntent);
 
             }
@@ -507,15 +503,69 @@ public class Ecran23Activity extends AppCompatActivity implements AdapterView.On
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (checkState == true) {
+            /*if (checkState == true) {
                 Context context = getApplicationContext();
                 CharSequence text = "request done!";
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-            }
+                toast.show();*/
         }
     };
 
+    private void populate_order() {
+
+        try {
+            jsonArray = new JSONArray(result_tari);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        m_orders = new ArrayList<Order>();
+
+        JSONObject json_data = null;
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                json_data = jsonArray.getJSONObject(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Order oz = new Order();
+            try {
+                oz.setOrderId(json_data.getString("id"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                oz.setOrderName(json_data.getString("nume"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                oz.setOrderOrdinea(json_data.getInt("ordinea"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            ///////////////////////
+            JSONArray arrayz = null;
+            try {
+                arrayz = json_data.getJSONArray("ids_tipuri_inmatriculare_tipuri_elemente");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            int size = 0;
+            size = arrayz.length();
+            int[] numbers = new int[size];
+            for (int j = 0; j < size; ++j) {
+                numbers[j] = arrayz.optInt(j);
+            }
+            oz.setOrderIdsTip(numbers);
+            ////////////////////////////////////
+            m_orders.add(oz);
+        }
+
+    }
 
 }

@@ -33,6 +33,7 @@ public class Ecran20Activity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     int campuri=3;
     int id_tara=147;
+    String acc_lang, cont_lang;
     String result;
     String url="http://api.nubloca.ro/tipuri_inmatriculare/";
 
@@ -48,6 +49,8 @@ public class Ecran20Activity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         campuri = (sharedpreferences.getInt("campuri", 3));
         id_tara = (sharedpreferences.getInt("id_tara", 147));
+        acc_lang = (sharedpreferences.getString("acc_lang", "en"));
+        cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -55,10 +58,10 @@ public class Ecran20Activity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        View plate3 = (View)findViewById(R.id.plate3);
-        if(campuri==2) {
-            plate3.setVisibility(View.GONE);
-        }
+        //View plate3 = (View)findViewById(R.id.plate3);
+        //if(campuri==2) {
+        //   plate3.setVisibility(View.GONE);
+        //}
 
         View btn3 = (View) this.findViewById(R.id.textView24);
         if(btn3!=null)
@@ -87,7 +90,8 @@ public class Ecran20Activity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                makePostRequestOnNewThread();
+                //makePostRequestOnNewThread();
+                startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
 
             }
         });
@@ -105,7 +109,7 @@ public class Ecran20Activity extends AppCompatActivity {
 
 
     }
-    private void makePostRequestOnNewThread() {
+  /*  private void makePostRequestOnNewThread() {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -118,9 +122,9 @@ public class Ecran20Activity extends AppCompatActivity {
             }
         });
         t.start();
-    }
+    }*/
 
-    private void makePostRequest() {
+    /*private void makePostRequest() {
         JSONObject jsonobject_identificare = new JSONObject();
         JSONArray jsonobject_cerute = new JSONArray();
         JSONObject js = new JSONObject();
@@ -155,8 +159,8 @@ public class Ecran20Activity extends AppCompatActivity {
         HttpClient httpClient = new DefaultHttpClient();
         HttpBodyGet httpPost = new HttpBodyGet(url);
         httpPost.setHeader("Content-Type", "application/json");
-        httpPost.setHeader("Content-Language", "ro");
-        httpPost.setHeader("Accept-Language", "ro");
+        httpPost.setHeader("Content-Language", cont_lang);
+        httpPost.setHeader("Accept-Language", acc_lang);
 
 
         //Encoding POST data
@@ -184,7 +188,7 @@ public class Ecran20Activity extends AppCompatActivity {
         }
 
 
-    }
+    }*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu5, menu);

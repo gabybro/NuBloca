@@ -6,16 +6,19 @@
     android:background="@drawable/border2"
     android:baselineAligned="false"
     android:gravity="end"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
         android:id="@+id/linear1"
-        style="@style/relative_custom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        style="@style/relative_custom"
         android:layout_weight="1.00"
-        android:clickable="true"
-        android:orientation="horizontal">
+        android:clickable="false"
+        android:orientation="horizontal"
+        android:focusable="false">
 
         <RadioButton
             android:id="@+id/radioButton"
@@ -34,21 +37,23 @@
             android:paddingBottom="10dp"
             android:textColor="@color/text_layout_custom"
             android:paddingTop="10dp"
-            android:textSize="23sp" />
+            android:textSize="23sp"
+            android:clickable="false" />
 
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear2"
-        style="@style/relative_custom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:gravity="end"
         android:orientation="horizontal"
+        style="@style/relative_custom"
         android:paddingBottom="11dp"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/imageView"
