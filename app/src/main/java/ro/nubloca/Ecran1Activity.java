@@ -33,9 +33,10 @@ public class Ecran1Activity extends AppCompatActivity {
     private int progressStatus = 0;
     private Handler handler = new Handler();
     int id_tara;
-    String url="http://api.nubloca.ro/tipuri_inmatriculare/";
+    String url = "http://api.nubloca.ro/tipuri_inmatriculare/";
     String acc_lang, cont_lang, result;
-
+    JSONArray response_ids_inmatriculare;
+    String name_tip_inmatriculare;
 
 
     @Override
@@ -103,7 +104,6 @@ public class Ecran1Activity extends AppCompatActivity {
         }, 3000);
 
 
-
     }
 
     private void makePostRequestOnNewThread() {
@@ -112,8 +112,14 @@ public class Ecran1Activity extends AppCompatActivity {
             public void run() {
                 makePostRequest();
                 //handler.sendEmptyMessage(0);
+                String name_tip_inmatriculare_phone = (sharedpreferences.getString("nume_tip_inmatriculare", "default"));
+
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("array", result);
+
+                if (name_tip_inmatriculare_phone.equals("default")) {
+                    editor.putString("nume_tip_inmatriculare", name_tip_inmatriculare);
+                }
                 editor.apply();
             }
         });
@@ -173,7 +179,7 @@ public class Ecran1Activity extends AppCompatActivity {
         try {
             HttpResponse response = httpClient.execute(httpPost);
             result = EntityUtils.toString(response.getEntity());
-            //prelucrareRaspuns();
+            prelucrareRaspuns();
 
         } catch (ClientProtocolException e) {
             // Log exception
@@ -186,4 +192,48 @@ public class Ecran1Activity extends AppCompatActivity {
 
     }
 
+    private void prelucrareRaspuns() {
+        JSONArray jsonArray1 = new JSONArray();
+        try {
+            jsonArray1 = new JSONArray(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < jsonArray1.length(); i++) {
+            JSONObject jsonObject1 = new JSONObject();
+            try {
+                jsonObject1 = (jsonArray1.getJSONObject(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            int ordinea = 0;
+            try {
+                ordinea = jsonObject1.getInt("ordinea");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (ordinea == 1) {
+                //String s = jsonObject1.getClass().getName();
+                try {
+                    response_ids_inmatriculare = jsonObject1.getJSONArray("ids_tipuri_inmatriculare_tipuri_elemente");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    name_tip_inmatriculare = jsonObject1.getString("nume");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        //x = response_ids_inmatriculare.optInt(0);
+        //makePostRequestOnNewThread1();
+        //makePostRequest1();
+
+        /*Toast toast = Toast.makeText(this, name_tip_inmatriculare, Toast.LENGTH_LONG);
+        toast.show();*/
+
+
+    }
 }

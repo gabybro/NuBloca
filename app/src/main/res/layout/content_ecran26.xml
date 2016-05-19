@@ -92,7 +92,8 @@
             android:text="@string/exemplu_4"
             android:textColor="@color/text_layout_custom"
             android:textSize="35sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
         <ro.nubloca.extras.CustomFontTitilliumBold
             android:id="@+id/field2"
@@ -105,7 +106,8 @@
             android:paddingRight="10dp"
             android:text="@string/exemplu_5"
             android:textColor="@color/text_layout_custom"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:visibility="invisible" />
 
         <ro.nubloca.extras.CustomFontTitilliumBold
             android:id="@+id/field3"
@@ -117,7 +119,8 @@
             android:paddingRight="10dp"
             android:text="@string/exemplu_6"
             android:textColor="@color/text_layout_custom"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -146,7 +149,8 @@
         android:text="@string/exemplu_8"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="19sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/imageView9"

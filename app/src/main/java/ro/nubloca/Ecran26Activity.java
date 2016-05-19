@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,19 +28,23 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Collection;
 
 import ro.nubloca.Networking.HttpBodyGet;
 import ro.nubloca.extras.CustomFontTitilliumBold;
 
 public class Ecran26Activity extends AppCompatActivity {
-    int camp=3;
+    int camp = 3;
     String acc_lang, cont_lang;
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
     int[] array;
     String url = "http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
     String result_string;
-    String id, id_tip_element, valoare_demo_imagine, ordinea;
+    int campuri=3;
+    String nume_tip_inmatriculare;
+
+    String[] id_x, id_tip_element_x, valoare_demo_imagine_x, ordinea_x;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,7 @@ public class Ecran26Activity extends AppCompatActivity {
         String maxlength2 = myIntent.getStringExtra("Campul doi");
         String maxlength3 = myIntent.getStringExtra("Campul trei");*/
 
+        nume_tip_inmatriculare = myIntent.getStringExtra("nume_tip_inmatriculare");
         Bundle extras = getIntent().getExtras();
         array = extras.getIntArray("array");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -66,36 +73,16 @@ public class Ecran26Activity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-       // camp = Integer.parseInt(campuri);
-
-
-       /* if (camp==2){
-            View field3 = (View)findViewById(R.id.field3);
-            field3.setVisibility(View.GONE);
-            CustomFontTitilliumBold field1 = (CustomFontTitilliumBold)findViewById(R.id.field1);
-            field1.setText(maxlength1.toString());
-            CustomFontTitilliumBold field2 = (CustomFontTitilliumBold)findViewById(R.id.field2);
-            field2.setText(maxlength2.toString());
-        }
-        else {
-            CustomFontTitilliumBold field1 = (CustomFontTitilliumBold)findViewById(R.id.field1);
-            field1.setText(maxlength1.toString());
-            CustomFontTitilliumBold field2 = (CustomFontTitilliumBold)findViewById(R.id.field2);
-            field2.setText(maxlength2.toString());
-            CustomFontTitilliumBold field3 = (CustomFontTitilliumBold)findViewById(R.id.field3);
-            field3.setText(maxlength3.toString());
-        }*/
-
+        // camp = Integer.parseInt(campuri);
         //Toast toast = Toast.makeText(this, Integer.toString(arrayB[0]), Toast.LENGTH_LONG);
         //toast.show();
-
         //TextView tip_inmatriculare_nume = (TextView)findViewById(R.id.nume_tip_inmatriculare);
         //tip_inmatriculare_nume.setText(name_tip_inmatriculare);
 
         makePostRequestOnNewThread();
 
-        Toast toast = Toast.makeText(this, result_string, Toast.LENGTH_LONG);
-        toast.show();
+        /*Toast toast = Toast.makeText(this, result_string, Toast.LENGTH_LONG);
+        toast.show();*/
     }
 
     private void makePostRequestOnNewThread() {
@@ -104,7 +91,7 @@ public class Ecran26Activity extends AppCompatActivity {
             public void run() {
                 makePostRequest();
 
-                //handler.sendEmptyMessage(0);
+                handler.sendEmptyMessage(0);
             }
         });
         t.start();
@@ -123,9 +110,12 @@ public class Ecran26Activity extends AppCompatActivity {
             //TODO get app_code from phone
             jsonobject_one.put("app_code", "abcdefghijkl123456");
             //TODO replace tip_inmapt with onClick id
-            jsonobject_id.put(array.toString());
-            jsonobject_resursa.put("id", jsonobject_id);
+            //jsonobject_id.put(array.toString());
 
+            for (int k = 0; k < array.length; k++) {
+                jsonobject_id.put(k, array[k]);
+            }
+            jsonobject_resursa.put("id", jsonobject_id);
             jsonobject_identificare.put("user", jsonobject_one);
             jsonobject_identificare.put("resursa", jsonobject_resursa);
             jsonobject_cerute.put("id");
@@ -163,7 +153,7 @@ public class Ecran26Activity extends AppCompatActivity {
         try {
             HttpResponse response = httpClient.execute(httpPost);
             String result = EntityUtils.toString(response.getEntity());
-            result_string=result;
+            result_string = result;
             prelucrareRaspuns();
 
         } catch (ClientProtocolException e) {
@@ -178,42 +168,84 @@ public class Ecran26Activity extends AppCompatActivity {
     }
 
     private void prelucrareRaspuns() {
-        /*JSONArray jsonArray1 = new JSONArray();
+        JSONArray jsonArray1 = new JSONArray();
         try {
             jsonArray1 = new JSONArray(result_string);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JSONObject jsonObject1 = new JSONObject();
-        try {
-            jsonObject1 = (jsonArray1.getJSONObject(0));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        //String s = jsonObject1.getClass().getName();
-        try {
-            id = jsonObject1.getString("id");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            id_tip_element = jsonObject1.getString("id_tip_element");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            valoare_demo_imagine = jsonObject1.getString("valoare_demo_imagine");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            ordinea = jsonObject1.getString("ordinea");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
+        campuri = jsonArray1.length();
+        String[] id= new String [campuri];
+        String[] id_tip_element= new String [campuri];
+        String[] valoare_demo_imagine= new String [campuri];
+        String[] ordinea= new String [campuri];
 
 
+        for(int i=0; i<campuri; i++)
+        {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject = (jsonArray1.getJSONObject(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            //String s = jsonObject1.getClass().getName();
+            try {
+                id[i] = jsonObject.getString("id");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                id_tip_element[i] = jsonObject.getString("id_tip_element");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                valoare_demo_imagine[i] = jsonObject.getString("valoare_demo_imagine");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                ordinea[i] = jsonObject.getString("ordinea");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        id_x=id;
+        id_tip_element_x=id_tip_element;
+        valoare_demo_imagine_x=valoare_demo_imagine;
+        ordinea_x=ordinea;
+
+    }
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+                /*Context context = getApplicationContext();
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, result_string, duration);
+                toast.show();*/
+            generateField();
+        }
+    };
+
+    private void generateField() {
+
+            TextView tip_inmatriculare_nume = (TextView)findViewById(R.id.nume_tip_inmatriculare);
+            tip_inmatriculare_nume.setVisibility(View.VISIBLE);
+            tip_inmatriculare_nume.setText(nume_tip_inmatriculare);
+            CustomFontTitilliumBold field1 = (CustomFontTitilliumBold)findViewById(R.id.field1);
+            field1.setVisibility(View.VISIBLE);
+            field1.setText(valoare_demo_imagine_x[0].toString());
+            CustomFontTitilliumBold field2 = (CustomFontTitilliumBold)findViewById(R.id.field2);
+            field2.setVisibility(View.VISIBLE);
+            field2.setText(valoare_demo_imagine_x[1].toString());
+        if (campuri == 3) {
+            CustomFontTitilliumBold field3 = (CustomFontTitilliumBold) findViewById(R.id.field3);
+            field3.setVisibility(View.VISIBLE);
+            field3.setText(valoare_demo_imagine_x[2].toString());
+        }
 
     }
 

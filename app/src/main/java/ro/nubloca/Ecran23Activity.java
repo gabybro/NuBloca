@@ -1,10 +1,10 @@
 package ro.nubloca;
 
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,13 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +45,7 @@ public class Ecran23Activity extends AppCompatActivity {
 //public class Ecran23Activity extends ListActivity {
 
     JSONArray response_ids_inmatriculare = new JSONArray();
-    String url = "http://api.nubloca.ro/tipuri_inmatriculare/";
+    String url = "http://api.nubloca.ro/tipuri_elemente/";
     //String url1 = "http://api.nubloca.ro/tipuri_elemente/";
     String url1 = "http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
     String result_string, result_string1;
@@ -78,6 +76,7 @@ public class Ecran23Activity extends AppCompatActivity {
         result_tari = (sharedpreferences.getString("array", null));
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
+
 
         //TODO remove from Global Settings(admin)
         // checkState = (sharedpreferences.getBoolean("http_req", true));
@@ -195,9 +194,28 @@ public class Ecran23Activity extends AppCompatActivity {
                 v = vi.inflate(R.layout.raw_list, null);
             }
             final Order o = items.get(position);
+            //RadioButton btn1 = (RadioButton) findViewById(R.id.radioButton);
+            //if (btn1 != null){ btn1.setChecked(true);}
             if (o != null) {
+                String name_tip_inmatriculare_phone = (sharedpreferences.getString("nume_tip_inmatriculare", "default"));
+                String aaa = "default";
                 LinearLayout ll = (LinearLayout) v.findViewById(R.id.linear1);
                 LinearLayout lll = (LinearLayout) v.findViewById(R.id.linear2);
+                RadioButton btn1 = (RadioButton) v.findViewById(R.id.radioButton);
+
+
+                if (name_tip_inmatriculare_phone.equals(o.getOrderName())) {
+                    //Toast.makeText(getBaseContext(), "asd", Toast.LENGTH_SHORT).show();
+                    //ll.setBackgroundColor(Color.parseColor("#00ffff"));
+                    //btn1.setBackgroundColor(Color.parseColor("#ff00ff"));
+                    btn1.setChecked(true);
+
+                }
+                /*if (aaa.equals("default")) {
+                    if (btn1 != null){ btn1.setChecked(true);}
+                    boolean x = true;
+                }*/
+
                 final String x = o.getOrderId();
                 TextView tt = (TextView) v.findViewById(R.id.text);
                 if (tt != null) {
@@ -207,10 +225,25 @@ public class Ecran23Activity extends AppCompatActivity {
                     ll.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+
+
                             //Intent myIntent = new Intent(MainActivity.this, SecondActivity.class);
                             //startActivity(myIntent);
-                            Toast.makeText(getBaseContext(), "asd" + x, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getBaseContext(), "asd" + x, Toast.LENGTH_SHORT).show();
 
+
+
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            //editor.put("array", o.getOrderIdsTip());
+
+
+                            editor.putString("nume_tip_inmatriculare", o.getOrderName());
+                            editor.commit();
+                            Intent myIntent = new Intent(Ecran23Activity.this, Ecran20Activity.class);
+                            //myIntent.putExtra("array", o.getOrderIdsTip());
+                            //myIntent.putExtra("nume_tip_inmatriculare", o.getOrderName());
+                            startActivity(myIntent);
+                            finish();
 
                         }
                     });
@@ -223,6 +256,7 @@ public class Ecran23Activity extends AppCompatActivity {
                             //startActivity(new Intent(Ecran23Activity.this, Ecran26Activity.class));
                             Intent myIntent = new Intent(Ecran23Activity.this, Ecran26Activity.class);
                             myIntent.putExtra("array", o.getOrderIdsTip());
+                            myIntent.putExtra("nume_tip_inmatriculare", o.getOrderName());
 
                             //myIntent.putExtra("array", m_orders.toString());
 
@@ -252,13 +286,13 @@ public class Ecran23Activity extends AppCompatActivity {
                 //editor.apply();
                 handler.sendEmptyMessage(0);
                 //send data to -->next screen (Exemplu)
-                Intent myIntent = new Intent(Ecran23Activity.this, Ecran26Activity.class);
+                //Intent myIntent = new Intent(Ecran23Activity.this, Ecran26Activity.class);
                 // myIntent.putExtra("campuri", campuri + "");
 ///                myIntent.putExtra("name_tip_inmatriculare", name_tip_inmatriculare);
                 //             myIntent.putExtra("Campul unu", maxLength1);
                 //           myIntent.putExtra("Campul doi", maxLength2);
                 //         myIntent.putExtra("Campul trei", maxLength3);
-                startActivity(myIntent);
+                //startActivity(myIntent);
 
             }
         });
@@ -289,17 +323,18 @@ public class Ecran23Activity extends AppCompatActivity {
             //TODO get app_code from phone
             jsonobject_one.put("app_code", "abcdefghijkl123456");
             //TODO replace tip_inmapt with onClick id
-            jsonobject_id.put(tip_inmat);
+            //for (int k = 0; k < array.length; k++) {
+            //  jsonobject_id.put(k, array[k]);
+            //}
+
             jsonobject_resursa.put("id", jsonobject_id);
 
             jsonobject_identificare.put("user", jsonobject_one);
             jsonobject_identificare.put("resursa", jsonobject_resursa);
             jsonobject_cerute.put("id");
-            jsonobject_cerute.put("nume");
-            jsonobject_cerute.put("id_tara");
-            jsonobject_cerute.put("foto_background");
-            jsonobject_cerute.put("url_imagine");
-            jsonobject_cerute.put("ids_tipuri_inmatriculare_tipuri_elemente");
+            jsonobject_cerute.put("tip");
+            jsonobject_cerute.put("maxlength");
+
 
             js.put("identificare", jsonobject_identificare);
             js.put("cerute", jsonobject_cerute);

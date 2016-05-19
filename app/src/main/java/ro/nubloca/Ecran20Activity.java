@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -34,8 +35,10 @@ public class Ecran20Activity extends AppCompatActivity {
     int campuri=3;
     int id_tara=147;
     String acc_lang, cont_lang;
+    int[] array;
     String result;
     String url="http://api.nubloca.ro/tipuri_inmatriculare/";
+    String name_tip_inmatriculare;
 
 
     @Override
@@ -47,16 +50,24 @@ public class Ecran20Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        campuri = (sharedpreferences.getInt("campuri", 3));
-        id_tara = (sharedpreferences.getInt("id_tara", 147));
+
+
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
-
+        name_tip_inmatriculare = (sharedpreferences.getString("nume_tip_inmatriculare", "default"));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        //Intent myIntent = getIntent();
+        //nume_tip_inmatriculare = myIntent.getStringExtra("nume_tip_inmatriculare");
+        //Bundle extras = getIntent().getExtras();
+        //array = extras.getIntArray("array");
+
+        TextView tip_inmatriculare_nume = (TextView)findViewById(R.id.nume_tip_inmatriculare);
+        tip_inmatriculare_nume.setText(name_tip_inmatriculare);
 
         //View plate3 = (View)findViewById(R.id.plate3);
         //if(campuri==2) {
@@ -92,6 +103,7 @@ public class Ecran20Activity extends AppCompatActivity {
             public void onClick(View v) {
                 //makePostRequestOnNewThread();
                 startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
+                finish();
 
             }
         });
