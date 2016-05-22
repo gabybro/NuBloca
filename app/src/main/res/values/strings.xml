@@ -43,7 +43,7 @@
     <string name="title_activity_ecran22">Mesaje Standard</string>
     <string name="title_activity_ecran23">Tip înmatriculare</string>
     <string name="title_activity_ecran24">Istoric numere</string>
-    <string name="title_activity_ecran25">Țara</string>
+    <string name="title_activity_ecran25">Alege țara</string>
     <string name="title_activity_ecran26">Exemplu</string>
     <string name="title_activity_ecran27">Mesaj întreg</string>
     <string name="title_activity_ecran28">Propune mesaj</string>
@@ -129,7 +129,7 @@
     <string name="istoric_numere_4">B 66534</string>
     <string name="istoric_numere_5">Șterge</string>
 
-    <!--string ecran25 <=> Tara-->
+    <!--string ecran25 <=> Alege Tara-->
     <string name="tara_1">Alege țara:</string>
     <string name="tara_2">România</string>
     <string name="tara_3">Bulgaria</string>

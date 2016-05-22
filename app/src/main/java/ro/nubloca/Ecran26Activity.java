@@ -3,6 +3,9 @@ package ro.nubloca;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -43,8 +46,10 @@ public class Ecran26Activity extends AppCompatActivity {
     String result_string;
     int campuri=3;
     String nume_tip_inmatriculare;
+    String get_order_ids_tip;
 
     String[] id_x, id_tip_element_x, valoare_demo_imagine_x, ordinea_x;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,23 +59,22 @@ public class Ecran26Activity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
-        Intent myIntent = getIntent();
-        /*
-        String campuri = myIntent.getStringExtra("campuri");
-        String name_tip_inmatriculare = myIntent.getStringExtra("name_tip_inmatriculare");
-        String maxlength1 = myIntent.getStringExtra("Campul unu");
-        String maxlength2 = myIntent.getStringExtra("Campul doi");
-        String maxlength3 = myIntent.getStringExtra("Campul trei");*/
+        get_order_ids_tip = (sharedpreferences.getString("getOrderIdsTip", null));
 
+        Intent myIntent = getIntent();
         nume_tip_inmatriculare = myIntent.getStringExtra("nume_tip_inmatriculare");
-        Bundle extras = getIntent().getExtras();
-        array = extras.getIntArray("array");
+        //Bundle extras = getIntent().getExtras();
+        //array = extras.getIntArray("array");
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        upArrow.setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // camp = Integer.parseInt(campuri);
@@ -110,12 +114,9 @@ public class Ecran26Activity extends AppCompatActivity {
             //TODO get app_code from phone
             jsonobject_one.put("app_code", "abcdefghijkl123456");
             //TODO replace tip_inmapt with onClick id
-            //jsonobject_id.put(array.toString());
-
-            for (int k = 0; k < array.length; k++) {
-                jsonobject_id.put(k, array[k]);
-            }
-            jsonobject_resursa.put("id", jsonobject_id);
+            JSONArray one = new JSONArray(get_order_ids_tip);
+            //jsonobject_id.put(one.getJSONArray(0));
+            jsonobject_resursa.put("id", one);
             jsonobject_identificare.put("user", jsonobject_one);
             jsonobject_identificare.put("resursa", jsonobject_resursa);
             jsonobject_cerute.put("id");
@@ -248,5 +249,13 @@ public class Ecran26Activity extends AppCompatActivity {
         }
 
     }
-
+    @Override
+    public void onBackPressed()
+    {
+        // code here to show dialog
+        Intent myIntent = new Intent(Ecran26Activity.this, Ecran23Activity.class);
+        startActivity(myIntent);
+        finish();
+        super.onBackPressed();  // optional depending on your needs
+    }
 }

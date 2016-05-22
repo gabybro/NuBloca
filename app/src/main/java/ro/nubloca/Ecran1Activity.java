@@ -10,20 +10,9 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
-import ro.nubloca.Networking.HttpBodyGet;
+import ro.nubloca.Networking.GetTipNumar;
 
 public class Ecran1Activity extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs";
@@ -52,40 +41,14 @@ public class Ecran1Activity extends AppCompatActivity {
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
 
-        /*new Thread(new Runnable() {
-            public void run() {
-                while (progressStatus < 100) {
-                    progressStatus += 1;
-                    // Update the progress bar and display the
-                    //current value in the text view
-                    handler.post(new Runnable() {
-                        public void run() {
-                            progressBar.setProgress(progressStatus);
 
-                        }
-                    });
-                    try {
-                        // Sleep for 20 milliseconds.
-                        //Just to display the progress slowly
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                //verifica TOS-ul
-                if (!Tos) {
-                    finish();
-                    //merge la ecranul 4 (citirea TOS-ului)
-                    startActivity(new Intent(Ecran1Activity.this, Ecran3Activity.class));
-                } else {
-                    finish();
-                    //merge la ecranul 7(ecranul principal)
-                    startActivity(new Intent(Ecran1Activity.this, Ecran7Activity.class));
-                }
-            }
-        }).start();*/
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_IN);
+
+
         makePostRequestOnNewThread();
+
+
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -106,134 +69,28 @@ public class Ecran1Activity extends AppCompatActivity {
 
     }
 
+
+
     private void makePostRequestOnNewThread() {
+        final GetTipNumar nr = new GetTipNumar();
+        nr.setParam(id_tara, acc_lang, cont_lang);
+
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                makePostRequest();
                 //handler.sendEmptyMessage(0);
                 String name_tip_inmatriculare_phone = (sharedpreferences.getString("nume_tip_inmatriculare", "default"));
-
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("array", result);
+                editor.putString("array", nr.getRaspuns());
 
                 if (name_tip_inmatriculare_phone.equals("default")) {
-                    editor.putString("nume_tip_inmatriculare", name_tip_inmatriculare);
+                    editor.putString("nume_tip_inmatriculare", nr.getNumeUsed());
+                    editor.putInt("nume_tip_inmatriculare_id", nr.getIdNumeUsed());
                 }
+                editor.putString("ids_tipuri_inmatriculare_tipuri_elemente", nr.getIdsUsed());
                 editor.apply();
             }
         });
         t.start();
-    }
-
-    private void makePostRequest() {
-        JSONObject jsonobject_identificare = new JSONObject();
-        JSONArray jsonobject_cerute = new JSONArray();
-        JSONObject js = new JSONObject();
-
-        try {
-            JSONObject jsonobject_one = new JSONObject();
-            JSONObject jsonobject_resursa = new JSONObject();
-            JSONArray jsonobject_id = new JSONArray();
-
-            //TODO get app_code from phone
-            jsonobject_one.put("app_code", "abcdefghijkl123456");
-            //TODO replace tip_inmapt with onClick id
-            jsonobject_id.put(id_tara);
-            jsonobject_resursa.put("id_tara", jsonobject_id);
-
-            jsonobject_identificare.put("user", jsonobject_one);
-            jsonobject_identificare.put("resursa", jsonobject_resursa);
-            jsonobject_cerute.put("id");
-            jsonobject_cerute.put("nume");
-            jsonobject_cerute.put("ids_tipuri_inmatriculare_tipuri_elemente");
-            jsonobject_cerute.put("ordinea");
-
-            js.put("identificare", jsonobject_identificare);
-            js.put("cerute", jsonobject_cerute);
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpBodyGet httpPost = new HttpBodyGet(url);
-        httpPost.setHeader("Content-Type", "application/json");
-        httpPost.setHeader("Content-Language", cont_lang);
-        httpPost.setHeader("Accept-Language", acc_lang);
-
-
-        //Encoding POST data
-        try {
-
-            httpPost.setEntity(new ByteArrayEntity(js.toString().getBytes("UTF8")));
-
-        } catch (UnsupportedEncodingException e) {
-            // log exception
-            e.printStackTrace();
-        }
-
-        //making POST request.
-        try {
-            HttpResponse response = httpClient.execute(httpPost);
-            result = EntityUtils.toString(response.getEntity());
-            prelucrareRaspuns();
-
-        } catch (ClientProtocolException e) {
-            // Log exception
-            e.printStackTrace();
-        } catch (IOException e) {
-            // Log exception
-            e.printStackTrace();
-        }
-
-
-    }
-
-    private void prelucrareRaspuns() {
-        JSONArray jsonArray1 = new JSONArray();
-        try {
-            jsonArray1 = new JSONArray(result);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        for (int i = 0; i < jsonArray1.length(); i++) {
-            JSONObject jsonObject1 = new JSONObject();
-            try {
-                jsonObject1 = (jsonArray1.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            int ordinea = 0;
-            try {
-                ordinea = jsonObject1.getInt("ordinea");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            if (ordinea == 1) {
-                //String s = jsonObject1.getClass().getName();
-                try {
-                    response_ids_inmatriculare = jsonObject1.getJSONArray("ids_tipuri_inmatriculare_tipuri_elemente");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    name_tip_inmatriculare = jsonObject1.getString("nume");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        //x = response_ids_inmatriculare.optInt(0);
-        //makePostRequestOnNewThread1();
-        //makePostRequest1();
-
-        /*Toast toast = Toast.makeText(this, name_tip_inmatriculare, Toast.LENGTH_LONG);
-        toast.show();*/
-
-
     }
 }

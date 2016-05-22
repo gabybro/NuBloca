@@ -3,6 +3,9 @@ package ro.nubloca;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -41,6 +44,7 @@ public class Ecran20Activity extends AppCompatActivity {
     String name_tip_inmatriculare;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,13 +58,15 @@ public class Ecran20Activity extends AppCompatActivity {
 
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
-        name_tip_inmatriculare = (sharedpreferences.getString("nume_tip_inmatriculare", "default"));
+        name_tip_inmatriculare = (sharedpreferences.getString("nume_tip_inmatriculare", "-"));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        upArrow.setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
         //Intent myIntent = getIntent();
         //nume_tip_inmatriculare = myIntent.getStringExtra("nume_tip_inmatriculare");
         //Bundle extras = getIntent().getExtras();
@@ -102,8 +108,11 @@ public class Ecran20Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //makePostRequestOnNewThread();
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putInt("positionExemplu", -1);
+                editor.commit();
                 startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
-                finish();
+                //finish();
 
             }
         });

@@ -154,6 +154,7 @@
             android:name=".Ecran23Activity"
             android:label="@string/title_activity_ecran23"
             android:screenOrientation="portrait"
+            android:parentActivityName=".Ecran20Activity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

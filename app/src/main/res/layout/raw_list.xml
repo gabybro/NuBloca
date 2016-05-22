@@ -20,11 +20,12 @@
         android:orientation="horizontal"
         android:focusable="false">
 
-        <RadioButton
+        <ImageView
             android:id="@+id/radioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="20dp"
+            android:background="@drawable/radio"
             android:layout_marginStart="20dp"
             android:clickable="false" />
 

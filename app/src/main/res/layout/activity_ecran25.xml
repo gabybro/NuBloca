@@ -33,14 +33,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <ro.nubloca.extras.CustomFontTitilliumRegular
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="85dp"
-        android:text="@string/tara_1"
-        android:textSize="23dp"
-        android:paddingLeft="50dp" />
-
     <include layout="@layout/content_ecran25" />
 
 </android.support.design.widget.CoordinatorLayout>
