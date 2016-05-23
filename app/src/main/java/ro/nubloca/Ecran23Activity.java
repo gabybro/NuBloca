@@ -30,12 +30,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import ro.nubloca.Networking.GetElemNr;
 import ro.nubloca.Networking.GetTipNumar;
 import ro.nubloca.Networking.Order;
 
 
 public class Ecran23Activity extends AppCompatActivity {
-//public class Ecran23Activity extends ListActivity {
 
     int id_tara = 147;
     JSONArray response_ids_inmatriculare = new JSONArray();
@@ -46,6 +46,7 @@ public class Ecran23Activity extends AppCompatActivity {
     String result_tari;
     String name_tip_inmatriculare;
     int positionExemplu=-1;
+    String country_select;
     int x = 0;
     int campuri = 3;
     public static final String MyPREFERENCES = "MyPrefs";
@@ -59,7 +60,7 @@ public class Ecran23Activity extends AppCompatActivity {
     private OrderAdapter m_adapter;
     private Runnable viewOrders;
     JSONArray jsonArray = null;
-
+    String elem1;
 
 
 
@@ -75,12 +76,7 @@ public class Ecran23Activity extends AppCompatActivity {
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
         positionExemplu = (sharedpreferences.getInt("positionExemplu", -1));
         id_tara = (sharedpreferences.getInt("id_tara", 147));
-
-
-
-        //TODO remove from Global Settings(admin)
-        // checkState = (sharedpreferences.getBoolean("http_req", true));
-        //tip_inmat = (sharedpreferences.getInt("tip_inmat", 1));
+        country_select = (sharedpreferences.getString("country_select", "Romania"));
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -124,10 +120,16 @@ public class Ecran23Activity extends AppCompatActivity {
         //result_tari = (sharedpreferences.getString("array", null));
         //populate_order();
 
+        TextView country = (TextView) findViewById(R.id.textViewCountry);
+        country.setText(country_select);
 
+        ImageView flag = (ImageView) findViewById(R.id.flag);
+        ImageView bkg = (ImageView) findViewById(R.id.img);
+        if (id_tara==31){
+            flag.setBackgroundResource(R.drawable.flag_bg);
+            bkg.setImageResource(R.drawable.bg);
+        }
 
-
-        View flag = (View) findViewById(R.id.flag);
         if (flag != null)
             flag.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -222,25 +224,33 @@ public class Ecran23Activity extends AppCompatActivity {
                     ll.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
-
-                            //Intent myIntent = new Intent(MainActivity.this, SecondActivity.class);
-                            //startActivity(myIntent);
-                            //Toast.makeText(getBaseContext(), "asd" + x, Toast.LENGTH_SHORT).show();
-
-
                             SharedPreferences.Editor editor = sharedpreferences.edit();
-                            //editor.put("array", o.getOrderIdsTip());
                             editor.putInt("nume_tip_inmatriculare_id", o.getOrderId());
                             editor.putString("nume_tip_inmatriculare", o.getOrderName());
                             editor.putString("getOrderIdsTip", o.getOrderIdsTip().toString());
+                            editor.putInt("campuri", o.getOrderIdsTip().length());
+                            final GetElemNr elem = new GetElemNr();
+
+                            Thread t = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    elem.setParam(o.getOrderIdsTip(), acc_lang, cont_lang);
+                                    elem1 = elem.getRaspuns();
+                                }
+                            });
+                            t.start();
+                            try {
+                                t.join();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            editor.putString("ElemNumere",elem1);
+
+
                             editor.commit();
                             Intent myIntent = new Intent(Ecran23Activity.this, Ecran20Activity.class);
-                            //myIntent.putExtra("array", o.getOrderIdsTip());
-                            //myIntent.putExtra("nume_tip_inmatriculare", o.getOrderName());
                             startActivity(myIntent);
                             finish();
-
                         }
                     });
                 }
@@ -253,22 +263,11 @@ public class Ecran23Activity extends AppCompatActivity {
                             editor.putString("getOrderIdsTip", o.getOrderIdsTip().toString());
                             editor.commit();
                             Intent myIntent = new Intent(Ecran23Activity.this, Ecran26Activity.class);
-                            //myIntent.put("array", o.getOrderIdsTip());
                             myIntent.putExtra("nume_tip_inmatriculare", o.getOrderName());
-
-                            //myIntent.putExtra("array", m_orders.toString());
-
                             startActivity(myIntent);
-                            //finish();
                         }
                     });
                 }
-
-                //TextView bt = (TextView) v.findViewById(R.id.bottomtext);
-
-                //if(bt != null){
-                //  bt.setText("Status: "+ o.getOrderId());
-                //}
             }
             return v;
         }
@@ -293,8 +292,6 @@ public class Ecran23Activity extends AppCompatActivity {
 
 
     private void populate_order() {
-        //result_tari = (sharedpreferences.getString("array", null));
-        //getDataThread();
         try {
             jsonArray = new JSONArray(result_tari);
         } catch (JSONException e) {

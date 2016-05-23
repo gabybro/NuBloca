@@ -4,26 +4,21 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +40,7 @@ public class Ecran25Activity extends AppCompatActivity {
     private ArrayList<Order> m_orders = null;
     private OrderAdapter m_adapter;
     private Runnable viewOrders;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +67,7 @@ public class Ecran25Activity extends AppCompatActivity {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                //handler.sendEmptyMessage(0);
-                tarr=tari.getRaspuns();
-
+                tarr = tari.getRaspuns();
             }
         });
         t.start();
@@ -106,52 +100,6 @@ public class Ecran25Activity extends AppCompatActivity {
         m_ProgressDialog = ProgressDialog.show(Ecran25Activity.this,
                 "Please wait...", "Retrieving data ...", true);
 
-
-      /*  if (id_tara == 147) {
-            ImageView iv = (ImageView) findViewById(R.id.radioButton1);
-            iv.setImageResource(R.drawable.radio_press);
-
-        } else if (id_tara == 31) {
-            ImageView iv = (ImageView) findViewById(R.id.radioButton2);
-            iv.setImageResource(R.drawable.radio_press);
-
-        }*/
-
-
-        /*RelativeLayout rel = (RelativeLayout) this.findViewById(R.id.rel_bar1);
-        if (rel != null)
-            rel.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    if (id_tara != 147) {
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.putInt("id_tara", 147);
-                        editor.putString("nume_tip_inmatriculare", "default");
-                        editor.putInt("nume_tip_inmatriculare_id", 0);
-                        editor.commit();
-                        startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
-                        finish();
-                    }
-                }
-            });*/
-
-        /*RelativeLayout rel1 = (RelativeLayout) this.findViewById(R.id.rel_bar2);
-        if (rel1 != null)
-            rel1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (id_tara != 31) {
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.putInt("id_tara", 31);
-                        editor.putString("nume_tip_inmatriculare", "default");
-                        editor.putInt("nume_tip_inmatriculare_id", 0);
-                        editor.commit();
-                        startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
-                        finish();
-                    }
-                }
-            });*/
 
     }
 
@@ -200,51 +148,37 @@ public class Ecran25Activity extends AppCompatActivity {
                 v = vi.inflate(R.layout.raw_list1, null);
             }
             final Order o = items.get(position);
-            //RadioButton btn1 = (RadioButton) findViewById(R.id.radioButton);
-            //if (btn1 != null){ btn1.setChecked(true);}
+            ImageView iiv = (ImageView) v.findViewById(R.id.radioButton1);
+            RelativeLayout rel = (RelativeLayout) v.findViewById(R.id.rel_bar1);
             if (o != null) {
-                //int id_name_tip_inmatriculare_phone = (sharedpreferences.getInt("nume_tip_inmatriculare_id", 0));
-                /*if (id_name_tip_inmatriculare_phone==0){
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putInt("nume_tip_inmatriculare_id", o.getOrderId());
-                    editor.putString("nume_tip_inmatriculare", o.getOrderName());
-                    editor.commit();
-                }*/
-               // LinearLayout ll = (LinearLayout) v.findViewById(R.id.linear1);
-               // LinearLayout lll = (LinearLayout) v.findViewById(R.id.linear2);
-               // ImageView btn1 = (ImageView) v.findViewById(R.id.radioButton);
-               /* if(positionExemplu==position){
-                    ImageView image = (ImageView) v.findViewById(R.id.chevron);
-                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
-                    image.startAnimation(animation);
-                }*/
+                if ((id_tara == o.getOrderId()) && (iiv != null)) {
 
-                /*if (id_name_tip_inmatriculare_phone==(o.getOrderId())) {
-                    //Toast.makeText(getBaseContext(), "asd", Toast.LENGTH_SHORT).show();
-                    //ll.setBackgroundColor(Color.parseColor("#00ffff"));
-                    //btn1.setBackgroundColor(Color.parseColor("#ff00ff"));
-                    btn1.setImageResource(R.drawable.radio_press);
+                    iiv.setImageResource(R.drawable.radio_press);
+                } else {
+                    iiv.setImageResource(R.drawable.radio);
+                }
 
-                }*/
-                /*if (aaa.equals("default")) {
-                    if (btn1 != null){ btn1.setChecked(true);}
-                    boolean x = true;
-                }*/
+                if (rel != null)
+                    rel.setOnClickListener(new View.OnClickListener() {
 
-                //final int x = o.getOrderId();
+                        @Override
+                        public void onClick(View v) {
+                            if (id_tara != o.getOrderId()) {
+                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                editor.putInt("id_tara", o.getOrderId());
+                                editor.putString("nume_tip_inmatriculare", "default");
+                                editor.putInt("nume_tip_inmatriculare_id", 0);
+                                editor.putString("country_select",o.getOrderName());
+                                editor.commit();
+                                startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
+                                finish();
+                            }
+                        }
+                    });
                 TextView tt = (TextView) v.findViewById(R.id.text1);
                 if (tt != null) {
                     tt.setText(o.getOrderName());
                 }
-               // if (ll != null) { }
-               // if (lll != null) {  //set onclick
-               //           }
-
-                //TextView bt = (TextView) v.findViewById(R.id.bottomtext);
-
-                //if(bt != null){
-                //  bt.setText("Status: "+ o.getOrderId());
-                //}
             }
             return v;
         }
@@ -252,8 +186,6 @@ public class Ecran25Activity extends AppCompatActivity {
 
 
     private void populate_order() {
-        //result_tari = (sharedpreferences.getString("array", null));
-        //getDataThread();
 
         try {
             jsonArray = new JSONArray(tarr);
@@ -283,7 +215,6 @@ public class Ecran25Activity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            ////////////////////////////////////
             m_orders.add(oz);
         }
 

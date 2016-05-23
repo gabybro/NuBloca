@@ -42,7 +42,7 @@
             android:clickable="true" />
 
         <ro.nubloca.extras.CustomFontTitilliumRegular
-            android:id="@+id/textView25"
+            android:id="@+id/textViewCountry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/flag"

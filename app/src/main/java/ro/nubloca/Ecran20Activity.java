@@ -9,40 +9,38 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
-import ro.nubloca.Networking.HttpBodyGet;
+import java.util.regex.Pattern;
 
 public class Ecran20Activity extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
-    int campuri=3;
-    int id_tara=147;
+    int campuri = 3;
+    int id_tara = 147;
     String acc_lang, cont_lang;
     int[] array;
     String result;
-    String url="http://api.nubloca.ro/tipuri_inmatriculare/";
+    String url = "http://api.nubloca.ro/tipuri_inmatriculare/";
     String name_tip_inmatriculare;
-
+    String ElemNumere;
+    int id0, id1, id2;
+    String tip0, tip1, tip2;
+    int maxlength0, maxlength1, maxlength2;
+    EditText img0, img1, img2;
 
 
     @Override
@@ -59,6 +57,9 @@ public class Ecran20Activity extends AppCompatActivity {
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
         name_tip_inmatriculare = (sharedpreferences.getString("nume_tip_inmatriculare", "-"));
+        campuri = (sharedpreferences.getInt("campuri", 3));
+        ElemNumere = (sharedpreferences.getString("ElemNumere", "null"));
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -72,8 +73,116 @@ public class Ecran20Activity extends AppCompatActivity {
         //Bundle extras = getIntent().getExtras();
         //array = extras.getIntArray("array");
 
-        TextView tip_inmatriculare_nume = (TextView)findViewById(R.id.nume_tip_inmatriculare);
+
+        /*Context context = getApplicationContext();
+        CharSequence text = "request done!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, ElemNumere, duration);
+        toast.show();*/
+
+
+        TextView tip_inmatriculare_nume = (TextView) findViewById(R.id.nume_tip_inmatriculare);
         tip_inmatriculare_nume.setText(name_tip_inmatriculare);
+
+        JSONArray plate = new JSONArray();
+        try {
+            plate = new JSONArray(ElemNumere);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JSONObject obj0, obj1, obj2;
+        img2 = (EditText) findViewById(R.id.plate3);
+
+        InputFilter filter = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; ++i) {
+                    if (!Pattern.compile("[1234567890]*").matcher(String.valueOf(source.charAt(i))).matches()) {
+                        return "";
+                    }
+                }
+
+                return null;
+            }
+        };
+
+        InputFilter filter1 = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; ++i) {
+                    if (!Pattern.compile("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]*").matcher(String.valueOf(source.charAt(i))).matches()) {
+                        return "";
+                    }
+                }
+
+                return null;
+            }
+        };
+        try {
+            id0 = plate.getJSONObject(0).getInt("id");
+            tip0 = plate.getJSONObject(0).getString("tip");
+            maxlength0 = plate.getJSONObject(0).getInt("maxlength");
+            img0 = (EditText) findViewById(R.id.plate1);
+            if (tip0.equals("CIFRE")) {
+                img0.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
+                img0.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(maxlength0)});
+            } else if (tip0.equals("LITERE")) {
+                img0.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+                img0.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(maxlength0)});
+            } else img0.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength0)});
+            img0.setText("");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            id1 = plate.getJSONObject(1).getInt("id");
+            tip1 = plate.getJSONObject(1).getString("tip");
+            maxlength1 = plate.getJSONObject(1).getInt("maxlength");
+            img1 = (EditText) findViewById(R.id.plate2);
+
+            if (tip1.equals("CIFRE")) {
+                img1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
+                img1.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(maxlength1)});
+            } else if (tip1.equals("LITERE")) {
+                img1.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+                img1.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(maxlength1)});
+            } else {
+                img1.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength1)});
+            }
+
+            img1.setText("");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (campuri < 3) {
+
+            img2.setVisibility(View.GONE);
+
+
+        } else {
+            try {
+                id2 = plate.getJSONObject(2).getInt("id");
+                tip2 = plate.getJSONObject(2).getString("tip");
+                maxlength2 = plate.getJSONObject(2).getInt("maxlength");
+                img2.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength2)});
+                if (tip2.equals("CIFRE")) {
+                    img2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
+                    img2.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(maxlength1)});
+                } else if (tip2.equals("LITERE")) {
+                    img2.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+                    img2.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(maxlength1)});
+                } else
+                    img2.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength1)});
+                img2.setText("");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
         //View plate3 = (View)findViewById(R.id.plate3);
         //if(campuri==2) {
@@ -81,135 +190,56 @@ public class Ecran20Activity extends AppCompatActivity {
         //}
 
         View btn3 = (View) this.findViewById(R.id.textView24);
-        if(btn3!=null)
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Ecran20Activity.this, Ecran24Activity.class));
+        if (btn3 != null)
+            btn3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(Ecran20Activity.this, Ecran24Activity.class));
 
-            }
-        });
+                }
+            });
 
         View btn5 = (View) this.findViewById(R.id.textView23);
-        if (btn5!=null)
-        btn5.setOnClickListener(new View.OnClickListener() {
+        if (btn5 != null)
+            btn5.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Ecran20Activity.this, Ecran13Activity.class));
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(Ecran20Activity.this, Ecran13Activity.class));
 
-            }
-        });
+                }
+            });
 
         View btn2 = (View) this.findViewById(R.id.relativ2);
-        if(btn2!=null)
-        btn2.setOnClickListener(new View.OnClickListener() {
+        if (btn2 != null)
+            btn2.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                //makePostRequestOnNewThread();
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putInt("positionExemplu", -1);
-                editor.commit();
-                startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
-                //finish();
+                @Override
+                public void onClick(View v) {
+                    //makePostRequestOnNewThread();
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putInt("positionExemplu", -1);
+                    editor.commit();
+                    startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
+                    //finish();
 
-            }
-        });
+                }
+            });
 
 
         LinearLayout btn1 = (LinearLayout) this.findViewById(R.id.lin_bar1);
-        if(btn1!=null)
-        btn1.setOnClickListener(new View.OnClickListener() {
+        if (btn1 != null)
+            btn1.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Ecran20Activity.this, Ecran22Activity.class));
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(Ecran20Activity.this, Ecran22Activity.class));
+                }
+            });
 
 
     }
-  /*  private void makePostRequestOnNewThread() {
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                makePostRequest();
-                //handler.sendEmptyMessage(0);
-                Intent myIntent = new Intent(Ecran20Activity.this, Ecran23Activity.class);
-                myIntent.putExtra("array", result);
-                startActivity(myIntent);
 
-            }
-        });
-        t.start();
-    }*/
-
-    /*private void makePostRequest() {
-        JSONObject jsonobject_identificare = new JSONObject();
-        JSONArray jsonobject_cerute = new JSONArray();
-        JSONObject js = new JSONObject();
-
-        try {
-            JSONObject jsonobject_one = new JSONObject();
-            JSONObject jsonobject_resursa = new JSONObject();
-            JSONArray jsonobject_id = new JSONArray();
-
-            //TODO get app_code from phone
-            jsonobject_one.put("app_code", "abcdefghijkl123456");
-            //TODO replace tip_inmapt with onClick id
-            jsonobject_id.put(id_tara);
-            jsonobject_resursa.put("id_tara", jsonobject_id);
-
-            jsonobject_identificare.put("user", jsonobject_one);
-            jsonobject_identificare.put("resursa", jsonobject_resursa);
-            jsonobject_cerute.put("id");
-            jsonobject_cerute.put("nume");
-            jsonobject_cerute.put("ids_tipuri_inmatriculare_tipuri_elemente");
-            jsonobject_cerute.put("ordinea");
-
-            js.put("identificare", jsonobject_identificare);
-            js.put("cerute", jsonobject_cerute);
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpBodyGet httpPost = new HttpBodyGet(url);
-        httpPost.setHeader("Content-Type", "application/json");
-        httpPost.setHeader("Content-Language", cont_lang);
-        httpPost.setHeader("Accept-Language", acc_lang);
-
-
-        //Encoding POST data
-        try {
-
-            httpPost.setEntity(new ByteArrayEntity(js.toString().getBytes("UTF8")));
-
-        } catch (UnsupportedEncodingException e) {
-            // log exception
-            e.printStackTrace();
-        }
-
-        //making POST request.
-        try {
-            HttpResponse response = httpClient.execute(httpPost);
-            result = EntityUtils.toString(response.getEntity());
-            //prelucrareRaspuns();
-
-        } catch (ClientProtocolException e) {
-            // Log exception
-            e.printStackTrace();
-        } catch (IOException e) {
-            // Log exception
-            e.printStackTrace();
-        }
-
-
-    }*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu5, menu);
@@ -221,6 +251,12 @@ public class Ecran20Activity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu1) {
+            Context context = getApplicationContext();
+            CharSequence text = "request done!";
+            text = img0.getText().toString().toUpperCase()+" "+img1.getText().toString()+" "+img2.getText().toString();
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
             finish();
         }
 

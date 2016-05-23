@@ -14,17 +14,19 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 
-public class GetTari {
+public class GetElemNr {
 
 
-    String url = "http://api.nubloca.ro/tari/";
+    String url = "http://api.nubloca.ro/tipuri_elemente/";
     String acc_lang, cont_lang;
+    JSONArray elem;
 
     private String result;
 
-    public void setParam(String acc_lang, String cont_lang) {
+    public void setParam(JSONArray elem, String acc_lang, String cont_lang) {
         this.acc_lang = acc_lang;
         this.cont_lang = cont_lang;
+        this.elem = elem;
 
     }
 
@@ -48,14 +50,15 @@ public class GetTari {
             //TODO get app_code from phone
             jsonobject_one.put("app_code", "abcdefghijkl123456");
 
-            jsonobject_id.put("ACTIV");
-            jsonobject_resursa.put("status", jsonobject_id);
+            for(int i=0; i<elem.length(); i++ ){
+                jsonobject_id.put(elem.optInt(i));
+            }
+            jsonobject_resursa.put("id", jsonobject_id);
             jsonobject_identificare.put("user", jsonobject_one);
             jsonobject_identificare.put("resursa", jsonobject_resursa);
             jsonobject_cerute.put("id");
-            jsonobject_cerute.put("nume");
-            jsonobject_cerute.put("ids_tipuri_inmatriculare_tipuri_elemente");
-            jsonobject_cerute.put("ordinea");
+            jsonobject_cerute.put("tip");
+            jsonobject_cerute.put("maxlength");
             js.put("identificare", jsonobject_identificare);
             js.put("cerute", jsonobject_cerute);
 
