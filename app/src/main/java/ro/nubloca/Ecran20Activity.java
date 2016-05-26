@@ -15,8 +15,10 @@ import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,12 +38,16 @@ public class Ecran20Activity extends AppCompatActivity {
     String result;
     String url = "http://api.nubloca.ro/tipuri_inmatriculare/";
     String name_tip_inmatriculare;
-    String ElemNumere;
+    String ElemNumere, ElemNumere1;
     int id0, id1, id2;
     String tip0, tip1, tip2;
+    int editabil0, editabil1, editabil2;
     int maxlength0, maxlength1, maxlength2;
+    JSONArray valori0, valori1, valori2;
+    int ordinea0, ordinea1, ordinea2;
     EditText img0, img1, img2;
-
+    JSONArray plate, plate1;
+    String plate_text1, plate_text2,plate_text3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +65,7 @@ public class Ecran20Activity extends AppCompatActivity {
         name_tip_inmatriculare = (sharedpreferences.getString("nume_tip_inmatriculare", "-"));
         campuri = (sharedpreferences.getInt("campuri", 3));
         ElemNumere = (sharedpreferences.getString("ElemNumere", "null"));
+        ElemNumere1 = (sharedpreferences.getString("ElemNumere1", "null"));
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,32 +75,22 @@ public class Ecran20Activity extends AppCompatActivity {
         final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         upArrow.setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
-        //Intent myIntent = getIntent();
-        //nume_tip_inmatriculare = myIntent.getStringExtra("nume_tip_inmatriculare");
-        //Bundle extras = getIntent().getExtras();
-        //array = extras.getIntArray("array");
 
-
-        /*Context context = getApplicationContext();
-        CharSequence text = "request done!";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, ElemNumere, duration);
-        toast.show();*/
-
+        Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
 
         TextView tip_inmatriculare_nume = (TextView) findViewById(R.id.nume_tip_inmatriculare);
         tip_inmatriculare_nume.setText(name_tip_inmatriculare);
 
-        JSONArray plate = new JSONArray();
+
+        plate = new JSONArray();
+
+
         try {
-            plate = new JSONArray(ElemNumere);
+            plate = new JSONArray(orderSort());
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-
-        JSONObject obj0, obj1, obj2;
-        img2 = (EditText) findViewById(R.id.plate3);
 
         InputFilter filter = new InputFilter() {
             @Override
@@ -120,74 +117,180 @@ public class Ecran20Activity extends AppCompatActivity {
                 return null;
             }
         };
+
+
         try {
+            img0 = (EditText) findViewById(R.id.plate1);
             id0 = plate.getJSONObject(0).getInt("id");
             tip0 = plate.getJSONObject(0).getString("tip");
+            editabil0 = plate.getJSONObject(0).getInt("editabil_user");
             maxlength0 = plate.getJSONObject(0).getInt("maxlength");
-            img0 = (EditText) findViewById(R.id.plate1);
-            if (tip0.equals("CIFRE")) {
-                img0.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
-                img0.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(maxlength0)});
-            } else if (tip0.equals("LITERE")) {
-                img0.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
-                img0.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(maxlength0)});
-            } else img0.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength0)});
-            img0.setText("");
+
+
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+
+        img0.setText("");
+        img0.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength0)});
+        if (tip0.equals("CIFRE")) {
+            try {
+                String valori0 = plate.getJSONObject(0).getString("valori");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            img0.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
+            img0.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(maxlength0)});
+        } else if (tip0.equals("LITERE")) {
+            try {
+                String valori0 = plate.getJSONObject(0).getString("valori");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            img0.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+            img0.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(maxlength0)});
+        } else if (tip0.equals("LISTA")) {
+            try {
+                valori0 = plate.getJSONObject(0).getJSONArray("valori");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String[] cod_valori = new String[valori0.length()];
+            for (int i = 0; i < valori0.length(); i++) {
+                try {
+                    cod_valori[i] = valori0.getJSONObject(i).getString("cod");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            img0.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength0)});
+            mySpinner
+                    .setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1,
+                            cod_valori));
+            img0.setVisibility(View.GONE);
+            mySpinner.setVisibility(View.VISIBLE);
+
         }
 
 
         try {
+
             id1 = plate.getJSONObject(1).getInt("id");
             tip1 = plate.getJSONObject(1).getString("tip");
+            editabil1 = plate.getJSONObject(1).getInt("editabil_user");
             maxlength1 = plate.getJSONObject(1).getInt("maxlength");
-            img1 = (EditText) findViewById(R.id.plate2);
 
-            if (tip1.equals("CIFRE")) {
-                img1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
-                img1.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(maxlength1)});
-            } else if (tip1.equals("LITERE")) {
-                img1.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
-                img1.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(maxlength1)});
-            } else {
-                img1.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength1)});
-            }
-
-            img1.setText("");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+
+        img1 = (EditText) findViewById(R.id.plate2);
+        img1.setText("");
+
+        img1.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength1)});
+
+        if (tip1.equals("CIFRE")) {
+            try {
+                String valori1 = plate.getJSONObject(1).getString("valori");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            img1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
+            img1.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(maxlength1)});
+        } else if (tip1.equals("LITERE")) {
+            try {
+                String valori1 = plate.getJSONObject(1).getString("valori");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            img1.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+            img1.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(maxlength1)});
+        } else if (tip1.equals("LISTA")) {
+            try {
+                valori1 = plate.getJSONObject(1).getJSONArray("valori");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String[] cod_valori = new String[valori1.length()];
+            for (int i = 0; i < valori1.length(); i++) {
+                try {
+                    cod_valori[i] = valori1.getJSONObject(i).getString("cod");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            img1.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength1)});
+            mySpinner
+                    .setAdapter(new ArrayAdapter<String>(Ecran20Activity.this,
+                            R.layout.raw_list_1,
+                            cod_valori));
+            img1.setVisibility(View.GONE);
+            mySpinner.setVisibility(View.VISIBLE);
+        }
+
+        EditText img2 = (EditText) findViewById(R.id.plate3);
         if (campuri < 3) {
+
 
             img2.setVisibility(View.GONE);
 
 
         } else {
+            // img2.setText("", TextView.BufferType.EDITABLE);
             try {
                 id2 = plate.getJSONObject(2).getInt("id");
                 tip2 = plate.getJSONObject(2).getString("tip");
+                editabil2 = plate.getJSONObject(2).getInt("editabil_user");
                 maxlength2 = plate.getJSONObject(2).getInt("maxlength");
-                img2.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength2)});
-                if (tip2.equals("CIFRE")) {
-                    img2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
-                    img2.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(maxlength1)});
-                } else if (tip2.equals("LITERE")) {
-                    img2.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
-                    img2.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(maxlength1)});
-                } else
-                    img2.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength1)});
-                img2.setText("");
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            img2.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength2)});
+            img2.setText("");
+            if (tip2.equals("CIFRE")) {
+                try {
+                    String valori2 = plate.getJSONObject(2).getString("valori");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                img2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
+                img2.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(maxlength2)});
+            } else if (tip2.equals("LITERE")) {
+                try {
+                    String valori2 = plate.getJSONObject(2).getString("valori");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                img2.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+                img2.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(maxlength2)});
+            } else if (tip2.equals("LISTA")) {
+                try {
+                    valori2 = plate.getJSONObject(2).getJSONArray("valori");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String[] cod_valori = new String[valori2.length()];
+                for (int i = 0; i < valori2.length(); i++) {
+                    try {
+                        cod_valori[i] = valori2.getJSONObject(i).getString("cod");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                img2.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength2)});
+                mySpinner
+                        .setAdapter(new ArrayAdapter<String>(Ecran20Activity.this,
+                                R.layout.raw_list_1,
+                                cod_valori));
+
+                img2.setVisibility(View.GONE);
+                mySpinner.setVisibility(View.VISIBLE);
+            }
         }
 
-        //View plate3 = (View)findViewById(R.id.plate3);
-        //if(campuri==2) {
-        //   plate3.setVisibility(View.GONE);
-        //}
 
         View btn3 = (View) this.findViewById(R.id.textView24);
         if (btn3 != null)
@@ -240,6 +343,97 @@ public class Ecran20Activity extends AppCompatActivity {
 
     }
 
+    private String orderSort() {
+
+        JSONArray blate = null;
+        JSONArray blate1 = null;
+        try {
+            blate = new JSONArray(ElemNumere);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            blate1 = new JSONArray(ElemNumere1);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JSONArray rez = null;
+        try {
+            rez = new JSONArray(ElemNumere1);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (ElemNumere.equals("null") || ElemNumere1.equals("null")) {
+            Toast toast = Toast.makeText(this, "asd", Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+
+            for (int i = 0; i < blate1.length(); i++) {
+
+                for (int j = 0; j < blate1.length(); j++) {
+                    try {
+                        if ((blate1.getJSONObject(i).getInt("id")) == (blate.getJSONObject(j).getInt("id"))) {
+                            //rez.getJSONObject(i).put("ordinea", 1);
+                            rez.getJSONObject(i).put("ordinea", blate.getJSONObject(j).getInt("ordinea"));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        }
+        JSONArray rezz = new JSONArray();
+        if (rez.length() == 2) {
+            try {
+                if (rez.getJSONObject(0).getInt("ordinea") < rez.getJSONObject(1).getInt("ordinea")) {
+                    rezz = rez;
+                } else {
+                    rezz.put(rez.getJSONObject(1));
+                    rezz.put(rez.getJSONObject(0));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        } else if (rez.length() == 3) {
+            try {
+                if ((rez.getJSONObject(0).getInt("ordinea") < rez.getJSONObject(1).getInt("ordinea")) && (rez.getJSONObject(0).getInt("ordinea") < rez.getJSONObject(2).getInt("ordinea"))) {
+                    rezz.put(rez.getJSONObject(0));
+                    if (rez.getJSONObject(1).getInt("ordinea") < rez.getJSONObject(2).getInt("ordinea")) {
+                        rezz.put(rez.getJSONObject(1));
+                        rezz.put(rez.getJSONObject(2));
+                    } else {
+                        rezz.put(rez.getJSONObject(2));
+                        rezz.put(rez.getJSONObject(1));
+                    }
+                } else if ((rez.getJSONObject(0).getInt("ordinea") > rez.getJSONObject(1).getInt("ordinea")) && (rez.getJSONObject(0).getInt("ordinea") < rez.getJSONObject(2).getInt("ordinea"))) {
+                    rezz.put(rez.getJSONObject(1));
+                    rezz.put(rez.getJSONObject(0));
+                    rezz.put(rez.getJSONObject(2));
+                } else if ((rez.getJSONObject(0).getInt("ordinea") < rez.getJSONObject(1).getInt("ordinea")) && (rez.getJSONObject(0).getInt("ordinea") > rez.getJSONObject(2).getInt("ordinea"))) {
+                    rezz.put(rez.getJSONObject(2));
+                    rezz.put(rez.getJSONObject(0));
+                    rezz.put(rez.getJSONObject(1));
+                } else if (rez.getJSONObject(2).getInt("ordinea") < rez.getJSONObject(1).getInt("ordinea")) {
+                    rezz.put(rez.getJSONObject(2));
+                    rezz.put(rez.getJSONObject(1));
+                    rezz.put(rez.getJSONObject(0));
+                } else {
+                    rezz.put(rez.getJSONObject(1));
+                    rezz.put(rez.getJSONObject(2));
+                    rezz.put(rez.getJSONObject(0));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        /*Toast toast = Toast.makeText(this, rezz.toString(), Toast.LENGTH_LONG);
+        toast.show();*/
+        return rezz.toString();
+    }
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu5, menu);
@@ -253,11 +447,16 @@ public class Ecran20Activity extends AppCompatActivity {
         if (item.getItemId() == R.id.menu1) {
             Context context = getApplicationContext();
             CharSequence text = "request done!";
-            text = img0.getText().toString().toUpperCase()+" "+img1.getText().toString()+" "+img2.getText().toString();
+            //EditText img0, img1, img2;
+
+            /*if (campuri==2){
+            text = img0.getText().toString().toUpperCase() + " " + img1.getText().toString();}
+            else {
+            text = img0.getText().toString().toUpperCase() + " " + img1.getText().toString() + " " + img2.getText().toString();}*/
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
-            finish();
+            //finish();
         }
 
         return super.onOptionsItemSelected(item);

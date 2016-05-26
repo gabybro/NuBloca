@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import ro.nubloca.Networking.GetElemNr;
+import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.GetTipNumar;
 import ro.nubloca.Networking.Order;
 
@@ -60,7 +61,9 @@ public class Ecran23Activity extends AppCompatActivity {
     private OrderAdapter m_adapter;
     private Runnable viewOrders;
     JSONArray jsonArray = null;
-    String elem1;
+    String elem1, elem2;
+    String url3="http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
+    String url4="http://api.nubloca.ro/tipuri_elemente/";
 
 
 
@@ -71,9 +74,9 @@ public class Ecran23Activity extends AppCompatActivity {
         setContentView(R.layout.activity_ecran23);
         Intent myIntent = getIntent();
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        //result_tari = (sharedpreferences.getString("array", null));
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
+        //result_tari = (sharedpreferences.getString("array", null));
         positionExemplu = (sharedpreferences.getInt("positionExemplu", -1));
         id_tara = (sharedpreferences.getInt("id_tara", 147));
         country_select = (sharedpreferences.getString("country_select", "Romania"));
@@ -229,13 +232,22 @@ public class Ecran23Activity extends AppCompatActivity {
                             editor.putString("nume_tip_inmatriculare", o.getOrderName());
                             editor.putString("getOrderIdsTip", o.getOrderIdsTip().toString());
                             editor.putInt("campuri", o.getOrderIdsTip().length());
-                            final GetElemNr elem = new GetElemNr();
+                            final GetRequest elem = new GetRequest();
 
                             Thread t = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    elem.setParam(o.getOrderIdsTip(), acc_lang, cont_lang);
-                                    elem1 = elem.getRaspuns();
+                                    JSONObject resursa = new JSONObject();
+                                    try {
+                                        resursa.put("id", o.getOrderIdsTip());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    JSONArray cerute = new JSONArray();
+                                    cerute.put("id");
+                                    cerute.put("id_tip_element");
+                                    cerute.put("ordinea");
+                                    elem1 = elem.getRaspuns(Ecran23Activity.this, url3, resursa, cerute);
                                 }
                             });
                             t.start();
@@ -244,7 +256,35 @@ public class Ecran23Activity extends AppCompatActivity {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                            final GetRequest elemm = new GetRequest();
+
+                            Thread t1 = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    JSONObject resursa = new JSONObject();
+                                    try {
+                                        resursa.put("id", o.getOrderIdsTip());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    JSONArray cerute = new JSONArray();
+                                    cerute.put("id");
+                                    cerute.put("tip");
+                                    cerute.put("editabil_user");
+                                    cerute.put("maxlength");
+                                    cerute.put("valori");
+                                    elem2 = elemm.getRaspuns(Ecran23Activity.this, url4, resursa, cerute);
+                                }
+                            });
+                            t1.start();
+                            try {
+                                t1.join();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
                             editor.putString("ElemNumere",elem1);
+                            editor.putString("ElemNumere1",elem2);
 
 
                             editor.commit();
