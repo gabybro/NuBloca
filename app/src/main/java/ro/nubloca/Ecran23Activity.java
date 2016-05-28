@@ -64,6 +64,8 @@ public class Ecran23Activity extends AppCompatActivity {
     String elem1, elem2;
     String url3="http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
     String url4="http://api.nubloca.ro/tipuri_elemente/";
+    int [] id_tip_element;
+    //JSONArray id_tip_element;
 
 
 
@@ -256,14 +258,17 @@ public class Ecran23Activity extends AppCompatActivity {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+
                             final GetRequest elemm = new GetRequest();
 
                             Thread t1 = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
                                     JSONObject resursa = new JSONObject();
+
+                                    populate_order1();
                                     try {
-                                        resursa.put("id", o.getOrderIdsTip());
+                                        resursa.put("id", id_tip_element);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -329,7 +334,40 @@ public class Ecran23Activity extends AppCompatActivity {
 
 
 
+    private void populate_order1() {
+        JSONArray jsonArray=null;
+        try {
+            jsonArray = new JSONArray(elem1);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+
+
+        JSONObject json_data = null;
+        int yy;
+        yy =  jsonArray.length();
+        id_tip_element = new int [yy];
+        for (int i = 0; i < yy; i++) {
+            try {
+                json_data = jsonArray.getJSONObject(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //Order oz = new Order();
+
+            try {
+                int xx;
+                xx = json_data.getInt("id_tip_element");
+                id_tip_element[i]=xx;
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
 
     private void populate_order() {
         try {

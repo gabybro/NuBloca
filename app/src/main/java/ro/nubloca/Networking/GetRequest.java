@@ -20,13 +20,14 @@ import java.io.UnsupportedEncodingException;
 public class GetRequest {
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
-    private String result, acc_lang, cont_lang;
+    private String result, acc_lang, cont_lang, app_code;
 
     public String getRaspuns(Context context, String url, JSONObject resursa, JSONArray cerute) {
 
         sharedpreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
+        app_code = (sharedpreferences.getString("app_code", "abcdefghijkl123456"));
 
         JSONObject jsonobject_identificare = new JSONObject();
         JSONArray jsonobject_cerute = new JSONArray();
@@ -38,7 +39,7 @@ public class GetRequest {
             JSONArray jsonobject_id = new JSONArray();
 
             //TODO get app_code from phone
-            jsonobject_one.put("app_code", "abcdefghijkl123456");
+            jsonobject_one.put("app_code", app_code);
             jsonobject_identificare.put("user", jsonobject_one);
 
             //jsonobject_id.put("ACTIV");
