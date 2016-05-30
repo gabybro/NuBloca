@@ -2,20 +2,24 @@ package ro.nubloca.Networking;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 /**
  * Created by GABY_ on 28.05.2016.
  */
-public class Response26 {
+public class Response {
 
-    /**
-     * id : 19
-     * id_tip_element : 14
-     * valoare_demo_imagine : B
-     * ordinea : 1
-     */
 
     @SerializedName("id")
     private int id;
+
+    @SerializedName("nume")
+    private String nume;
+
+
+    @SerializedName("ids_tipuri_inmatriculare_tipuri_elemente")
+    private int[]  ids_tipuri_inmatriculare_tipuri_elemente;
 
     @SerializedName("id_tip_element")
     private int id_tip_element;
@@ -25,6 +29,23 @@ public class Response26 {
 
     @SerializedName("ordinea")
     private int ordinea;
+
+    public int[]  getIds_tipuri_inmatriculare_tipuri_elemente() {
+        return ids_tipuri_inmatriculare_tipuri_elemente;
+    }
+
+    public void setIds_tipuri_inmatriculare_tipuri_elemente(int[] ids_tipuri_inmatriculare_tipuri_elemente) {
+        this.ids_tipuri_inmatriculare_tipuri_elemente = ids_tipuri_inmatriculare_tipuri_elemente;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
 
     public int getId() {
         return id;

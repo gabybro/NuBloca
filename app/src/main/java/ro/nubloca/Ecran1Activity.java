@@ -8,25 +8,35 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import ro.nubloca.Networking.GetTipNumar;
+import java.lang.reflect.Type;
+import java.util.List;
+
+import ro.nubloca.Networking.GetRequest;
+import ro.nubloca.Networking.Response;
 
 public class Ecran1Activity extends AppCompatActivity {
+
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
     boolean Tos;
     private ProgressBar progressBar;
-    private int progressStatus = 0;
-    private Handler handler = new Handler();
+    //private int progressStatus = 0;
+    //private Handler handler = new Handler();
     int id_tara;
-    String url = "http://api.nubloca.ro/tipuri_inmatriculare/";
-    String acc_lang, cont_lang, result;
-    JSONArray response_ids_inmatriculare;
-    String name_tip_inmatriculare;
-
+    String url = "http://api.nubloca.ro/tari/";
+    String countryCode;
+    String rez;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,62 +45,76 @@ public class Ecran1Activity extends AppCompatActivity {
         setContentView(R.layout.activity_ecran1);
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
         id_tara = (sharedpreferences.getInt("id_tara", 147));
         Tos = (sharedpreferences.getBoolean("TOS", false));
-        acc_lang = (sharedpreferences.getString("acc_lang", "en"));
-        cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
 
+        TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        countryCode = tm.getSimCountryIso();
 
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_IN);
-
-
-        makePostRequestOnNewThread();
-
-
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Do something after 3s = 3000ms
                 if (!Tos) {
                     finish();
-                    //merge la ecranul 4 (citirea TOS-ului)
                     startActivity(new Intent(Ecran1Activity.this, Ecran3Activity.class));
                 } else {
                     finish();
-                    //merge la ecranul 7(ecranul principal)
                     startActivity(new Intent(Ecran1Activity.this, Ecran7Activity.class));
                 }
             }
         }, 3000);
 
-
+        makePostRequestOnNewThread();
     }
 
-
-
     private void makePostRequestOnNewThread() {
-        final GetTipNumar nr = new GetTipNumar();
-        nr.setParam(id_tara, acc_lang, cont_lang);
+
 
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                //handler.sendEmptyMessage(0);
-                String name_tip_inmatriculare_phone = (sharedpreferences.getString("nume_tip_inmatriculare", "default"));
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("array", nr.getRaspuns());
+                try {
+                    makePostRequest();
 
-                if (name_tip_inmatriculare_phone.equals("default")) {
-                    editor.putString("nume_tip_inmatriculare", nr.getNumeUsed());
-                    editor.putInt("nume_tip_inmatriculare_id", nr.getIdNumeUsed());
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                editor.putString("ids_tipuri_inmatriculare_tipuri_elemente", nr.getIdsUsed());
-                editor.apply();
+                //handler.sendEmptyMessage(0);
             }
         });
         t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Toast toast= Toast.makeText(this, id_tara+"", Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+
+
+    private void makePostRequest() throws JSONException {
+
+        GetRequest elemm = new GetRequest();
+
+        JSONArray cerute = new JSONArray().put("id").put("url_steag");
+        JSONArray cod = new JSONArray().put(countryCode);
+        JSONObject resursa = new JSONObject().put("cod", cod);
+
+        String result_string = elemm.getRaspuns(Ecran1Activity.this, url, resursa, cerute);
+
+        Gson gson = new Gson();
+        Type listeType = new TypeToken<List<Response>>() {
+        }.getType();
+        List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
+        id_tara  = response.get(0).getId();
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putInt("id_tara", id_tara);
+        editor.commit();
     }
 }

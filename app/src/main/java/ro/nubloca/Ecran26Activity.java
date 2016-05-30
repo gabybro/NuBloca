@@ -13,6 +13,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -26,7 +27,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import ro.nubloca.Networking.GetRequest;
-import ro.nubloca.Networking.Response26;
+import ro.nubloca.Networking.Response;
 import ro.nubloca.extras.CustomFontTitilliumBold;
 
 public class Ecran26Activity extends AppCompatActivity {
@@ -50,13 +51,8 @@ public class Ecran26Activity extends AppCompatActivity {
         setContentView(R.layout.activity_ecran26);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        get_order_ids_tip = (sharedpreferences.getString("getOrderIdsTip", null));
-
-
-        Intent myIntent = getIntent();
-        nume_tip_inmatriculare = myIntent.getStringExtra("nume_tip_inmatriculare");
-
-
+        get_order_ids_tip = (sharedpreferences.getString("getOrderIdsTip", "[1,2,3]"));
+        nume_tip_inmatriculare=(sharedpreferences.getString("nume_tip_inmatriculare", "NuBloca"));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,52 +64,36 @@ public class Ecran26Activity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
         makePostRequestOnNewThread();
-
-        /*Toast toast = Toast.makeText(this, result_string, Toast.LENGTH_LONG);
-        toast.show();*/
     }
 
     private void makePostRequestOnNewThread() {
 
-        pd = ProgressDialog.show(this, "..", "getting data", true,
+        pd = ProgressDialog.show(this, "", "", true,
                 false);
 
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                makePostRequest();
-
+                try {
+                    makePostRequest();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 handler.sendEmptyMessage(0);
             }
         });
         t.start();
     }
 
-    private void makePostRequest() {
+    private void makePostRequest() throws JSONException {
 
 
         GetRequest elemm = new GetRequest();
-
         JSONObject resursa = new JSONObject();
-
-        JSONArray jsonArray=null;
-        try {
-            jsonArray = new JSONArray(get_order_ids_tip);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
-
-            resursa.put("id", jsonArray);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         JSONArray cerute = new JSONArray();
+
+        resursa.put("id", new JSONArray(get_order_ids_tip));
 
         cerute.put("id");
         cerute.put("id_tip_element");
@@ -121,10 +101,7 @@ public class Ecran26Activity extends AppCompatActivity {
         cerute.put("ordinea");
 
         result_string = elemm.getRaspuns(Ecran26Activity.this, url, resursa, cerute);
-
-
     }
-
 
 
     Handler handler = new Handler() {
@@ -134,35 +111,38 @@ public class Ecran26Activity extends AppCompatActivity {
             pd.dismiss();
 
             Gson gson = new Gson();
-            Type listeType = new TypeToken<List<Response26>>(){}.getType();
-            List<Response26> response26s = (List<Response26>) gson.fromJson(result_string, listeType);
-            campuri= response26s.size();
+            Type listeType = new TypeToken<List<Response>>() {
+            }.getType();
+            List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
+            campuri = response.size();
 
             TextView tip_inmatriculare_nume = (TextView) findViewById(R.id.nume_tip_inmatriculare);
             tip_inmatriculare_nume.setVisibility(View.VISIBLE);
             tip_inmatriculare_nume.setText(nume_tip_inmatriculare);
             CustomFontTitilliumBold field1 = (CustomFontTitilliumBold) findViewById(R.id.field1);
             field1.setVisibility(View.VISIBLE);
-            field1.setText(response26s.get(0).getValoare_demo_imagine());
+            field1.setText(response.get(0).getValoare_demo_imagine());
             CustomFontTitilliumBold field2 = (CustomFontTitilliumBold) findViewById(R.id.field2);
             field2.setVisibility(View.VISIBLE);
-            field2.setText(response26s.get(1).getValoare_demo_imagine());
+            field2.setText(response.get(1).getValoare_demo_imagine());
             if (campuri == 3) {
                 CustomFontTitilliumBold field3 = (CustomFontTitilliumBold) findViewById(R.id.field3);
                 field3.setVisibility(View.VISIBLE);
-                field3.setText(response26s.get(2).getValoare_demo_imagine());
+                field3.setText(response.get(2).getValoare_demo_imagine());
             }
+            TextView text1 = (TextView) findViewById(R.id.textView20);
+            text1.setVisibility(View.VISIBLE);
+            ImageView image1 = (ImageView) findViewById(R.id.imageView9);
+            image1.setVisibility(View.VISIBLE);
         }
+
 
     };
 
-
     @Override
     public void onBackPressed() {
-        // code here to show dialog
-        Intent myIntent = new Intent(Ecran26Activity.this, Ecran23Activity.class);
-        startActivity(myIntent);
+        startActivity(new Intent(Ecran26Activity.this, Ecran23Activity.class));
         finish();
-        super.onBackPressed();  // optional depending on your needs
+        super.onBackPressed();
     }
 }

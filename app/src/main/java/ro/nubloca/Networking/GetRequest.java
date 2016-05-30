@@ -41,21 +41,10 @@ public class GetRequest {
             //TODO get app_code from phone
             jsonobject_one.put("app_code", app_code);
             jsonobject_identificare.put("user", jsonobject_one);
-
-            //jsonobject_id.put("ACTIV");
-            //jsonobject_resursa.put("status", jsonobject_id);
-
             jsonobject_identificare.put("resursa", resursa);
-
-            //jsonobject_cerute.put("id");
-            //jsonobject_cerute.put("nume");
-            //jsonobject_cerute.put("ids_tipuri_inmatriculare_tipuri_elemente");
-            //jsonobject_cerute.put("ordinea");
             for (int i = 0; i < cerute.length(); i++) {
                 jsonobject_cerute.put(cerute.get(i));
             }
-
-
             js.put("identificare", jsonobject_identificare);
             js.put("cerute", jsonobject_cerute);
 

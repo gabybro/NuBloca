@@ -135,7 +135,8 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:text="@string/exemplu_7"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="19dp" />
+        android:textSize="19dp"
+        android:visibility="invisible" />
 
     <ro.nubloca.extras.CustomFontTitilliumBold
         android:id="@+id/nume_tip_inmatriculare"
@@ -160,7 +161,8 @@
         android:layout_marginLeft="20dp"
         android:layout_toEndOf="@+id/nume_tip_inmatriculare"
         android:layout_toRightOf="@+id/nume_tip_inmatriculare"
-        android:background="@drawable/ro_flag" />
+        android:background="@drawable/ro_flag"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>
