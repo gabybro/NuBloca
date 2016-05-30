@@ -46,6 +46,9 @@ public class Ecran20Activity extends AppCompatActivity {
     int[] array;
     String result;
     String url = "http://api.nubloca.ro/tipuri_inmatriculare/";
+    String url1 = "http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
+    String url2 = "http://api.nubloca.ro/tipuri_elemente/";
+
     String name_tip_inmatriculare;
     String ElemNumere, ElemNumere1;
     int id0, id1, id2;
@@ -57,6 +60,11 @@ public class Ecran20Activity extends AppCompatActivity {
     EditText img0, img1, img2;
     JSONArray plate, plate1;
     String plate_text1, plate_text2, plate_text3;
+    int [] ids_tipuri_inmatriculare_tipuri_elemente;
+    int [] id_tip_element;
+    String test;
+    int idd;
+    int id_shared=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +82,7 @@ public class Ecran20Activity extends AppCompatActivity {
         name_tip_inmatriculare = (sharedpreferences.getString("nume_tip_inmatriculare", "-"));
         campuri = (sharedpreferences.getInt("campuri", 3));
         id_tara = (sharedpreferences.getInt("id_tara", 147));
+        id_shared = (sharedpreferences.getInt("id_shared", 0));
         //ElemNumere = (sharedpreferences.getString("ElemNumere", "null"));
         //ElemNumere1 = (sharedpreferences.getString("ElemNumere1", "null"));
 
@@ -360,6 +369,29 @@ public class Ecran20Activity extends AppCompatActivity {
 
     private void makePostRequestOnNewThread() {
 
+        Thread t0 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    if (id_shared==0){
+                    makePostRequest0();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                //handler.sendEmptyMessage(0);
+            }
+        });
+        t0.start();
+        try {
+            t0.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -380,18 +412,57 @@ public class Ecran20Activity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
 
-       // Toast toast= Toast.makeText(this, id_tara+"", Toast.LENGTH_LONG);
-       // toast.show();
+                try {
+                    makePostRequest1();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                //handler.sendEmptyMessage(0);
+            }
+        });
+        t1.start();
+        try {
+            t1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    makePostRequest2();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                //handler.sendEmptyMessage(0);
+            }
+        });
+        t2.start();
+        try {
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Toast toast= Toast.makeText(this, test, Toast.LENGTH_LONG);
+        toast.show();
     }
 
-    private void makePostRequest() throws JSONException {
+    private void makePostRequest0() throws JSONException {
 
 
 
         GetRequest elemm = new GetRequest();
 
-        JSONArray cerute = new JSONArray().put("id").put("nume").put("ids_tipuri_inmatriculare_tipuri_elemente");
+        JSONArray cerute = new JSONArray().put("id");
         JSONArray idTara = new JSONArray().put(id_tara);
         JSONArray ordinea = new JSONArray().put(order);
         JSONObject resursa = new JSONObject();
@@ -405,11 +476,95 @@ public class Ecran20Activity extends AppCompatActivity {
         Type listeType = new TypeToken<List<Response>>() {
         }.getType();
         List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-        name_tip_inmatriculare= response.get(0).getNume();
+        idd= response.get(0).getId();
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putInt("id_shared", idd);
+        editor.commit();
+    }
 
+    private void makePostRequest() throws JSONException {
+
+        id_shared = (sharedpreferences.getInt("id_shared", 0));
+
+        GetRequest elemm = new GetRequest();
+
+        JSONArray cerute = new JSONArray().put("id").put("nume").put("ids_tipuri_inmatriculare_tipuri_elemente");
+        JSONArray idTara = new JSONArray().put(id_shared);
+        JSONObject resursa = new JSONObject();
+        resursa.put("id", idTara);
+
+        String result_string = elemm.getRaspuns(Ecran20Activity.this, url, resursa, cerute);
+
+        Gson gson = new Gson();
+        Type listeType = new TypeToken<List<Response>>() {
+        }.getType();
+        List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
+        name_tip_inmatriculare= response.get(0).getNume();
+        ids_tipuri_inmatriculare_tipuri_elemente = response.get(0).getIds_tipuri_inmatriculare_tipuri_elemente();
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("name_tip_inmatriculare", name_tip_inmatriculare);
         editor.commit();
+    }
+
+    private void makePostRequest1() throws JSONException {
+
+
+
+        GetRequest elemm = new GetRequest();
+
+        JSONObject resursa = new JSONObject();
+        JSONArray arr = new JSONArray();
+        JSONArray cerute = new JSONArray().put("id").put("id_tip_element").put("ordinea");
+        for (int i =0; i<ids_tipuri_inmatriculare_tipuri_elemente.length; i++) {
+
+            arr.put(ids_tipuri_inmatriculare_tipuri_elemente[i]);
+        }
+
+        resursa.put("id", arr);
+
+        String result_string = elemm.getRaspuns(Ecran20Activity.this, url1, resursa, cerute);
+
+        Gson gson = new Gson();
+        Type listeType = new TypeToken<List<Response>>() {
+        }.getType();
+        List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
+        //Todo orinea
+        //ordinea
+
+         id_tip_element = new int[response.size()];
+        for(int i=0; i<response.size(); i++){
+            int j = response.get(i).getId_tip_element();
+            id_tip_element[i]=j;
+        }
+
+    }
+
+    private void makePostRequest2() throws JSONException {
+
+
+
+        GetRequest elemm = new GetRequest();
+
+        JSONArray cerute = new JSONArray().put("id").put("tip").put("editabil_user").put("maxlength").put("valori");
+        JSONObject resursa = new JSONObject();
+        JSONArray id = new JSONArray();
+        for(int i=0; i<id_tip_element.length; i++) {
+             id.put(id_tip_element[i]);
+        }
+        resursa.put("id", id);
+
+        String result_string = elemm.getRaspuns(Ecran20Activity.this, url2, resursa, cerute);
+
+        Gson gson = new Gson();
+        Type listeType = new TypeToken<List<Response>>() {
+        }.getType();
+        List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
+        test = response.get(0).getTip();
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putInt("id_shared", 0);
+        editor.commit();
+
     }
 
     private String orderSort() {

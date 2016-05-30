@@ -30,6 +30,43 @@ public class Response {
     @SerializedName("ordinea")
     private int ordinea;
 
+    @SerializedName("tip")
+    private String tip;
+
+    public String getTip() {
+        return tip;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
+    }
+
+    public int getEditabil_user() {
+        return editabil_user;
+    }
+
+    public void setEditabil_user(int editabil_user) {
+        this.editabil_user = editabil_user;
+    }
+
+    public int getMaxlength() {
+        return maxlength;
+    }
+
+    @SerializedName("editabil_user")
+    private int editabil_user;
+
+    public void setMaxlength(int maxlength) {
+        this.maxlength = maxlength;
+    }
+
+    @SerializedName("maxlength")
+
+    private int maxlength;
+
+   // @SerializedName("valori")
+    //private int valori;
+
     public int[]  getIds_tipuri_inmatriculare_tipuri_elemente() {
         return ids_tipuri_inmatriculare_tipuri_elemente;
     }

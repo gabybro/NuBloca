@@ -258,8 +258,14 @@ public class Ecran23Activity extends AppCompatActivity {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-
+                            Gson gson1 = new Gson();
+                            Type listeType1 = new TypeToken<ArrayList<Response>>() {
+                            }.getType();
+                            final ArrayList<Response> response = (ArrayList<Response>) gson1.fromJson(elem1, listeType1);
                             final GetRequest elemm = new GetRequest();
+                            Toast toast= Toast.makeText(Ecran23Activity.this, response.get(position).getId()+"", Toast.LENGTH_LONG);
+                            toast.show();
+
 
                             Thread t1 = new Thread(new Runnable() {
                                 @Override
