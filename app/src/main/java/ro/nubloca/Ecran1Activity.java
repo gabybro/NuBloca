@@ -114,7 +114,8 @@ public class Ecran1Activity extends AppCompatActivity {
         List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
         id_tara  = response.get(0).getId();
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putInt("id_tara", id_tara);
+        //editor.putInt("id_tara", id_tara);
+        editor.putInt("id_tara", 31);
         editor.commit();
     }
 }

@@ -22,17 +22,26 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.regex.Pattern;
+
+import ro.nubloca.Networking.GetRequest;
+import ro.nubloca.Networking.Response;
 
 public class Ecran20Activity extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
     int campuri = 3;
     int id_tara = 147;
+    int order=1;
     String acc_lang, cont_lang;
     int[] array;
     String result;
@@ -60,12 +69,13 @@ public class Ecran20Activity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
 
-        acc_lang = (sharedpreferences.getString("acc_lang", "en"));
-        cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
+        /*acc_lang = (sharedpreferences.getString("acc_lang", "en"));
+        cont_lang = (sharedpreferences.getString("cont_lang", "ro"));*/
         name_tip_inmatriculare = (sharedpreferences.getString("nume_tip_inmatriculare", "-"));
         campuri = (sharedpreferences.getInt("campuri", 3));
-        ElemNumere = (sharedpreferences.getString("ElemNumere", "null"));
-        ElemNumere1 = (sharedpreferences.getString("ElemNumere1", "null"));
+        id_tara = (sharedpreferences.getInt("id_tara", 147));
+        //ElemNumere = (sharedpreferences.getString("ElemNumere", "null"));
+        //ElemNumere1 = (sharedpreferences.getString("ElemNumere1", "null"));
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -76,12 +86,16 @@ public class Ecran20Activity extends AppCompatActivity {
         upArrow.setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
+        //Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
 
         TextView tip_inmatriculare_nume = (TextView) findViewById(R.id.nume_tip_inmatriculare);
+        //TODO after req
+
+        makePostRequestOnNewThread();
+
         tip_inmatriculare_nume.setText(name_tip_inmatriculare);
 
-        if ((ElemNumere.equals("null")) || (ElemNumere1.equals("null"))) {
+        /*if ((ElemNumere.equals("null")) || (ElemNumere1.equals("null"))) {
         } else {
             plate = new JSONArray();
 
@@ -291,7 +305,7 @@ public class Ecran20Activity extends AppCompatActivity {
                     mySpinner.setVisibility(View.VISIBLE);
                 }
             }
-        }
+        }*/
 
         View btn3 = (View) this.findViewById(R.id.textView24);
         if (btn3 != null)
@@ -342,6 +356,60 @@ public class Ecran20Activity extends AppCompatActivity {
             });
 
 
+    }
+
+    private void makePostRequestOnNewThread() {
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    makePostRequest();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                //handler.sendEmptyMessage(0);
+            }
+        });
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+       // Toast toast= Toast.makeText(this, id_tara+"", Toast.LENGTH_LONG);
+       // toast.show();
+    }
+
+    private void makePostRequest() throws JSONException {
+
+
+
+        GetRequest elemm = new GetRequest();
+
+        JSONArray cerute = new JSONArray().put("id").put("nume").put("ids_tipuri_inmatriculare_tipuri_elemente");
+        JSONArray idTara = new JSONArray().put(id_tara);
+        JSONArray ordinea = new JSONArray().put(order);
+        JSONObject resursa = new JSONObject();
+        resursa.put("id_tara", idTara);
+        resursa.put("ordinea", ordinea);
+
+
+        String result_string = elemm.getRaspuns(Ecran20Activity.this, url, resursa, cerute);
+
+        Gson gson = new Gson();
+        Type listeType = new TypeToken<List<Response>>() {
+        }.getType();
+        List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
+        name_tip_inmatriculare= response.get(0).getNume();
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("name_tip_inmatriculare", name_tip_inmatriculare);
+        editor.commit();
     }
 
     private String orderSort() {
@@ -462,4 +530,5 @@ public class Ecran20Activity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
