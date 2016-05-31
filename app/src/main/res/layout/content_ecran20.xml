@@ -31,7 +31,7 @@
         android:layout_below="@+id/textView13"
         android:gravity="center_horizontal">
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/imageView21"
             android:layout_width="15dp"
             android:layout_height="10dp"
@@ -39,7 +39,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/chevron_down"
             android:translationZ="2dp"
-            android:visibility="gone" />
+            android:visibility="gone" />-->
 
         <EditText
             android:id="@+id/plate1"
@@ -55,12 +55,14 @@
             android:textStyle="bold"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:minWidth="80dp" />
+            android:minWidth="80dp"
+            android:visibility="gone" />
 
         <Spinner
             android:id="@+id/my_spinner"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/plate_border"
             android:visibility="gone" />
 
         <EditText
@@ -79,7 +81,8 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:layout_marginLeft="5dp"
-            android:minWidth="80dp" />
+            android:minWidth="80dp"
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/plate3"
@@ -98,7 +101,8 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:layout_marginLeft="5dp"
-            android:minWidth="80dp" />
+            android:minWidth="80dp"
+            android:visibility="gone" />
     </LinearLayout>
 
     <RelativeLayout

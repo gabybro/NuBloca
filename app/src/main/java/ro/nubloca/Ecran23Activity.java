@@ -231,11 +231,12 @@ public class Ecran23Activity extends AppCompatActivity {
                             editor.putInt("campuri", o.getOrderIdsTip().length());*/
                             editor.putInt("nume_tip_inmatriculare_id", response.get(position).getId());
                             editor.putString("nume_tip_inmatriculare", response.get(position).getNume());
-                            editor.putString("getOrderIdsTip", response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente().toString());
-                            editor.putInt("campuri", response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente().length);
+                            //editor.putString("getOrderIdsTip", response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente().toString());
+                            //editor.putInt("campuri", response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente().length);
+                            editor.putInt("id_shared", response.get(position).getId());
                             final GetRequest elem = new GetRequest();
-
-                            Thread t = new Thread(new Runnable() {
+//TODO id_shared
+                            /*Thread t = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
                                     JSONObject resursa = new JSONObject();
@@ -260,14 +261,14 @@ public class Ecran23Activity extends AppCompatActivity {
                             }
                             Gson gson1 = new Gson();
                             Type listeType1 = new TypeToken<ArrayList<Response>>() {
-                            }.getType();
-                            final ArrayList<Response> response = (ArrayList<Response>) gson1.fromJson(elem1, listeType1);
-                            final GetRequest elemm = new GetRequest();
-                            Toast toast= Toast.makeText(Ecran23Activity.this, response.get(position).getId()+"", Toast.LENGTH_LONG);
-                            toast.show();
+                            }.getType();*/
+                            //final ArrayList<Response> response = (ArrayList<Response>) gson1.fromJson(elem1, listeType1);
+                            //final GetRequest elemm = new GetRequest();
+                            //Toast toast= Toast.makeText(Ecran23Activity.this, response.get(position).getId()+"", Toast.LENGTH_LONG);
+                            //toast.show();
 
 
-                            Thread t1 = new Thread(new Runnable() {
+                            /*Thread t1 = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
                                     JSONObject resursa = new JSONObject();
@@ -292,10 +293,10 @@ public class Ecran23Activity extends AppCompatActivity {
                                 t1.join();
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
-                            }
+                            }*/
 
-                            editor.putString("ElemNumere", elem1);
-                            editor.putString("ElemNumere1", elem2);
+                            //editor.putString("ElemNumere", elem1);
+                            //editor.putString("ElemNumere1", elem2);
 
 
                             editor.commit();

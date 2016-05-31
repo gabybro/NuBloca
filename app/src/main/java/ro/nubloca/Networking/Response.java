@@ -33,6 +33,26 @@ public class Response {
     @SerializedName("tip")
     private String tip;
 
+    public String getValoare() {
+        return valoare;
+    }
+
+    public void setValoare(String valoare) {
+        this.valoare = valoare;
+    }
+
+    public JSONArray getValoareArr() {
+        return valoareArr;
+    }
+
+    public void setValoareArr(JSONArray valoareArr) {
+        this.valoareArr = valoareArr;
+    }
+
+    private String valoare;
+
+    private JSONArray valoareArr;
+
     public String getTip() {
         return tip;
     }

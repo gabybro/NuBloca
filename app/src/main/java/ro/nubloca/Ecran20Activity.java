@@ -4,17 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -41,7 +45,7 @@ public class Ecran20Activity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     int campuri = 3;
     int id_tara = 147;
-    int order=1;
+    int order = 1;
     String acc_lang, cont_lang;
     int[] array;
     String result;
@@ -60,11 +64,16 @@ public class Ecran20Activity extends AppCompatActivity {
     EditText img0, img1, img2;
     JSONArray plate, plate1;
     String plate_text1, plate_text2, plate_text3;
-    int [] ids_tipuri_inmatriculare_tipuri_elemente;
-    int [] id_tip_element;
+    int[] ids_tipuri_inmatriculare_tipuri_elemente;
+    int[] id_tip_element;
     String test;
     int idd;
-    int id_shared=0;
+    int id_shared = 0;
+    List<Response> response3;
+    List<Response>[] response2;
+    JSONArray valoareArr;
+    String valoare;
+    String[] lista_cod;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +89,10 @@ public class Ecran20Activity extends AppCompatActivity {
         /*acc_lang = (sharedpreferences.getString("acc_lang", "en"));
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));*/
         name_tip_inmatriculare = (sharedpreferences.getString("nume_tip_inmatriculare", "-"));
-        campuri = (sharedpreferences.getInt("campuri", 3));
         id_tara = (sharedpreferences.getInt("id_tara", 147));
         id_shared = (sharedpreferences.getInt("id_shared", 0));
+        //campuri = (sharedpreferences.getInt("campuri", 3));
+
         //ElemNumere = (sharedpreferences.getString("ElemNumere", "null"));
         //ElemNumere1 = (sharedpreferences.getString("ElemNumere1", "null"));
 
@@ -95,7 +105,6 @@ public class Ecran20Activity extends AppCompatActivity {
         upArrow.setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        //Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
 
         TextView tip_inmatriculare_nume = (TextView) findViewById(R.id.nume_tip_inmatriculare);
         //TODO after req
@@ -103,6 +112,9 @@ public class Ecran20Activity extends AppCompatActivity {
         makePostRequestOnNewThread();
 
         tip_inmatriculare_nume.setText(name_tip_inmatriculare);
+
+        showElements();
+
 
         /*if ((ElemNumere.equals("null")) || (ElemNumere1.equals("null"))) {
         } else {
@@ -348,7 +360,7 @@ public class Ecran20Activity extends AppCompatActivity {
                     editor.putInt("positionExemplu", -1);
                     editor.commit();
                     startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
-                    //finish();
+                    finish();
 
                 }
             });
@@ -367,6 +379,240 @@ public class Ecran20Activity extends AppCompatActivity {
 
     }
 
+    private void showElements() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int divLength = size.x;
+        int height = size.y;
+
+        int nrUML = 0;
+        int nrSPI = campuri - 1;
+        int nrSPL = 2;
+
+        int valUML = 0;
+        int valSPL = 0;
+        int valSPI = 0;
+
+        int valMaxUML = divLength / 10;
+
+        for (int i = 0; i < campuri; i++) {
+            // calculam lunngimea inputului
+            if (response2[i].get(0).getMaxlength() < 3) {
+                nrUML += 3;
+            } else {
+                int xx = response2[i].get(0).getMaxlength();
+                nrUML += response2[i].get(0).getMaxlength();
+            }
+
+        }
+        valSPI = divLength / (nrUML * 6 + 3 * nrSPL + nrSPI);
+        valSPL = 3 * valSPI;
+        valUML = 6 * valSPI;
+
+
+        if (campuri == 1) {
+
+            if (response2[0].get(0).getTip().equals("LISTA")) {
+
+                Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
+                mySpinner
+                        .setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1,
+                                lista_cod));
+                ViewGroup.LayoutParams params = mySpinner.getLayoutParams();
+
+                if (response2[0].get(0).getMaxlength() < 3) {
+                    params.width = 3 * Math.min(valMaxUML, valUML);
+                } else {
+                    params.width = response2[0].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                }
+                mySpinner.setLayoutParams(params);
+                mySpinner.setVisibility(View.VISIBLE);
+            } else {
+                TextView field1 = (TextView) findViewById(R.id.plate1);
+                field1.setVisibility(View.VISIBLE);
+                field1.setText("");
+
+                ViewGroup.LayoutParams params = field1.getLayoutParams();
+
+                if (response2[0].get(0).getMaxlength() < 3) {
+                    params.width = 3 * Math.min(valMaxUML, valUML);
+                } else {
+                    params.width = response2[0].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                }
+
+                field1.setLayoutParams(params);
+            }
+
+        }
+        if (campuri == 2) {
+            if (response2[0].get(0).getTip().equals("LISTA")) {
+
+                Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
+                mySpinner
+                        .setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1,
+                                lista_cod));
+                ViewGroup.LayoutParams params = mySpinner.getLayoutParams();
+
+                if (response2[0].get(0).getMaxlength() < 3) {
+                    params.width = 3 * Math.min(valMaxUML, valUML);
+                } else {
+                    params.width = response2[0].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                }
+
+                mySpinner.setLayoutParams(params);
+                mySpinner.setVisibility(View.VISIBLE);
+            } else if ((response2[0].get(0).getTip().equals("CIFRE")) || (response2[0].get(0).getTip().equals("LITERE"))) {
+                TextView field1 = (TextView) findViewById(R.id.plate1);
+                field1.setVisibility(View.VISIBLE);
+                field1.setText("");
+
+                ViewGroup.LayoutParams params = field1.getLayoutParams();
+
+                if (response2[0].get(0).getMaxlength() < 3) {
+                    params.width = 3 * Math.min(valMaxUML, valUML);
+                } else {
+                    params.width = response2[0].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                }
+
+                field1.setLayoutParams(params);
+            }
+            if (response2[1].get(0).getTip().equals("LISTA")) {
+
+                Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
+                mySpinner
+                        .setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1,
+                                lista_cod));
+                ViewGroup.LayoutParams params = mySpinner.getLayoutParams();
+
+                if (response2[1].get(0).getMaxlength() < 3) {
+                    params.width = 3 * Math.min(valMaxUML, valUML);
+                } else {
+                    params.width = response2[1].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                }
+
+                mySpinner.setLayoutParams(params);
+                mySpinner.setVisibility(View.VISIBLE);
+            } else if ((response2[1].get(0).getTip().equals("CIFRE")) || (response2[1].get(0).getTip().equals("LITERE"))) {
+                TextView field2 = (TextView) findViewById(R.id.plate2);
+                field2.setVisibility(View.VISIBLE);
+                field2.setText("");
+
+                ViewGroup.LayoutParams params = field2.getLayoutParams();
+
+                if (response2[1].get(0).getMaxlength() < 3) {
+                    params.width = 3 * Math.min(valMaxUML, valUML);
+                } else {
+                    params.width = response2[1].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                }
+
+                field2.setLayoutParams(params);
+            }
+        }
+        if (campuri == 3) {
+            if (response2[0].get(0).getTip().equals("LISTA")) {
+
+                Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
+                mySpinner
+                        .setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1,
+                                lista_cod));
+                ViewGroup.LayoutParams params = mySpinner.getLayoutParams();
+
+                if (response2[0].get(0).getMaxlength() < 3) {
+                    params.width = 3 * Math.min(valMaxUML, valUML);
+                } else {
+                    params.width = response2[0].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                }
+
+                mySpinner.setLayoutParams(params);
+                mySpinner.setVisibility(View.VISIBLE);
+            } else if ((response2[0].get(0).getTip().equals("CIFRE")) || (response2[0].get(0).getTip().equals("LITERE"))) {
+                TextView field1 = (TextView) findViewById(R.id.plate1);
+                field1.setVisibility(View.VISIBLE);
+                field1.setText("");
+
+                ViewGroup.LayoutParams params = field1.getLayoutParams();
+
+                if (response2[0].get(0).getMaxlength() < 3) {
+                    params.width = 3 * Math.min(valMaxUML, valUML);
+                } else {
+                    params.width = response2[0].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                }
+
+                field1.setLayoutParams(params);
+            }
+            if (response2[1].get(0).getTip().equals("LISTA")) {
+
+                Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
+                mySpinner
+                        .setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1,
+                                lista_cod));
+                ViewGroup.LayoutParams params = mySpinner.getLayoutParams();
+
+                if (response2[1].get(0).getMaxlength() < 3) {
+                    params.width = 3 * Math.min(valMaxUML, valUML);
+                } else {
+                    params.width = response2[1].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                }
+                mySpinner.setLayoutParams(params);
+                mySpinner.setVisibility(View.VISIBLE);
+            } else if ((response2[1].get(0).getTip().equals("CIFRE")) || (response2[1].get(0).getTip().equals("LITERE"))) {
+                TextView field2 = (TextView) findViewById(R.id.plate2);
+                field2.setText("");
+                field2.setVisibility(View.VISIBLE);
+
+                ViewGroup.LayoutParams params = field2.getLayoutParams();
+                if (response2[1].get(0).getMaxlength() < 3) {
+                    params.width = 3 * Math.min(valMaxUML, valUML);
+                } else {
+                    params.width = response2[1].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                }
+                field2.setLayoutParams(params);
+            }
+            if (response2[2].get(0).getTip().equals("LISTA")) {
+
+                Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
+                mySpinner
+                        .setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1,
+                                lista_cod));
+                ViewGroup.LayoutParams params = mySpinner.getLayoutParams();
+
+                if (response2[2].get(0).getMaxlength() < 3) {
+                    params.width = 3 * Math.min(valMaxUML, valUML);
+                } else {
+                    params.width = response2[2].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                }
+
+                mySpinner.setLayoutParams(params);
+                mySpinner.setVisibility(View.VISIBLE);
+            } else if ((response2[2].get(0).getTip().equals("CIFRE")) || (response2[2].get(0).getTip().equals("LITERE"))) {
+                TextView field3 = (TextView) findViewById(R.id.plate3);
+                field3.setText("");
+                field3.setVisibility(View.VISIBLE);
+
+                ViewGroup.LayoutParams params = field3.getLayoutParams();
+
+                if (response2[2].get(0).getMaxlength() < 3) {
+                    params.width = 3 * Math.min(valMaxUML, valUML);
+                } else {
+                    params.width = response2[2].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                }
+
+                field3.setLayoutParams(params);
+            }
+        }
+        if (campuri == 4) {
+
+        }
+        if (campuri == 5) {
+
+        }
+
+            /*Toast toast = Toast.makeText(this, campuri+"",Toast.LENGTH_LONG);
+            toast.show();*/
+
+    }
+
     private void makePostRequestOnNewThread() {
 
         Thread t0 = new Thread(new Runnable() {
@@ -374,8 +620,8 @@ public class Ecran20Activity extends AppCompatActivity {
             public void run() {
 
                 try {
-                    if (id_shared==0){
-                    makePostRequest0();
+                    if (id_shared == 0) {
+                        makePostRequest0();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -452,13 +698,17 @@ public class Ecran20Activity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Toast toast= Toast.makeText(this, test, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(this, test, Toast.LENGTH_LONG);
         toast.show();
     }
 
     private void makePostRequest0() throws JSONException {
 
-
+        /*[
+        {
+            "id": 1
+        }
+        ]*/
 
         GetRequest elemm = new GetRequest();
 
@@ -476,13 +726,21 @@ public class Ecran20Activity extends AppCompatActivity {
         Type listeType = new TypeToken<List<Response>>() {
         }.getType();
         List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-        idd= response.get(0).getId();
+        idd = response.get(0).getId();
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putInt("id_shared", idd);
         editor.commit();
     }
 
     private void makePostRequest() throws JSONException {
+
+        /*[
+        {
+            "id": 2,
+                "nume": "Temporară",
+                "ids_tipuri_inmatriculare_tipuri_elemente":[4,5]
+        }
+        ]*/
 
         id_shared = (sharedpreferences.getInt("id_shared", 0));
 
@@ -499,8 +757,9 @@ public class Ecran20Activity extends AppCompatActivity {
         Type listeType = new TypeToken<List<Response>>() {
         }.getType();
         List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-        name_tip_inmatriculare= response.get(0).getNume();
+        name_tip_inmatriculare = response.get(0).getNume();
         ids_tipuri_inmatriculare_tipuri_elemente = response.get(0).getIds_tipuri_inmatriculare_tipuri_elemente();
+        campuri = ids_tipuri_inmatriculare_tipuri_elemente.length;
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("name_tip_inmatriculare", name_tip_inmatriculare);
         editor.commit();
@@ -508,14 +767,20 @@ public class Ecran20Activity extends AppCompatActivity {
 
     private void makePostRequest1() throws JSONException {
 
-
+        /*[
+        {
+            "id": 1,
+            "id_tip_element": 1,
+            "ordinea": 1
+        }
+        ]*/
 
         GetRequest elemm = new GetRequest();
 
         JSONObject resursa = new JSONObject();
         JSONArray arr = new JSONArray();
         JSONArray cerute = new JSONArray().put("id").put("id_tip_element").put("ordinea");
-        for (int i =0; i<ids_tipuri_inmatriculare_tipuri_elemente.length; i++) {
+        for (int i = 0; i < ids_tipuri_inmatriculare_tipuri_elemente.length; i++) {
 
             arr.put(ids_tipuri_inmatriculare_tipuri_elemente[i]);
         }
@@ -531,35 +796,73 @@ public class Ecran20Activity extends AppCompatActivity {
         //Todo orinea
         //ordinea
 
-         id_tip_element = new int[response.size()];
-        for(int i=0; i<response.size(); i++){
+        id_tip_element = new int[response.size()];
+        for (int i = 0; i < response.size(); i++) {
             int j = response.get(i).getId_tip_element();
-            id_tip_element[i]=j;
+            id_tip_element[i] = j;
         }
 
     }
 
     private void makePostRequest2() throws JSONException {
 
-
+        /*[
+        {
+            "id": 1,
+                "tip": "LISTA",
+                "editabil_user": 1,
+                "maxlength": 2,
+                "valori":[{"id": 2161, "cod": "AB" }, {"id": 2163, "cod": "AG"…]
+        },
+            {
+                "id": 2,
+                    "tip": "CIFRE",
+                    "editabil_user": 1,
+                    "maxlength": 3,
+                    "valori": "^[0-9]{2,3}$"
+            }
+            ]*/
 
         GetRequest elemm = new GetRequest();
 
         JSONArray cerute = new JSONArray().put("id").put("tip").put("editabil_user").put("maxlength").put("valori");
         JSONObject resursa = new JSONObject();
-        JSONArray id = new JSONArray();
-        for(int i=0; i<id_tip_element.length; i++) {
-             id.put(id_tip_element[i]);
-        }
-        resursa.put("id", id);
-
-        String result_string = elemm.getRaspuns(Ecran20Activity.this, url2, resursa, cerute);
-
+        String result_string=null;
         Gson gson = new Gson();
         Type listeType = new TypeToken<List<Response>>() {
         }.getType();
-        List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-        test = response.get(0).getTip();
+        for (int i = 0; i < id_tip_element.length; i++) {
+            JSONArray id = new JSONArray();
+            id.put(id_tip_element[i]);
+            resursa.put("id", id);
+            result_string = elemm.getRaspuns(Ecran20Activity.this, url2, resursa, cerute);
+            response3 = (List<Response>) gson.fromJson(result_string, listeType);
+            response2[i]= response3;
+        }
+
+
+
+
+
+        //test = response.get(0).getTip();
+        for (int i = 0; i < response2.length; i++) {
+            int yy = response2[i].get(0).getMaxlength();
+            int vv = yy;
+            String s = new JSONArray(result_string).getJSONObject(0).getString("valori");
+            if (response2[i].get(0).getTip().equals("LISTA")) {
+                valoareArr = new JSONArray(s);
+                lista_cod = new String[valoareArr.length()];
+                for (int j = 0; j < valoareArr.length(); j++) {
+                    JSONObject elem = valoareArr.getJSONObject(j);
+                    lista_cod[j] = elem.getString("cod");
+                }
+            } else {
+                valoare = s;
+            }
+
+
+        }
+
 
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putInt("id_shared", 0);
