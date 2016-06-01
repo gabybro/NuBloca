@@ -69,8 +69,7 @@ public class Ecran20Activity extends AppCompatActivity {
     String test;
     int idd;
     int id_shared = 0;
-    List<Response> response3;
-    List<Response>[] response2;
+    List<Response> response2;
     JSONArray valoareArr;
     String valoare;
     String[] lista_cod;
@@ -92,9 +91,6 @@ public class Ecran20Activity extends AppCompatActivity {
         id_tara = (sharedpreferences.getInt("id_tara", 147));
         id_shared = (sharedpreferences.getInt("id_shared", 0));
         //campuri = (sharedpreferences.getInt("campuri", 3));
-
-        //ElemNumere = (sharedpreferences.getString("ElemNumere", "null"));
-        //ElemNumere1 = (sharedpreferences.getString("ElemNumere1", "null"));
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -398,11 +394,11 @@ public class Ecran20Activity extends AppCompatActivity {
 
         for (int i = 0; i < campuri; i++) {
             // calculam lunngimea inputului
-            if (response2[i].get(0).getMaxlength() < 3) {
+            if (response2.get(i).getMaxlength() < 3) {
                 nrUML += 3;
             } else {
-                int xx = response2[i].get(0).getMaxlength();
-                nrUML += response2[i].get(0).getMaxlength();
+                int xx = response2.get(i).getMaxlength();
+                nrUML += response2.get(i).getMaxlength();
             }
 
         }
@@ -413,7 +409,7 @@ public class Ecran20Activity extends AppCompatActivity {
 
         if (campuri == 1) {
 
-            if (response2[0].get(0).getTip().equals("LISTA")) {
+            if (response2.get(0).getTip().equals("LISTA")) {
 
                 Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
                 mySpinner
@@ -421,10 +417,10 @@ public class Ecran20Activity extends AppCompatActivity {
                                 lista_cod));
                 ViewGroup.LayoutParams params = mySpinner.getLayoutParams();
 
-                if (response2[0].get(0).getMaxlength() < 3) {
+                if (response2.get(0).getMaxlength() < 3) {
                     params.width = 3 * Math.min(valMaxUML, valUML);
                 } else {
-                    params.width = response2[0].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                    params.width = response2.get(0).getMaxlength() * Math.min(valMaxUML, valUML);
                 }
                 mySpinner.setLayoutParams(params);
                 mySpinner.setVisibility(View.VISIBLE);
@@ -435,10 +431,10 @@ public class Ecran20Activity extends AppCompatActivity {
 
                 ViewGroup.LayoutParams params = field1.getLayoutParams();
 
-                if (response2[0].get(0).getMaxlength() < 3) {
+                if (response2.get(0).getMaxlength() < 3) {
                     params.width = 3 * Math.min(valMaxUML, valUML);
                 } else {
-                    params.width = response2[0].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                    params.width = response2.get(0).getMaxlength() * Math.min(valMaxUML, valUML);
                 }
 
                 field1.setLayoutParams(params);
@@ -446,7 +442,7 @@ public class Ecran20Activity extends AppCompatActivity {
 
         }
         if (campuri == 2) {
-            if (response2[0].get(0).getTip().equals("LISTA")) {
+            if (response2.get(0).getTip().equals("LISTA")) {
 
                 Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
                 mySpinner
@@ -454,30 +450,30 @@ public class Ecran20Activity extends AppCompatActivity {
                                 lista_cod));
                 ViewGroup.LayoutParams params = mySpinner.getLayoutParams();
 
-                if (response2[0].get(0).getMaxlength() < 3) {
+                if (response2.get(0).getMaxlength() < 3) {
                     params.width = 3 * Math.min(valMaxUML, valUML);
                 } else {
-                    params.width = response2[0].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                    params.width = response2.get(0).getMaxlength() * Math.min(valMaxUML, valUML);
                 }
 
                 mySpinner.setLayoutParams(params);
                 mySpinner.setVisibility(View.VISIBLE);
-            } else if ((response2[0].get(0).getTip().equals("CIFRE")) || (response2[0].get(0).getTip().equals("LITERE"))) {
+            } else if ((response2.get(0).getTip().equals("CIFRE")) || (response2.get(0).getTip().equals("LITERE"))) {
                 TextView field1 = (TextView) findViewById(R.id.plate1);
                 field1.setVisibility(View.VISIBLE);
                 field1.setText("");
 
                 ViewGroup.LayoutParams params = field1.getLayoutParams();
 
-                if (response2[0].get(0).getMaxlength() < 3) {
+                if (response2.get(0).getMaxlength() < 3) {
                     params.width = 3 * Math.min(valMaxUML, valUML);
                 } else {
-                    params.width = response2[0].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                    params.width = response2.get(0).getMaxlength() * Math.min(valMaxUML, valUML);
                 }
 
                 field1.setLayoutParams(params);
             }
-            if (response2[1].get(0).getTip().equals("LISTA")) {
+            if (response2.get(1).getTip().equals("LISTA")) {
 
                 Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
                 mySpinner
@@ -485,32 +481,32 @@ public class Ecran20Activity extends AppCompatActivity {
                                 lista_cod));
                 ViewGroup.LayoutParams params = mySpinner.getLayoutParams();
 
-                if (response2[1].get(0).getMaxlength() < 3) {
+                if (response2.get(1).getMaxlength() < 3) {
                     params.width = 3 * Math.min(valMaxUML, valUML);
                 } else {
-                    params.width = response2[1].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                    params.width = response2.get(1).getMaxlength() * Math.min(valMaxUML, valUML);
                 }
 
                 mySpinner.setLayoutParams(params);
                 mySpinner.setVisibility(View.VISIBLE);
-            } else if ((response2[1].get(0).getTip().equals("CIFRE")) || (response2[1].get(0).getTip().equals("LITERE"))) {
+            } else if ((response2.get(1).getTip().equals("CIFRE")) || (response2.get(1).getTip().equals("LITERE"))) {
                 TextView field2 = (TextView) findViewById(R.id.plate2);
                 field2.setVisibility(View.VISIBLE);
                 field2.setText("");
 
                 ViewGroup.LayoutParams params = field2.getLayoutParams();
 
-                if (response2[1].get(0).getMaxlength() < 3) {
+                if (response2.get(1).getMaxlength() < 3) {
                     params.width = 3 * Math.min(valMaxUML, valUML);
                 } else {
-                    params.width = response2[1].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                    params.width = response2.get(1).getMaxlength() * Math.min(valMaxUML, valUML);
                 }
 
                 field2.setLayoutParams(params);
             }
         }
         if (campuri == 3) {
-            if (response2[0].get(0).getTip().equals("LISTA")) {
+            if (response2.get(0).getTip().equals("LISTA")) {
 
                 Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
                 mySpinner
@@ -518,30 +514,30 @@ public class Ecran20Activity extends AppCompatActivity {
                                 lista_cod));
                 ViewGroup.LayoutParams params = mySpinner.getLayoutParams();
 
-                if (response2[0].get(0).getMaxlength() < 3) {
+                if (response2.get(0).getMaxlength() < 3) {
                     params.width = 3 * Math.min(valMaxUML, valUML);
                 } else {
-                    params.width = response2[0].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                    params.width = response2.get(0).getMaxlength() * Math.min(valMaxUML, valUML);
                 }
 
                 mySpinner.setLayoutParams(params);
                 mySpinner.setVisibility(View.VISIBLE);
-            } else if ((response2[0].get(0).getTip().equals("CIFRE")) || (response2[0].get(0).getTip().equals("LITERE"))) {
+            } else if ((response2.get(0).getTip().equals("CIFRE")) || (response2.get(0).getTip().equals("LITERE"))) {
                 TextView field1 = (TextView) findViewById(R.id.plate1);
                 field1.setVisibility(View.VISIBLE);
                 field1.setText("");
 
                 ViewGroup.LayoutParams params = field1.getLayoutParams();
 
-                if (response2[0].get(0).getMaxlength() < 3) {
+                if (response2.get(0).getMaxlength() < 3) {
                     params.width = 3 * Math.min(valMaxUML, valUML);
                 } else {
-                    params.width = response2[0].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                    params.width = response2.get(0).getMaxlength() * Math.min(valMaxUML, valUML);
                 }
 
                 field1.setLayoutParams(params);
             }
-            if (response2[1].get(0).getTip().equals("LISTA")) {
+            if (response2.get(1).getTip().equals("LISTA")) {
 
                 Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
                 mySpinner
@@ -549,27 +545,27 @@ public class Ecran20Activity extends AppCompatActivity {
                                 lista_cod));
                 ViewGroup.LayoutParams params = mySpinner.getLayoutParams();
 
-                if (response2[1].get(0).getMaxlength() < 3) {
+                if (response2.get(1).getMaxlength() < 3) {
                     params.width = 3 * Math.min(valMaxUML, valUML);
                 } else {
-                    params.width = response2[1].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                    params.width = response2.get(1).getMaxlength() * Math.min(valMaxUML, valUML);
                 }
                 mySpinner.setLayoutParams(params);
                 mySpinner.setVisibility(View.VISIBLE);
-            } else if ((response2[1].get(0).getTip().equals("CIFRE")) || (response2[1].get(0).getTip().equals("LITERE"))) {
+            } else if ((response2.get(1).getTip().equals("CIFRE")) || (response2.get(1).getTip().equals("LITERE"))) {
                 TextView field2 = (TextView) findViewById(R.id.plate2);
                 field2.setText("");
                 field2.setVisibility(View.VISIBLE);
 
                 ViewGroup.LayoutParams params = field2.getLayoutParams();
-                if (response2[1].get(0).getMaxlength() < 3) {
+                if (response2.get(1).getMaxlength() < 3) {
                     params.width = 3 * Math.min(valMaxUML, valUML);
                 } else {
-                    params.width = response2[1].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                    params.width = response2.get(1).getMaxlength() * Math.min(valMaxUML, valUML);
                 }
                 field2.setLayoutParams(params);
             }
-            if (response2[2].get(0).getTip().equals("LISTA")) {
+            if (response2.get(2).getTip().equals("LISTA")) {
 
                 Spinner mySpinner = (Spinner) findViewById(R.id.my_spinner);
                 mySpinner
@@ -577,25 +573,25 @@ public class Ecran20Activity extends AppCompatActivity {
                                 lista_cod));
                 ViewGroup.LayoutParams params = mySpinner.getLayoutParams();
 
-                if (response2[2].get(0).getMaxlength() < 3) {
+                if (response2.get(2).getMaxlength() < 3) {
                     params.width = 3 * Math.min(valMaxUML, valUML);
                 } else {
-                    params.width = response2[2].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                    params.width = response2.get(2).getMaxlength() * Math.min(valMaxUML, valUML);
                 }
 
                 mySpinner.setLayoutParams(params);
                 mySpinner.setVisibility(View.VISIBLE);
-            } else if ((response2[2].get(0).getTip().equals("CIFRE")) || (response2[2].get(0).getTip().equals("LITERE"))) {
+            } else if ((response2.get(2).getTip().equals("CIFRE")) || (response2.get(2).getTip().equals("LITERE"))) {
                 TextView field3 = (TextView) findViewById(R.id.plate3);
                 field3.setText("");
                 field3.setVisibility(View.VISIBLE);
 
                 ViewGroup.LayoutParams params = field3.getLayoutParams();
 
-                if (response2[2].get(0).getMaxlength() < 3) {
+                if (response2.get(2).getMaxlength() < 3) {
                     params.width = 3 * Math.min(valMaxUML, valUML);
                 } else {
-                    params.width = response2[2].get(0).getMaxlength() * Math.min(valMaxUML, valUML);
+                    params.width = response2.get(2).getMaxlength() * Math.min(valMaxUML, valUML);
                 }
 
                 field3.setLayoutParams(params);
@@ -703,12 +699,12 @@ public class Ecran20Activity extends AppCompatActivity {
     }
 
     private void makePostRequest0() throws JSONException {
-
-        /*[
-        {
-            "id": 1
-        }
-        ]*/
+        /*{
+            "identificare": {
+                "user": {"app_code": "abcdefghijkl123456"},
+                "resursa": {"id_tara": [147],"ordinea":[1]}},
+            "cerute": ["id"	]
+        }*/
 
         GetRequest elemm = new GetRequest();
 
@@ -721,6 +717,9 @@ public class Ecran20Activity extends AppCompatActivity {
 
 
         String result_string = elemm.getRaspuns(Ecran20Activity.this, url, resursa, cerute);
+        /*[{
+            "id": 1
+        }]*/
 
         Gson gson = new Gson();
         Type listeType = new TypeToken<List<Response>>() {
@@ -733,26 +732,27 @@ public class Ecran20Activity extends AppCompatActivity {
     }
 
     private void makePostRequest() throws JSONException {
+        /*{
+            "identificare": {
+                "user": {"app_code": "abcdefghijkl123456"},
+                "resursa": {"id":[2]}},
+            "cerute": ["id","nume","ids_tipuri_inmatriculare_tipuri_elemente"]
+        }*/
 
-        /*[
-        {
-            "id": 2,
-                "nume": "Temporară",
-                "ids_tipuri_inmatriculare_tipuri_elemente":[4,5]
-        }
-        ]*/
 
         id_shared = (sharedpreferences.getInt("id_shared", 0));
-
         GetRequest elemm = new GetRequest();
-
         JSONArray cerute = new JSONArray().put("id").put("nume").put("ids_tipuri_inmatriculare_tipuri_elemente");
         JSONArray idTara = new JSONArray().put(id_shared);
         JSONObject resursa = new JSONObject();
         resursa.put("id", idTara);
 
         String result_string = elemm.getRaspuns(Ecran20Activity.this, url, resursa, cerute);
-
+        /*[{
+            "id": 2,
+                "nume": "Temporară",
+                "ids_tipuri_inmatriculare_tipuri_elemente":[4,5]
+        }]*/
         Gson gson = new Gson();
         Type listeType = new TypeToken<List<Response>>() {
         }.getType();
@@ -766,17 +766,15 @@ public class Ecran20Activity extends AppCompatActivity {
     }
 
     private void makePostRequest1() throws JSONException {
+        /*{
+            "identificare": {
+                "user": {"app_code": "abcdefghijkl123456"},
+                "resursa": {"id": [1,2,3]}},
+            "cerute":["id","id_tip_element","ordinea"]
+        }*/
 
-        /*[
-        {
-            "id": 1,
-            "id_tip_element": 1,
-            "ordinea": 1
-        }
-        ]*/
 
         GetRequest elemm = new GetRequest();
-
         JSONObject resursa = new JSONObject();
         JSONArray arr = new JSONArray();
         JSONArray cerute = new JSONArray().put("id").put("id_tip_element").put("ordinea");
@@ -788,7 +786,19 @@ public class Ecran20Activity extends AppCompatActivity {
         resursa.put("id", arr);
 
         String result_string = elemm.getRaspuns(Ecran20Activity.this, url1, resursa, cerute);
-
+        /*[{
+            "id": 1,
+                "id_tip_element": 1,
+                "ordinea": 1
+        },{
+            "id": 2,
+                "id_tip_element": 2,
+                "ordinea": 2
+        },{
+            "id": 3,
+                "id_tip_element": 3,
+                "ordinea": 3
+        }]*/
         Gson gson = new Gson();
         Type listeType = new TypeToken<List<Response>>() {
         }.getType();
@@ -805,29 +815,23 @@ public class Ecran20Activity extends AppCompatActivity {
     }
 
     private void makePostRequest2() throws JSONException {
-
-        /*[
-        {
-            "id": 1,
-                "tip": "LISTA",
-                "editabil_user": 1,
-                "maxlength": 2,
-                "valori":[{"id": 2161, "cod": "AB" }, {"id": 2163, "cod": "AG"…]
-        },
-            {
-                "id": 2,
-                    "tip": "CIFRE",
-                    "editabil_user": 1,
-                    "maxlength": 3,
-                    "valori": "^[0-9]{2,3}$"
-            }
-            ]*/
+       /* {
+            "identificare": {
+                "user": {"app_code": "abcdefghijkl123456"},
+                "resursa":{"id":[5,6,6]}},
+            "cerute":[
+                "id",
+                "tip",
+                "editabil_user",
+                "maxlength",
+                "valori"]
+        }*/
 
         GetRequest elemm = new GetRequest();
 
         JSONArray cerute = new JSONArray().put("id").put("tip").put("editabil_user").put("maxlength").put("valori");
         JSONObject resursa = new JSONObject();
-        String result_string=null;
+        String result_string = null;
         Gson gson = new Gson();
         Type listeType = new TypeToken<List<Response>>() {
         }.getType();
@@ -835,21 +839,37 @@ public class Ecran20Activity extends AppCompatActivity {
             JSONArray id = new JSONArray();
             id.put(id_tip_element[i]);
             resursa.put("id", id);
-            result_string = elemm.getRaspuns(Ecran20Activity.this, url2, resursa, cerute);
-            response3 = (List<Response>) gson.fromJson(result_string, listeType);
-            response2[i]= response3;
+        }
+        result_string = elemm.getRaspuns(Ecran20Activity.this, url2, resursa, cerute);
+        response2 = (List<Response>) gson.fromJson(result_string, listeType);
+
+        /*[{
+            "id": 5,
+            "tip": "LISTA",
+            "editabil_user": 1,
+            "maxlength": 2,
+            "valori":[{"id": 1,"cod": "CD"},{"id": 2,"cod": "CO"},{"id": 3,"cod": "TC"}]},
+            {
+            "id": 6,
+            "tip": "CIFRE",
+            "editabil_user": 1,
+            "maxlength": 3,
+            "valori": "^[0-9]{3}$"
+            }]*/
+
+        //test = response.get(0).getTip();
+
+        if (id_tip_element.length<response2.size()){
+            Response x = response2.get(response2.size()-1);
+            response2.add(response2.size(), x);
         }
 
 
-
-
-
-        //test = response.get(0).getTip();
-        for (int i = 0; i < response2.length; i++) {
-            int yy = response2[i].get(0).getMaxlength();
+        for (int i = 0; i < response2.size(); i++) {
+            int yy = response2.get(i).getMaxlength();
             int vv = yy;
             String s = new JSONArray(result_string).getJSONObject(0).getString("valori");
-            if (response2[i].get(0).getTip().equals("LISTA")) {
+            if (response2.get(i).getTip().equals("LISTA")) {
                 valoareArr = new JSONArray(s);
                 lista_cod = new String[valoareArr.length()];
                 for (int j = 0; j < valoareArr.length(); j++) {
