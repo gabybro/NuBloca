@@ -459,10 +459,14 @@ public class Ecran20Activity extends AppCompatActivity {
                     //params.setMargins(convDp(valSPI), 0, 0, 0);
                     params.setMargins(valSPI, 0, 0, 0);
                 }
+                if ((i+1)<allelem.length){
+                    if (allelem[i+1].getTip().equals("LISTA")) {params.setMargins(valSPI, 0, valSPI, 0);}
+                }
                 field.setLayoutParams(params);
 
                 //field.setWidth(convDp(valRealUml * minTrei));
                 field.setWidth(valRealUml * minTrei);
+                //field.setMaxWidth(valRealUml * minTrei);
                 field.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
                 field.setTextSize(30);
                 //field.setText(convDp(1080)+"");

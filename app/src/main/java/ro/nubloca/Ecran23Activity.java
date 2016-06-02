@@ -460,5 +460,10 @@ public class Ecran23Activity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
+        finish();
+        super.onBackPressed();
+    }
 }
