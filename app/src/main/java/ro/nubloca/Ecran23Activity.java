@@ -13,6 +13,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -313,7 +314,16 @@ public class Ecran23Activity extends AppCompatActivity {
                             editor.putInt("positionExemplu", position);
                             /*editor.putString("getOrderIdsTip", o.getOrderIdsTip().toString());
                             editor.putString("nume_tip_inmatriculare", o.getOrderName());*/
-                            editor.putString("getOrderIdsTip", response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente().toString());
+                            String rezz = response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente().toString();
+                            String ss= rezz;
+
+                            editor.putInt("Count", response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente().length);
+                            int count = 0;
+                            for (int ii: response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente()){
+                                editor.putInt("IntValue_" + count++, ii);
+                            }
+
+                            //editor.putString("getOrderIdsTip", response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente().toString());
                             editor.putString("nume_tip_inmatriculare", response.get(position).getNume());
                             editor.commit();
                             startActivity(new Intent(Ecran23Activity.this, Ecran26Activity.class));
@@ -465,5 +475,21 @@ public class Ecran23Activity extends AppCompatActivity {
         startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
         finish();
         super.onBackPressed();
+    }
+    /**
+     * react to the user tapping the back/up icon in the action bar
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // this takes the user 'back', as if they pressed the left-facing triangle icon on the main android toolbar.
+                // if this doesn't work as desired, another possibility is to call `finish()` here.
+                //finish();
+                Ecran23Activity.this.onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

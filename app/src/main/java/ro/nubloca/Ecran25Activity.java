@@ -169,6 +169,7 @@ public class Ecran25Activity extends AppCompatActivity {
                                 editor.putString("nume_tip_inmatriculare", "default");
                                 editor.putInt("nume_tip_inmatriculare_id", 0);
                                 editor.putString("country_select",o.getOrderName());
+                                editor.putInt("positionExemplu", -1);
                                 editor.commit();
                                 startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
                                 finish();

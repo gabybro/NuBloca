@@ -115,7 +115,7 @@ public class Ecran1Activity extends AppCompatActivity {
         id_tara  = response.get(0).getId();
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putInt("id_tara", id_tara);
-        //editor.putInt("id_tara", 31);
+        //editor.putInt("id_tara", 147);
         editor.commit();
     }
 }

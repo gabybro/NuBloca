@@ -5,7 +5,7 @@ import org.json.JSONArray;
 /**
  * Created by gaby on 6/1/16.
  */
-public class AllElem {
+public class AllElem implements Comparable<AllElem> {
     private int id;
 
     private int id_tip_element;
@@ -13,6 +13,17 @@ public class AllElem {
     private int ordinea;
 
     private String tip;
+
+    public String getValoare_demo_imagine() {
+        return valoare_demo_imagine;
+    }
+
+    public void setValoare_demo_imagine(String valoare_demo_imagine) {
+        this.valoare_demo_imagine = valoare_demo_imagine;
+    }
+
+    private String valoare_demo_imagine;
+
 
     private int editabil_user;
 
@@ -85,5 +96,10 @@ public class AllElem {
     private String valoriString;
 
     private JSONArray valoriArray;
+
+    @Override
+    public int compareTo(AllElem o) {
+        return new Double(this.ordinea).compareTo(new Double(o.ordinea));
+    }
 
 }

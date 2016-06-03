@@ -17,7 +17,6 @@ public class Response {
     @SerializedName("nume")
     private String nume;
 
-
     @SerializedName("ids_tipuri_inmatriculare_tipuri_elemente")
     private int[]  ids_tipuri_inmatriculare_tipuri_elemente;
 

@@ -73,56 +73,57 @@
 
     <LinearLayout
         android:id="@+id/linearPlate1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/car_exemplu"
         android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <ro.nubloca.extras.CustomFontTitilliumBold
-            android:id="@+id/field1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/plate_border"
-            android:gravity="center_vertical|center"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="@string/exemplu_4"
-            android:textColor="@color/text_layout_custom"
-            android:textSize="35sp"
-            android:textStyle="bold"
-            android:visibility="invisible" />
-
-        <ro.nubloca.extras.CustomFontTitilliumBold
-            android:id="@+id/field2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/plate_border"
-            android:gravity="center_vertical|center"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="@string/exemplu_5"
-            android:textColor="@color/text_layout_custom"
-            android:textSize="35sp"
-            android:visibility="invisible" />
-
-        <ro.nubloca.extras.CustomFontTitilliumBold
-            android:id="@+id/field3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/plate_border"
-            android:gravity="center_vertical|center"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="@string/exemplu_6"
-            android:textColor="@color/text_layout_custom"
-            android:textSize="35sp"
-            android:visibility="gone" />
-
+        android:layout_below="@+id/car_exemplu"
+        >
     </LinearLayout>
+
+    <!-- <ro.nubloca.extras.CustomFontTitilliumBold
+         android:id="@+id/field1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginRight="5dp"
+         android:background="@drawable/plate_border"
+         android:gravity="center_vertical|center"
+         android:paddingLeft="10dp"
+         android:paddingRight="10dp"
+         android:text="@string/exemplu_4"
+         android:textColor="@color/text_layout_custom"
+         android:textSize="35sp"
+         android:textStyle="bold"
+         android:visibility="invisible" />
+
+     <ro.nubloca.extras.CustomFontTitilliumBold
+         android:id="@+id/field2"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginRight="5dp"
+         android:background="@drawable/plate_border"
+         android:gravity="center_vertical|center"
+         android:paddingLeft="10dp"
+         android:paddingRight="10dp"
+         android:text="@string/exemplu_5"
+         android:textColor="@color/text_layout_custom"
+         android:textSize="35sp"
+         android:visibility="invisible" />
+
+     <ro.nubloca.extras.CustomFontTitilliumBold
+         android:id="@+id/field3"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:background="@drawable/plate_border"
+         android:gravity="center_vertical|center"
+         android:paddingLeft="10dp"
+         android:paddingRight="10dp"
+         android:text="@string/exemplu_6"
+         android:textColor="@color/text_layout_custom"
+         android:textSize="35sp"
+         android:visibility="gone" />-->
+
 
     <ro.nubloca.extras.CustomFontTitilliumRegular
         android:id="@+id/textView20"

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ro.nubloca">
 
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -50,7 +54,7 @@
             android:parentActivityName=".Ecran7Activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysVisible" >
+            android:windowSoftInputMode="stateAlwaysVisible">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ro.nubloca.Ecran7Activity" />
@@ -153,8 +157,8 @@
         <activity
             android:name=".Ecran23Activity"
             android:label="@string/title_activity_ecran23"
-            android:screenOrientation="portrait"
             android:parentActivityName=".Ecran20Activity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -174,6 +178,7 @@
         <activity
             android:name=".Ecran25Activity"
             android:label="@string/title_activity_ecran25"
+            android:parentActivityName=".Ecran23Activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -220,7 +225,6 @@
         </activity>
 
     </application>
-
 
 
 </manifest>

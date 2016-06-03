@@ -28,9 +28,9 @@
         android:id="@+id/linear_contact1"
         android:layout_width="wrap_content"
         android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView13"
-        android:gravity="center_horizontal">
+        android:layout_below="@+id/textView13">
 
         <!--<ImageView
             android:id="@+id/imageView21"
