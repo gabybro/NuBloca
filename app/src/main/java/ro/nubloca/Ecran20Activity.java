@@ -74,7 +74,7 @@ public class Ecran20Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         name_tip_inmatriculare = ((GlobalVar) this.getApplication()).getName_tip_inmatriculare();
-        id_shared = ((GlobalVar) this.getApplication()).getId_shared();
+
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -123,9 +123,6 @@ public class Ecran20Activity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putInt("positionExemplu", -1);
-                    editor.commit();
                     startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
                     finish();
 
@@ -355,6 +352,7 @@ public class Ecran20Activity extends AppCompatActivity {
     }
 
     private void makePostRequest0() throws JSONException {
+        //url = http://api.nubloca.ro/tipuri_inmatriculare/;
         /*{
             "identificare": {
                 "user": {"app_code": "abcdefghijkl123456"},
@@ -373,6 +371,7 @@ public class Ecran20Activity extends AppCompatActivity {
 
 
         String result_string = elemm.getRaspuns(Ecran20Activity.this, url, resursa, cerute);
+        String x = result_string;
         /*[{
             "id": 1
         }]*/
@@ -382,19 +381,18 @@ public class Ecran20Activity extends AppCompatActivity {
         }.getType();
         List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
         idd = response.get(0).getId();
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putInt("id_shared", idd);
-        editor.commit();
+        ((GlobalVar) Ecran20Activity.this.getApplication()).setId_shared(idd);
     }
 
     private void makePostRequest() throws JSONException {
+        //url = http://api.nubloca.ro/tipuri_inmatriculare/;
         /*{
             "identificare": {
                 "user": {"app_code": "abcdefghijkl123456"},
                 "resursa": {"id":[2]}},
             "cerute": ["id","nume","ids_tipuri_inmatriculare_tipuri_elemente"]
         }*/
-
+        id_shared = ((GlobalVar) this.getApplication()).getId_shared();
         GetRequest elemm = new GetRequest();
         JSONArray cerute = new JSONArray().put("id").put("nume").put("ids_tipuri_inmatriculare_tipuri_elemente");
         JSONArray idTara = new JSONArray().put(id_shared);
@@ -420,6 +418,7 @@ public class Ecran20Activity extends AppCompatActivity {
     }
 
     private void makePostRequest1() throws JSONException {
+        //url1 = http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/;
         /*{
             "identificare": {
                 "user": {"app_code": "abcdefghijkl123456"},
@@ -469,8 +468,6 @@ public class Ecran20Activity extends AppCompatActivity {
                 "ordinea": 3
                 valoare_demo_imagine": 255
         }]*/
-        //Todo orinea
-        //ordinea
 
         id_tip_element = new int[response.size()];
         for (int i = 0; i < response.size(); i++) {
@@ -481,6 +478,7 @@ public class Ecran20Activity extends AppCompatActivity {
     }
 
     private void makePostRequest2() throws JSONException {
+        //url2 = http://api.nubloca.ro/tipuri_elemente/;
        /* {
             "identificare": {
                 "user": {"app_code": "abcdefghijkl123456"},
@@ -546,11 +544,6 @@ public class Ecran20Activity extends AppCompatActivity {
             "maxlength": 3,
             "valori": "^[0-9]{3}$"
             }]*/
-
-
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putInt("id_shared", 0);
-        editor.commit();
 
     }
 

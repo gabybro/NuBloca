@@ -112,12 +112,12 @@ public class Ecran1Activity extends AppCompatActivity {
         Type listeType = new TypeToken<List<Response>>() {
         }.getType();
         List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-        id_tara  = response.get(0).getId();
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putInt("id_tara", id_tara);
+        //id_tara  = response.get(0).getId();
+        id_tara=147;
         //set id_tara as Global Variable
         ((GlobalVar) this.getApplication()).setId_tara(id_tara);
-        //editor.putInt("id_tara", 147);
-        editor.commit();
+        /*[{
+            "id": 147, "url_steag": "147.png"
+        }]*/
     }
 }

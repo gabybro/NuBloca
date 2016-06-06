@@ -82,8 +82,7 @@ public class Ecran26Activity extends AppCompatActivity {
 
     private void makePostRequestOnNewThread() {
 
-        pd = ProgressDialog.show(this, "", "", true,
-                false);
+        //pd = ProgressDialog.show(this, "", "", true,  false);
 
         Thread t = new Thread(new Runnable() {
             @Override
@@ -199,7 +198,7 @@ public class Ecran26Activity extends AppCompatActivity {
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            pd.dismiss();
+            //pd.dismiss();
             Gson gson = new Gson();
             Type listeType = new TypeToken<List<Response>>() {
             }.getType();
