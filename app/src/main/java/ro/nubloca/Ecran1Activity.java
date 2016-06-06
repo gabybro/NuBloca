@@ -24,6 +24,7 @@ import java.util.List;
 
 import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.Response;
+import ro.nubloca.extras.GlobalVar;
 
 public class Ecran1Activity extends AppCompatActivity {
 
@@ -31,12 +32,10 @@ public class Ecran1Activity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     boolean Tos;
     private ProgressBar progressBar;
-    //private int progressStatus = 0;
-    //private Handler handler = new Handler();
     int id_tara;
     String url = "http://api.nubloca.ro/tari/";
     String countryCode;
-    String rez;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +43,7 @@ public class Ecran1Activity extends AppCompatActivity {
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_ecran1);
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         id_tara = (sharedpreferences.getInt("id_tara", 147));
         Tos = (sharedpreferences.getBoolean("TOS", false));
@@ -92,8 +92,8 @@ public class Ecran1Activity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Toast toast= Toast.makeText(this, id_tara+"", Toast.LENGTH_LONG);
-        toast.show();
+        //Toast toast= Toast.makeText(this, id_tara+"", Toast.LENGTH_LONG);
+        //toast.show();
     }
 
 
@@ -115,6 +115,8 @@ public class Ecran1Activity extends AppCompatActivity {
         id_tara  = response.get(0).getId();
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putInt("id_tara", id_tara);
+        //set id_tara as Global Variable
+        ((GlobalVar) this.getApplication()).setId_tara(id_tara);
         //editor.putInt("id_tara", 147);
         editor.commit();
     }

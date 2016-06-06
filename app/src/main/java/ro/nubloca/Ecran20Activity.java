@@ -8,7 +8,6 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
@@ -24,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,10 +39,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import ro.nubloca.Networking.AllElem;
 import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.Response;
-import ro.nubloca.extras.CustomFontTitilliumBold;
-import ro.nubloca.extras.CustomFontTitilliumRegular;
+import ro.nubloca.extras.GlobalVar;
 
 public class Ecran20Activity extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs";
@@ -75,12 +73,8 @@ public class Ecran20Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
-
-        name_tip_inmatriculare = (sharedpreferences.getString("nume_tip_inmatriculare", "-"));
-        id_tara = (sharedpreferences.getInt("id_tara", 147));
-        id_shared = (sharedpreferences.getInt("id_shared", 0));
+        name_tip_inmatriculare = ((GlobalVar) this.getApplication()).getName_tip_inmatriculare();
+        id_shared = ((GlobalVar) this.getApplication()).getId_shared();
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -129,7 +123,6 @@ public class Ecran20Activity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    //makePostRequestOnNewThread();
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putInt("positionExemplu", -1);
                     editor.commit();
@@ -190,7 +183,6 @@ public class Ecran20Activity extends AppCompatActivity {
 
 
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linear_contact1);
-        //linearLayout.setPadding(convDp(valSPL), 0, convDp(valSPL), 0);
         linearLayout.setPadding(valSPL, 0, valSPL, 0);
         filter = new InputFilter() {
             @Override
@@ -371,7 +363,7 @@ public class Ecran20Activity extends AppCompatActivity {
         }*/
 
         GetRequest elemm = new GetRequest();
-
+        id_tara = ((GlobalVar) this.getApplication()).getId_tara();
         JSONArray cerute = new JSONArray().put("id");
         JSONArray idTara = new JSONArray().put(id_tara);
         JSONArray ordinea = new JSONArray().put(order);
@@ -403,8 +395,6 @@ public class Ecran20Activity extends AppCompatActivity {
             "cerute": ["id","nume","ids_tipuri_inmatriculare_tipuri_elemente"]
         }*/
 
-
-        id_shared = (sharedpreferences.getInt("id_shared", 0));
         GetRequest elemm = new GetRequest();
         JSONArray cerute = new JSONArray().put("id").put("nume").put("ids_tipuri_inmatriculare_tipuri_elemente");
         JSONArray idTara = new JSONArray().put(id_shared);
@@ -424,9 +414,9 @@ public class Ecran20Activity extends AppCompatActivity {
         name_tip_inmatriculare = response.get(0).getNume();
         ids_tipuri_inmatriculare_tipuri_elemente = response.get(0).getIds_tipuri_inmatriculare_tipuri_elemente();
         campuri = ids_tipuri_inmatriculare_tipuri_elemente.length;
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("name_tip_inmatriculare", name_tip_inmatriculare);
-        editor.commit();
+
+        ((GlobalVar) this.getApplication()).setName_tip_inmatriculare(name_tip_inmatriculare);
+
     }
 
     private void makePostRequest1() throws JSONException {

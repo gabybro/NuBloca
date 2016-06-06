@@ -15,18 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
-import android.text.InputType;
-import android.text.Spanned;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -38,12 +31,13 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
+import ro.nubloca.Networking.AllElem;
 import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.Response;
 import ro.nubloca.extras.CustomFontTitilliumBold;
 import ro.nubloca.extras.CustomFontTitilliumRegular;
+import ro.nubloca.extras.GlobalVar;
 
 public class Ecran26Activity extends AppCompatActivity {
 
@@ -52,36 +46,25 @@ public class Ecran26Activity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
 
     String url = "http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
-
-    String result_string;
-    int campuri = 3;
-    String nume_tip_inmatriculare;
-    String get_order_ids_tip;
-    private ProgressDialog pd;
-    int[] ret;
-    AllElem[] allelem;
-    int[] id_tip_element;
-    List<Response> response2;
-    JSONArray valoareArr;
     String url2 = "http://api.nubloca.ro/tipuri_elemente/";
-    InputFilter filter, filter1;
 
+    String result_string, nume_tip_inmatriculare;
+    int campuri = 3;
+    private ProgressDialog pd;
+    int[] ret, id_tip_element;
+    AllElem[] allelem;
+    List<Response> response2;
+    int [] Ids_tipuri_inmatriculare_tipuri_elemente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_ecran26);
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        get_order_ids_tip = (sharedpreferences.getString("getOrderIdsTip", "[1,2,3]"));
-        nume_tip_inmatriculare=(sharedpreferences.getString("nume_tip_inmatriculare", "NuBloca"));
-
-        int count = sharedpreferences.getInt("Count", 0);
-        ret = new int[count];
-        for (int ii = 0; ii < count; ii++){
-            ret[ii] = sharedpreferences.getInt("IntValue_"+ ii, ii);
-        }
+        nume_tip_inmatriculare = ((GlobalVar) this.getApplication()).getName_tip_inmatriculare();
+        Ids_tipuri_inmatriculare_tipuri_elemente = ((GlobalVar) this.getApplication()).getIds_tipuri_inmatriculare_tipuri_elemente();
+        ret = Ids_tipuri_inmatriculare_tipuri_elemente;
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -107,38 +90,15 @@ public class Ecran26Activity extends AppCompatActivity {
             public void run() {
                 try {
                     makePostRequest();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                handler.sendEmptyMessage(0);
-            }
-        });
-        t.start();
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Thread t2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try {
                     makePostRequest2();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                handler.sendEmptyMessage(0);
 
-
-                //handler.sendEmptyMessage(0);
             }
         });
-        t2.start();
-        try {
-            t2.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        t.start();
     }
 
     private void makePostRequest() throws JSONException {
@@ -152,17 +112,12 @@ public class Ecran26Activity extends AppCompatActivity {
 
         GetRequest elemm = new GetRequest();
         JSONObject resursa = new JSONObject();
-        JSONArray cerute = new JSONArray();
+        JSONArray cerute = new JSONArray().put("id").put("id_tip_element").put("valoare_demo_imagine").put("ordinea");
         JSONArray arr = new JSONArray();
-        for(int ff=0; ff<ret.length; ff++)
-        {
-            arr.put(ret[ff]);
+        for (int ff = 0; ff < ret.length; ff++) {
+            arr.put(Ids_tipuri_inmatriculare_tipuri_elemente[ff]);
         }
         resursa.put("id", arr);
-        cerute.put("id");
-        cerute.put("id_tip_element");
-        cerute.put("valoare_demo_imagine");
-        cerute.put("ordinea");
 
         result_string = elemm.getRaspuns(Ecran26Activity.this, url, resursa, cerute);
         Gson gson = new Gson();
@@ -189,6 +144,7 @@ public class Ecran26Activity extends AppCompatActivity {
             id_tip_element[i] = j;
         }
     }
+
     private void makePostRequest2() throws JSONException {
        /* {
             "identificare": {
@@ -224,18 +180,6 @@ public class Ecran26Activity extends AppCompatActivity {
                     allelem[i].setEditabil_user(response2.get(j).getEditabil_user());
                     allelem[i].setMaxlength(response2.get(j).getMaxlength());
                     allelem[i].setTip(response2.get(j).getTip());
-                    //String s = new JSONArray(result_string).getJSONObject(j).getString("valori");
-
-                    /*if (allelem[i].getTip().equals("LISTA")) {
-                        valoareArr = new JSONArray(s);
-                        allelem[i].setValoriArray(valoareArr);
-                        lista_cod = new String[valoareArr.length()];
-                        for (int z = 0; z < valoareArr.length(); z++) {
-                            lista_cod[z] = valoareArr.getJSONObject(z).getString("cod");
-                        }
-                    } else {
-                        allelem[i].setValoriString(s);
-                    }*/
                 }
             }
         }
@@ -244,63 +188,26 @@ public class Ecran26Activity extends AppCompatActivity {
 
         /*[{
             "id": 5,
-            "tip": "LISTA",
+            "tip": "LISTA", // "tip": "CIFRE", // "tip": "LITERE"
             "editabil_user": 1,
             "maxlength": 2,
-            "valori":[{"id": 1,"cod": "CD"},{"id": 2,"cod": "CO"},{"id": 3,"cod": "TC"}]},
-            {
-            "id": 6,
-            "tip": "CIFRE",
-            "editabil_user": 1,
-            "maxlength": 3,
-            "valori": "^[0-9]{3}$"
-            }]*/
-
-
-        //SharedPreferences.Editor editor = sharedpreferences.edit();
-        //editor.putInt("id_shared", 0);
-       // editor.commit();
+            "valori":[{"id": 1,"cod": "CD"},{"id": 2,"cod": "CO"},{"id": 3,"cod": "TC"}]}
+           }]*/
 
     }
 
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-
             pd.dismiss();
-
             Gson gson = new Gson();
             Type listeType = new TypeToken<List<Response>>() {
             }.getType();
             List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
             campuri = response.size();
-
-
+            ///////////////
             showElements();
-
-
-
-            /*TextView tip_inmatriculare_nume = (TextView) findViewById(R.id.nume_tip_inmatriculare);
-            tip_inmatriculare_nume.setVisibility(View.VISIBLE);
-            tip_inmatriculare_nume.setText(nume_tip_inmatriculare);
-            CustomFontTitilliumBold field1 = (CustomFontTitilliumBold) findViewById(R.id.field1);
-            field1.setVisibility(View.VISIBLE);
-            field1.setText(response.get(0).getValoare_demo_imagine());
-            CustomFontTitilliumBold field2 = (CustomFontTitilliumBold) findViewById(R.id.field2);
-            field2.setVisibility(View.VISIBLE);
-            field2.setText(response.get(1).getValoare_demo_imagine());
-            if (campuri == 3) {
-                CustomFontTitilliumBold field3 = (CustomFontTitilliumBold) findViewById(R.id.field3);
-                field3.setVisibility(View.VISIBLE);
-                field3.setText(response.get(2).getValoare_demo_imagine());
-            }
-            TextView text1 = (TextView) findViewById(R.id.textView20);
-            text1.setVisibility(View.VISIBLE);
-            ImageView image1 = (ImageView) findViewById(R.id.imageView9);
-            image1.setVisibility(View.VISIBLE);*/
         }
-
-
     };
 
     @Override
@@ -309,6 +216,7 @@ public class Ecran26Activity extends AppCompatActivity {
         finish();
         super.onBackPressed();
     }
+
     private void showElements() {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -348,28 +256,32 @@ public class Ecran26Activity extends AppCompatActivity {
         linearLayout.setPadding(valSPL, 0, valSPL, 0);
 
         for (int i = 0; i < campuri; i++) {
-            if (allelem[i].getMaxlength() < 3) {             minTrei = 3;
-            } else {                minTrei = allelem[i].getMaxlength();            }
+            if (allelem[i].getMaxlength() < 3) {
+                minTrei = 3;
+            } else {
+                minTrei = allelem[i].getMaxlength();
+            }
 
 
             CustomFontTitilliumBold field = new CustomFontTitilliumBold(this);
-                field.setId(i);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
+            field.setId(i);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
 
-                if (i != 0) {
-                    params.setMargins(valSPI, 0, 0, 0);
-                }
+            if (i != 0) {
+                params.setMargins(valSPI, 0, 0, 0);
+            }
 
-                field.setLayoutParams(params);
-                field.setWidth(valRealUml * minTrei);
-                field.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
-                field.setTextSize(30);
-                field.setBackgroundResource(R.drawable.plate_border);
-                field.setText(allelem[i].getValoare_demo_imagine());
-                    if (allelem[i].getEditabil_user()==0) {
-                        field.setBackgroundResource(R.drawable.plate_border_white);
-                    }
-                linearLayout.addView(field);
+            field.setLayoutParams(params);
+            field.setWidth(valRealUml * minTrei);
+            field.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
+            field.setTextSize(30);
+            field.setBackgroundResource(R.drawable.plate_border);
+            field.setText(allelem[i].getValoare_demo_imagine());
+            if (allelem[i].getEditabil_user() == 0) {
+                field.setBackgroundResource(R.drawable.plate_border_white);
+            }
+            linearLayout.addView(field);
+
             CustomFontTitilliumBold tip_inmatriculare_nume = (CustomFontTitilliumBold) findViewById(R.id.nume_tip_inmatriculare);
             tip_inmatriculare_nume.setVisibility(View.VISIBLE);
             tip_inmatriculare_nume.setText(nume_tip_inmatriculare);

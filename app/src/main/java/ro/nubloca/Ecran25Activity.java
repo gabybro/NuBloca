@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 import ro.nubloca.Networking.GetTari;
 import ro.nubloca.Networking.Order;
+import ro.nubloca.extras.GlobalVar;
 
 public class Ecran25Activity extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs";
@@ -40,6 +41,11 @@ public class Ecran25Activity extends AppCompatActivity {
     private ArrayList<Order> m_orders = null;
     private OrderAdapter m_adapter;
     private Runnable viewOrders;
+    //id_tara ;
+    String nume_tip_inmatriculare;
+    int nume_tip_inmatriculare_id;
+    String country_select;
+    int positionExemplu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +106,11 @@ public class Ecran25Activity extends AppCompatActivity {
         m_ProgressDialog = ProgressDialog.show(Ecran25Activity.this,
                 "Please wait...", "Retrieving data ...", true);
 
-
+        ((GlobalVar) this.getApplication()).setId_tara(id_tara);
+        ((GlobalVar) this.getApplication()).setName_tip_inmatriculare(nume_tip_inmatriculare);
+        ((GlobalVar) this.getApplication()).setNume_tip_inmatriculare_id(nume_tip_inmatriculare_id);
+        ((GlobalVar) this.getApplication()).setCountry_select(country_select);
+        ((GlobalVar) this.getApplication()).setPositionExemplu(positionExemplu);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -164,13 +174,16 @@ public class Ecran25Activity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             if (id_tara != o.getOrderId()) {
+
+
                                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                                editor.putInt("id_tara", o.getOrderId());
-                                editor.putString("nume_tip_inmatriculare", "default");
-                                editor.putInt("nume_tip_inmatriculare_id", 0);
-                                editor.putString("country_select",o.getOrderName());
-                                editor.putInt("positionExemplu", -1);
+                                id_tara= o.getOrderId();
+                                editor.putInt("id_tara", id_tara);
                                 editor.commit();
+                                nume_tip_inmatriculare="default";
+                                nume_tip_inmatriculare_id=0;
+                                country_select=o.getOrderName();
+                                positionExemplu= -1;
                                 startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
                                 finish();
                             }
