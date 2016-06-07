@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 import ro.nubloca.Networking.GetTari;
 import ro.nubloca.Networking.Order;
+import ro.nubloca.extras.Global;
 
 public class Ecran25Activity extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs";
@@ -57,7 +58,9 @@ public class Ecran25Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        id_tara = (sharedpreferences.getInt("id_tara", 147));
+        //id_tara = (sharedpreferences.getInt("id_tara", 147));
+        id_tara = ((Global) this.getApplication()).getId_tara();
+
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
 
@@ -164,13 +167,19 @@ public class Ecran25Activity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             if (id_tara != o.getOrderId()) {
-                                SharedPreferences.Editor editor = sharedpreferences.edit();
-                                editor.putInt("id_tara", o.getOrderId());
-                                editor.putString("nume_tip_inmatriculare", "default");
-                                editor.putInt("nume_tip_inmatriculare_id", 0);
-                                editor.putString("country_select",o.getOrderName());
-                                editor.putInt("positionExemplu", -1);
-                                editor.commit();
+                                //SharedPreferences.Editor editor = sharedpreferences.edit();
+                                //editor.putInt("id_tara", o.getOrderId());
+                                //editor.putString("nume_tip_inmatriculare", "default");
+                                //editor.putInt("nume_tip_inmatriculare_id", 0);
+                                //editor.putString("country_select",o.getOrderName());
+                                //editor.putInt("positionExemplu", -1);
+                                //editor.commit();
+                                ((Global) getApplicationContext()).setId_tara(o.getOrderId());
+                                ((Global) getApplicationContext()).setNume_tip_inmatriculare("standard");
+                                ((Global) getApplicationContext()).setNume_tip_inmatriculare_id(0);
+                                ((Global) getApplicationContext()).setCountry_select(o.getOrderName());
+                                ((Global) getApplicationContext()).setPositionExemplu(-1);
+
                                 startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
                                 finish();
                             }

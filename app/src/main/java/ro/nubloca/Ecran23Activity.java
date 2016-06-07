@@ -41,6 +41,7 @@ import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.GetTipNumar;
 import ro.nubloca.Networking.Order;
 import ro.nubloca.Networking.Response;
+import ro.nubloca.extras.Global;
 
 
 public class Ecran23Activity extends AppCompatActivity {
@@ -58,9 +59,10 @@ public class Ecran23Activity extends AppCompatActivity {
     private Runnable viewOrders;
     JSONArray jsonArray = null;
     String elem1, elem2;
-    String url3 = "http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
-    String url4 = "http://api.nubloca.ro/tipuri_elemente/";
-    int[] id_tip_element;
+
+
+    int[] id_tip_element,Ids_tipuri_inmatriculare_tipuri_elemente;
+    String nume_tip_inmatriculare="standard";
 
 
     @Override
@@ -71,9 +73,15 @@ public class Ecran23Activity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
-        positionExemplu = (sharedpreferences.getInt("positionExemplu", -1));
-        id_tara = (sharedpreferences.getInt("id_tara", 147));
-        country_select = (sharedpreferences.getString("country_select", "Romania"));
+
+        //positionExemplu = (sharedpreferences.getInt("positionExemplu", -1));
+        positionExemplu = ((Global) this.getApplication()).getPositionExemplu();
+
+        //id_tara = (sharedpreferences.getInt("id_tara", 147));
+        id_tara = ((Global) this.getApplication()).getId_tara();
+
+        //country_select = (sharedpreferences.getString("country_select", "Romania"));
+        country_select= ((Global) this.getApplication()).getCountry_select();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -182,14 +190,17 @@ public class Ecran23Activity extends AppCompatActivity {
             //if (btn1 != null){ btn1.setChecked(true);}
             //if (o != null) {
             if (response != null) {
-                int id_name_tip_inmatriculare_phone = (sharedpreferences.getInt("nume_tip_inmatriculare_id", 0));
+                //int id_name_tip_inmatriculare_phone = (sharedpreferences.getInt("nume_tip_inmatriculare_id", 0));
+                int id_name_tip_inmatriculare_phone = ((Global) getApplicationContext()).getNume_tip_inmatriculare_id();
                 if (id_name_tip_inmatriculare_phone == 0) {
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putInt("nume_tip_inmatriculare_id", response.get(position).getId());
+                    //SharedPreferences.Editor editor = sharedpreferences.edit();
+                    //editor.putInt("nume_tip_inmatriculare_id", response.get(position).getId());
+                    ((Global) getApplicationContext()).setNume_tip_inmatriculare_id(response.get(position).getId());
                     // editor.putInt("nume_tip_inmatriculare_id", o.getOrderId());
-                    editor.putString("nume_tip_inmatriculare", response.get(position).getNume());
+                    //editor.putString("nume_tip_inmatriculare", response.get(position).getNume());
+                    ((Global) getApplicationContext()).setNume_tip_inmatriculare(response.get(position).getNume());
                     //editor.putString("nume_tip_inmatriculare", o.getOrderName());
-                    editor.commit();
+                    //editor.commit();
                 }
                 LinearLayout ll = (LinearLayout) v.findViewById(R.id.linear1);
                 LinearLayout lll = (LinearLayout) v.findViewById(R.id.linear2);
@@ -225,82 +236,28 @@ public class Ecran23Activity extends AppCompatActivity {
                     ll.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            //SharedPreferences.Editor editor = sharedpreferences.edit();
                             /*editor.putInt("nume_tip_inmatriculare_id", o.getOrderId());
                             editor.putString("nume_tip_inmatriculare", o.getOrderName());
                             editor.putString("getOrderIdsTip", o.getOrderIdsTip().toString());
                             editor.putInt("campuri", o.getOrderIdsTip().length());*/
-                            editor.putInt("nume_tip_inmatriculare_id", response.get(position).getId());
-                            editor.putString("nume_tip_inmatriculare", response.get(position).getNume());
+                            //editor.putInt("nume_tip_inmatriculare_id", response.get(position).getId());
+
+                            ((Global) getApplicationContext()).setNume_tip_inmatriculare_id(response.get(position).getId());
+
+                            //editor.putString("nume_tip_inmatriculare", response.get(position).getNume());
+
+                            ((Global) getApplicationContext()).setName_tip_inmatriculare(response.get(position).getNume());
                             //editor.putString("getOrderIdsTip", response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente().toString());
                             //editor.putInt("campuri", response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente().length);
-                            editor.putInt("id_shared", response.get(position).getId());
+                            //editor.putInt("id_shared", response.get(position).getId());
+
+                            ((Global) getApplicationContext()).setId_shared(response.get(position).getId());
+                            int xx = response.get(position).getId();
+
                             final GetRequest elem = new GetRequest();
-//TODO id_shared
-                            /*Thread t = new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    JSONObject resursa = new JSONObject();
-                                    try {
-                                        resursa.put("id", response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente());
-                                        // resursa.put("id",o.getOrderIdsTip().toString());
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                    JSONArray cerute = new JSONArray();
-                                    cerute.put("id");
-                                    cerute.put("id_tip_element");
-                                    cerute.put("ordinea");
-                                    elem1 = elem.getRaspuns(Ecran23Activity.this, url3, resursa, cerute);
-                                }
-                            });
-                            t.start();
-                            try {
-                                t.join();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            Gson gson1 = new Gson();
-                            Type listeType1 = new TypeToken<ArrayList<Response>>() {
-                            }.getType();*/
-                            //final ArrayList<Response> response = (ArrayList<Response>) gson1.fromJson(elem1, listeType1);
-                            //final GetRequest elemm = new GetRequest();
-                            //Toast toast= Toast.makeText(Ecran23Activity.this, response.get(position).getId()+"", Toast.LENGTH_LONG);
-                            //toast.show();
 
-
-                            /*Thread t1 = new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    JSONObject resursa = new JSONObject();
-
-                                    populate_order1();
-                                    try {
-                                        resursa.put("id", id_tip_element);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                    JSONArray cerute = new JSONArray();
-                                    cerute.put("id");
-                                    cerute.put("tip");
-                                    cerute.put("editabil_user");
-                                    cerute.put("maxlength");
-                                    cerute.put("valori");
-                                    elem2 = elemm.getRaspuns(Ecran23Activity.this, url4, resursa, cerute);
-                                }
-                            });
-                            t1.start();
-                            try {
-                                t1.join();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }*/
-
-                            //editor.putString("ElemNumere", elem1);
-                            //editor.putString("ElemNumere1", elem2);
-
-
-                            editor.commit();
+                            //editor.commit();
                             startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
                             finish();
                         }
@@ -310,22 +267,20 @@ public class Ecran23Activity extends AppCompatActivity {
                     lll.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            SharedPreferences.Editor editor = sharedpreferences.edit();
-                            editor.putInt("positionExemplu", position);
-                            /*editor.putString("getOrderIdsTip", o.getOrderIdsTip().toString());
-                            editor.putString("nume_tip_inmatriculare", o.getOrderName());*/
-                            String rezz = response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente().toString();
-                            String ss= rezz;
+                            //SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                            editor.putInt("Count", response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente().length);
-                            int count = 0;
-                            for (int ii: response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente()){
-                                editor.putInt("IntValue_" + count++, ii);
-                            }
 
-                            //editor.putString("getOrderIdsTip", response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente().toString());
-                            editor.putString("nume_tip_inmatriculare", response.get(position).getNume());
-                            editor.commit();
+                            //editor.putInt("positionExemplu", position);
+
+                            ((Global) getApplicationContext()).setPositionExemplu(position);
+
+
+                            nume_tip_inmatriculare = response.get(position).getNume();
+                            Ids_tipuri_inmatriculare_tipuri_elemente = response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente();
+
+                            ((Global) getApplicationContext()).setId_exemplu(response.get(position).getId());
+                            ((Global) getApplicationContext()).setIds_tipuri_inmatriculare_tipuri_elemente(Ids_tipuri_inmatriculare_tipuri_elemente);
+                            ((Global) getApplicationContext()).setNume_tip_inmatriculare(nume_tip_inmatriculare);
                             startActivity(new Intent(Ecran23Activity.this, Ecran26Activity.class));
                         }
                     });
@@ -450,15 +405,16 @@ public class Ecran23Activity extends AppCompatActivity {
                 //handler.sendEmptyMessage(0);
                 result_tari = nr.getRaspuns();
 
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("array", nr.getRaspuns());
+                //SharedPreferences.Editor editor = sharedpreferences.edit();
+                //editor.putString("array", nr.getRaspuns());
+                ((Global) getApplicationContext()).setArray(nr.getRaspuns());
                 //editor.putString("nume_tip_inmatriculare", nr.getNumeUsed());
 
                 //editor.putString("ids_tipuri_inmatriculare_tipuri_elemente", nr.getIdsUsed());
                 //editor.apply();
                 //populate_order();
                 //editor.putString("array", arr);
-                editor.commit();
+                //editor.commit();
 
 
             }

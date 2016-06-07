@@ -143,7 +143,8 @@
             android:layout_marginLeft="20dp"
             android:layout_toEndOf="@+id/nume_tip_inmatriculare"
             android:layout_toRightOf="@+id/nume_tip_inmatriculare"
-            android:background="@drawable/ro_flag" />
+             />
+        <!-- android:background="@drawable/ro_flag" -->
 
         <LinearLayout
             android:id="@+id/lin1"

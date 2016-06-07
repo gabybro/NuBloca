@@ -3,6 +3,8 @@ package ro.nubloca;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
@@ -23,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -42,9 +45,11 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import ro.nubloca.Networking.GetRequest;
+import ro.nubloca.Networking.GetRequestImg;
 import ro.nubloca.Networking.Response;
 import ro.nubloca.extras.CustomFontTitilliumBold;
 import ro.nubloca.extras.CustomFontTitilliumRegular;
+import ro.nubloca.extras.Global;
 
 public class Ecran20Activity extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs";
@@ -55,17 +60,23 @@ public class Ecran20Activity extends AppCompatActivity {
     String url = "http://api.nubloca.ro/tipuri_inmatriculare/";
     String url1 = "http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
     String url2 = "http://api.nubloca.ro/tipuri_elemente/";
+    String url3 = "http://api.nubloca.ro/tipuri_inmatriculare/";
+    String url4 = "http://api.nubloca.ro/imagini/";
+    int dim=30;
+    byte[] baite;
 
     String name_tip_inmatriculare;
     int[] ids_tipuri_inmatriculare_tipuri_elemente;
     int[] id_tip_element;
     int idd;
     int id_shared = 0;
-    List<Response> response2;
+    List<Response> response2,response3;
     JSONArray valoareArr;
     String[] lista_cod;
     AllElem[] allelem;
     InputFilter filter, filter1;
+    String numeSteag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,15 +88,15 @@ public class Ecran20Activity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-
         name_tip_inmatriculare = (sharedpreferences.getString("nume_tip_inmatriculare", "-"));
-        id_tara = (sharedpreferences.getInt("id_tara", 147));
-        id_shared = (sharedpreferences.getInt("id_shared", 0));
 
+        //id_tara = (sharedpreferences.getInt("id_tara", 147));
+        id_tara = ((Global) this.getApplication()).getId_tara();
+        //id_shared = (sharedpreferences.getInt("id_shared", 0));
+        id_shared=((Global) this.getApplication()).getId_shared();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         upArrow.setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_ATOP);
@@ -100,6 +111,7 @@ public class Ecran20Activity extends AppCompatActivity {
         tip_inmatriculare_nume.setText(name_tip_inmatriculare);
 
         showElements();
+
 
 
         View btn3 = (View) this.findViewById(R.id.textView24);
@@ -130,9 +142,7 @@ public class Ecran20Activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //makePostRequestOnNewThread();
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putInt("positionExemplu", -1);
-                    editor.commit();
+                    ((Global) getApplicationContext()).setPositionExemplu(-1);
                     startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
                     finish();
 
@@ -271,6 +281,14 @@ public class Ecran20Activity extends AppCompatActivity {
             }
         }
 
+        ImageView image = (ImageView) findViewById(R.id.imageView9);
+        Bitmap bmp = BitmapFactory.decodeByteArray(baite, 0, baite.length);
+        image.setImageBitmap(bmp);
+        image.getLayoutParams().height=convDp(dim);
+        image.getLayoutParams().width=convDp(dim);
+        image.requestLayout();
+        image.setVisibility(View.VISIBLE);
+
     }
 
     private void makePostRequestOnNewThread() {
@@ -358,6 +376,46 @@ public class Ecran20Activity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        Thread t3 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    makePostRequest3();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                //handler.sendEmptyMessage(0);
+            }
+        });
+        t3.start();
+        try {
+            t3.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Thread t4 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    makePostRequest4();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                //handler.sendEmptyMessage(0);
+            }
+        });
+        t4.start();
+        try {
+            t4.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         //Toast toast = Toast.makeText(this, test, Toast.LENGTH_LONG);
         //toast.show();
     }
@@ -390,9 +448,10 @@ public class Ecran20Activity extends AppCompatActivity {
         }.getType();
         List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
         idd = response.get(0).getId();
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putInt("id_shared", idd);
-        editor.commit();
+        //SharedPreferences.Editor editor = sharedpreferences.edit();
+        //editor.putInt("id_shared", idd);
+        //editor.commit();
+        ((Global) getApplicationContext()).setId_shared(idd);
     }
 
     private void makePostRequest() throws JSONException {
@@ -404,7 +463,8 @@ public class Ecran20Activity extends AppCompatActivity {
         }*/
 
 
-        id_shared = (sharedpreferences.getInt("id_shared", 0));
+        //id_shared = (sharedpreferences.getInt("id_shared", 0));
+        id_shared = ((Global) getApplicationContext()).getId_shared();
         GetRequest elemm = new GetRequest();
         JSONArray cerute = new JSONArray().put("id").put("nume").put("ids_tipuri_inmatriculare_tipuri_elemente");
         JSONArray idTara = new JSONArray().put(id_shared);
@@ -424,9 +484,10 @@ public class Ecran20Activity extends AppCompatActivity {
         name_tip_inmatriculare = response.get(0).getNume();
         ids_tipuri_inmatriculare_tipuri_elemente = response.get(0).getIds_tipuri_inmatriculare_tipuri_elemente();
         campuri = ids_tipuri_inmatriculare_tipuri_elemente.length;
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("name_tip_inmatriculare", name_tip_inmatriculare);
-        editor.commit();
+        //SharedPreferences.Editor editor = sharedpreferences.edit();
+        //editor.putString("name_tip_inmatriculare", name_tip_inmatriculare);
+        //editor.commit();
+        ((Global) getApplicationContext()).setName_tip_inmatriculare(name_tip_inmatriculare);
     }
 
     private void makePostRequest1() throws JSONException {
@@ -558,12 +619,106 @@ public class Ecran20Activity extends AppCompatActivity {
             }]*/
 
 
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putInt("id_shared", 0);
-        editor.commit();
+        //SharedPreferences.Editor editor = sharedpreferences.edit();
+        //editor.putInt("id_shared", 0);
+        //editor.commit();
+        ((Global) getApplicationContext()).setId_shared(0);
 
     }
 
+    private void makePostRequest3() throws JSONException {
+
+        /*{
+            "identificare": {
+                "user": {
+                    "app_code": "abcdefghijkl123456"
+            },
+                "resursa": {
+                    "id": [1]
+            }
+        },
+            "cerute": [
+                    "id",
+                    "nume",
+                    "id_tara",
+                    "foto_background",
+                    "url_imagine",
+                    "ids_tipuri_inmatriculare_tipuri_elemente"
+            ]
+        }*/
+        //url = http://api.nubloca.ro/tipuri_inmatriculare/;
+        ////////////
+        GetRequest elemm = new GetRequest();
+
+        JSONArray cerute = new JSONArray().put("id").put("nume").put("id_tara").put("foto_background").put("url_imagine").put("ids_tipuri_inmatriculare_tipuri_elemente");
+        JSONObject resursa = new JSONObject();
+        String result_string = null;
+        Gson gson = new Gson();
+        Type listeType = new TypeToken<List<Response>>() {
+        }.getType();
+        JSONArray id = new JSONArray();
+        id.put(id_shared);
+        resursa.put("id", id);
+
+        result_string = elemm.getRaspuns(Ecran20Activity.this, url3, resursa, cerute);
+        response3 = (List<Response>) gson.fromJson(result_string, listeType);
+
+        numeSteag=response3.get(0).getId_tara()+".png";
+        ////////////
+        /*[
+        {
+                "id": 1,
+                "nume": "Permanentă",
+                "id_tara": 147,
+                "foto_background": "1.jpg",
+                "url_imagine": "147-1.png",
+                "ids_tipuri_inmatriculare_tipuri_elemente":[
+            1,
+                    2,
+                    3
+            ]
+        }
+        ]*/
+
+    }
+
+    private void makePostRequest4() throws JSONException {
+        /*{
+            "identificare": {
+            "user": {
+                "app_code": "abcdefghijkl123456"
+            },
+            "resursa": {
+                "pentru": "tari",
+                        "tip": "steaguri",
+                        "nume": "147.png",
+                        "dimensiuni": [43]
+            }
+        }
+        }*/
+        ////////////////
+        //Content-Type:application/json
+        //Accept:image/png
+        ////////////////
+
+
+        JSONObject resursa = new JSONObject();
+        resursa.put("pentru", "tari");
+        resursa.put("tip", "steaguri");
+        resursa.put("nume", numeSteag);
+        JSONArray dimensiuni = new JSONArray();
+        dimensiuni.put(dim);
+        resursa.put("dimensiuni", dimensiuni);
+
+        Gson gson = new Gson();
+        GetRequestImg elemm = new GetRequestImg();
+        Type listeType = new TypeToken<List<Response>>() {
+        }.getType();
+        String result_string = null;
+        baite = elemm.getRaspuns(Ecran20Activity.this, url4, resursa);
+        //response4 = (List<Response>) gson.fromJson(result_string, listeType);
+
+    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu5, menu);

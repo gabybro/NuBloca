@@ -10,6 +10,16 @@ import org.json.JSONObject;
  */
 public class Response {
 
+    public int getId_tara() {
+        return id_tara;
+    }
+
+    public void setId_tara(int id_tara) {
+        this.id_tara = id_tara;
+    }
+
+    @SerializedName("id_tara")
+    private int id_tara;
 
     @SerializedName("id")
     private int id;

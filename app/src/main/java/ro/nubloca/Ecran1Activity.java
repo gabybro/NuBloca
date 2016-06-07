@@ -24,6 +24,7 @@ import java.util.List;
 
 import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.Response;
+import ro.nubloca.extras.Global;
 
 public class Ecran1Activity extends AppCompatActivity {
 
@@ -48,7 +49,7 @@ public class Ecran1Activity extends AppCompatActivity {
         id_tara = (sharedpreferences.getInt("id_tara", 147));
         Tos = (sharedpreferences.getBoolean("TOS", false));
 
-        TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         countryCode = tm.getSimCountryIso();
 
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_IN);
@@ -92,10 +93,9 @@ public class Ecran1Activity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Toast toast= Toast.makeText(this, id_tara+"", Toast.LENGTH_LONG);
-        toast.show();
+        //Toast toast= Toast.makeText(this, id_tara+"", Toast.LENGTH_LONG);
+        //toast.show();
     }
-
 
 
     private void makePostRequest() throws JSONException {
@@ -112,10 +112,12 @@ public class Ecran1Activity extends AppCompatActivity {
         Type listeType = new TypeToken<List<Response>>() {
         }.getType();
         List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-        id_tara  = response.get(0).getId();
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putInt("id_tara", id_tara);
+        id_tara = response.get(0).getId();
+        //id_tara=147;
+        //SharedPreferences.Editor editor = sharedpreferences.edit();
+        //editor.putInt("id_tara", id_tara);
         //editor.putInt("id_tara", 147);
-        editor.commit();
+        //editor.commit();
+        ((Global) getApplicationContext()).setId_tara(id_tara);
     }
 }
