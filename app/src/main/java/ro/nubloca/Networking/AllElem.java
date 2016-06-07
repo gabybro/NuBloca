@@ -1,4 +1,4 @@
-package ro.nubloca;
+package ro.nubloca.Networking;
 
 import org.json.JSONArray;
 
