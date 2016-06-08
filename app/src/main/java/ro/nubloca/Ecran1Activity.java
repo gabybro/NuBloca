@@ -112,8 +112,8 @@ public class Ecran1Activity extends AppCompatActivity {
         Type listeType = new TypeToken<List<Response>>() {
         }.getType();
         List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-        id_tara = response.get(0).getId();
-        //id_tara=147;
+        //id_tara = response.get(0).getId();
+        id_tara=147;
         //SharedPreferences.Editor editor = sharedpreferences.edit();
         //editor.putInt("id_tara", id_tara);
         //editor.putInt("id_tara", 147);

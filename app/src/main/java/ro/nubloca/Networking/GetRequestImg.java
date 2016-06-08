@@ -29,28 +29,19 @@ public class GetRequestImg {
         cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
         app_code = (sharedpreferences.getString("app_code", "abcdefghijkl123456"));
 
-        JSONObject jsonobject_identificare = new JSONObject();
+
 
         JSONObject js = new JSONObject();
 
         try {
-            JSONObject jsonobject_one = new JSONObject();
-            JSONObject jsonobject_resursa = new JSONObject();
-            JSONArray jsonobject_id = new JSONArray();
-
             //TODO get app_code from phone
-            jsonobject_one.put("app_code", app_code);
-            jsonobject_identificare.put("user", jsonobject_one);
-            jsonobject_identificare.put("resursa", resursa);
-
+            JSONObject jsonobject_one = new JSONObject().put("app_code", app_code);
+            JSONObject jsonobject_identificare = new JSONObject().put("user", jsonobject_one).put("resursa", resursa);
             js.put("identificare", jsonobject_identificare);
-
-
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         HttpClient httpClient = new DefaultHttpClient();
         HttpBodyGet httpPost = new HttpBodyGet(url);

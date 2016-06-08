@@ -26,20 +26,20 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import ro.nubloca.Networking.GetTari;
-import ro.nubloca.Networking.Order;
+import ro.nubloca.Networking.GetRequest;
+import ro.nubloca.Networking.Response;
 import ro.nubloca.extras.Global;
 
 public class Ecran25Activity extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
     int id_tara = 147;
-    String acc_lang, cont_lang;
     JSONArray jsonArray = new JSONArray();
-    String tarr;
+    String result_string;
+    String url = "http://api.nubloca.ro/tari/";
     private ProgressDialog m_ProgressDialog = null;
-    private ArrayList<Order> m_orders = null;
-    private OrderAdapter m_adapter;
+    private ArrayList<Response> m_orders = null;
+    private ResponseAdapter m_adapter;
     private Runnable viewOrders;
 
     @Override
@@ -58,19 +58,20 @@ public class Ecran25Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        //id_tara = (sharedpreferences.getInt("id_tara", 147));
         id_tara = ((Global) this.getApplication()).getId_tara();
 
-        acc_lang = (sharedpreferences.getString("acc_lang", "en"));
-        cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
 
-        final GetTari tari = new GetTari();
-        tari.setParam(acc_lang, cont_lang);
+
+
 
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                tarr = tari.getRaspuns();
+                try {
+                    makeRequest();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
         t.start();
@@ -80,8 +81,8 @@ public class Ecran25Activity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        m_orders = new ArrayList<Order>();
-        this.m_adapter = new OrderAdapter(this, R.layout.raw_list1, m_orders);
+        m_orders = new ArrayList<Response>();
+        this.m_adapter = new ResponseAdapter(this, R.layout.raw_list1, m_orders);
 
         ListView lv = (ListView) findViewById(R.id.list1);
         lv.setAdapter(this.m_adapter);
@@ -101,6 +102,20 @@ public class Ecran25Activity extends AppCompatActivity {
                 "Please wait...", "Retrieving data ...", true);
 
 
+    }
+
+    private void makeRequest() throws JSONException {
+        //url = "http://api.nubloca.ro/tari/";
+        /*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
+            "resursa": {"status": "ACTIV"}},
+            "cerute": ["id","nume","ids_tipuri_inmatriculare_tipuri_elemente","ordinea"]}*/
+
+
+        GetRequest elem = new GetRequest();
+        JSONArray cerute = new JSONArray().put("id").put("nume").put("ids_tipuri_inmatriculare_tipuri_elemente").put("ordinea");
+        JSONArray jsonarray = new JSONArray().put("ACTIV");
+        JSONObject resursa = new JSONObject().put("status", jsonarray);
+        result_string = elem.getRaspuns(Ecran25Activity.this, url, resursa, cerute);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -131,11 +146,11 @@ public class Ecran25Activity extends AppCompatActivity {
     }
 
 
-    private class OrderAdapter extends ArrayAdapter<Order> {
+    private class ResponseAdapter extends ArrayAdapter<Response> {
 
-        private ArrayList<Order> items;
+        private ArrayList<Response> items;
 
-        public OrderAdapter(Context context, int textViewResourceId, ArrayList<Order> items) {
+        public ResponseAdapter(Context context, int textViewResourceId, ArrayList<Response> items) {
             super(context, textViewResourceId, items);
             this.items = items;
         }
@@ -147,11 +162,11 @@ public class Ecran25Activity extends AppCompatActivity {
                 LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 v = vi.inflate(R.layout.raw_list1, null);
             }
-            final Order o = items.get(position);
+            final Response o = items.get(position);
             ImageView iiv = (ImageView) v.findViewById(R.id.radioButton1);
             RelativeLayout rel = (RelativeLayout) v.findViewById(R.id.rel_bar1);
             if (o != null) {
-                if ((id_tara == o.getOrderId()) && (iiv != null)) {
+                if ((id_tara == o.getId()) && (iiv != null)) {
 
                     iiv.setImageResource(R.drawable.radio_press);
                 } else {
@@ -163,11 +178,11 @@ public class Ecran25Activity extends AppCompatActivity {
 
                         @Override
                         public void onClick(View v) {
-                            if (id_tara != o.getOrderId()) {
-                                ((Global) getApplicationContext()).setId_tara(o.getOrderId());
+                            if (id_tara != o.getId()) {
+                                ((Global) getApplicationContext()).setId_tara(o.getId());
                                 ((Global) getApplicationContext()).setNume_tip_inmatriculare("standard");
                                 ((Global) getApplicationContext()).setNume_tip_inmatriculare_id(0);
-                                ((Global) getApplicationContext()).setCountry_select(o.getOrderName());
+                                ((Global) getApplicationContext()).setCountry_select(o.getNume());
                                 ((Global) getApplicationContext()).setPositionExemplu(-1);
 
                                 startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
@@ -177,7 +192,7 @@ public class Ecran25Activity extends AppCompatActivity {
                     });
                 TextView tt = (TextView) v.findViewById(R.id.text1);
                 if (tt != null) {
-                    tt.setText(o.getOrderName());
+                    tt.setText(o.getNume());
                 }
             }
             return v;
@@ -188,12 +203,12 @@ public class Ecran25Activity extends AppCompatActivity {
     private void populate_order() {
 
         try {
-            jsonArray = new JSONArray(tarr);
+            jsonArray = new JSONArray(result_string);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        m_orders = new ArrayList<Order>();
+        m_orders = new ArrayList<Response>();
 
         JSONObject json_data = null;
 
@@ -203,14 +218,14 @@ public class Ecran25Activity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Order oz = new Order();
+            Response oz = new Response();
             try {
-                oz.setOrderId(json_data.getInt("id"));
+                oz.setId(json_data.getInt("id"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             try {
-                oz.setOrderName(json_data.getString("nume"));
+                oz.setNume(json_data.getString("nume"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

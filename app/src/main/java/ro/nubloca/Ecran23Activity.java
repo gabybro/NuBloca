@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ro.nubloca.Networking.GetRequest;
-import ro.nubloca.Networking.Order;
 import ro.nubloca.Networking.Response;
 import ro.nubloca.extras.Global;
 
@@ -48,8 +47,8 @@ public class Ecran23Activity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     String acc_lang, cont_lang;
     private ProgressDialog m_ProgressDialog = null;
-    private ArrayList<Order> m_orders = null;
-    private OrderAdapter m_adapter;
+    private ArrayList<Response> m_orders = null;
+    private ResponseAdapter m_adapter;
     private Runnable viewOrders;
     JSONArray jsonArray = null;
     String url = "http://api.nubloca.ro/tipuri_inmatriculare/";
@@ -85,8 +84,8 @@ public class Ecran23Activity extends AppCompatActivity {
 
         getDataThread();
 
-        m_orders = new ArrayList<Order>();
-        this.m_adapter = new OrderAdapter(this, R.layout.raw_list, m_orders);
+        m_orders = new ArrayList<Response>();
+        this.m_adapter = new ResponseAdapter(this, R.layout.raw_list, m_orders);
 
         ListView lv = (ListView) findViewById(R.id.list);
         lv.setAdapter(this.m_adapter);
@@ -150,10 +149,10 @@ public class Ecran23Activity extends AppCompatActivity {
     }
 
 
-    private class OrderAdapter extends ArrayAdapter<Order> {
+    private class ResponseAdapter extends ArrayAdapter<Response> {
 
-        private ArrayList<Order> items;
-        public OrderAdapter(Context context, int textViewResourceId, ArrayList<Order> items) {
+        private ArrayList<Response> items;
+        public ResponseAdapter(Context context, int textViewResourceId, ArrayList<Response> items) {
             super(context, textViewResourceId, items);
             this.items = items;
         }
@@ -234,7 +233,7 @@ public class Ecran23Activity extends AppCompatActivity {
         }
 
 
-        m_orders = new ArrayList<Order>();
+        m_orders = new ArrayList<Response>();
 
         JSONObject json_data = null;
 
@@ -244,20 +243,20 @@ public class Ecran23Activity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Order oz = new Order();
+            Response oz = new Response();
             try {
-                oz.setOrderId(json_data.getInt("id"));
+                oz.setId(json_data.getInt("id"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             try {
-                oz.setOrderName(json_data.getString("nume"));
+                oz.setNume(json_data.getString("nume"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
             try {
-                oz.setOrderOrdinea(json_data.getInt("ordinea"));
+                oz.setOrdinea(json_data.getInt("ordinea"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -269,7 +268,16 @@ public class Ecran23Activity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            oz.setOrderIdsTip(arrayz);
+            int arrayy[] = new int[arrayz.length()];
+            for (int xx=0; xx<arrayz.length(); xx++){
+                try {
+                    arrayy[i]=arrayz.getInt(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            oz.setIds_tipuri_inmatriculare_tipuri_elemente(arrayy);
 
             m_orders.add(oz);
         }
