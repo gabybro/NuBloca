@@ -83,9 +83,6 @@ public class Ecran25Activity extends AppCompatActivity {
         m_orders = new ArrayList<Order>();
         this.m_adapter = new OrderAdapter(this, R.layout.raw_list1, m_orders);
 
-        /*Toast toast = Toast.makeText(this, tarr, Toast.LENGTH_LONG);
-        toast.show();*/
-
         ListView lv = (ListView) findViewById(R.id.list1);
         lv.setAdapter(this.m_adapter);
 
@@ -167,13 +164,6 @@ public class Ecran25Activity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             if (id_tara != o.getOrderId()) {
-                                //SharedPreferences.Editor editor = sharedpreferences.edit();
-                                //editor.putInt("id_tara", o.getOrderId());
-                                //editor.putString("nume_tip_inmatriculare", "default");
-                                //editor.putInt("nume_tip_inmatriculare_id", 0);
-                                //editor.putString("country_select",o.getOrderName());
-                                //editor.putInt("positionExemplu", -1);
-                                //editor.commit();
                                 ((Global) getApplicationContext()).setId_tara(o.getOrderId());
                                 ((Global) getApplicationContext()).setNume_tip_inmatriculare("standard");
                                 ((Global) getApplicationContext()).setNume_tip_inmatriculare_id(0);

@@ -1,9 +1,7 @@
 package ro.nubloca;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,19 +14,11 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
-import android.text.InputFilter;
-import android.text.InputType;
-import android.text.Spanned;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -40,17 +30,14 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import ro.nubloca.Networking.AllElem;
 import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.GetRequestImg;
-import ro.nubloca.Networking.GetRequestJpeg;
 import ro.nubloca.Networking.Response;
 import ro.nubloca.extras.CustomFontTitilliumBold;
 import ro.nubloca.extras.CustomFontTitilliumRegular;
 import ro.nubloca.extras.Global;
-import ro.nubloca.extras.ImageLoader;
 
 public class Ecran26Activity extends AppCompatActivity {
 
@@ -109,6 +96,11 @@ public class Ecran26Activity extends AppCompatActivity {
             public void run() {
                 try {
                     makePostRequest();
+                    makePostRequest2();
+                    makePostRequest3();
+                    makePostRequest4();
+                    makePostRequest5();
+                    makePostRequest6();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -121,128 +113,33 @@ public class Ecran26Activity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Thread t2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try {
-                    makePostRequest2();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        t2.start();
-        try {
-            t2.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Thread t3 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try {
-                    makePostRequest3();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        t3.start();
-        try {
-            t3.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Thread t4 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try {
-                    makePostRequest4();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                //handler.sendEmptyMessage(0);
-            }
-        });
-        t4.start();
-        try {
-            t4.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Thread t5 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try {
-                    makePostRequest5();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        t5.start();
-        try {
-            t5.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Thread t6 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try {
-                    makePostRequest6();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        t6.start();
-        try {
-            t6.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     private void makePostRequest() throws JSONException {
-        /*{
-            "identificare": {
-                "user": {"app_code": "abcdefghijkl123456"},
-                "resursa": {"id": [1,2,3]}
-        },
-            "cerute": ["id","id_tip_element","ordinea","valoare_demo_imagine"]            ]
-        }*/
         //url = http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/;
+        /*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
+           "resursa": {"id": [1,2,3]}},
+           "cerute": ["id","id_tip_element","ordinea","valoare_demo_imagine"]]}*/
+
         GetRequest elemm = new GetRequest();
         JSONObject resursa = new JSONObject();
-        JSONArray cerute = new JSONArray();
+        JSONArray cerute = new JSONArray().put("id").put("id_tip_element").put("valoare_demo_imagine").put("ordinea");
         JSONArray arr = new JSONArray();
 
         for (int ff = 0; ff < Ids_tipuri_inmatriculare_tipuri_elemente.length; ff++) {
             arr.put(Ids_tipuri_inmatriculare_tipuri_elemente[ff]);
         }
         resursa.put("id", arr);
-        cerute.put("id");
-        cerute.put("id_tip_element");
-        cerute.put("valoare_demo_imagine");
-        cerute.put("ordinea");
 
         result_string = elemm.getRaspuns(Ecran26Activity.this, url, resursa, cerute);
         Gson gson = new Gson();
         Type listeType = new TypeToken<List<Response>>() {
         }.getType();
         List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-        /*[{
-                "id": 1,
+        /*[{    "id": 1,
                 "id_tip_element": 1,
                 "ordinea": 1,
-                "valoare_demo_imagine": "B"
-        }]*/
+                "valoare_demo_imagine": "B"      }]*/
         allelem = new AllElem[response.size()];
         for (int i = 0; i < response.size(); i++) {
             allelem[i] = new AllElem();
@@ -259,32 +156,23 @@ public class Ecran26Activity extends AppCompatActivity {
     }
 
     private void makePostRequest2() throws JSONException {
-       /* {
-            "identificare": {
-                "user": {"app_code": "abcdefghijkl123456"},
-                "resursa":{"id":[5,6,6]}},
-            "cerute":[
-                "id",
-                "tip",
-                "editabil_user",
-                "maxlength",
-                "valori"]
-        }*/
         //url2 = http://api.nubloca.ro/tipuri_elemente/;
-        GetRequest elemm = new GetRequest();
+       /* { "identificare": {"user": {"app_code": "abcdefghijkl123456"},
+            "resursa":{"id":[5,6,6]}},
+            "cerute":[    "id",    "tip",  "editabil_user",     "maxlength",   "valori"]   }*/
 
+        GetRequest elem = new GetRequest();
         JSONArray cerute = new JSONArray().put("id").put("tip").put("editabil_user").put("maxlength").put("valori");
         JSONObject resursa = new JSONObject();
-        String result_string = null;
-        Gson gson = new Gson();
-        Type listeType = new TypeToken<List<Response>>() {
-        }.getType();
         JSONArray id = new JSONArray();
         for (int i = 0; i < id_tip_element.length; i++) {
             id.put(id_tip_element[i]);
         }
         resursa.put("id", id);
-        result_string = elemm.getRaspuns(Ecran26Activity.this, url2, resursa, cerute);
+        Gson gson = new Gson();
+        Type listeType = new TypeToken<List<Response>>() {
+        }.getType();
+        String result_string = elem.getRaspuns(Ecran26Activity.this, url2, resursa, cerute);
         response2 = (List<Response>) gson.fromJson(result_string, listeType);
 
         for (int i = 0; i < allelem.length; i++) {
@@ -300,166 +188,79 @@ public class Ecran26Activity extends AppCompatActivity {
 
         Arrays.sort(allelem);
 
-        /*[{
-            "id": 5,
-            "tip": "LISTA",
-            "editabil_user": 1,
-            "maxlength": 2,
-            "valori":[{"id": 1,"cod": "CD"},{"id": 2,"cod": "CO"},{"id": 3,"cod": "TC"}]},
-            {
-            "id": 6,
-            "tip": "CIFRE",
-            "editabil_user": 1,
-            "maxlength": 3,
-            "valori": "^[0-9]{3}$"
-            }]*/
-
-
-        //SharedPreferences.Editor editor = sharedpreferences.edit();
-        //editor.putInt("id_shared", 0);
-        // editor.commit();
+        /*[{"id": 5, // 6,
+            "tip": "LISTA", // "CIFRE" // "LITERE"
+            "editabil_user": 1, // 0
+            "maxlength": 2,  //  9
+            "valori":[{"id": 1,"cod": "CD"},{"id": 2,"cod": "CO"},{"id": 3,"cod": "TC"}]},  //  "^[0-9]{3}$"   ]*/
 
     }
 
     private void makePostRequest3() throws JSONException {
 
-        /*{
-            "identificare": {
-                "user": {
-                    "app_code": "abcdefghijkl123456"
-            },
-                "resursa": {
-                    "id": [1]
-            }
-        },
-            "cerute": [
-                    "id",
-                    "nume",
-                    "id_tara",
-                    "foto_background",
-                    "url_imagine",
-                    "ids_tipuri_inmatriculare_tipuri_elemente"
-            ]
-        }*/
         //url = http://api.nubloca.ro/tipuri_inmatriculare/;
-        ////////////
-        GetRequest elemm = new GetRequest();
+        /*{     "identificare": {                "user": {                    "app_code": "abcdefghijkl123456"            },
+                "resursa": {                    "id": [1]            }        },
+                "cerute": ["id", "nume", "id_tara", "foto_background", "url_imagine", "ids_tipuri_inmatriculare_tipuri_elemente"]}*/
 
+        GetRequest elemm = new GetRequest();
         JSONArray cerute = new JSONArray().put("id").put("nume").put("id_tara").put("foto_background").put("url_imagine").put("ids_tipuri_inmatriculare_tipuri_elemente");
         JSONObject resursa = new JSONObject();
-        String result_string = null;
-        Gson gson = new Gson();
-        Type listeType = new TypeToken<List<Response>>() {
-        }.getType();
-        JSONArray id = new JSONArray();
-        id.put(id_exemplu);
+        JSONArray id = new JSONArray().put(id_exemplu);
         resursa.put("id", id);
 
-        result_string = elemm.getRaspuns(Ecran26Activity.this, url3, resursa, cerute);
+        Gson gson = new Gson();
+        Type listeType = new TypeToken<List<Response>>() {}.getType();
+       String result_string = elemm.getRaspuns(Ecran26Activity.this, url3, resursa, cerute);
         response3 = (List<Response>) gson.fromJson(result_string, listeType);
-
         numeSteag=response3.get(0).getId_tara()+".png";
-        ////////////
-        /*[
-        {
-                "id": 1,
+
+        /*[{    "id": 1,
                 "nume": "Permanentă",
                 "id_tara": 147,
                 "foto_background": "1.jpg",
                 "url_imagine": "147-1.png",
-                "ids_tipuri_inmatriculare_tipuri_elemente":[
-            1,
-                    2,
-                    3
-            ]
-        }
-        ]*/
-
+                "ids_tipuri_inmatriculare_tipuri_elemente":[1, 2, 3]}]*/
     }
 
     private void makePostRequest4() throws JSONException {
-        /*{
-            "identificare": {
-            "user": {
-                "app_code": "abcdefghijkl123456"
-            },
-            "resursa": {
-                "pentru": "tari",
-                        "tip": "steaguri",
-                        "nume": "147.png",
-                        "dimensiuni": [43]
-            }
-        }
-        }*/
-        ////////////////
+        //url4 = "http://api.nubloca.ro/imagini/";
+        /*{            "identificare": {            "user": {                "app_code": "abcdefghijkl123456"            },
+                        "resursa": {  "pentru": "tari",  "tip": "steaguri",   "nume": "147.png",    "dimensiuni": [43]   }}}*/
         //Content-Type:application/json
         //Accept:image/png
-        ////////////////
 
-
-        JSONObject resursa = new JSONObject();
-        resursa.put("pentru", "tari");
-        resursa.put("tip", "steaguri");
-        resursa.put("nume", numeSteag);
-        JSONArray dimensiuni = new JSONArray();
-        dimensiuni.put(dim);
+        JSONObject resursa = new JSONObject().put("pentru", "tari").put("tip", "steaguri").put("nume", numeSteag);
+        JSONArray dimensiuni = new JSONArray().put(dim);
         resursa.put("dimensiuni", dimensiuni);
 
-        Gson gson = new Gson();
-        GetRequestImg elemm = new GetRequestImg();
-        Type listeType = new TypeToken<List<Response>>() {
-        }.getType();
-        String result_string = null;
-        baite = elemm.getRaspuns(Ecran26Activity.this, url4, resursa);
-        //response4 = (List<Response>) gson.fromJson(result_string, listeType);
-
+        GetRequestImg elem = new GetRequestImg();
+        baite = elem.getRaspuns(Ecran26Activity.this, url4, "image/png", resursa);
     }
 
     private void makePostRequest5() throws JSONException {
-         /*{
-        "identificare": {
-        "user": {
-            "app_code": "abcdefghijkl123456"
-        },
-        "resursa": {
-            "pentru": "numere",
-                    "tip": "background",
-                    "nume": "1.jpg"
-        }
-    }
-    }*/
-        ////////////////
+        //url4 = "http://api.nubloca.ro/imagini/";
+         /*{        "identificare": {        "user": {            "app_code": "abcdefghijkl123456"        },
+                    "resursa": {       "pentru": "numere",      "tip": "background",      "nume": "1.jpg" }}}*/
         //Content-Type:application/json
         //Accept:image/jpeg
-        ////////////////
 
         JSONObject resursa = new JSONObject().put("pentru", "numere").put("tip", "background").put("nume", "1.jpg");
-        GetRequestJpeg elemm = new GetRequestJpeg();
-        baite1 = elemm.getRaspuns(Ecran26Activity.this, url4, resursa);
+        GetRequestImg elemm = new GetRequestImg();
+        baite1 = elemm.getRaspuns(Ecran26Activity.this, url4, "image/jpeg", resursa);
 
     }
 
     private void makePostRequest6() throws JSONException {
-         /*{
-	"identificare": {
-		"user": {
-			"app_code": "abcdefghijkl123456"
-		},
-      	"resursa": {
-          "pentru": "numere",
-          "tip": "tipuri",
-          "nume": "147-2.png"
-      	}
-	}
-}*/
-        ////////////////
+        //url4 = "http://api.nubloca.ro/imagini/";
+         /*{	"identificare": {		"user": {			"app_code": "abcdefghijkl123456"		},
+      	        "resursa": {          "pentru": "numere",          "tip": "tipuri",          "nume": "147-2.png"      	}   }}*/
         //Content-Type:application/json
         //Accept:image/png
-        ////////////////
 
         JSONObject resursa = new JSONObject().put("pentru", "numere").put("tip", "tipuri").put("nume", "147-1.png");
-        GetRequestImg elemm = new GetRequestImg();
-        baite2 = elemm.getRaspuns(Ecran26Activity.this, url4, resursa);
+        GetRequestImg elem = new GetRequestImg();
+        baite2 = elem.getRaspuns(Ecran26Activity.this, url4, "image/png", resursa);
 
     }
 

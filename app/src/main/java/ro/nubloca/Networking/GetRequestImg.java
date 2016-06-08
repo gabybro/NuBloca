@@ -22,11 +22,11 @@ public class GetRequestImg {
     SharedPreferences sharedpreferences;
     private String  acc_lang, cont_lang, app_code;
     byte[] result;
-    public byte[] getRaspuns(Context context, String url, JSONObject resursa) {
+    public byte[] getRaspuns(Context context, String url, String accept, JSONObject resursa) {
 
         sharedpreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-  /*      acc_lang = (sharedpreferences.getString("acc_lang", "en"));
-        cont_lang = (sharedpreferences.getString("cont_lang", "ro"));*/
+        acc_lang = (sharedpreferences.getString("acc_lang", "en"));
+        cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
         app_code = (sharedpreferences.getString("app_code", "abcdefghijkl123456"));
 
         JSONObject jsonobject_identificare = new JSONObject();
@@ -55,9 +55,9 @@ public class GetRequestImg {
         HttpClient httpClient = new DefaultHttpClient();
         HttpBodyGet httpPost = new HttpBodyGet(url);
         httpPost.setHeader("Content-Type", "application/json");
-        httpPost.setHeader("Accept", "image/png");
-  /*      httpPost.setHeader("Content-Language", cont_lang);
-        httpPost.setHeader("Accept-Language", acc_lang);*/
+        httpPost.setHeader("Accept", accept);
+        httpPost.setHeader("Content-Language", cont_lang);
+        httpPost.setHeader("Accept-Language", acc_lang);
 
 
         //Encoding POST data
