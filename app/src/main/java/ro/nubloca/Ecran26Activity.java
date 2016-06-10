@@ -2,11 +2,13 @@ package ro.nubloca;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -46,6 +49,7 @@ public class Ecran26Activity extends AppCompatActivity {
     String nume_tip_inmatriculare;
     String get_order_ids_tip;
     private ProgressDialog pd;
+    ProgressDialog dialog;
     AllElem[] allelem;
     int[] id_tip_element,Ids_tipuri_inmatriculare_tipuri_elemente;
     List<Response> response2, response3;
@@ -87,9 +91,14 @@ public class Ecran26Activity extends AppCompatActivity {
     }
 
     private void makePostRequestOnNewThread() {
-
-        pd = ProgressDialog.show(this, "", "", true,
-                false);
+        dialog = new ProgressDialog(Ecran26Activity.this);
+        dialog.setIndeterminate(true);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setIndeterminateDrawable(getResources().getDrawable(R.drawable.my_progress_indeterminate));
+        //dialog.setMessage("Some Text");
+        dialog.show();
+        //pd = ProgressDialog.show(this, "Getting Data", "Working..", true,                false);
 
         Thread t = new Thread(new Runnable() {
             @Override
@@ -108,11 +117,7 @@ public class Ecran26Activity extends AppCompatActivity {
             }
         });
         t.start();
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
     }
 
     private void makePostRequest() throws JSONException {
@@ -140,7 +145,8 @@ public class Ecran26Activity extends AppCompatActivity {
                 "id_tip_element": 1,
                 "ordinea": 1,
                 "valoare_demo_imagine": "B"      }]*/
-        allelem = new AllElem[response.size()];
+        campuri = response.size();
+        allelem = new AllElem[campuri];
         for (int i = 0; i < response.size(); i++) {
             allelem[i] = new AllElem();
             allelem[i].setId(response.get(i).getId());
@@ -269,13 +275,12 @@ public class Ecran26Activity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
 
-            pd.dismiss();
-            Gson gson = new Gson();
-            Type listeType = new TypeToken<List<Response>>() {
-            }.getType();
-            List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-            campuri = response.size();
-
+            //pd.dismiss();
+            dialog.dismiss();
+            //Gson gson = new Gson();
+            //Type listeType = new TypeToken<List<Response>>() {            }.getType();
+            //List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
+            //campuri = response.size();
             showElements();
 
 

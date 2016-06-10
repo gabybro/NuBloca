@@ -130,6 +130,7 @@ public class Ecran7Activity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            finish();
         }
     }
     @SuppressWarnings("StatementWithEmptyBody")
@@ -160,4 +161,5 @@ public class Ecran7Activity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

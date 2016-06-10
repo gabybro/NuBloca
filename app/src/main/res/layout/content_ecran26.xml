@@ -40,42 +40,7 @@
     android:layout_marginRight="65dp"-->
     <!-- android:src="@drawable/plate" -->
 
-    <!--<TextView
-        android:id="@+id/plate1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/plate"
-        android:layout_alignStart="@+id/plate"
-        android:layout_alignTop="@+id/plate"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
-        android:text="@string/exemplu_1"
-        android:textColor="#000000"
-        android:textSize="40sp" />
 
-    <TextView
-        android:id="@+id/plate2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/plate"
-        android:layout_marginLeft="10dp"
-        android:layout_toEndOf="@+id/plate1"
-        android:layout_toRightOf="@+id/plate1"
-        android:text="@string/exemplu_2"
-        android:textColor="#000000"
-        android:textSize="40sp" />
-
-    <TextView
-        android:id="@+id/plate3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/plate"
-        android:layout_marginLeft="10dp"
-        android:layout_toEndOf="@+id/plate2"
-        android:layout_toRightOf="@+id/plate2"
-        android:text="@string/exemplu_3"
-        android:textColor="#000000"
-        android:textSize="40sp" />-->
 
     <LinearLayout
         android:id="@+id/linearPlate1"
@@ -89,47 +54,7 @@
         >
     </LinearLayout>
 
-    <!-- <ro.nubloca.extras.CustomFontTitilliumBold
-         android:id="@+id/field1"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_marginRight="5dp"
-         android:background="@drawable/plate_border"
-         android:gravity="center_vertical|center"
-         android:paddingLeft="10dp"
-         android:paddingRight="10dp"
-         android:text="@string/exemplu_4"
-         android:textColor="@color/text_layout_custom"
-         android:textSize="35sp"
-         android:textStyle="bold"
-         android:visibility="invisible" />
 
-     <ro.nubloca.extras.CustomFontTitilliumBold
-         android:id="@+id/field2"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_marginRight="5dp"
-         android:background="@drawable/plate_border"
-         android:gravity="center_vertical|center"
-         android:paddingLeft="10dp"
-         android:paddingRight="10dp"
-         android:text="@string/exemplu_5"
-         android:textColor="@color/text_layout_custom"
-         android:textSize="35sp"
-         android:visibility="invisible" />
-
-     <ro.nubloca.extras.CustomFontTitilliumBold
-         android:id="@+id/field3"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:background="@drawable/plate_border"
-         android:gravity="center_vertical|center"
-         android:paddingLeft="10dp"
-         android:paddingRight="10dp"
-         android:text="@string/exemplu_6"
-         android:textColor="@color/text_layout_custom"
-         android:textSize="35sp"
-         android:visibility="gone" />-->
 
 
     <ro.nubloca.extras.CustomFontTitilliumRegular
