@@ -21,7 +21,7 @@
         android:layout_marginBottom="15dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:text="@string/contact_1"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="17dp" />
 
     <LinearLayout
@@ -122,13 +122,13 @@
             android:layout_marginTop="15dp"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/contact_2"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <ro.nubloca.extras.CustomFontTitilliumBold
             android:id="@+id/nume_tip_inmatriculare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textView20"
+            android:layout_alignBottom="@+id/textView20"
             android:layout_marginLeft="5dp"
             android:layout_toEndOf="@+id/textView20"
             android:layout_toRightOf="@+id/textView20"
@@ -151,7 +151,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView20"
-            android:layout_marginTop="10dp"
             android:gravity="center_vertical">
 
 
@@ -165,7 +164,7 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:text="@string/contact_4"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/contact_4_color" />
 
             <ImageView

@@ -20,11 +20,16 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.Response;
@@ -59,9 +64,6 @@ public class Ecran25Activity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         id_tara = ((Global) this.getApplication()).getId_tara();
-
-
-
 
 
         Thread t = new Thread(new Runnable() {
@@ -127,8 +129,17 @@ public class Ecran25Activity extends AppCompatActivity {
 
         @Override
         public void run() {
-            // getDataThread();
-            populate_order();
+
+            Gson gson = new Gson();
+            Type listeType = new TypeToken<List<Response>>() {
+            }.getType();
+            List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
+
+            m_orders = new ArrayList<Response>();
+
+            for (int i = 0; i < response.size(); i++) {
+                m_orders.add(response.get(i));
+            }
 
             if (m_orders != null && m_orders.size() > 0) {
                 m_adapter.notifyDataSetChanged();
@@ -184,7 +195,6 @@ public class Ecran25Activity extends AppCompatActivity {
                                 ((Global) getApplicationContext()).setNume_tip_inmatriculare_id(0);
                                 ((Global) getApplicationContext()).setCountry_select(o.getNume());
                                 ((Global) getApplicationContext()).setPositionExemplu(-1);
-
                                 startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
                                 finish();
                             }
@@ -198,41 +208,4 @@ public class Ecran25Activity extends AppCompatActivity {
             return v;
         }
     }
-
-
-    private void populate_order() {
-
-        try {
-            jsonArray = new JSONArray(result_string);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        m_orders = new ArrayList<Response>();
-
-        JSONObject json_data = null;
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-            try {
-                json_data = jsonArray.getJSONObject(i);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Response oz = new Response();
-            try {
-                oz.setId(json_data.getInt("id"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                oz.setNume(json_data.getString("nume"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            m_orders.add(oz);
-        }
-
-    }
-
 }

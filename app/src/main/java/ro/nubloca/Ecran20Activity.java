@@ -3,14 +3,17 @@ package ro.nubloca;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
@@ -26,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +50,8 @@ import ro.nubloca.Networking.AllElem;
 import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.GetRequestImg;
 import ro.nubloca.Networking.Response;
+import ro.nubloca.extras.FontTitilliumBold;
+import ro.nubloca.extras.FontTitilliumBoldCheck;
 import ro.nubloca.extras.Global;
 
 public class Ecran20Activity extends AppCompatActivity {
@@ -228,15 +234,18 @@ public class Ecran20Activity extends AppCompatActivity {
 
             if (allelem[i].getTip().equals("LISTA")) {
                 ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
+                //Spinner mySpinner = new Spinner (new ContextThemeWrapper(this, R.style.spinner_style), null, 0);
                 Spinner mySpinner = new Spinner (this);
                 mySpinner.setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1, lista_cod));
-                mySpinner.setBackgroundResource(R.drawable.plate_border);
+
+
                 params.width = minTrei * valRealUml;
                 mySpinner.setLayoutParams(params);
                 linearLayout.addView(mySpinner);
 
+
             } else {
-                EditText field = new EditText(this);
+                FontTitilliumBold field = new FontTitilliumBold(this);
                 field.setId(i);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
 
@@ -249,7 +258,8 @@ public class Ecran20Activity extends AppCompatActivity {
                 field.setLayoutParams(params);
                 field.setWidth(valRealUml * minTrei);
                 field.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
-                field.setTextSize(30);
+                field.setTextSize(25);
+                field.setTextColor(getResources().getColor(R.color.text_layout_custom));
                 field.setBackgroundResource(R.drawable.plate_border);
 
                 if (allelem[i].getTip().equals("CIFRE")) {
@@ -273,7 +283,9 @@ public class Ecran20Activity extends AppCompatActivity {
 
                 linearLayout.addView(field);
             }
+
         }
+
         TextView tip_inmatriculare_nume = (TextView) findViewById(R.id.nume_tip_inmatriculare);
         tip_inmatriculare_nume.setText(name_tip_inmatriculare);
         ImageView image = (ImageView) findViewById(R.id.imageView9);
@@ -533,5 +545,6 @@ public class Ecran20Activity extends AppCompatActivity {
         finish();
         super.onBackPressed();
     }
+
 
 }

@@ -22,6 +22,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -50,6 +52,8 @@ public class Ecran26Activity extends AppCompatActivity {
     String get_order_ids_tip;
     private ProgressDialog pd;
     ProgressDialog dialog;
+    ProgressBar progressBar;
+
     AllElem[] allelem;
     int[] id_tip_element,Ids_tipuri_inmatriculare_tipuri_elemente;
     List<Response> response2, response3;
@@ -68,6 +72,7 @@ public class Ecran26Activity extends AppCompatActivity {
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_ecran26);
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         get_order_ids_tip = ((Global) this.getApplication()).getGet_order_ids_tip();
         nume_tip_inmatriculare = ((Global) this.getApplication()).getNume_tip_inmatriculare();
         Ids_tipuri_inmatriculare_tipuri_elemente=((Global) this.getApplication()).getIds_tipuri_inmatriculare_tipuri_elemente();
@@ -91,20 +96,22 @@ public class Ecran26Activity extends AppCompatActivity {
     }
 
     private void makePostRequestOnNewThread() {
-        dialog = new ProgressDialog(Ecran26Activity.this);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_IN);
+        progressBar.setVisibility(View.VISIBLE);
+        /*dialog = new ProgressDialog(Ecran26Activity.this);
         dialog.setIndeterminate(true);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setIndeterminateDrawable(getResources().getDrawable(R.drawable.my_progress_indeterminate));
         //dialog.setMessage("Some Text");
-        dialog.show();
+        dialog.show();*/
         //pd = ProgressDialog.show(this, "Getting Data", "Working..", true,                false);
 
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    makePostRequest();
+                    makePostRequest1();
                     makePostRequest2();
                     makePostRequest3();
                     makePostRequest4();
@@ -120,7 +127,7 @@ public class Ecran26Activity extends AppCompatActivity {
 
     }
 
-    private void makePostRequest() throws JSONException {
+    private void makePostRequest1() throws JSONException {
         //url = http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/;
         /*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
            "resursa": {"id": [1,2,3]}},
@@ -276,7 +283,8 @@ public class Ecran26Activity extends AppCompatActivity {
         public void handleMessage(Message msg) {
 
             //pd.dismiss();
-            dialog.dismiss();
+            progressBar.setVisibility(View.GONE);
+            //dialog.dismiss();
             //Gson gson = new Gson();
             //Type listeType = new TypeToken<List<Response>>() {            }.getType();
             //List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
@@ -333,7 +341,8 @@ public class Ecran26Activity extends AppCompatActivity {
 
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearPlate1);
         linearLayout.setPadding(valSPL, 0, valSPL, 0);
-
+        RelativeLayout relativeLayout1 = (RelativeLayout) findViewById(R.id.relative1);
+        relativeLayout1.setVisibility(View.VISIBLE);
         for (int i = 0; i < campuri; i++) {
             if (allelem[i].getMaxlength() < 3) {
                 minTrei = 3;

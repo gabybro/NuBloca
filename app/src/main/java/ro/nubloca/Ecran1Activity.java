@@ -37,7 +37,7 @@ public class Ecran1Activity extends AppCompatActivity {
     int id_tara;
     String url = "http://api.nubloca.ro/tari/";
     String countryCode;
-    String rez;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

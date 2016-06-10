@@ -2,12 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/btn_white"
     android:paddingBottom="40dp"
+    android:visibility="gone"
     tools:context=".Ecran26Activity"
     tools:showIn="@layout/activity_ecran26">
+
 
     <ImageView
         android:id="@+id/car_exemplu"
@@ -18,8 +21,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="56dp"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-         />
+        android:scaleType="centerCrop" />
     <!-- android:src="@drawable/car_exemplu" -->
 
     <ImageView
@@ -27,34 +29,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/car_exemplu"
-        android:scaleType="fitXY"
         android:layout_centerInParent="true"
         android:layout_marginTop="55dp"
         android:adjustViewBounds="true"
+        android:scaleType="fitXY"
 
         />
-<!--    android:scaleType="centerCrop"-->
-<!--    android:adjustViewBounds="true"-->
+    <!--    android:scaleType="centerCrop"-->
+    <!--    android:adjustViewBounds="true"-->
 
     <!--android:layout_marginLeft="65dp"
     android:layout_marginRight="65dp"-->
     <!-- android:src="@drawable/plate" -->
 
 
-
     <LinearLayout
         android:id="@+id/linearPlate1"
-        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
         android:layout_below="@+id/car_exemplu"
-        >
-    </LinearLayout>
-
-
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"></LinearLayout>
 
 
     <ro.nubloca.extras.CustomFontTitilliumRegular
@@ -96,8 +93,7 @@
         android:visibility="invisible"
 
         />
-        <!--android:background="@drawable/ro_flag"-->
-
+    <!--android:background="@drawable/ro_flag"-->
 
 
 </RelativeLayout>
