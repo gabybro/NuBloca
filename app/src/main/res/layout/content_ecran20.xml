@@ -22,13 +22,15 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:text="@string/contact_1"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="17dp" />
+        android:textSize="15dp" />
 
     <LinearLayout
         android:id="@+id/linear_contact1"
         android:layout_width="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView13">
 
@@ -269,7 +271,7 @@
         android:background="@color/bkg_setari">
 
         <TextView
-            android:id="@+id/textView23"
+            android:id="@+id/cumFunctioneaza"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -283,7 +285,7 @@
             android:textColor="@color/contact_67_color" />
 
         <TextView
-            android:id="@+id/textView24"
+            android:id="@+id/istoricNumere"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_alignParentBottom="true"

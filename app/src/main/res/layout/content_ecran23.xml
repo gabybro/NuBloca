@@ -1,65 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Ecran23Activity"
     tools:showIn="@layout/activity_ecran23">
 
     <RelativeLayout
+        android:id="@+id/rel_bkg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
         android:background="@color/btn_white">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/img"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/arc"
-            android:layout_alignParentStart="false"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentTop="false">
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentTop="false"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/arc">
 
-        </ImageView>
+            </ImageView>
 
-        <ImageView
-            android:id="@+id/flag"
-            android:layout_width="120dp"
-            android:layout_height="100dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/flag_ro"
-            android:clickable="true" />
+            <RelativeLayout
+                android:id="@+id/relFlag"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        <ro.nubloca.extras.CustomFontTitilliumRegular
-            android:id="@+id/textViewCountry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/flag"
-            android:layout_marginTop="30dp"
-            android:layout_toEndOf="@+id/flag"
-            android:layout_toRightOf="@+id/flag"
-            android:text="@string/tip_inmatriculare_10"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/btn_white"
-            android:textSize="35sp" />
+                <ImageView
+                    android:id="@+id/flag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="start"
+                     />
+
+                <ro.nubloca.extras.CustomFontTitilliumRegular
+                    android:id="@+id/textViewCountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toRightOf="@+id/flag"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/btn_white"
+                    android:textSize="35sp" />
+
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:layout_width="7dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true"
+                    android:paddingEnd="15dp"
+                    android:paddingRight="15dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/chevron1" />
+
+            </RelativeLayout>
+
         </RelativeLayout>
 
     </RelativeLayout>
+
     <ListView
         android:id="@+id/list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        />
+        android:layout_height="fill_parent" />
 
 </LinearLayout>

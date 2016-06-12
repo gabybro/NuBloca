@@ -6,6 +6,16 @@ import org.json.JSONArray;
  * Created by gaby on 6/1/16.
  */
 public class AllElem implements Comparable<AllElem> {
+    public String[] getLista_cod() {
+        return lista_cod;
+    }
+
+    public void setLista_cod(String[] lista_cod) {
+        this.lista_cod = lista_cod;
+    }
+
+    private String[] lista_cod;
+
     private int id;
 
     private int id_tip_element;

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -80,5 +81,23 @@ public class Ecran22Activity extends AppCompatActivity {
         });*/
 
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(Ecran22Activity.this, Ecran20Activity.class));
+        finish();
+        super.onBackPressed();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //finish();
+                Ecran22Activity.this.onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -36,6 +36,7 @@
             android:icon="@drawable/logo"
             android:label="@string/title_activity_third"
             android:logo="@drawable/logo"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -52,8 +53,8 @@
             android:label="@string/title_activity_screen"
             android:parentActivityName=".Ecran7Activity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysVisible">
+            android:theme="@style/AppTheme.NoActionBar"            >
+            <!--android:windowSoftInputMode="stateAlwaysVisible"-->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ro.nubloca.Ecran7Activity" />
@@ -128,6 +129,7 @@
             android:name=".Ecran13Activity"
             android:label="@string/title_activity_ecran13"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -147,6 +149,7 @@
             android:name=".Ecran22Activity"
             android:label="@string/title_activity_ecran22"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -158,6 +161,7 @@
             android:label="@string/title_activity_ecran23"
             android:parentActivityName=".Ecran20Activity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -168,6 +172,7 @@
             android:name=".Ecran24Activity"
             android:label="@string/title_activity_ecran24"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

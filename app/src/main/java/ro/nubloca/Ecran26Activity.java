@@ -345,7 +345,10 @@ public class Ecran26Activity extends AppCompatActivity {
         relativeLayout1.setVisibility(View.VISIBLE);
         for (int i = 0; i < campuri; i++) {
             if (allelem[i].getMaxlength() < 3) {
-                minTrei = 3;
+                minTrei = allelem[i].getMaxlength() + 1;
+                if (allelem[i].getEditabil_user()==0){
+                    minTrei = allelem[i].getMaxlength();
+                }
             } else {
                 minTrei = allelem[i].getMaxlength();
             }
@@ -401,9 +404,12 @@ public class Ecran26Activity extends AppCompatActivity {
         }
 
     }
+
     int convDp(float sizeInDp) {
         float scale = getResources().getDisplayMetrics().density;
         int dpAsPixels = (int) (sizeInDp * scale + 0.5f);
         return dpAsPixels;
     }
+
+
 }

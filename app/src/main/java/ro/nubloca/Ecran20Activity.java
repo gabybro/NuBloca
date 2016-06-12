@@ -25,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -63,8 +65,7 @@ public class Ecran20Activity extends AppCompatActivity {
     String url = "http://api.nubloca.ro/tipuri_inmatriculare/";
     String url1 = "http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
     String url2 = "http://api.nubloca.ro/tipuri_elemente/";
-    String url3 = "http://api.nubloca.ro/tipuri_inmatriculare/";
-    String url4 = "http://api.nubloca.ro/imagini/";
+    String url3 = "http://api.nubloca.ro/imagini/";
     int dim=30;
     byte[] baite;
 
@@ -79,7 +80,7 @@ public class Ecran20Activity extends AppCompatActivity {
     AllElem[] allelem;
     InputFilter filter, filter1;
     String numeSteag;
-
+    FontTitilliumBold field;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +91,6 @@ public class Ecran20Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
-        //name_tip_inmatriculare = (sharedpreferences.getString("nume_tip_inmatriculare", "-"));
 
         id_tara = ((Global) this.getApplication()).getId_tara();
         id_shared=((Global) this.getApplication()).getId_shared();
@@ -114,35 +113,37 @@ public class Ecran20Activity extends AppCompatActivity {
         showElements();
 
 
-
-        View btn3 = (View) this.findViewById(R.id.textView24);
-        if (btn3 != null)
-            btn3.setOnClickListener(new View.OnClickListener() {
+        View btn_istoric_numere = (View) findViewById(R.id.istoricNumere);
+        if (btn_istoric_numere != null)
+            btn_istoric_numere.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     startActivity(new Intent(Ecran20Activity.this, Ecran24Activity.class));
 
                 }
             });
 
-        View btn5 = (View) this.findViewById(R.id.textView23);
-        if (btn5 != null)
-            btn5.setOnClickListener(new View.OnClickListener() {
+        View btn_cum_functioneaza = (View) findViewById(R.id.cumFunctioneaza);
+        if (btn_cum_functioneaza != null)
+            btn_cum_functioneaza.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(Ecran20Activity.this, Ecran13Activity.class));
 
+                    startActivity(new Intent(Ecran20Activity.this, Ecran13Activity.class));
+                    finish();
                 }
             });
 
-        View btn2 = (View) this.findViewById(R.id.relativ2);
+        View btn2 = (View) findViewById(R.id.relativ2);
         if (btn2 != null)
             btn2.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
                     ((Global) getApplicationContext()).setPositionExemplu(-1);
+
                     startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
                     finish();
 
@@ -156,7 +157,9 @@ public class Ecran20Activity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
+
                     startActivity(new Intent(Ecran20Activity.this, Ecran22Activity.class));
+                    finish();
                 }
             });
 
@@ -183,11 +186,11 @@ public class Ecran20Activity extends AppCompatActivity {
         for (int i = 0; i < campuri; i++) {
             // calculam lunngimea inputului
             if (allelem[i].getMaxlength() < 3) {
-                int rr = allelem.length;
-                int oo = allelem[i].getMaxlength();
+              //  int rr = allelem.length;
+              //  int oo = allelem[i].getMaxlength();
                 nrUML += 3;
             } else {
-                int xx = allelem[i].getMaxlength();
+              //  int xx = allelem[i].getMaxlength();
                 nrUML += allelem[i].getMaxlength();
             }
 
@@ -210,7 +213,6 @@ public class Ecran20Activity extends AppCompatActivity {
                         return "";
                     }
                 }
-
                 return null;
             }
         };
@@ -223,29 +225,25 @@ public class Ecran20Activity extends AppCompatActivity {
                         return "";
                     }
                 }
-
                 return null;
             }
         };
-
+        int first_focus=0;
         for (int i = 0; i < campuri; i++) {
-            if (allelem[i].getMaxlength() < 3) {             minTrei = 3;
+            if (allelem[i].getMaxlength() < 3) {             minTrei = allelem[i].getMaxlength() + 1;
             } else {                minTrei = allelem[i].getMaxlength();            }
 
             if (allelem[i].getTip().equals("LISTA")) {
+                first_focus++;
                 ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
                 //Spinner mySpinner = new Spinner (new ContextThemeWrapper(this, R.style.spinner_style), null, 0);
                 Spinner mySpinner = new Spinner (this);
-                mySpinner.setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1, lista_cod));
-
-
+                mySpinner.setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1, allelem[i].getLista_cod()));
                 params.width = minTrei * valRealUml;
                 mySpinner.setLayoutParams(params);
                 linearLayout.addView(mySpinner);
-
-
             } else {
-                FontTitilliumBold field = new FontTitilliumBold(this);
+                field = new FontTitilliumBold(this);
                 field.setId(i);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
 
@@ -264,24 +262,40 @@ public class Ecran20Activity extends AppCompatActivity {
 
                 if (allelem[i].getTip().equals("CIFRE")) {
                     if (allelem[i].getEditabil_user()==0) {
+                        first_focus++;
                         field.setText(allelem[i].getValoriString().replace("[", "").replace("]", ""));
-                        field.setEnabled(false);
+
+                        field.setWidth(valRealUml * allelem[i].getMaxlength());
                         field.setBackgroundResource(R.drawable.plate_border_white);
+                        field.setEnabled(false);
                     }
+
                     field.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
                     field.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(allelem[i].getMaxlength())});
+                    field.setSelected(false);
                 }
                 if (allelem[i].getTip().equals("LITERE")) {
                     if (allelem[i].getEditabil_user()==0) {
+                        first_focus++;
                         field.setText(allelem[i].getValoriString().replace("[", "").replace("]", ""));
                         field.setEnabled(false);
+                        field.setWidth(valRealUml * allelem[i].getMaxlength());
                         field.setBackgroundResource(R.drawable.plate_border_white);
                     }
                     field.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
                     field.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(allelem[i].getMaxlength())});
+                    field.setSelected(false);
+                }
+                field.setSelected(false);
+                if ((first_focus==0)&&(allelem[i].getEditabil_user()==1)){
+                field.requestFocus();
+                    first_focus++;
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                 }
 
                 linearLayout.addView(field);
+
             }
 
         }
@@ -295,6 +309,7 @@ public class Ecran20Activity extends AppCompatActivity {
         image.getLayoutParams().width=convDp(dim);
         image.requestLayout();
         image.setVisibility(View.VISIBLE);
+
 
     }
 
@@ -356,7 +371,7 @@ public class Ecran20Activity extends AppCompatActivity {
            "resursa": {"id":[2]}},
            "cerute": ["id","nume","ids_tipuri_inmatriculare_tipuri_elemente"]}*/
 
-        id_shared = ((Global) getApplicationContext()).getId_shared();
+        id_shared = ((Global) this.getApplication()).getId_shared();
         GetRequest elemm = new GetRequest();
         JSONArray cerute = new JSONArray().put("id").put("nume").put("ids_tipuri_inmatriculare_tipuri_elemente");
         JSONArray idTara = new JSONArray().put(id_shared);
@@ -451,6 +466,7 @@ public class Ecran20Activity extends AppCompatActivity {
                         valoareArr = new JSONArray(s);
                         allelem[i].setValoriArray(valoareArr);
                         lista_cod = new String[valoareArr.length()];
+                        allelem[i].setLista_cod(lista_cod);
                         for (int z = 0; z < valoareArr.length(); z++) {
                             lista_cod[z] = valoareArr.getJSONObject(z).getString("cod");
                         }
@@ -469,7 +485,6 @@ public class Ecran20Activity extends AppCompatActivity {
             "maxlength": 2,
             "valori":[{"id": 1,"cod": "CD"},{"id": 2,"cod": "CO"},{"id": 3,"cod": "TC"}]},  //  "^[0-9]{3}$"   }]*/
 
-        ((Global) getApplicationContext()).setId_shared(0);
 
     }
 
@@ -487,7 +502,7 @@ public class Ecran20Activity extends AppCompatActivity {
         JSONObject resursa = new JSONObject().put("id", id);
         JSONArray cerute = new JSONArray().put("id").put("nume").put("id_tara").put("foto_background").put("url_imagine").put("ids_tipuri_inmatriculare_tipuri_elemente");
 
-        String result_string = elemm.getRaspuns(Ecran20Activity.this, url3, resursa, cerute);
+        String result_string = elemm.getRaspuns(Ecran20Activity.this, url, resursa, cerute);
         response3 = (List<Response>) gson.fromJson(result_string, listeType);
 
         numeSteag=response3.get(0).getId_tara()+".png";
@@ -511,7 +526,7 @@ public class Ecran20Activity extends AppCompatActivity {
         JSONObject resursa = new JSONObject().put("pentru", "tari").put("tip", "steaguri").put("nume", numeSteag).put("dimensiuni", dimensiuni);
 
         GetRequestImg elem = new GetRequestImg();
-        baite = elem.getRaspuns(Ecran20Activity.this, url4, "image/png", resursa);
+        baite = elem.getRaspuns(Ecran20Activity.this, url3, "image/png", resursa);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -529,6 +544,11 @@ public class Ecran20Activity extends AppCompatActivity {
             toast.show();
             //finish();
         }
+        if ((item.getItemId()) == R.id.home){
+
+
+            Ecran20Activity.this.onBackPressed();
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -541,7 +561,9 @@ public class Ecran20Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
         startActivity(new Intent(Ecran20Activity.this, Ecran7Activity.class));
+
         finish();
         super.onBackPressed();
     }

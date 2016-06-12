@@ -53,12 +53,29 @@ public class Ecran24Activity extends AppCompatActivity {
         return true;
     }
 
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu1) {
             finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }*/
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(Ecran24Activity.this, Ecran20Activity.class));
+        finish();
+        super.onBackPressed();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //finish();
+                Ecran24Activity.this.onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

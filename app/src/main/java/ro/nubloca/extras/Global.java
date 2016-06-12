@@ -2,10 +2,22 @@ package ro.nubloca.extras;
 
 import android.app.Application;
 
+import ro.nubloca.Networking.AllElem;
+
 /**
  * Created by gaby on 6/6/16.
  */
 public class Global extends Application{
+
+    public AllElem[] getAllelem() {
+        return allelem;
+    }
+
+    public void setAllelem(AllElem[] allelem) {
+        this.allelem = allelem;
+    }
+
+    private AllElem[] allelem;
 
     public String getNume_tip_inmatriculare() {
         return nume_tip_inmatriculare;
@@ -46,6 +58,16 @@ public class Global extends Application{
     }
 
     private int nume_tip_inmatriculare_id=0;
+
+    public int getRadio_nume_tip_inmatriculare_id() {
+        return radio_nume_tip_inmatriculare_id;
+    }
+
+    public void setRadio_nume_tip_inmatriculare_id(int radio_nume_tip_inmatriculare_id) {
+        this.radio_nume_tip_inmatriculare_id = radio_nume_tip_inmatriculare_id;
+    }
+
+    private int radio_nume_tip_inmatriculare_id=0;
 
     public String getName_tip_inmatriculare() {
         return name_tip_inmatriculare;

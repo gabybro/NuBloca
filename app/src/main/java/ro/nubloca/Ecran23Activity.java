@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -14,10 +16,16 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -32,13 +40,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ro.nubloca.Networking.GetRequest;
+import ro.nubloca.Networking.GetRequestImg;
 import ro.nubloca.Networking.Response;
 import ro.nubloca.extras.Global;
 
 
 public class Ecran23Activity extends AppCompatActivity {
 
-    List<Response> response;
+
     int id_tara = 147;
     String result_tari;
     int positionExemplu = -1;
@@ -52,25 +61,34 @@ public class Ecran23Activity extends AppCompatActivity {
     private Runnable viewOrders;
     JSONArray jsonArray = null;
     String url = "http://api.nubloca.ro/tipuri_inmatriculare/";
-
-    int[] id_tip_element,Ids_tipuri_inmatriculare_tipuri_elemente;
-    String nume_tip_inmatriculare="standard";
-
+    String url1 = "http://api.nubloca.ro/imagini/";
+    int id_name_tip_inmatriculare_phone = 0;
+    int[] Ids_tipuri_inmatriculare_tipuri_elemente;
+    String nume_tip_inmatriculare = "standard";
+    String numeSteag;
+    int dim1 =75;
+    int dim;
+    byte[] baite, baite1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_ecran23);
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        acc_lang = (sharedpreferences.getString("acc_lang", "en"));
-        cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
+        //sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        //acc_lang = (sharedpreferences.getString("acc_lang", "ro"));
+        //cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
 
         positionExemplu = ((Global) this.getApplication()).getPositionExemplu();
 
         id_tara = ((Global) this.getApplication()).getId_tara();
 
-        country_select= ((Global) this.getApplication()).getCountry_select();
+        country_select = ((Global) this.getApplication()).getCountry_select();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -111,13 +129,35 @@ public class Ecran23Activity extends AppCompatActivity {
 
         ImageView flag = (ImageView) findViewById(R.id.flag);
         ImageView bkg = (ImageView) findViewById(R.id.img);
-        if (id_tara == 31) {
+
+        /*if (id_tara == 31) {
             flag.setBackgroundResource(R.drawable.flag_bg);
             bkg.setImageResource(R.drawable.bg);
-        }
+        }*/
 
-        if (flag != null)
-            flag.setOnClickListener(new View.OnClickListener() {
+        Bitmap bmp = BitmapFactory.decodeByteArray(baite, 0, baite.length);
+        bkg.setImageBitmap(bmp);
+
+        Bitmap bmp1 = BitmapFactory.decodeByteArray(baite1, 0, baite1.length);
+        //Bitmap bMapScaled = Bitmap.createScaledBitmap(bmp1,0, convDp(dim/2), true);
+
+        //flag.setImageBitmap(bMapScaled);
+        flag.setImageBitmap(bmp1);
+
+        final Animation animation = new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
+        animation.setDuration(1500); // duration - half a second
+        animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+        animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
+        animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
+
+        final ImageView arw = (ImageView) findViewById(R.id.arrow);
+        arw.startAnimation(animation);
+
+        RelativeLayout relBkg = (RelativeLayout) findViewById(R.id.rel_bkg);
+
+
+        if (relBkg != null)
+            relBkg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(Ecran23Activity.this, Ecran25Activity.class));
@@ -152,6 +192,7 @@ public class Ecran23Activity extends AppCompatActivity {
     private class ResponseAdapter extends ArrayAdapter<Response> {
 
         private ArrayList<Response> items;
+
         public ResponseAdapter(Context context, int textViewResourceId, ArrayList<Response> items) {
             super(context, textViewResourceId, items);
             this.items = items;
@@ -167,23 +208,27 @@ public class Ecran23Activity extends AppCompatActivity {
             Gson gson = new Gson();
             Type listeType = new TypeToken<ArrayList<Response>>() {
             }.getType();
+            ImageView btn1 = (ImageView) v.findViewById(R.id.radioButton);
             final ArrayList<Response> response = (ArrayList<Response>) gson.fromJson(result_tari, listeType);
             if (response != null) {
-                int id_name_tip_inmatriculare_phone = ((Global) getApplicationContext()).getNume_tip_inmatriculare_id();
+                id_name_tip_inmatriculare_phone = ((Global) getApplicationContext()).getNume_tip_inmatriculare_id();
                 if (id_name_tip_inmatriculare_phone == 0) {
-                    ((Global) getApplicationContext()).setNume_tip_inmatriculare_id(response.get(position).getId());
-                    ((Global) getApplicationContext()).setNume_tip_inmatriculare(response.get(position).getNume());
+                    ((Global) getApplicationContext()).setNume_tip_inmatriculare_id(response.get(0).getId());
+                    ((Global) getApplicationContext()).setNume_tip_inmatriculare(response.get(0).getNume());
+                    ((Global) getApplicationContext()).setId_shared(response.get(0).getId());
+                    //btn1.setImageResource(R.drawable.radio_press);
                 }
                 LinearLayout ll = (LinearLayout) v.findViewById(R.id.linear1);
                 LinearLayout lll = (LinearLayout) v.findViewById(R.id.linear2);
-                ImageView btn1 = (ImageView) v.findViewById(R.id.radioButton);
+
                 if (positionExemplu == position) {
                     lll.setBackgroundColor(Color.parseColor("#F0F0F0"));
                 }
 
-                if (id_name_tip_inmatriculare_phone == (response.get(position).getId())) {
+
+                /*if (id_name_tip_inmatriculare_phone == position) {
                     btn1.setImageResource(R.drawable.radio_press);
-                }
+                }*/
 
                 final int x = response.get(position).getId();
                 TextView tt = (TextView) v.findViewById(R.id.text);
@@ -269,9 +314,9 @@ public class Ecran23Activity extends AppCompatActivity {
             }
 
             int arrayy[] = new int[arrayz.length()];
-            for (int xx=0; xx<arrayz.length(); xx++){
+            for (int xx = 0; xx < arrayz.length(); xx++) {
                 try {
-                    arrayy[i]=arrayz.getInt(i);
+                    arrayy[i] = arrayz.getInt(i);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -285,36 +330,18 @@ public class Ecran23Activity extends AppCompatActivity {
     }
 
     private void getDataThread() {
-        //url = "http://api.nubloca.ro/tipuri_inmatriculare/";
-        /*{"identificare": {"user": { "app_code": "abcdefghijkl123456" },
-           "resursa": {"id_tara": [147]}},
-           "cerute": ["id", "nume", "ids_tipuri_inmatriculare_tipuri_elemente", "ordinea"]}*/
 
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                final GetRequest nr = new GetRequest();
-                JSONArray jsonobject_id = new JSONArray().put(id_tara);
-                JSONObject resursa = new JSONObject();
-                try {
-                    resursa = new JSONObject().put("id_tara", jsonobject_id);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-                JSONArray cerute = new JSONArray().put("id").put("nume").put("ids_tipuri_inmatriculare_tipuri_elemente").put("ordinea");
-
-                Gson gson = new Gson();
-                Type listeType = new TypeToken<List<Response>>() {
-                }.getType();
-
-                result_tari = nr.getRaspuns(Ecran23Activity.this, url, resursa, cerute);
-                //response = (List<Response>) gson.fromJson(result_tari, listeType);
-
-                ((Global) getApplicationContext()).setArray(result_tari);
-
-
+                makePostRequest1();
+                makePostRequest2();
+                makePostRequest3();
+                //handler.sendEmptyMessage(0);
             }
+
+
         });
         t.start();
         try {
@@ -322,13 +349,92 @@ public class Ecran23Activity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
     }
+
+    private void makePostRequest3() {
+        //url1 = "http://api.nubloca.ro/imagini/";
+        /*{            "identificare": {            "user": {                "app_code": "abcdefghijkl123456"            },
+                        "resursa": {  "pentru": "tari",  "tip": "steaguri",   "nume": "147.png",    "dimensiuni": [43]   }}}*/
+        //Content-Type:application/json
+        //Accept:image/png
+        numeSteag=id_tara+".png";
+
+        JSONObject resursa = null;
+        try {
+            resursa = new JSONObject().put("pentru", "tari").put("tip", "steaguri").put("nume", numeSteag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        dim = convDp(dim1);
+        JSONArray dimensiuni = new JSONArray().put(dim);
+        try {
+            resursa.put("dimensiuni", dimensiuni);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        GetRequestImg elem = new GetRequestImg();
+        baite1 = elem.getRaspuns(Ecran23Activity.this, url1, "image/png", resursa);
+    }
+
+    private void makePostRequest2() {
+        //url1 = "http://api.nubloca.ro/imagini/";
+        /*{            "identificare": {            "user": {                "app_code": "abcdefghijkl123456"            },
+                        "resursa": {  "pentru": "tari",  "tip": "reprezentative",   "nume": "147.jpg" }}}*/
+        //Content-Type:application/json
+        //Accept:image/jpg
+        numeSteag=id_tara+".jpg";
+
+        JSONObject resursa = null;
+        try {
+            resursa = new JSONObject().put("pentru", "tari").put("tip", "reprezentative").put("nume", numeSteag);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        GetRequestImg elem = new GetRequestImg();
+        baite = elem.getRaspuns(Ecran23Activity.this, url1, "image/jpeg", resursa);
+    }
+
+    private void makePostRequest1() {
+        //url = "http://api.nubloca.ro/tipuri_inmatriculare/";
+        /*{"identificare": {"user": { "app_code": "abcdefghijkl123456" },
+           "resursa": {"id_tara": [147]}},
+           "cerute": ["id", "nume", "ids_tipuri_inmatriculare_tipuri_elemente", "ordinea"]}*/
+
+
+        final GetRequest nr = new GetRequest();
+        JSONArray jsonobject_id = new JSONArray().put(id_tara);
+        JSONObject resursa = new JSONObject();
+        try {
+            resursa = new JSONObject().put("id_tara", jsonobject_id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONArray cerute = new JSONArray().put("id").put("nume").put("ids_tipuri_inmatriculare_tipuri_elemente").put("ordinea");
+
+        Gson gson = new Gson();
+        Type listeType = new TypeToken<List<Response>>() {
+        }.getType();
+
+        result_tari = nr.getRaspuns(Ecran23Activity.this, url, resursa, cerute);
+        //response = (List<Response>) gson.fromJson(result_tari, listeType);
+
+        ((Global) getApplicationContext()).setArray(result_tari);
+
+
+    }
+
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
         finish();
         super.onBackPressed();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -339,5 +445,10 @@ public class Ecran23Activity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    int convDp(float sizeInDp) {
+        float scale = getResources().getDisplayMetrics().density;
+        int dpAsPixels = (int) (sizeInDp * scale + 0.5f);
+        return dpAsPixels;
     }
 }

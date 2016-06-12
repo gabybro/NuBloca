@@ -21,7 +21,7 @@
 
             <item>
 
-                <bitmap android:gravity="center|right" android:src="@drawable/chevron_down"/>
+                <bitmap android:gravity="center|right" android:src="@drawable/sagetica_down"/>
 
 
             </item>
