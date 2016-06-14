@@ -3,11 +3,34 @@ package ro.nubloca.extras;
 import android.app.Application;
 
 import ro.nubloca.Networking.AllElem;
+import ro.nubloca.Networking.TaraElem;
+import ro.nubloca.Networking.TipElem;
 
 /**
  * Created by gaby on 6/6/16.
  */
 public class Global extends Application{
+
+
+    public TipElem[] getTipElem() {
+        return tipElem;
+    }
+
+    public void setTipElem(TipElem[] tipElem) {
+        this.tipElem = tipElem;
+    }
+
+    private TipElem[] tipElem;
+
+    public TaraElem getTaraElem() {
+        return taraElem;
+    }
+
+    public void setTaraElem(TaraElem taraElem) {
+        this.taraElem = taraElem;
+    }
+
+    private TaraElem taraElem;
 
     public AllElem[] getAllelem() {
         return allelem;

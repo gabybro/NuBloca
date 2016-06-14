@@ -1,13 +1,11 @@
 package ro.nubloca.Networking;
 
-import com.google.gson.annotations.SerializedName;
-
 import org.json.JSONArray;
 
 /**
  * Created by gaby on 6/1/16.
  */
-public class AllElem implements Comparable<AllElem> {
+public class TipElem  {
     public String[] getLista_cod() {
         return lista_cod;
     }
@@ -127,10 +125,5 @@ public class AllElem implements Comparable<AllElem> {
     private String valoriString;
 
     private JSONArray valoriArray;
-
-    @Override
-    public int compareTo(AllElem o) {
-        return new Double(this.ordinea).compareTo(new Double(o.ordinea));
-    }
 
 }

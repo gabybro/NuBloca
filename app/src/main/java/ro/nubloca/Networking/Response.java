@@ -10,6 +10,16 @@ import org.json.JSONObject;
  */
 public class Response {
 
+    public String getUrl_steag() {
+        return url_steag;
+    }
+
+    public void setUrl_steag(String url_steag) {
+        this.url_steag = url_steag;
+    }
+
+    private String url_steag;
+
     public int getId_tara() {
         return id_tara;
     }

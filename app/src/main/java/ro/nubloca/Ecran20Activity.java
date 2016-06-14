@@ -52,6 +52,7 @@ import ro.nubloca.Networking.AllElem;
 import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.GetRequestImg;
 import ro.nubloca.Networking.Response;
+import ro.nubloca.Networking.TaraElem;
 import ro.nubloca.extras.FontTitilliumBold;
 import ro.nubloca.extras.FontTitilliumBoldCheck;
 import ro.nubloca.extras.Global;
@@ -77,10 +78,12 @@ public class Ecran20Activity extends AppCompatActivity {
     List<Response> response2,response3;
     JSONArray valoareArr;
     String[] lista_cod;
-    AllElem[] allelem;
+    AllElem[] allele, allelem;
     InputFilter filter, filter1;
     String numeSteag;
     FontTitilliumBold field;
+    TaraElem taraElem;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,10 +107,10 @@ public class Ecran20Activity extends AppCompatActivity {
 
 
 
-        //TODO after req
-
-        makePostRequestOnNewThread();
-
+        //TODO
+        //makePostRequestOnNewThread();
+        taraElem = ((Global) getApplicationContext()).getTaraElem();
+        allelem = ((Global) getApplicationContext()).getAllelem();
 
 
         showElements();
@@ -136,7 +139,7 @@ public class Ecran20Activity extends AppCompatActivity {
                 }
             });
 
-        View btn2 = (View) findViewById(R.id.relativ2);
+        View btn2 = (View) findViewById(R.id.alegeTipInmatriculare);
         if (btn2 != null)
             btn2.setOnClickListener(new View.OnClickListener() {
 
@@ -167,6 +170,7 @@ public class Ecran20Activity extends AppCompatActivity {
     }
 
     private void showElements() {
+       // campuri = taraElem.getTip_ids_tipuri_inmatriculare_tipuri_elemente().length;
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -299,6 +303,7 @@ public class Ecran20Activity extends AppCompatActivity {
             }
 
         }
+       // name_tip_inmatriculare = taraElem.getTip_nume();
 
         TextView tip_inmatriculare_nume = (TextView) findViewById(R.id.nume_tip_inmatriculare);
         tip_inmatriculare_nume.setText(name_tip_inmatriculare);
