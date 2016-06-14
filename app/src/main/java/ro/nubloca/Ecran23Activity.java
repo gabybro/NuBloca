@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -52,9 +55,6 @@ public class Ecran23Activity extends AppCompatActivity {
     String result_tari;
     int positionExemplu = -1;
     String country_select;
-    public static final String MyPREFERENCES = "MyPrefs";
-    SharedPreferences sharedpreferences;
-    String acc_lang, cont_lang;
     private ProgressDialog m_ProgressDialog = null;
     private ArrayList<Response> m_orders = null;
     private ResponseAdapter m_adapter;
@@ -69,20 +69,23 @@ public class Ecran23Activity extends AppCompatActivity {
     int dim1 =75;
     int dim;
     byte[] baite, baite1;
+    ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_ecran23);
-        //sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        //acc_lang = (sharedpreferences.getString("acc_lang", "ro"));
-        //cont_lang = (sharedpreferences.getString("cont_lang", "ro"));
         View view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_IN);
+        progressBar.setVisibility(View.VISIBLE);
 
         positionExemplu = ((Global) this.getApplication()).getPositionExemplu();
 
@@ -99,6 +102,7 @@ public class Ecran23Activity extends AppCompatActivity {
         final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         upArrow.setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
 
         getDataThread();
 
@@ -119,21 +123,22 @@ public class Ecran23Activity extends AppCompatActivity {
         };
         Thread thread = new Thread(null, viewOrders, "MagentoBackground");
         thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         m_ProgressDialog = ProgressDialog.show(Ecran23Activity.this,
                 "", "", true);
 
-
+        //progressBar.setVisibility(View.GONE);
         TextView country = (TextView) findViewById(R.id.textViewCountry);
         country.setText(country_select);
 
         ImageView flag = (ImageView) findViewById(R.id.flag);
         ImageView bkg = (ImageView) findViewById(R.id.img);
 
-        /*if (id_tara == 31) {
-            flag.setBackgroundResource(R.drawable.flag_bg);
-            bkg.setImageResource(R.drawable.bg);
-        }*/
 
         Bitmap bmp = BitmapFactory.decodeByteArray(baite, 0, baite.length);
         bkg.setImageBitmap(bmp);
@@ -164,7 +169,7 @@ public class Ecran23Activity extends AppCompatActivity {
                     //finish();
                 }
             });
-
+        //handler.sendEmptyMessage(0);
 
     }
 
@@ -181,11 +186,13 @@ public class Ecran23Activity extends AppCompatActivity {
             }
             m_ProgressDialog.dismiss();
             m_adapter.notifyDataSetChanged();
+
         }
     };
 
     private void getOrders() {
         runOnUiThread(returnRes);
+
     }
 
 
@@ -325,6 +332,7 @@ public class Ecran23Activity extends AppCompatActivity {
             oz.setIds_tipuri_inmatriculare_tipuri_elemente(arrayy);
 
             m_orders.add(oz);
+            //handler.sendEmptyMessage(0);
         }
 
     }
@@ -338,7 +346,8 @@ public class Ecran23Activity extends AppCompatActivity {
                 makePostRequest1();
                 makePostRequest2();
                 makePostRequest3();
-                //handler.sendEmptyMessage(0);
+               // handler.sendEmptyMessage(0);
+                //progressBar.setVisibility(View.GONE);
             }
 
 
@@ -451,4 +460,16 @@ public class Ecran23Activity extends AppCompatActivity {
         int dpAsPixels = (int) (sizeInDp * scale + 0.5f);
         return dpAsPixels;
     }
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+            progressBar.setVisibility(View.GONE);
+
+
+
+        }
+
+
+    };
 }

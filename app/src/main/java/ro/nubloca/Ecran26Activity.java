@@ -282,13 +282,7 @@ public class Ecran26Activity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
 
-            //pd.dismiss();
             progressBar.setVisibility(View.GONE);
-            //dialog.dismiss();
-            //Gson gson = new Gson();
-            //Type listeType = new TypeToken<List<Response>>() {            }.getType();
-            //List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-            //campuri = response.size();
             showElements();
 
 
@@ -322,13 +316,9 @@ public class Ecran26Activity extends AppCompatActivity {
         int valMaxUML = divLength / 10;
 
         for (int i = 0; i < campuri; i++) {
-            // calculam lunngimea inputului
             if (allelem[i].getMaxlength() < 3) {
-                int rr = allelem.length;
-                int oo = allelem[i].getMaxlength();
                 nrUML += 3;
             } else {
-                int xx = allelem[i].getMaxlength();
                 nrUML += allelem[i].getMaxlength();
             }
 
@@ -377,8 +367,6 @@ public class Ecran26Activity extends AppCompatActivity {
             tip_inmatriculare_nume.setText(nume_tip_inmatriculare);
             CustomFontTitilliumRegular text1 = (CustomFontTitilliumRegular) findViewById(R.id.textView20);
             text1.setVisibility(View.VISIBLE);
-            //ImageView image1 = (ImageView) findViewById(R.id.imageView9);
-            //image1.setVisibility(View.VISIBLE);
             ImageView image = (ImageView) findViewById(R.id.imageView9);
             Bitmap bmp = BitmapFactory.decodeByteArray(baite, 0, baite.length);
             image.setImageBitmap(bmp);
@@ -390,8 +378,6 @@ public class Ecran26Activity extends AppCompatActivity {
             ImageView image1 = (ImageView) findViewById(R.id.car_exemplu);
             Bitmap bmp1 = BitmapFactory.decodeByteArray(baite1, 0, baite1.length);
             image1.setImageBitmap(bmp1);
-            //image1.getLayoutParams().height=convDp();
-            //image1.getLayoutParams().width=convDp();
             image1.requestLayout();
 
             ImageView image2 = (ImageView) findViewById(R.id.plate);
@@ -399,7 +385,6 @@ public class Ecran26Activity extends AppCompatActivity {
             Bitmap bMapScaled = Bitmap.createScaledBitmap(bmp2, convDp(430/2), convDp(103/2), true);
 
             image2.setImageBitmap(bMapScaled);
-            //image2.requestLayout();
 
         }
 

@@ -12,6 +12,7 @@
     tools:showIn="@layout/activity_ecran26">
 
 
+
     <ImageView
         android:id="@+id/car_exemplu"
         android:layout_width="fill_parent"

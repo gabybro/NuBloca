@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:customAttrs="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bkg_setari"
+    android:gravity="top"
+    android:orientation="vertical"
     tools:context=".Ecran26Activity">
 
     <android.support.design.widget.AppBarLayout
@@ -20,6 +22,7 @@
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
+
             <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:id="@+id/toolbar_title1"
                 android:layout_width="wrap_content"
@@ -29,30 +32,23 @@
                 android:textColor="#FFFFFF"
                 android:textSize="25sp" />
 
-            <!-- <ProgressBar
-                 android:id="@+id/progressBar1"
-                 style="?android:attr/progressBarStyleHorizontal"
-                 android:progressDrawable="@drawable/my_progress_indeterminate"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginBottom="10dp"
-                 android:layout_marginRight="10dp"
-                 android:layout_gravity="right"
-                 />-->
 
         </android.support.v7.widget.Toolbar>
 
+
         <ProgressBar
             android:id="@+id/progressBar"
-            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:indeterminate="true"
-            android:indeterminateOnly="true" />
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:layout_marginBottom="-5dp"/>
 
     </android.support.design.widget.AppBarLayout>
 
 
     <include layout="@layout/content_ecran26" />
 
-</android.support.design.widget.CoordinatorLayout>
+</FrameLayout>
