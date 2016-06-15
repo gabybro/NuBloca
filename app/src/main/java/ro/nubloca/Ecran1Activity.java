@@ -20,15 +20,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import ro.nubloca.Networking.AllElem;
 import ro.nubloca.Networking.GetRequest;
-import ro.nubloca.Networking.Ids;
+
 import ro.nubloca.Networking.Response;
+
+
 import ro.nubloca.Networking.StandElem;
-import ro.nubloca.Networking.TaraElem;
 import ro.nubloca.Networking.TipElem;
 import ro.nubloca.extras.Global;
 
@@ -43,7 +45,7 @@ public class Ecran1Activity extends AppCompatActivity {
     int id_tara;
 
     String countryCode;
-    TaraElem taraElem = new TaraElem();
+
     AllElem[] allelem;
     TipElem[] tipElem;
     StandElem standElem;
@@ -127,11 +129,12 @@ public class Ecran1Activity extends AppCompatActivity {
         result_string = elem.getRaspuns(Ecran1Activity.this, url, resursa, cerute);
         response = gson.fromJson(result_string, listeType);
 
-        taraElem.setCod(countryCode);
-        taraElem.setId(response.get(0).getId());
-        taraElem.setUrl_steag(response.get(0).getUrl_steag());
-        taraElem.setNume(response.get(0).getNume());
-        taraElem.setOrdinea(1);
+        standElem = new StandElem();
+        standElem.setCod(countryCode);
+        standElem.setId(response.get(0).getId());
+        standElem.setUrl_steag(response.get(0).getUrl_steag());
+        standElem.setNume(response.get(0).getNume());
+        standElem.setOrdinea(1);
 
         //taraElem = response;
        /* [{
@@ -154,42 +157,38 @@ public class Ecran1Activity extends AppCompatActivity {
            "cerute": ["id", "nume", "ordinea", "ids_tipuri_inmatriculare_tipuri_elemente"]}*/
 
         String url = "http://api.nubloca.ro/tipuri_inmatriculare/";
-        JSONArray idTara = new JSONArray().put(taraElem.getId());
-        JSONArray ordinea = new JSONArray().put(taraElem.getOrdinea());
-        //JSONObject resursa = new JSONObject().put("id_tara", idTara).put("ordinea", ordinea);
+        JSONArray idTara = new JSONArray().put(standElem.getId());
         JSONObject resursa = new JSONObject().put("id_tara", idTara);
         JSONArray cerute = new JSONArray().put("id").put("nume").put("ordinea").put("ids_tipuri_inmatriculare_tipuri_elemente");
 
         result_string = elem.getRaspuns(Ecran1Activity.this, url, resursa, cerute);
         response = gson.fromJson(result_string, listeType);
-        standElem = new StandElem();
-        allelem = new AllElem[response.size()];
+
+
+        List<StandElem.TipNumar> tipNumarLista = new ArrayList<>();
         for (int i=0; i<response.size(); i++){
-            allelem[i] = new AllElem();
-            allelem[i].setId(response.get(i).getId());
-            allelem[i].setNume(response.get(i).getNume());
-            allelem[i].setOrdinea(response.get(i).getOrdinea());
-            allelem[i].setIds_tipuri_inmatriculare_tipuri_elemente(response.get(i).getIds_tipuri_inmatriculare_tipuri_elemente());
-            if (allelem[i].getOrdinea()==1){
-                standElem.setId(response.get(i).getId());
-                standElem.setNume(response.get(i).getNume());
-                standElem.setOrdinea(response.get(i).getOrdinea());
-                Ids[] ids = new Ids[response.get(i).getIds_tipuri_inmatriculare_tipuri_elemente().length];
-                for (int j=0; j<response.get(i).getIds_tipuri_inmatriculare_tipuri_elemente().length; j++){
-                ids[j].setId(response.get(i).getIds_tipuri_inmatriculare_tipuri_elemente()[j]);
-                }
-                standElem.setIds_tip(ids);
+            StandElem.TipNumar tipNumar = new StandElem.TipNumar();
+
+            tipNumar.setId(response.get(i).getId());
+            tipNumar.setNume(response.get(i).getNume());
+            tipNumar.setOrdinea(response.get(i).getOrdinea());
+            tipNumar.setTip_size(response.get(i).getIds_tipuri_inmatriculare_tipuri_elemente().length);
+            tipNumar.setTip_idd(response.get(i).getIds_tipuri_inmatriculare_tipuri_elemente());
+
+            tipNumarLista.add(tipNumar);
             }
-        }
+        standElem.setTipNumar(tipNumarLista);
+
 
         /*[{"id": 9,
             "nume": "Standard",
             "ordinea": 1,
             "ids_tipuri_inmatriculare_tipuri_elemente":[19,20,21] }] */
-        Arrays.sort(allelem);
+
+       // Arrays.sort(standElem.tipNumar);
     }
 
-   /* private void makePostRequest3() throws JSONException {
+    private void makePostRequest3() throws JSONException {
         String result_string;
         Gson gson = new Gson();
         Type listeType = new TypeToken<List<Response>>() {
@@ -197,9 +196,9 @@ public class Ecran1Activity extends AppCompatActivity {
         List<Response> response;
         GetRequest elem = new GetRequest();
         //url = http://api.nubloca.ro/tipuri_elemente/;
-       *//* { "identificare": {"user": {"app_code": "abcdefghijkl123456"},
+        /*{ "identificare": {"user": {"app_code": "abcdefghijkl123456"},
             "resursa":{"id":[5,6,6]}},
-            "cerute":[    "id",    "tip",  "editabil_user",     "maxlength",   "valori"]   }*//*
+            "cerute":[    "id",    "tip",  "editabil_user",     "maxlength",   "valori"]   }*/
 
         String url = "http://api.nubloca.ro/tipuri_elemente/";
 
@@ -208,8 +207,9 @@ public class Ecran1Activity extends AppCompatActivity {
         JSONArray id = new JSONArray();
 
 
-        for (int i = 0; i < taraElem.getTip_ids_tipuri_inmatriculare_tipuri_elemente().length; i++) {
-            id.put(taraElem.getTip_ids_tipuri_inmatriculare_tipuri_elemente()[i]);
+
+        for (int i = 0; i < (standElem.getTipNumar()).get(i).getTip_size(); i++) {
+            id.put((standElem.getTipNumar()).get(i).getId());
         }
         resursa.put("id", id);
 
@@ -244,15 +244,15 @@ public class Ecran1Activity extends AppCompatActivity {
 
 
 
-        *//*[{"id": 5, // 6,
+        /*[{"id": 5, // 6,
             "tip": "LISTA", // "CIFRE" // "LITERE"
             "editabil_user": 1, // 0
             "maxlength": 2,  //  9
-            "valori":[{"id": 1,"cod": "CD"},{"id": 2,"cod": "CO"},{"id": 3,"cod": "TC"}]},  //  "^[0-9]{3}$"   ]*//*
+            "valori":[{"id": 1,"cod": "CD"},{"id": 2,"cod": "CO"},{"id": 3,"cod": "TC"}]},  //  "^[0-9]{3}$"   ]*/
 
-        ((Global) getApplicationContext()).setTaraElem(taraElem);
-        ((Global) getApplicationContext()).setAllelem(allelem);
-        ((Global) getApplicationContext()).setTipElem(tipElem);
-    }*/
+        //((Global) getApplicationContext()).setTaraElem(taraElem);
+        //((Global) getApplicationContext()).setAllelem(allelem);
+       // ((Global) getApplicationContext()).setTipElem(tipElem);
+    }
 
 }
