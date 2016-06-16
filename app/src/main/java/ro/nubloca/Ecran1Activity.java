@@ -43,12 +43,12 @@ public class Ecran1Activity extends AppCompatActivity {
     //private int progressStatus = 0;
     //private Handler handler = new Handler();
     int id_tara;
-
+    int index;
     String countryCode;
 
     AllElem[] allelem;
     TipElem[] tipElem;
-    StandElem standElem;
+    StandElem standElem = new StandElem();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,11 @@ public class Ecran1Activity extends AppCompatActivity {
                 try {
                     makePostRequest1();
                     makePostRequest2();
-                  //  makePostRequest3();
+
+                    for (index=0; index< standElem.getSize(); index++)
+                    {
+                    makePostRequest3();
+                    }
 
 
                 } catch (JSONException e) {
@@ -129,7 +133,7 @@ public class Ecran1Activity extends AppCompatActivity {
         result_string = elem.getRaspuns(Ecran1Activity.this, url, resursa, cerute);
         response = gson.fromJson(result_string, listeType);
 
-        standElem = new StandElem();
+
         standElem.setCod(countryCode);
         standElem.setId(response.get(0).getId());
         standElem.setUrl_steag(response.get(0).getUrl_steag());
@@ -164,9 +168,9 @@ public class Ecran1Activity extends AppCompatActivity {
         result_string = elem.getRaspuns(Ecran1Activity.this, url, resursa, cerute);
         response = gson.fromJson(result_string, listeType);
 
-
+        standElem.setSize(response.size());
         List<StandElem.TipNumar> tipNumarLista = new ArrayList<>();
-        for (int i=0; i<response.size(); i++){
+        for (int i = 0; i < response.size(); i++) {
             StandElem.TipNumar tipNumar = new StandElem.TipNumar();
 
             tipNumar.setId(response.get(i).getId());
@@ -176,7 +180,7 @@ public class Ecran1Activity extends AppCompatActivity {
             tipNumar.setTip_idd(response.get(i).getIds_tipuri_inmatriculare_tipuri_elemente());
 
             tipNumarLista.add(tipNumar);
-            }
+        }
         standElem.setTipNumar(tipNumarLista);
 
 
@@ -185,7 +189,7 @@ public class Ecran1Activity extends AppCompatActivity {
             "ordinea": 1,
             "ids_tipuri_inmatriculare_tipuri_elemente":[19,20,21] }] */
 
-       // Arrays.sort(standElem.tipNumar);
+        // Arrays.sort(standElem.tipNumar);
     }
 
     private void makePostRequest3() throws JSONException {
@@ -206,43 +210,51 @@ public class Ecran1Activity extends AppCompatActivity {
         JSONObject resursa = new JSONObject();
         JSONArray id = new JSONArray();
 
-
-
-        for (int i = 0; i < (standElem.getTipNumar()).get(i).getTip_size(); i++) {
-            id.put((standElem.getTipNumar()).get(i).getId());
+        int sizze = (standElem.getTipNumar()).get(index).getTip_size();
+        for (int i = 0; i < sizze; i++) {
+            id.put((standElem.getTipNumar()).get(index).getTip_idd_loc(i));
         }
         resursa.put("id", id);
-
         result_string = elem.getRaspuns(Ecran1Activity.this, url, resursa, cerute);
         response = gson.fromJson(result_string, listeType);
-        JSONArray valoareArr;
-        String[] lista_cod;
-        tipElem = new TipElem[response.size()];
-        for (int i = 0; i < tipElem.length; i++) {
-            tipElem[i] = new TipElem();
-            for (int j = 0; j < response.size(); j++) {
-                if (tipElem[i].getId_tip_element() == response.get(j).getId()) {
-                    tipElem[i].setEditabil_user(response.get(j).getEditabil_user());
-                    tipElem[i].setMaxlength(response.get(j).getMaxlength());
-                    tipElem[i].setTip(response.get(j).getTip());
-                    String s = new JSONArray(result_string).getJSONObject(j).getString("valori");
 
-                    if (tipElem[i].getTip().equals("LISTA")) {
-                        valoareArr = new JSONArray(s);
-                        tipElem[i].setValoriArray(valoareArr);
-                        lista_cod = new String[valoareArr.length()];
-                        tipElem[i].setLista_cod(lista_cod);
-                        for (int z = 0; z < valoareArr.length(); z++) {
-                            lista_cod[z] = valoareArr.getJSONObject(z).getString("cod");
+
+
+        int[] idd = new int[sizze];
+        int[] editabil = new int[sizze];
+        int[] maxlength = new int[sizze];
+        String[] tip = new String[sizze];
+        String[] valori = new String[sizze];
+        JSONArray valoriArr;
+        String[][] lista_cod =new String[sizze][];
+
+        for (int i = 0; i < sizze; i++) {
+
+            for (int j = 0; j < response.size(); j++) {
+
+                if ((standElem.getTipNumar()).get(index).getTip_idd()[i] == response.get(j).getId()) {
+                    editabil[i] = response.get(j).getEditabil_user();
+                    maxlength[i] = response.get(j).getMaxlength();
+                    tip[i] = response.get(j).getTip();
+                    String s = new JSONArray(result_string).getJSONObject(j).getString("valori");
+                    if (tip[i].equals("LISTA")) {
+                        valoriArr = new JSONArray(s);
+                        lista_cod = new String[sizze][valoriArr.length()];
+                        for (int z = 0; z < valoriArr.length(); z++) {
+                            lista_cod[i][z] = valoriArr.getJSONObject(z).getString("cod");
                         }
                     } else {
-                        tipElem[i].setValoriString(s);
+                        valori[i] = s;
                     }
                 }
             }
         }
 
-
+        standElem.getTipNumar().get(index).setTip_editabil(editabil);
+        standElem.getTipNumar().get(index).setTip_maxlength(maxlength);
+        standElem.getTipNumar().get(index).setTip_tip(tip);
+        standElem.getTipNumar().get(index).setLista_cod(lista_cod);
+        standElem.getTipNumar().get(index).setTip_valori(valori);
 
         /*[{"id": 5, // 6,
             "tip": "LISTA", // "CIFRE" // "LITERE"
@@ -252,7 +264,7 @@ public class Ecran1Activity extends AppCompatActivity {
 
         //((Global) getApplicationContext()).setTaraElem(taraElem);
         //((Global) getApplicationContext()).setAllelem(allelem);
-       // ((Global) getApplicationContext()).setTipElem(tipElem);
+        // ((Global) getApplicationContext()).setTipElem(tipElem);
     }
 
 }

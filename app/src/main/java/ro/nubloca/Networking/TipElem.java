@@ -16,6 +16,7 @@ public class TipElem  {
 
     private String[] lista_cod;
 
+
     public String getNume() {
         return nume;
     }
