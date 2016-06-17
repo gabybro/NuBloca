@@ -10,6 +10,28 @@ import org.json.JSONObject;
  */
 public class Response {
 
+    @SerializedName("foto_background")
+    private String foto_background;
+
+    public String getUrl_imagine() {
+        return url_imagine;
+    }
+
+    public void setUrl_imagine(String url_imagine) {
+        this.url_imagine = url_imagine;
+    }
+
+    public String getFoto_background() {
+        return foto_background;
+    }
+
+    public void setFoto_background(String foto_background) {
+        this.foto_background = foto_background;
+    }
+
+    @SerializedName("url_imagine")
+    private String url_imagine;
+
     public String getUrl_steag() {
         return url_steag;
     }
@@ -154,4 +176,15 @@ public class Response {
     public void setOrdinea(int ordinea) {
         this.ordinea = ordinea;
     }
+
+    public String getCod() {
+        return cod;
+    }
+
+    public void setCod(String cod) {
+        this.cod = cod;
+    }
+
+    @SerializedName("cod")
+    private String cod;
 }

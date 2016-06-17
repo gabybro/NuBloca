@@ -184,7 +184,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@+id/rel_bar2"
-        android:layout_below="@+id/relativ2"
         android:layout_marginTop="20dp"
         android:background="@color/list_delimit" />
 
@@ -192,7 +191,7 @@
         android:id="@+id/rel_bar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/view1"
+        android:layout_below="@+id/alegeTipInmatriculare"
         android:background="@drawable/border2"
         android:orientation="horizontal">
 

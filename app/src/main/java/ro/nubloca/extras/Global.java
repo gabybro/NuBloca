@@ -3,6 +3,7 @@ package ro.nubloca.extras;
 import android.app.Application;
 
 import ro.nubloca.Networking.AllElem;
+import ro.nubloca.Networking.StandElem;
 import ro.nubloca.Networking.TaraElem;
 import ro.nubloca.Networking.TipElem;
 
@@ -11,6 +12,15 @@ import ro.nubloca.Networking.TipElem;
  */
 public class Global extends Application{
 
+    public int getSelected() {
+        return selected;
+    }
+
+    public void setSelected(int selected) {
+        this.selected = selected;
+    }
+
+    private int selected=0;
 
     public TipElem[] getTipElem() {
         return tipElem;
@@ -41,6 +51,16 @@ public class Global extends Application{
     }
 
     private AllElem[] allelem;
+
+    public StandElem getStandElem() {
+        return standElem;
+    }
+
+    public void setStandElem(StandElem standElem) {
+        this.standElem = standElem;
+    }
+
+    private StandElem standElem;
 
     public String getNume_tip_inmatriculare() {
         return nume_tip_inmatriculare;

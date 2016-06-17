@@ -45,6 +45,7 @@ import java.util.List;
 import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.GetRequestImg;
 import ro.nubloca.Networking.Response;
+import ro.nubloca.Networking.StandElem;
 import ro.nubloca.extras.Global;
 
 
@@ -66,10 +67,11 @@ public class Ecran23Activity extends AppCompatActivity {
     int[] Ids_tipuri_inmatriculare_tipuri_elemente;
     String nume_tip_inmatriculare = "standard";
     String numeSteag;
-    int dim1 =75;
+    int dim1 =50;
     int dim;
     byte[] baite, baite1;
     ProgressBar progressBar;
+    StandElem standElem;
 
 
     @Override
@@ -89,10 +91,11 @@ public class Ecran23Activity extends AppCompatActivity {
 
         positionExemplu = ((Global) this.getApplication()).getPositionExemplu();
 
-        id_tara = ((Global) this.getApplication()).getId_tara();
+        //id_tara = ((Global) this.getApplication()).getId_tara();
 
-        country_select = ((Global) this.getApplication()).getCountry_select();
+        standElem = ((Global) getApplicationContext()).getStandElem();
 
+        country_select = standElem.getNume();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -104,7 +107,7 @@ public class Ecran23Activity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
 
-        getDataThread();
+        //getDataThread();
 
         m_orders = new ArrayList<Response>();
         this.m_adapter = new ResponseAdapter(this, R.layout.raw_list, m_orders);
@@ -139,15 +142,16 @@ public class Ecran23Activity extends AppCompatActivity {
         ImageView flag = (ImageView) findViewById(R.id.flag);
         ImageView bkg = (ImageView) findViewById(R.id.img);
 
-
+        baite = standElem.getImgReprezent();
         Bitmap bmp = BitmapFactory.decodeByteArray(baite, 0, baite.length);
         bkg.setImageBitmap(bmp);
 
+        baite1 = standElem.getSteag();
         Bitmap bmp1 = BitmapFactory.decodeByteArray(baite1, 0, baite1.length);
-        //Bitmap bMapScaled = Bitmap.createScaledBitmap(bmp1,0, convDp(dim/2), true);
+        Bitmap bMapScaled = Bitmap.createScaledBitmap(bmp1,convDp(dim1*1.7), convDp(dim1), true);
 
-        //flag.setImageBitmap(bMapScaled);
-        flag.setImageBitmap(bmp1);
+        flag.setImageBitmap(bMapScaled);
+        //flag.setImageBitmap(bmp1);
 
         final Animation animation = new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
         animation.setDuration(1500); // duration - half a second
@@ -216,15 +220,15 @@ public class Ecran23Activity extends AppCompatActivity {
             Type listeType = new TypeToken<ArrayList<Response>>() {
             }.getType();
             ImageView btn1 = (ImageView) v.findViewById(R.id.radioButton);
-            final ArrayList<Response> response = (ArrayList<Response>) gson.fromJson(result_tari, listeType);
-            if (response != null) {
-                id_name_tip_inmatriculare_phone = ((Global) getApplicationContext()).getNume_tip_inmatriculare_id();
+           // final ArrayList<Response> response = (ArrayList<Response>) gson.fromJson(result_tari, listeType);
+           // if (response != null) {
+                /*id_name_tip_inmatriculare_phone = ((Global) getApplicationContext()).getNume_tip_inmatriculare_id();
                 if (id_name_tip_inmatriculare_phone == 0) {
                     ((Global) getApplicationContext()).setNume_tip_inmatriculare_id(response.get(0).getId());
                     ((Global) getApplicationContext()).setNume_tip_inmatriculare(response.get(0).getNume());
                     ((Global) getApplicationContext()).setId_shared(response.get(0).getId());
                     //btn1.setImageResource(R.drawable.radio_press);
-                }
+                }*/
                 LinearLayout ll = (LinearLayout) v.findViewById(R.id.linear1);
                 LinearLayout lll = (LinearLayout) v.findViewById(R.id.linear2);
 
@@ -237,18 +241,21 @@ public class Ecran23Activity extends AppCompatActivity {
                     btn1.setImageResource(R.drawable.radio_press);
                 }*/
 
-                final int x = response.get(position).getId();
+                //final int x = response.get(position).getId();
                 TextView tt = (TextView) v.findViewById(R.id.text);
                 if (tt != null) {
-                    tt.setText(response.get(position).getNume());
+                    //tt.setText(response.get(position).getNume());
+                    tt.setText(standElem.getTipNumar().get(position).getNume());
+
                 }
                 if (ll != null) {
                     ll.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            ((Global) getApplicationContext()).setNume_tip_inmatriculare_id(response.get(position).getId());
-                            ((Global) getApplicationContext()).setName_tip_inmatriculare(response.get(position).getNume());
-                            ((Global) getApplicationContext()).setId_shared(response.get(position).getId());
+                          //  ((Global) getApplicationContext()).setNume_tip_inmatriculare_id(response.get(position).getId());
+                         //   ((Global) getApplicationContext()).setName_tip_inmatriculare(response.get(position).getNume());
+                       //     ((Global) getApplicationContext()).setId_shared(response.get(position).getId());
+                            ((Global) getApplicationContext()).setSelected(position);
                             startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
                             finish();
                         }
@@ -259,61 +266,71 @@ public class Ecran23Activity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
 
-                            ((Global) getApplicationContext()).setPositionExemplu(position);
+                           /* ((Global) getApplicationContext()).setPositionExemplu(position);
 
                             nume_tip_inmatriculare = response.get(position).getNume();
                             Ids_tipuri_inmatriculare_tipuri_elemente = response.get(position).getIds_tipuri_inmatriculare_tipuri_elemente();
 
                             ((Global) getApplicationContext()).setId_exemplu(response.get(position).getId());
                             ((Global) getApplicationContext()).setIds_tipuri_inmatriculare_tipuri_elemente(Ids_tipuri_inmatriculare_tipuri_elemente);
-                            ((Global) getApplicationContext()).setNume_tip_inmatriculare(nume_tip_inmatriculare);
+                            ((Global) getApplicationContext()).setNume_tip_inmatriculare(nume_tip_inmatriculare);*/
+                            standElem.setPositionExemplu(position);
                             startActivity(new Intent(Ecran23Activity.this, Ecran26Activity.class));
                         }
                     });
                 }
-            }
+           // }
             return v;
         }
     }
 
 
     private void populate_order() {
-        try {
+        /*try {
             jsonArray = new JSONArray(result_tari);
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
         m_orders = new ArrayList<Response>();
 
-        JSONObject json_data = null;
+        //JSONObject json_data = null;
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            try {
+        //for (int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0; i < standElem.getTipNumar().size(); i++) {
+            /*try {
                 json_data = jsonArray.getJSONObject(i);
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }*/
             Response oz = new Response();
-            try {
+
+           /* try {
                 oz.setId(json_data.getInt("id"));
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
-            try {
+            }*/
+
+            oz.setId(standElem.getTipNumar().get(i).getId());
+
+            /*try {
                 oz.setNume(json_data.getString("nume"));
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }*/
 
-            try {
+            oz.setNume(standElem.getTipNumar().get(i).getNume());
+
+            /*try {
                 oz.setOrdinea(json_data.getInt("ordinea"));
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }*/
 
-            JSONArray arrayz = null;
+            oz.setOrdinea(standElem.getTipNumar().get(i).getOrdinea());
+
+            /*JSONArray arrayz = null;
             try {
                 arrayz = json_data.getJSONArray("ids_tipuri_inmatriculare_tipuri_elemente");
             } catch (JSONException e) {
@@ -329,7 +346,11 @@ public class Ecran23Activity extends AppCompatActivity {
                 }
             }
 
-            oz.setIds_tipuri_inmatriculare_tipuri_elemente(arrayy);
+            oz.setIds_tipuri_inmatriculare_tipuri_elemente(arrayy);*/
+
+
+
+
 
             m_orders.add(oz);
             //handler.sendEmptyMessage(0);
@@ -337,7 +358,7 @@ public class Ecran23Activity extends AppCompatActivity {
 
     }
 
-    private void getDataThread() {
+   /* private void getDataThread() {
 
         Thread t = new Thread(new Runnable() {
             @Override
@@ -363,8 +384,8 @@ public class Ecran23Activity extends AppCompatActivity {
 
     private void makePostRequest3() {
         //url1 = "http://api.nubloca.ro/imagini/";
-        /*{            "identificare": {            "user": {                "app_code": "abcdefghijkl123456"            },
-                        "resursa": {  "pentru": "tari",  "tip": "steaguri",   "nume": "147.png",    "dimensiuni": [43]   }}}*/
+        *//*{            "identificare": {            "user": {                "app_code": "abcdefghijkl123456"            },
+                        "resursa": {  "pentru": "tari",  "tip": "steaguri",   "nume": "147.png",    "dimensiuni": [43]   }}}*//*
         //Content-Type:application/json
         //Accept:image/png
         numeSteag=id_tara+".png";
@@ -389,8 +410,8 @@ public class Ecran23Activity extends AppCompatActivity {
 
     private void makePostRequest2() {
         //url1 = "http://api.nubloca.ro/imagini/";
-        /*{            "identificare": {            "user": {                "app_code": "abcdefghijkl123456"            },
-                        "resursa": {  "pentru": "tari",  "tip": "reprezentative",   "nume": "147.jpg" }}}*/
+        *//*{            "identificare": {            "user": {                "app_code": "abcdefghijkl123456"            },
+                        "resursa": {  "pentru": "tari",  "tip": "reprezentative",   "nume": "147.jpg" }}}*//*
         //Content-Type:application/json
         //Accept:image/jpg
         numeSteag=id_tara+".jpg";
@@ -408,9 +429,9 @@ public class Ecran23Activity extends AppCompatActivity {
 
     private void makePostRequest1() {
         //url = "http://api.nubloca.ro/tipuri_inmatriculare/";
-        /*{"identificare": {"user": { "app_code": "abcdefghijkl123456" },
+        *//*{"identificare": {"user": { "app_code": "abcdefghijkl123456" },
            "resursa": {"id_tara": [147]}},
-           "cerute": ["id", "nume", "ids_tipuri_inmatriculare_tipuri_elemente", "ordinea"]}*/
+           "cerute": ["id", "nume", "ids_tipuri_inmatriculare_tipuri_elemente", "ordinea"]}*//*
 
 
         final GetRequest nr = new GetRequest();
@@ -434,7 +455,7 @@ public class Ecran23Activity extends AppCompatActivity {
         ((Global) getApplicationContext()).setArray(result_tari);
 
 
-    }
+    }*/
 
 
     @Override
@@ -455,7 +476,7 @@ public class Ecran23Activity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    int convDp(float sizeInDp) {
+    int convDp(double sizeInDp) {
         float scale = getResources().getDisplayMetrics().density;
         int dpAsPixels = (int) (sizeInDp * scale + 0.5f);
         return dpAsPixels;

@@ -52,6 +52,7 @@ import ro.nubloca.Networking.AllElem;
 import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.GetRequestImg;
 import ro.nubloca.Networking.Response;
+import ro.nubloca.Networking.StandElem;
 import ro.nubloca.Networking.TaraElem;
 import ro.nubloca.extras.FontTitilliumBold;
 import ro.nubloca.extras.FontTitilliumBoldCheck;
@@ -67,23 +68,26 @@ public class Ecran20Activity extends AppCompatActivity {
     String url1 = "http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
     String url2 = "http://api.nubloca.ro/tipuri_elemente/";
     String url3 = "http://api.nubloca.ro/imagini/";
-    int dim=30;
+    int dim = 30;
     byte[] baite;
 
     String name_tip_inmatriculare;
     int[] ids_tipuri_inmatriculare_tipuri_elemente;
     int[] id_tip_element;
     int idd;
-    int id_shared = 0;
-    List<Response> response2,response3;
+    //int id_shared = 0;
+    List<Response> response2, response3;
     JSONArray valoareArr;
     String[] lista_cod;
-    AllElem[] allele, allelem;
+    //AllElem[] allele, allelem;
     InputFilter filter, filter1;
     String numeSteag;
     FontTitilliumBold field;
-    TaraElem taraElem;
-
+    //TaraElem taraElem;
+    int preselected = 0;
+    int selected = 0;
+    StandElem standElem;
+    int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +99,8 @@ public class Ecran20Activity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        id_tara = ((Global) this.getApplication()).getId_tara();
-        id_shared=((Global) this.getApplication()).getId_shared();
+        //id_tara = ((Global) this.getApplication()).getId_tara();
+        //id_shared = ((Global) this.getApplication()).getId_shared();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -106,14 +110,20 @@ public class Ecran20Activity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
 
-
         //TODO
         //makePostRequestOnNewThread();
-        taraElem = ((Global) getApplicationContext()).getTaraElem();
-        allelem = ((Global) getApplicationContext()).getAllelem();
+        //taraElem = ((Global) getApplicationContext()).getTaraElem();
+        //allelem = ((Global) getApplicationContext()).getAllelem();
+        standElem = ((Global) getApplicationContext()).getStandElem();
+        selected = ((Global) getApplicationContext()).getSelected();
+
+        if (selected != 0) {
+            index = selected;
+        } else {
+            index = preselected;
+        }
 
 
-        showElements();
 
 
         View btn_istoric_numere = (View) findViewById(R.id.istoricNumere);
@@ -166,11 +176,13 @@ public class Ecran20Activity extends AppCompatActivity {
                 }
             });
 
-
+        showElements();
     }
 
     private void showElements() {
-       // campuri = taraElem.getTip_ids_tipuri_inmatriculare_tipuri_elemente().length;
+
+        campuri = standElem.getTipNumar().get(index).getTip_size();
+
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -189,13 +201,14 @@ public class Ecran20Activity extends AppCompatActivity {
 
         for (int i = 0; i < campuri; i++) {
             // calculam lunngimea inputului
-            if (allelem[i].getMaxlength() < 3) {
-              //  int rr = allelem.length;
-              //  int oo = allelem[i].getMaxlength();
+
+            if (standElem.getTipNumar().get(index).getTip_maxlength()[i] < 3) {
+                //  int rr = allelem.length;
+                //  int oo = allelem[i].getMaxlength();
                 nrUML += 3;
             } else {
-              //  int xx = allelem[i].getMaxlength();
-                nrUML += allelem[i].getMaxlength();
+                //  int xx = allelem[i].getMaxlength();
+                nrUML += standElem.getTipNumar().get(index).getTip_maxlength()[i];
             }
 
         }
@@ -232,17 +245,20 @@ public class Ecran20Activity extends AppCompatActivity {
                 return null;
             }
         };
-        int first_focus=0;
+        int first_focus = 0;
         for (int i = 0; i < campuri; i++) {
-            if (allelem[i].getMaxlength() < 3) {             minTrei = allelem[i].getMaxlength() + 1;
-            } else {                minTrei = allelem[i].getMaxlength();            }
+            if (standElem.getTipNumar().get(index).getTip_maxlength()[i] < 3) {
+                minTrei = standElem.getTipNumar().get(index).getTip_maxlength()[i] + 1;
+            } else {
+                minTrei = standElem.getTipNumar().get(index).getTip_maxlength()[i];
+            }
 
-            if (allelem[i].getTip().equals("LISTA")) {
+            if (standElem.getTipNumar().get(index).getTip_tip()[i].equals("LISTA")) {
                 first_focus++;
                 ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
                 //Spinner mySpinner = new Spinner (new ContextThemeWrapper(this, R.style.spinner_style), null, 0);
-                Spinner mySpinner = new Spinner (this);
-                mySpinner.setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1, allelem[i].getLista_cod()));
+                Spinner mySpinner = new Spinner(this);
+                mySpinner.setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1, standElem.getTipNumar().get(index).getLista_cod()[i]));
                 params.width = minTrei * valRealUml;
                 mySpinner.setLayoutParams(params);
                 linearLayout.addView(mySpinner);
@@ -254,8 +270,11 @@ public class Ecran20Activity extends AppCompatActivity {
                 if (i != 0) {
                     params.setMargins(valSPI, 0, 0, 0);
                 }
-                if ((i+1)<allelem.length){
-                    if (allelem[i+1].getTip().equals("LISTA")) {params.setMargins(valSPI, 0, valSPI, 0);}
+
+                if ((i + 1) < campuri) {
+                    if (standElem.getTipNumar().get(index).getTip_tip()[i + 1].equals("LISTA")) {
+                        params.setMargins(valSPI, 0, valSPI, 0);
+                    }
                 }
                 field.setLayoutParams(params);
                 field.setWidth(valRealUml * minTrei);
@@ -264,35 +283,35 @@ public class Ecran20Activity extends AppCompatActivity {
                 field.setTextColor(getResources().getColor(R.color.text_layout_custom));
                 field.setBackgroundResource(R.drawable.plate_border);
 
-                if (allelem[i].getTip().equals("CIFRE")) {
-                    if (allelem[i].getEditabil_user()==0) {
+                if (standElem.getTipNumar().get(index).getTip_tip()[i].equals("CIFRE")) {
+                    if (standElem.getTipNumar().get(index).getTip_editabil()[i] == 0) {
                         first_focus++;
-                        field.setText(allelem[i].getValoriString().replace("[", "").replace("]", ""));
+                        field.setText(standElem.getTipNumar().get(index).getTip_valori()[i].replace("[", "").replace("]", ""));
 
-                        field.setWidth(valRealUml * allelem[i].getMaxlength());
+                        field.setWidth(valRealUml * standElem.getTipNumar().get(index).getTip_maxlength()[i]);
                         field.setBackgroundResource(R.drawable.plate_border_white);
                         field.setEnabled(false);
                     }
 
                     field.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
-                    field.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(allelem[i].getMaxlength())});
+                    field.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(standElem.getTipNumar().get(index).getTip_maxlength()[i])});
                     field.setSelected(false);
                 }
-                if (allelem[i].getTip().equals("LITERE")) {
-                    if (allelem[i].getEditabil_user()==0) {
+                if (standElem.getTipNumar().get(index).getTip_tip()[i].equals("LITERE")) {
+                    if (standElem.getTipNumar().get(index).getTip_editabil()[i] == 0) {
                         first_focus++;
-                        field.setText(allelem[i].getValoriString().replace("[", "").replace("]", ""));
+                        field.setText(standElem.getTipNumar().get(index).getTip_valori()[i].replace("[", "").replace("]", ""));
                         field.setEnabled(false);
-                        field.setWidth(valRealUml * allelem[i].getMaxlength());
+                        field.setWidth(valRealUml * standElem.getTipNumar().get(index).getTip_maxlength()[i]);
                         field.setBackgroundResource(R.drawable.plate_border_white);
                     }
                     field.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
-                    field.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(allelem[i].getMaxlength())});
+                    field.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(standElem.getTipNumar().get(index).getTip_maxlength()[i])});
                     field.setSelected(false);
                 }
                 field.setSelected(false);
-                if ((first_focus==0)&&(allelem[i].getEditabil_user()==1)){
-                field.requestFocus();
+                if ((first_focus == 0) && (standElem.getTipNumar().get(index).getTip_editabil()[i] == 1)) {
+                    field.requestFocus();
                     first_focus++;
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -300,25 +319,27 @@ public class Ecran20Activity extends AppCompatActivity {
 
                 linearLayout.addView(field);
 
+
             }
 
         }
-       // name_tip_inmatriculare = taraElem.getTip_nume();
+        // name_tip_inmatriculare = taraElem.getTip_nume();
 
         TextView tip_inmatriculare_nume = (TextView) findViewById(R.id.nume_tip_inmatriculare);
-        tip_inmatriculare_nume.setText(name_tip_inmatriculare);
+        tip_inmatriculare_nume.setText(standElem.getTipNumar().get(index).getNume());
         ImageView image = (ImageView) findViewById(R.id.imageView9);
+        baite = standElem.getSteag();
         Bitmap bmp = BitmapFactory.decodeByteArray(baite, 0, baite.length);
         image.setImageBitmap(bmp);
-        image.getLayoutParams().height=convDp(dim);
-        image.getLayoutParams().width=convDp(dim);
+        image.getLayoutParams().height = convDp(dim);
+        image.getLayoutParams().width = convDp(dim);
         image.requestLayout();
         image.setVisibility(View.VISIBLE);
 
 
     }
 
-    private void makePostRequestOnNewThread() {
+   /* private void makePostRequestOnNewThread() {
 
         Thread t0 = new Thread(new Runnable() {
             @Override
@@ -349,9 +370,9 @@ public class Ecran20Activity extends AppCompatActivity {
 
     private void makePostRequest0() throws JSONException {
         //url = "http://api.nubloca.ro/tipuri_inmatriculare/";
-        /*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
+        *//*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
            "resursa": {"id_tara": [147],"ordinea":[1]}},
-           "cerute": ["id"	]}*/
+           "cerute": ["id"	]}*//*
 
         GetRequest elemm = new GetRequest();
         JSONArray idTara = new JSONArray().put(id_tara);
@@ -360,7 +381,7 @@ public class Ecran20Activity extends AppCompatActivity {
         JSONArray cerute = new JSONArray().put("id");
         String result_string = elemm.getRaspuns(Ecran20Activity.this, url, resursa, cerute);
 
-        /*[{            "id": 1        }]*/
+        *//*[{            "id": 1        }]*//*
 
         Gson gson = new Gson();
         Type listeType = new TypeToken<List<Response>>() {
@@ -372,9 +393,9 @@ public class Ecran20Activity extends AppCompatActivity {
 
     private void makePostRequest1() throws JSONException {
         //url = "http://api.nubloca.ro/tipuri_inmatriculare/";
-        /*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
+        *//*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
            "resursa": {"id":[2]}},
-           "cerute": ["id","nume","ids_tipuri_inmatriculare_tipuri_elemente"]}*/
+           "cerute": ["id","nume","ids_tipuri_inmatriculare_tipuri_elemente"]}*//*
 
         id_shared = ((Global) this.getApplication()).getId_shared();
         GetRequest elemm = new GetRequest();
@@ -383,9 +404,9 @@ public class Ecran20Activity extends AppCompatActivity {
         JSONObject resursa = new JSONObject().put("id", idTara);
 
         String result_string = elemm.getRaspuns(Ecran20Activity.this, url, resursa, cerute);
-        /*[{            "id": 2,
+        *//*[{            "id": 2,
                         "nume": "Temporară",
-                        "ids_tipuri_inmatriculare_tipuri_elemente":[4,5]        }]*/
+                        "ids_tipuri_inmatriculare_tipuri_elemente":[4,5]        }]*//*
         Gson gson = new Gson();
         Type listeType = new TypeToken<List<Response>>() {
         }.getType();
@@ -398,9 +419,9 @@ public class Ecran20Activity extends AppCompatActivity {
 
     private void makePostRequest2() throws JSONException {
         //url1 = "http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
-        /*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
+        *//*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
            "resursa": {"id": [1,2,3]}},
-           "cerute":["id","id_tip_element","ordinea","valoare_demo_imagine"]}*/
+           "cerute":["id","id_tip_element","ordinea","valoare_demo_imagine"]}*//*
 
         JSONArray arr = new JSONArray();
         for (int i = 0; i < ids_tipuri_inmatriculare_tipuri_elemente.length; i++) {
@@ -424,10 +445,10 @@ public class Ecran20Activity extends AppCompatActivity {
             allelem[i].setOrdinea(response.get(i).getOrdinea());
             allelem[i].setValoare_demo_imagine(response.get(i).getValoare_demo_imagine());
         }
-         /*[{   "id": 1, // 2  // etc..
+         *//*[{   "id": 1, // 2  // etc..
                 "id_tip_element": 1,
                 "ordinea": 1  // 2  //  etc..
-                valoare_demo_imagine": "B" // 255 // 255        }]*/
+                valoare_demo_imagine": "B" // 255 // 255        }]*//*
         //Todo orinea
         //ordinea
 
@@ -441,9 +462,9 @@ public class Ecran20Activity extends AppCompatActivity {
 
     private void makePostRequest3() throws JSONException {
         //url2 = "http://api.nubloca.ro/tipuri_elemente/";
-       /* {"identificare": {"user": {"app_code": "abcdefghijkl123456"},
+       *//* {"identificare": {"user": {"app_code": "abcdefghijkl123456"},
            "resursa":{"id":[5,6,6]}},
-           "cerute":["id", "tip", "editabil_user", "maxlength", "valori"]  }*/
+           "cerute":["id", "tip", "editabil_user", "maxlength", "valori"]  }*//*
 
         GetRequest elemm = new GetRequest();
         Type listeType = new TypeToken<List<Response>>() {
@@ -484,20 +505,20 @@ public class Ecran20Activity extends AppCompatActivity {
 
         Arrays.sort(allelem);
 
-        /*[{"id": 5,  //  6
+        *//*[{"id": 5,  //  6
             "tip": "LISTA",  //  "CIFRE"   //   "LITERE"
             "editabil_user": 1,   //   0
             "maxlength": 2,
-            "valori":[{"id": 1,"cod": "CD"},{"id": 2,"cod": "CO"},{"id": 3,"cod": "TC"}]},  //  "^[0-9]{3}$"   }]*/
+            "valori":[{"id": 1,"cod": "CD"},{"id": 2,"cod": "CO"},{"id": 3,"cod": "TC"}]},  //  "^[0-9]{3}$"   }]*//*
 
 
     }
 
     private void makePostRequest4() throws JSONException {
         //url3 = http://api.nubloca.ro/tipuri_inmatriculare/;
-        /*{"identificare":{"user":{"app_code": "abcdefghijkl123456"},
+        *//*{"identificare":{"user":{"app_code": "abcdefghijkl123456"},
            "resursa":{"id": [1]}},
-           "cerute": ["id", "nume", "id_tara", "foto_background", "url_imagine", "ids_tipuri_inmatriculare_tipuri_elemente"]  }*/
+           "cerute": ["id", "nume", "id_tara", "foto_background", "url_imagine", "ids_tipuri_inmatriculare_tipuri_elemente"]  }*//*
 
         GetRequest elemm = new GetRequest();
         Gson gson = new Gson();
@@ -510,20 +531,20 @@ public class Ecran20Activity extends AppCompatActivity {
         String result_string = elemm.getRaspuns(Ecran20Activity.this, url, resursa, cerute);
         response3 = (List<Response>) gson.fromJson(result_string, listeType);
 
-        numeSteag=response3.get(0).getId_tara()+".png";
-        /*[{"id": 1,
+        numeSteag = response3.get(0).getId_tara() + ".png";
+        *//*[{"id": 1,
             "nume": "Permanentă",
             "id_tara": 147,
             "foto_background": "1.jpg",
             "url_imagine": "147-1.png",
-            "ids_tipuri_inmatriculare_tipuri_elemente":[1,2,3]}]*/
+            "ids_tipuri_inmatriculare_tipuri_elemente":[1,2,3]}]*//*
 
     }
 
     private void makePostRequest5() throws JSONException {
         //url4 = "http://api.nubloca.ro/imagini/";
-        /*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
-           "resursa": {"pentru": "tari", "tip": "steaguri", "nume": "147.png", "dimensiuni": [43]}}}*/
+        *//*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
+           "resursa": {"pentru": "tari", "tip": "steaguri", "nume": "147.png", "dimensiuni": [43]}}}*//*
 
         //Accept:image/png
 
@@ -532,7 +553,7 @@ public class Ecran20Activity extends AppCompatActivity {
 
         GetRequestImg elem = new GetRequestImg();
         baite = elem.getRaspuns(Ecran20Activity.this, url3, "image/png", resursa);
-    }
+    }*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu5, menu);
@@ -549,7 +570,7 @@ public class Ecran20Activity extends AppCompatActivity {
             toast.show();
             //finish();
         }
-        if ((item.getItemId()) == R.id.home){
+        if ((item.getItemId()) == R.id.home) {
 
 
             Ecran20Activity.this.onBackPressed();

@@ -8,6 +8,56 @@ import java.util.List;
 
 public class StandElem {
 
+    public byte[] getSteag() {
+        return steag;
+    }
+
+    public void setSteag(byte[] steag) {
+        this.steag = steag;
+    }
+
+    public int getPositionExemplu() {
+        return positionExemplu;
+    }
+
+    public void setPositionExemplu(int positionExemplu) {
+        this.positionExemplu = positionExemplu;
+    }
+
+    private int positionExemplu=-1;
+
+    public byte[] getImgReprezent() {
+        return imgReprezent;
+    }
+
+    public void setImgReprezent(byte[] imgReprezent) {
+        this.imgReprezent = imgReprezent;
+    }
+
+    private byte[] imgReprezent;
+
+    private byte[] steag;
+
+    public byte[] getBackgDemo() {
+        return backgDemo;
+    }
+
+    public void setBackgDemo(byte[] backgDemo) {
+        this.backgDemo = backgDemo;
+    }
+
+    public byte[] getPlateDemo() {
+        return plateDemo;
+    }
+
+    public void setPlateDemo(byte[] plateDemo) {
+        this.plateDemo = plateDemo;
+    }
+
+    private byte[] backgDemo;
+
+    private byte[] plateDemo;
+
     public int getSize() {
         return size;
     }
@@ -86,9 +136,77 @@ public class StandElem {
 
     public static class TipNumar implements Comparable<TipNumar>{
 
+        public int getDemo_id_tip_loc(int location)
+        {
+            return demo_id_tip_element[location];
+        }
 
+        public void setDemo_id_tip_loc(int value, int location)
+        {
+            demo_id_tip_element[location]=value;
+        }
+
+        public int[] getDemo_id() {
+            return demo_id;
+        }
+
+        public void setDemo_id(int[] demo_id) {
+            this.demo_id = demo_id;
+        }
+
+        public int[] getDemo_id_tip_element() {
+            return demo_id_tip_element;
+        }
+
+        public void setDemo_id_tip_element(int[] demo_id_tip_element) {
+            this.demo_id_tip_element = demo_id_tip_element;
+        }
+
+        public int[] getDemo_ordinea() {
+            return demo_ordinea;
+        }
+
+        public void setDemo_ordinea(int[] demo_ordinea) {
+            this.demo_ordinea = demo_ordinea;
+        }
+
+        public String[] getDemo_valoare() {
+            return demo_valoare;
+        }
+
+        public void setDemo_valoare(String[] demo_valoare) {
+            this.demo_valoare = demo_valoare;
+        }
+
+        private int[] demo_id;
+
+        private int[] demo_id_tip_element;
+
+        private int[] demo_ordinea;
+
+        private String[] demo_valoare;
 
         private int id;
+
+        private String foto_background;
+
+        public String getUrl_imagine() {
+            return url_imagine;
+        }
+
+        public void setUrl_imagine(String url_imagine) {
+            this.url_imagine = url_imagine;
+        }
+
+        public String getFoto_background() {
+            return foto_background;
+        }
+
+        public void setFoto_background(String foto_background) {
+            this.foto_background = foto_background;
+        }
+
+        private String url_imagine;
 
 
 

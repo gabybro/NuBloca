@@ -40,6 +40,7 @@ import ro.nubloca.Networking.AllElem;
 import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.GetRequestImg;
 import ro.nubloca.Networking.Response;
+import ro.nubloca.Networking.StandElem;
 import ro.nubloca.extras.CustomFontTitilliumBold;
 import ro.nubloca.extras.CustomFontTitilliumRegular;
 import ro.nubloca.extras.Global;
@@ -65,6 +66,7 @@ public class Ecran26Activity extends AppCompatActivity {
     String url4 = "http://api.nubloca.ro/imagini/";
     String numeSteag;
     byte[] baite, baite1, baite2;
+    StandElem standElem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +74,17 @@ public class Ecran26Activity extends AppCompatActivity {
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_ecran26);
 
+        standElem = ((Global) getApplicationContext()).getStandElem();
+
+        id_exemplu = standElem.getPositionExemplu();
+
+
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        get_order_ids_tip = ((Global) this.getApplication()).getGet_order_ids_tip();
-        nume_tip_inmatriculare = ((Global) this.getApplication()).getNume_tip_inmatriculare();
-        Ids_tipuri_inmatriculare_tipuri_elemente=((Global) this.getApplication()).getIds_tipuri_inmatriculare_tipuri_elemente();
-        id_exemplu=((Global) this.getApplication()).getId_exemplu();
+
+        //get_order_ids_tip = ((Global) this.getApplication()).getGet_order_ids_tip();
+        //nume_tip_inmatriculare = ((Global) this.getApplication()).getNume_tip_inmatriculare();
+        //Ids_tipuri_inmatriculare_tipuri_elemente=((Global) this.getApplication()).getIds_tipuri_inmatriculare_tipuri_elemente();
+        //id_exemplu=((Global) this.getApplication()).getId_exemplu();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -89,22 +97,22 @@ public class Ecran26Activity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        makePostRequestOnNewThread();
-
+        //makePostRequestOnNewThread();
+        showElements();
 
 
     }
 
-    private void makePostRequestOnNewThread() {
+    /*private void makePostRequestOnNewThread() {
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.VISIBLE);
-        /*dialog = new ProgressDialog(Ecran26Activity.this);
+        *//*dialog = new ProgressDialog(Ecran26Activity.this);
         dialog.setIndeterminate(true);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setIndeterminateDrawable(getResources().getDrawable(R.drawable.my_progress_indeterminate));
         //dialog.setMessage("Some Text");
-        dialog.show();*/
+        dialog.show();*//*
         //pd = ProgressDialog.show(this, "Getting Data", "Working..", true,                false);
 
         Thread t = new Thread(new Runnable() {
@@ -129,9 +137,9 @@ public class Ecran26Activity extends AppCompatActivity {
 
     private void makePostRequest1() throws JSONException {
         //url = http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/;
-        /*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
+        *//*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
            "resursa": {"id": [1,2,3]}},
-           "cerute": ["id","id_tip_element","ordinea","valoare_demo_imagine"]]}*/
+           "cerute": ["id","id_tip_element","ordinea","valoare_demo_imagine"]]}*//*
 
         GetRequest elemm = new GetRequest();
         JSONObject resursa = new JSONObject();
@@ -148,10 +156,10 @@ public class Ecran26Activity extends AppCompatActivity {
         Type listeType = new TypeToken<List<Response>>() {
         }.getType();
         List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-        /*[{    "id": 1,
+        *//*[{    "id": 1,
                 "id_tip_element": 1,
                 "ordinea": 1,
-                "valoare_demo_imagine": "B"      }]*/
+                "valoare_demo_imagine": "B"      }]*//*
         campuri = response.size();
         allelem = new AllElem[campuri];
         for (int i = 0; i < response.size(); i++) {
@@ -170,9 +178,9 @@ public class Ecran26Activity extends AppCompatActivity {
 
     private void makePostRequest2() throws JSONException {
         //url2 = http://api.nubloca.ro/tipuri_elemente/;
-       /* { "identificare": {"user": {"app_code": "abcdefghijkl123456"},
+       *//* { "identificare": {"user": {"app_code": "abcdefghijkl123456"},
             "resursa":{"id":[5,6,6]}},
-            "cerute":[    "id",    "tip",  "editabil_user",     "maxlength",   "valori"]   }*/
+            "cerute":[    "id",    "tip",  "editabil_user",     "maxlength",   "valori"]   }*//*
 
         GetRequest elem = new GetRequest();
         JSONArray cerute = new JSONArray().put("id").put("tip").put("editabil_user").put("maxlength").put("valori");
@@ -201,20 +209,20 @@ public class Ecran26Activity extends AppCompatActivity {
 
         Arrays.sort(allelem);
 
-        /*[{"id": 5, // 6,
+        *//*[{"id": 5, // 6,
             "tip": "LISTA", // "CIFRE" // "LITERE"
             "editabil_user": 1, // 0
             "maxlength": 2,  //  9
-            "valori":[{"id": 1,"cod": "CD"},{"id": 2,"cod": "CO"},{"id": 3,"cod": "TC"}]},  //  "^[0-9]{3}$"   ]*/
+            "valori":[{"id": 1,"cod": "CD"},{"id": 2,"cod": "CO"},{"id": 3,"cod": "TC"}]},  //  "^[0-9]{3}$"   ]*//*
 
     }
 
     private void makePostRequest3() throws JSONException {
 
         //url = http://api.nubloca.ro/tipuri_inmatriculare/;
-        /*{     "identificare": {                "user": {                    "app_code": "abcdefghijkl123456"            },
+        *//*{     "identificare": {                "user": {                    "app_code": "abcdefghijkl123456"            },
                 "resursa": {                    "id": [1]            }        },
-                "cerute": ["id", "nume", "id_tara", "foto_background", "url_imagine", "ids_tipuri_inmatriculare_tipuri_elemente"]}*/
+                "cerute": ["id", "nume", "id_tara", "foto_background", "url_imagine", "ids_tipuri_inmatriculare_tipuri_elemente"]}*//*
 
         GetRequest elemm = new GetRequest();
         JSONArray cerute = new JSONArray().put("id").put("nume").put("id_tara").put("foto_background").put("url_imagine").put("ids_tipuri_inmatriculare_tipuri_elemente");
@@ -228,18 +236,18 @@ public class Ecran26Activity extends AppCompatActivity {
         response3 = (List<Response>) gson.fromJson(result_string, listeType);
         numeSteag=response3.get(0).getId_tara()+".png";
 
-        /*[{    "id": 1,
+        *//*[{    "id": 1,
                 "nume": "Permanentă",
                 "id_tara": 147,
                 "foto_background": "1.jpg",
                 "url_imagine": "147-1.png",
-                "ids_tipuri_inmatriculare_tipuri_elemente":[1, 2, 3]}]*/
+                "ids_tipuri_inmatriculare_tipuri_elemente":[1, 2, 3]}]*//*
     }
 
     private void makePostRequest4() throws JSONException {
         //url4 = "http://api.nubloca.ro/imagini/";
-        /*{            "identificare": {            "user": {                "app_code": "abcdefghijkl123456"            },
-                        "resursa": {  "pentru": "tari",  "tip": "steaguri",   "nume": "147.png",    "dimensiuni": [43]   }}}*/
+        *//*{            "identificare": {            "user": {                "app_code": "abcdefghijkl123456"            },
+                        "resursa": {  "pentru": "tari",  "tip": "steaguri",   "nume": "147.png",    "dimensiuni": [43]   }}}*//*
         //Content-Type:application/json
         //Accept:image/png
 
@@ -253,8 +261,8 @@ public class Ecran26Activity extends AppCompatActivity {
 
     private void makePostRequest5() throws JSONException {
         //url4 = "http://api.nubloca.ro/imagini/";
-         /*{        "identificare": {        "user": {            "app_code": "abcdefghijkl123456"        },
-                    "resursa": {       "pentru": "numere",      "tip": "background",      "nume": "1.jpg" }}}*/
+         *//*{        "identificare": {        "user": {            "app_code": "abcdefghijkl123456"        },
+                    "resursa": {       "pentru": "numere",      "tip": "background",      "nume": "1.jpg" }}}*//*
         //Content-Type:application/json
         //Accept:image/jpeg
 
@@ -266,8 +274,8 @@ public class Ecran26Activity extends AppCompatActivity {
 
     private void makePostRequest6() throws JSONException {
         //url4 = "http://api.nubloca.ro/imagini/";
-         /*{	"identificare": {		"user": {			"app_code": "abcdefghijkl123456"		},
-      	        "resursa": {          "pentru": "numere",          "tip": "tipuri",          "nume": "147-2.png"      	}   }}*/
+         *//*{	"identificare": {		"user": {			"app_code": "abcdefghijkl123456"		},
+      	        "resursa": {          "pentru": "numere",          "tip": "tipuri",          "nume": "147-2.png"      	}   }}*//*
         //Content-Type:application/json
         //Accept:image/png
 
@@ -275,7 +283,7 @@ public class Ecran26Activity extends AppCompatActivity {
         GetRequestImg elem = new GetRequestImg();
         baite2 = elem.getRaspuns(Ecran26Activity.this, url4, "image/png", resursa);
 
-    }
+    }*/
 
 
     Handler handler = new Handler() {
@@ -283,7 +291,7 @@ public class Ecran26Activity extends AppCompatActivity {
         public void handleMessage(Message msg) {
 
             progressBar.setVisibility(View.GONE);
-            showElements();
+            //showElements();
 
 
         }
@@ -299,6 +307,7 @@ public class Ecran26Activity extends AppCompatActivity {
     }
 
     private void showElements() {
+        campuri = standElem.getTipNumar().get(id_exemplu).getTip_size();
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -316,10 +325,10 @@ public class Ecran26Activity extends AppCompatActivity {
         int valMaxUML = divLength / 10;
 
         for (int i = 0; i < campuri; i++) {
-            if (allelem[i].getMaxlength() < 3) {
+            if (standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i] < 3) {
                 nrUML += 3;
             } else {
-                nrUML += allelem[i].getMaxlength();
+                nrUML += standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i];
             }
 
         }
@@ -334,13 +343,13 @@ public class Ecran26Activity extends AppCompatActivity {
         RelativeLayout relativeLayout1 = (RelativeLayout) findViewById(R.id.relative1);
         relativeLayout1.setVisibility(View.VISIBLE);
         for (int i = 0; i < campuri; i++) {
-            if (allelem[i].getMaxlength() < 3) {
-                minTrei = allelem[i].getMaxlength() + 1;
-                if (allelem[i].getEditabil_user()==0){
-                    minTrei = allelem[i].getMaxlength();
+            if (standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i] < 3) {
+                minTrei = standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i] + 1;
+                if (standElem.getTipNumar().get(id_exemplu).getTip_editabil()[i]==0){
+                    minTrei = standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i];
                 }
             } else {
-                minTrei = allelem[i].getMaxlength();
+                minTrei = standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i];
             }
 
 
@@ -357,17 +366,19 @@ public class Ecran26Activity extends AppCompatActivity {
             field.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
             field.setTextSize(30);
             field.setBackgroundResource(R.drawable.plate_border);
-            field.setText(allelem[i].getValoare_demo_imagine());
-            if (allelem[i].getEditabil_user() == 0) {
+            field.setText(standElem.getTipNumar().get(id_exemplu).getDemo_valoare()[i]);
+            if (standElem.getTipNumar().get(id_exemplu).getTip_editabil()[i] == 0) {
                 field.setBackgroundResource(R.drawable.plate_border_white);
             }
             linearLayout.addView(field);
             CustomFontTitilliumBold tip_inmatriculare_nume = (CustomFontTitilliumBold) findViewById(R.id.nume_tip_inmatriculare);
             tip_inmatriculare_nume.setVisibility(View.VISIBLE);
-            tip_inmatriculare_nume.setText(nume_tip_inmatriculare);
+            tip_inmatriculare_nume.setText(standElem.getTipNumar().get(id_exemplu).getNume());
             CustomFontTitilliumRegular text1 = (CustomFontTitilliumRegular) findViewById(R.id.textView20);
             text1.setVisibility(View.VISIBLE);
             ImageView image = (ImageView) findViewById(R.id.imageView9);
+
+            baite = standElem.getSteag();
             Bitmap bmp = BitmapFactory.decodeByteArray(baite, 0, baite.length);
             image.setImageBitmap(bmp);
             image.getLayoutParams().height=convDp(dim);
@@ -375,11 +386,13 @@ public class Ecran26Activity extends AppCompatActivity {
             image.requestLayout();
             image.setVisibility(View.VISIBLE);
 
+            baite1 = standElem.getBackgDemo();
             ImageView image1 = (ImageView) findViewById(R.id.car_exemplu);
             Bitmap bmp1 = BitmapFactory.decodeByteArray(baite1, 0, baite1.length);
             image1.setImageBitmap(bmp1);
             image1.requestLayout();
 
+            baite2 = standElem.getPlateDemo();
             ImageView image2 = (ImageView) findViewById(R.id.plate);
             Bitmap bmp2 = BitmapFactory.decodeByteArray(baite2, 0, baite2.length);
             Bitmap bMapScaled = Bitmap.createScaledBitmap(bmp2, convDp(430/2), convDp(103/2), true);
