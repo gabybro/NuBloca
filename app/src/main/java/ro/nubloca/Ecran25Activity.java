@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ro.nubloca.Networking.GetRequest;
@@ -321,8 +322,9 @@ public class Ecran25Activity extends AppCompatActivity {
             tipNumar.setNume(response.get(i).getNume());
             tipNumar.setOrdinea(response.get(i).getOrdinea());
             tipNumar.setTip_size(response.get(i).getIds_tipuri_inmatriculare_tipuri_elemente().length);
-            tipNumar.setTip_idd(response.get(i).getIds_tipuri_inmatriculare_tipuri_elemente());
-
+            int[] zort = response.get(i).getIds_tipuri_inmatriculare_tipuri_elemente();
+            Arrays.sort(zort);
+            tipNumar.setTip_idd(zort);
             tipNumarLista.add(tipNumar);
         }
         standElem.setTipNumar(tipNumarLista);
@@ -352,7 +354,6 @@ public class Ecran25Activity extends AppCompatActivity {
         JSONArray cerute = new JSONArray().put("id").put("foto_background").put("url_imagine");
         JSONObject resursa = new JSONObject();
         JSONArray id = new JSONArray();
-
         for (int i = 0; i < standElem.getSize(); i++) {
             id.put((standElem.getTipNumar()).get(i).getId());
         }
@@ -483,11 +484,13 @@ public class Ecran25Activity extends AppCompatActivity {
         int[] ordinea = new int[sizze];
         String[] valoare_demo_imagine = new String[sizze];
 
+        int[] snort = (standElem.getTipNumar()).get(index).getTip_idd();
+        Arrays.sort(snort);
         for (int i = 0; i < sizze; i++) {
 
             for (int j = 0; j < response.size(); j++) {
 
-                if ((standElem.getTipNumar()).get(index).getTip_idd()[i] == response.get(j).getId()) {
+                if (snort[i] == response.get(j).getId()) {
                     idd[i] = response.get(j).getId();
                     id_tip_element[i] = response.get(j).getId_tip_element();
                     ordinea[i] = response.get(j).getOrdinea();
