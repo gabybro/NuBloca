@@ -1,6 +1,7 @@
 package ro.nubloca.Networking;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -9,8 +10,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ro.nubloca.extras.Global;
@@ -18,14 +21,17 @@ import ro.nubloca.extras.Global;
 /**
  * Created by gaby on 6/17/16.
  */
-public class MakeRequestTara extends Activity{
+public class RequestTara extends Activity {
 
     StandElem standElem;
     byte[] baite;
     int index;
     String countryCode;
     int dim = 30;
-    public  void makePostRequestOnNewThread(String country) {
+    Context context;
+
+    public StandElem makePostRequestOnNewThread(Context c, String country) {
+        context = c;
         standElem = new StandElem();
         countryCode = country;
 
@@ -38,15 +44,13 @@ public class MakeRequestTara extends Activity{
                     makePostRequest3();
 
                     for (index = 0; index < standElem.getSize(); index++) {
-                        makePostRequest4();
                         makePostRequest7();
+                        makePostRequest4();
                     }
                     makePostRequest5();
                     makePostRequest6();
                     makePostRequest8();
                     makePostRequest9();
-
-                    ((Global) getApplicationContext()).setStandElem(standElem);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -60,6 +64,7 @@ public class MakeRequestTara extends Activity{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return standElem;
 
     }
 
@@ -80,7 +85,7 @@ public class MakeRequestTara extends Activity{
         JSONArray cod = new JSONArray().put(countryCode);
         JSONObject resursa = new JSONObject().put("cod", cod);
 
-        result_string = elem.getRaspuns(getApplicationContext(), url, resursa, cerute);
+        result_string = elem.getRaspuns(context, url, resursa, cerute);
         response = gson.fromJson(result_string, listeType);
 
 
@@ -115,7 +120,7 @@ public class MakeRequestTara extends Activity{
         JSONObject resursa = new JSONObject().put("id_tara", idTara);
         JSONArray cerute = new JSONArray().put("id").put("nume").put("ordinea").put("ids_tipuri_inmatriculare_tipuri_elemente");
 
-        result_string = elem.getRaspuns(getApplicationContext(), url, resursa, cerute);
+        result_string = elem.getRaspuns(context, url, resursa, cerute);
         response = gson.fromJson(result_string, listeType);
 
         standElem.setSize(response.size());
@@ -164,7 +169,7 @@ public class MakeRequestTara extends Activity{
         }
         resursa.put("id", id);
 
-        result_string = elem.getRaspuns(getApplicationContext(), url, resursa, cerute);
+        result_string = elem.getRaspuns(context, url, resursa, cerute);
         response = gson.fromJson(result_string, listeType);
 
 
@@ -205,12 +210,12 @@ public class MakeRequestTara extends Activity{
         JSONObject resursa = new JSONObject();
         JSONArray id = new JSONArray();
 
-        int sizze = (standElem.getTipNumar()).get(index).getTip_size();
+        int sizze = (standElem.getTipNumar()).get(index).getDemo_id_tip_element().length;
         for (int i = 0; i < sizze; i++) {
-            id.put((standElem.getTipNumar()).get(index).getTip_idd_loc(i));
+            id.put((standElem.getTipNumar()).get(index).getDemo_id_tip_loc(i));
         }
         resursa.put("id", id);
-        result_string = elem.getRaspuns(getApplicationContext(), url, resursa, cerute);
+        result_string = elem.getRaspuns(context, url, resursa, cerute);
         response = gson.fromJson(result_string, listeType);
 
 
@@ -220,23 +225,30 @@ public class MakeRequestTara extends Activity{
         String[] tip = new String[sizze];
         String[] valori = new String[sizze];
         JSONArray valoriArr;
-        String[][] lista_cod = new String[sizze][];
+        String[] lista_cod;
+
+        int[] snort = (standElem.getTipNumar()).get(index).getDemo_id_tip_element();
+        Arrays.sort(snort);
+
+        List<String[]> myList = new ArrayList<String[]>(sizze);
+
 
         for (int i = 0; i < sizze; i++) {
-
+            myList.add(i, null);
             for (int j = 0; j < response.size(); j++) {
 
-                if ((standElem.getTipNumar()).get(index).getTip_idd()[i] == response.get(j).getId()) {
+                if (snort[i] == response.get(j).getId()) {
                     editabil[i] = response.get(j).getEditabil_user();
                     maxlength[i] = response.get(j).getMaxlength();
                     tip[i] = response.get(j).getTip();
                     String s = new JSONArray(result_string).getJSONObject(j).getString("valori");
                     if (tip[i].equals("LISTA")) {
                         valoriArr = new JSONArray(s);
-                        lista_cod = new String[sizze][valoriArr.length()];
+                        lista_cod = new String[valoriArr.length()];
                         for (int z = 0; z < valoriArr.length(); z++) {
-                            lista_cod[i][z] = valoriArr.getJSONObject(z).getString("cod");
+                            lista_cod[z] = valoriArr.getJSONObject(z).getString("cod");
                         }
+                        myList.add(i, lista_cod);
                     } else {
                         valori[i] = s;
                     }
@@ -247,8 +259,10 @@ public class MakeRequestTara extends Activity{
         standElem.getTipNumar().get(index).setTip_editabil(editabil);
         standElem.getTipNumar().get(index).setTip_maxlength(maxlength);
         standElem.getTipNumar().get(index).setTip_tip(tip);
-        standElem.getTipNumar().get(index).setLista_cod(lista_cod);
+        standElem.getTipNumar().get(index).setLista_cod(myList);
         standElem.getTipNumar().get(index).setTip_valori(valori);
+
+
 
         /*[{"id": 5, // 6,
             "tip": "LISTA", // "CIFRE" // "LITERE"
@@ -282,24 +296,27 @@ public class MakeRequestTara extends Activity{
         }
         resursa.put("id", id);
 
-        result_string = elem.getRaspuns(getApplicationContext(), url, resursa, cerute);
+        result_string = elem.getRaspuns(context, url, resursa, cerute);
         response = gson.fromJson(result_string, listeType);
         int[] idd = new int[sizze];
         int[] id_tip_element = new int[sizze];
         int[] ordinea = new int[sizze];
         String[] valoare_demo_imagine = new String[sizze];
 
+        int[] snort = (standElem.getTipNumar()).get(index).getTip_idd();
+        Arrays.sort(snort);
         for (int i = 0; i < sizze; i++) {
 
             for (int j = 0; j < response.size(); j++) {
 
-                if ((standElem.getTipNumar()).get(index).getTip_idd()[i] == response.get(j).getId()) {
+                if (snort[i] == response.get(j).getId()) {
                     idd[i] = response.get(j).getId();
                     id_tip_element[i] = response.get(j).getId_tip_element();
                     ordinea[i] = response.get(j).getOrdinea();
                     valoare_demo_imagine[i] = response.get(j).getValoare_demo_imagine();
                 }
             }
+
             standElem.getTipNumar().get(index).setDemo_id(idd);
             standElem.getTipNumar().get(index).setDemo_id_tip_element(id_tip_element);
             standElem.getTipNumar().get(index).setDemo_ordinea(ordinea);
@@ -330,7 +347,7 @@ public class MakeRequestTara extends Activity{
         JSONObject resursa = new JSONObject().put("pentru", "tari").put("tip", "steaguri").put("nume", numeSteag).put("dimensiuni", dimensiuni);
 
         GetRequestImg elem = new GetRequestImg();
-        baite = elem.getRaspuns(getApplicationContext(), url, "image/png", resursa);
+        baite = elem.getRaspuns(context, url, "image/png", resursa);
         standElem.setSteag(baite);
     }
 
@@ -341,12 +358,12 @@ public class MakeRequestTara extends Activity{
         //Content-Type:application/json
         //Accept:image/jpg
         String url = "http://api.nubloca.ro/imagini/";
-        String numeSteag=standElem.getId()+".jpg";
+        String numeSteag = standElem.getId() + ".jpg";
 
         JSONObject resursa = new JSONObject().put("pentru", "tari").put("tip", "reprezentative").put("nume", numeSteag);
 
         GetRequestImg elem = new GetRequestImg();
-        baite = elem.getRaspuns(getApplicationContext(), url, "image/jpeg", resursa);
+        baite = elem.getRaspuns(context, url, "image/jpeg", resursa);
         standElem.setImgReprezent(baite);
     }
 
@@ -359,21 +376,21 @@ public class MakeRequestTara extends Activity{
         String url = "http://api.nubloca.ro/imagini/";
         JSONObject resursa = new JSONObject().put("pentru", "numere").put("tip", "background").put("nume", "1.jpg");
         GetRequestImg elemm = new GetRequestImg();
-        baite = elemm.getRaspuns(getApplicationContext(), url, "image/jpeg", resursa);
+        baite = elemm.getRaspuns(context, url, "image/jpeg", resursa);
         standElem.setBackgDemo(baite);
     }
 
     private void makePostRequest9() throws JSONException {
         //url4 = "http://api.nubloca.ro/imagini/";
          /*{	"identificare": {		"user": {			"app_code": "abcdefghijkl123456"		},
-      	        "resursa": {          "pentru": "numere",          "tip": "tipuri",          "nume": "147-2.png"      	}   }}*/
+                  "resursa": {          "pentru": "numere",          "tip": "tipuri",          "nume": "147-2.png"      	}   }}*/
         //Content-Type:application/json
         //Accept:image/png
 
         String url = "http://api.nubloca.ro/imagini/";
         JSONObject resursa = new JSONObject().put("pentru", "numere").put("tip", "tipuri").put("nume", "147-1.png");
         GetRequestImg elem = new GetRequestImg();
-        baite = elem.getRaspuns(getApplicationContext(), url, "image/png", resursa);
+        baite = elem.getRaspuns(context, url, "image/png", resursa);
         standElem.setPlateDemo(baite);
     }
 }

@@ -258,7 +258,7 @@ public class Ecran20Activity extends AppCompatActivity {
                 ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
                 //Spinner mySpinner = new Spinner (new ContextThemeWrapper(this, R.style.spinner_style), null, 0);
                 Spinner mySpinner = new Spinner(this);
-                mySpinner.setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1, standElem.getTipNumar().get(index).getLista_cod()[i]));
+                mySpinner.setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1, standElem.getTipNumar().get(index).getLista_cod().get(i)));
                 params.width = minTrei * valRealUml;
                 mySpinner.setLayoutParams(params);
                 linearLayout.addView(mySpinner);

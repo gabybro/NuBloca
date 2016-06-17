@@ -18,7 +18,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="20dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:text="@string/contact_1"
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -112,7 +112,8 @@
         android:id="@+id/alegeTipInmatriculare"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_contact1">
+        android:layout_below="@+id/linear_contact1"
+        android:layout_marginTop="15dp">
 
 
         <ro.nubloca.extras.CustomFontTitilliumRegular
@@ -179,13 +180,7 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@+id/rel_bar2"
-        android:layout_marginTop="20dp"
-        android:background="@color/list_delimit" />
+
 
     <RelativeLayout
         android:id="@+id/rel_bar1"
@@ -193,7 +188,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/alegeTipInmatriculare"
         android:background="@drawable/border2"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
 
         <LinearLayout
             android:id="@+id/lin_bar1"
@@ -203,6 +199,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:clickable="true"
+            android:background="@drawable/plate_border"
             android:orientation="horizontal">
 
             <ro.nubloca.extras.CustomFontTitilliumRegular

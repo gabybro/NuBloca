@@ -304,15 +304,16 @@ public class StandElem {
             this.tip_idd = tip_idd;
         }
 
-        public String[][] getLista_cod() {
+
+        public List<String[]> getLista_cod() {
             return lista_cod;
         }
 
-        public void setLista_cod(String[][] lista_cod) {
+        public void setLista_cod(List<String[]> lista_cod) {
             this.lista_cod = lista_cod;
         }
 
-        private String[][] lista_cod;
+        private List<String []> lista_cod;
 
         public int[] getTip_editabil() {
             return tip_editabil;
