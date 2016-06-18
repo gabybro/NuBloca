@@ -208,7 +208,14 @@ public class Ecran25Activity extends AppCompatActivity {
                                 ((Global) getApplicationContext()).setPositionExemplu(-1);
                                 countryCode = o.getCod();
                                 RequestTara make = new RequestTara();
-                                ((Global) getApplicationContext()).setStandElem(make.makePostRequestOnNewThread(Ecran25Activity.this, countryCode));
+                                standElem = make.makePostRequestOnNewThread(Ecran25Activity.this, countryCode);
+                                ((Global) getApplicationContext()).setStandElem(standElem);
+
+                                Gson gson = new Gson();
+                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                String json = gson.toJson(standElem);
+                                editor.putString("STANDELEM", json);
+                                editor.apply();
 
                                 startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
                                 finish();
