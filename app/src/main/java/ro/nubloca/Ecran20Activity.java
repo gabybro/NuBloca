@@ -3,17 +3,14 @@ package ro.nubloca;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
@@ -25,65 +22,33 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import ro.nubloca.Networking.AllElem;
-import ro.nubloca.Networking.GetRequest;
-import ro.nubloca.Networking.GetRequestImg;
 import ro.nubloca.Networking.Response;
 import ro.nubloca.Networking.StandElem;
-import ro.nubloca.Networking.TaraElem;
 import ro.nubloca.extras.FontTitilliumBold;
-import ro.nubloca.extras.FontTitilliumBoldCheck;
 import ro.nubloca.extras.Global;
 
 public class Ecran20Activity extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
     int campuri = 3;
-    int id_tara = 147;
-    int order = 1;
-    String url = "http://api.nubloca.ro/tipuri_inmatriculare/";
-    String url1 = "http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
-    String url2 = "http://api.nubloca.ro/tipuri_elemente/";
-    String url3 = "http://api.nubloca.ro/imagini/";
     int dim = 30;
     byte[] baite;
 
-    String name_tip_inmatriculare;
-    int[] ids_tipuri_inmatriculare_tipuri_elemente;
-    int[] id_tip_element;
-    int idd;
-    //int id_shared = 0;
-    List<Response> response2, response3;
-    JSONArray valoareArr;
-    String[] lista_cod;
-    //AllElem[] allele, allelem;
     InputFilter filter, filter1;
-    String numeSteag;
     FontTitilliumBold field;
-    //TaraElem taraElem;
     int preselected = 0;
     int selected = 0;
     StandElem standElem;
@@ -99,9 +64,6 @@ public class Ecran20Activity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        //id_tara = ((Global) this.getApplication()).getId_tara();
-        //id_shared = ((Global) this.getApplication()).getId_shared();
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -110,18 +72,10 @@ public class Ecran20Activity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
 
-        //TODO
-        //makePostRequestOnNewThread();
-        //taraElem = ((Global) getApplicationContext()).getTaraElem();
-        //allelem = ((Global) getApplicationContext()).getAllelem();
         standElem = ((Global) getApplicationContext()).getStandElem();
         selected = ((Global) getApplicationContext()).getSelected();
 
-        if (selected != 0) {
-            index = selected;
-        } else {
-            index = preselected;
-        }
+        index = standElem.getSelected();
 
 
 

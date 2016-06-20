@@ -62,7 +62,7 @@ public class Ecran1Activity extends AppCompatActivity {
                         String json = sharedpreferences.getString("STANDELEM", "");
                         standElem = gson.fromJson(json, StandElem.class);
 
-                        if (json.equals("")) {
+                        if (standElem.getTipNumar().size()==0) {
                             RequestTara make = new RequestTara();
                             standElem = make.makePostRequestOnNewThread(Ecran1Activity.this, countryCode);
                             ((Global) getApplicationContext()).setStandElem(standElem);

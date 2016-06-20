@@ -131,7 +131,15 @@ public class StandElem {
     public List<TipNumar> tipNumar;
 
 
+    public int getSelected() {
+        return selected;
+    }
 
+    public void setSelected(int selected) {
+        this.selected = selected;
+    }
+
+    private int selected=0;
 
 
     public static class TipNumar implements Comparable<TipNumar>{
@@ -207,8 +215,6 @@ public class StandElem {
         }
 
         private String url_imagine;
-
-
 
         public int getId() {
             return id;

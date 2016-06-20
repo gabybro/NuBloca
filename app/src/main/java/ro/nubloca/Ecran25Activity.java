@@ -74,8 +74,8 @@ public class Ecran25Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        id_tara = ((Global) this.getApplication()).getId_tara();
-
+        //id_tara = ((Global) this.getApplication()).getId_tara();
+        standElem = ((Global) getApplicationContext()).getStandElem();
 
         Thread t = new Thread(new Runnable() {
             @Override
@@ -188,7 +188,7 @@ public class Ecran25Activity extends AppCompatActivity {
             ImageView iiv = (ImageView) v.findViewById(R.id.radioButton1);
             RelativeLayout rel = (RelativeLayout) v.findViewById(R.id.rel_bar1);
             if (o != null) {
-                if ((id_tara == o.getId()) && (iiv != null)) {
+                if ((standElem.getId() == o.getId()) && (iiv != null)) {
 
                     iiv.setImageResource(R.drawable.radio_press);
                 } else {
@@ -200,7 +200,7 @@ public class Ecran25Activity extends AppCompatActivity {
 
                         @Override
                         public void onClick(View v) {
-                            if (id_tara != o.getId()) {
+                            if (standElem.getId() != o.getId()) {
                                 ((Global) getApplicationContext()).setId_tara(o.getId());
                                 ((Global) getApplicationContext()).setNume_tip_inmatriculare("standard");
                                 ((Global) getApplicationContext()).setNume_tip_inmatriculare_id(0);
