@@ -61,19 +61,20 @@ public class Ecran1Activity extends AppCompatActivity {
                         Gson gson = new Gson();
                         String json = sharedpreferences.getString("STANDELEM", "");
                         standElem = gson.fromJson(json, StandElem.class);
+                        if (json.equals("")) {
+                            //if (standElem.getTipNumar().size() == 0) {
+                                RequestTara make = new RequestTara();
+                                standElem = make.makePostRequestOnNewThread(Ecran1Activity.this, countryCode);
+                                ((Global) getApplicationContext()).setStandElem(standElem);
 
-                        if (standElem.getTipNumar().size()==0) {
-                            RequestTara make = new RequestTara();
-                            standElem = make.makePostRequestOnNewThread(Ecran1Activity.this, countryCode);
-                            ((Global) getApplicationContext()).setStandElem(standElem);
+                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                json = gson.toJson(standElem); // standElem - instance of StandElem
+                                editor.putString("STANDELEM", json);
+                                editor.putString("TARA"+standElem.getId(), json);
+                                editor.apply();
 
-                            SharedPreferences.Editor editor = sharedpreferences.edit();
-                            json = gson.toJson(standElem); // standElem - instance of StandElem
-                            editor.putString("STANDELEM", json);
-                            editor.apply();
-
+                           // }
                         }
-
                         ((Global) getApplicationContext()).setStandElem(standElem);
                         handler.removeCallbacks(this);
                         Looper.myLooper().quit();

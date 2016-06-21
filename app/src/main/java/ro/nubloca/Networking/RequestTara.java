@@ -225,7 +225,7 @@ public class RequestTara extends Activity {
         String[] lista_cod;
 
         int[] snort = (standElem.getTipNumar()).get(index).getDemo_id_tip_element();
-        Arrays.sort(snort);
+        //Arrays.sort(snort);
 
         List<String[]> myList = new ArrayList<String[]>(sizze);
 
@@ -301,7 +301,7 @@ public class RequestTara extends Activity {
         String[] valoare_demo_imagine = new String[sizze];
 
         int[] snort = (standElem.getTipNumar()).get(index).getTip_idd();
-        Arrays.sort(snort);
+        //Arrays.sort(snort);
         for (int i = 0; i < sizze; i++) {
 
             for (int j = 0; j < response.size(); j++) {

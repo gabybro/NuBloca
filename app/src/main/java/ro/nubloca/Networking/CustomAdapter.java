@@ -1,5 +1,6 @@
 package ro.nubloca.Networking;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -25,11 +26,14 @@ import ro.nubloca.extras.Global;
 
 public class CustomAdapter extends ArrayAdapter<String> {
     StandElem standElemAdapter;
+    Context contextAdapter;
+    Activity mActivity;
 
-
-    public CustomAdapter(Context context, String[] elemente, StandElem standElem) {
+    public CustomAdapter(Context context, String[] elemente, StandElem standElem, Activity mActivity1) {
         super(context, R.layout.raw_list, elemente);
         standElemAdapter = standElem;
+        contextAdapter = context;
+        mActivity = mActivity1;
 
     }
 
@@ -43,7 +47,11 @@ public class CustomAdapter extends ArrayAdapter<String> {
         String singleFood = getItem(position);
         CustomFontTitilliumRegular textul = (CustomFontTitilliumRegular) customView.findViewById(R.id.text);
         final ImageView imaginea = (ImageView) customView.findViewById(R.id.radioButton);
-
+        LinearLayout ll = (LinearLayout) customView.findViewById(R.id.linear1);
+        LinearLayout lll = (LinearLayout) customView.findViewById(R.id.linear2);
+        if (standElemAdapter.getPositionExemplu() == position) {
+            lll.setBackgroundColor(Color.parseColor("#F0F0F0"));
+        }
         textul.setText(singleFood);
         if (standElemAdapter.getSelected() == position) {
             imaginea.setImageResource(R.drawable.radio_press);
@@ -52,23 +60,22 @@ public class CustomAdapter extends ArrayAdapter<String> {
         }
 
 
-        LinearLayout ll = (LinearLayout) customView.findViewById(R.id.linear1);
+
         if (ll != null) {
             ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     standElemAdapter.setSelected(position);
                     standElemAdapter.setPositionExemplu(-1);
+                    ((Global) getContext()).setStandElem(standElemAdapter);
                     view.getContext().startActivity(new Intent(getContext(), Ecran20Activity.class));
-                }
+                    mActivity.finish();              }
             });
         }
 
-        LinearLayout lll = (LinearLayout) customView.findViewById(R.id.linear2);
+
         if (lll != null) {
-            if (standElemAdapter.getPositionExemplu() == position) {
-                lll.setBackgroundColor(Color.parseColor("#F0F0F0"));
-            }
+
             lll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

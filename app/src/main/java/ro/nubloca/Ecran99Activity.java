@@ -44,6 +44,7 @@ public class Ecran99Activity extends AppCompatActivity {
 
 
         Button ok = (Button) findViewById(R.id.ok);
+        Button clear = (Button) findViewById(R.id.button4);
 
         checkState = (sharedpreferences.getBoolean("http_req", false));
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
@@ -100,6 +101,17 @@ public class Ecran99Activity extends AppCompatActivity {
                             editor.putInt("id_tara", id_tara);
                             editor.apply();
                             finish();
+                        }
+                    });
+        }
+        if (clear != null) {
+            clear.setOnClickListener(
+                    new View.OnClickListener() {
+                        public void onClick(View view) {
+
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.clear();
+                            editor.commit();
                         }
                     });
         }

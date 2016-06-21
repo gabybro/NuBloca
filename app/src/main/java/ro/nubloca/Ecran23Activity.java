@@ -1,5 +1,6 @@
 package ro.nubloca;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,13 +14,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -31,6 +36,7 @@ import java.util.ArrayList;
 import ro.nubloca.Networking.CustomAdapter;
 import ro.nubloca.Networking.Response;
 import ro.nubloca.Networking.StandElem;
+import ro.nubloca.extras.CustomFontTitilliumRegular;
 import ro.nubloca.extras.Global;
 
 
@@ -47,7 +53,7 @@ public class Ecran23Activity extends AppCompatActivity {
     byte[] baite, baite1;
     ProgressBar progressBar;
     StandElem standElem;
-    boolean active=false;
+    boolean active = false;
 
 
     @Override
@@ -65,7 +71,7 @@ public class Ecran23Activity extends AppCompatActivity {
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.VISIBLE);
 
-        //positionExemplu = ((Global) this.getApplication()).getPositionExemplu();
+        positionExemplu = ((Global) this.getApplication()).getPositionExemplu();
         standElem = ((Global) getApplicationContext()).getStandElem();
         country_select = standElem.getNume();
 
@@ -79,12 +85,12 @@ public class Ecran23Activity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         String[] values = new String[standElem.getSize()];
-        for (int i=0;i< standElem.getSize(); i++) {
+        for (int i = 0; i < standElem.getSize(); i++) {
             values[i] = standElem.getTipNumar().get(i).getNume();
         }
 
 
-        ListAdapter customAdapter = new CustomAdapter(this, values, standElem);
+        ListAdapter customAdapter = new CustomAdapter(this, values);
         ListView lv = (ListView) findViewById(R.id.list);
         lv.setAdapter(customAdapter);
 
@@ -168,5 +174,64 @@ public class Ecran23Activity extends AppCompatActivity {
     };
 
 
+    public class CustomAdapter extends ArrayAdapter<String> {
 
+
+        public CustomAdapter(Context context, String[] elemente) {
+            super(context, R.layout.raw_list, elemente);
+
+
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+
+
+            LayoutInflater dapter = LayoutInflater.from(getContext());
+            View customView = dapter.inflate(R.layout.raw_list, parent, false);
+
+            String singleFood = getItem(position);
+            CustomFontTitilliumRegular textul = (CustomFontTitilliumRegular) customView.findViewById(R.id.text);
+            final ImageView imaginea = (ImageView) customView.findViewById(R.id.radioButton);
+            LinearLayout ll = (LinearLayout) customView.findViewById(R.id.linear1);
+            LinearLayout lll = (LinearLayout) customView.findViewById(R.id.linear2);
+            if (standElem.getPositionExemplu() == position) {
+                lll.setBackgroundColor(Color.parseColor("#F0F0F0"));
+            }
+            textul.setText(singleFood);
+            if (standElem.getSelected() == position) {
+                imaginea.setImageResource(R.drawable.radio_press);
+            } else {
+                imaginea.setImageResource(R.drawable.radio);
+            }
+
+
+            if (ll != null) {
+                ll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        standElem.setSelected(position);
+                        standElem.setPositionExemplu(-1);
+                        ((Global) getApplicationContext()).setStandElem(standElem);
+                        startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
+                        finish();
+                    }
+                });
+            }
+
+
+            if (lll != null) {
+
+                lll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        standElem.setPositionExemplu(position);
+                        startActivity(new Intent(Ecran23Activity.this, Ecran26Activity.class));
+                    }
+                });
+            }
+
+            return customView;
+        }
+    }
 }

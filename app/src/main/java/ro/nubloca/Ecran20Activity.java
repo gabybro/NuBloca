@@ -32,6 +32,8 @@ import android.widget.Toast;
 
 import org.json.JSONArray;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -78,8 +80,6 @@ public class Ecran20Activity extends AppCompatActivity {
         index = standElem.getSelected();
 
 
-
-
         View btn_istoric_numere = (View) findViewById(R.id.istoricNumere);
         if (btn_istoric_numere != null)
             btn_istoric_numere.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +109,8 @@ public class Ecran20Activity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    ((Global) getApplicationContext()).setPositionExemplu(-1);
+                    standElem.setPositionExemplu(-1);
+                    ((Global) getApplicationContext()).setStandElem(standElem);
 
                     startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
                     finish();
@@ -130,6 +131,8 @@ public class Ecran20Activity extends AppCompatActivity {
                 }
             });
 
+        //TODO firefighters show on one row - italy
+        //TODO lista dupa lista - spain .. corp diplomatic
         showElements();
     }
 
@@ -199,83 +202,97 @@ public class Ecran20Activity extends AppCompatActivity {
                 return null;
             }
         };
-        int first_focus = 0;
+
+        int[] ordinea = new int[campuri];
         for (int i = 0; i < campuri; i++) {
-            if (standElem.getTipNumar().get(index).getTip_maxlength()[i] < 3) {
-                minTrei = standElem.getTipNumar().get(index).getTip_maxlength()[i] + 1;
-            } else {
-                minTrei = standElem.getTipNumar().get(index).getTip_maxlength()[i];
-            }
+            ordinea[i] = standElem.getTipNumar().get(index).getDemo_ordinea()[i];
+        }
+        Arrays.sort(ordinea);
+        int[] sortOrd = ordinea;
 
-            if (standElem.getTipNumar().get(index).getTip_tip()[i].equals("LISTA")) {
-                first_focus++;
-                ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
-                //Spinner mySpinner = new Spinner (new ContextThemeWrapper(this, R.style.spinner_style), null, 0);
-                Spinner mySpinner = new Spinner(this);
-                mySpinner.setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1, standElem.getTipNumar().get(index).getLista_cod().get(i)));
-                params.width = minTrei * valRealUml;
-                mySpinner.setLayoutParams(params);
-                linearLayout.addView(mySpinner);
-            } else {
-                field = new FontTitilliumBold(this);
-                field.setId(i);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
+        int first_focus = 0;
 
-                if (i != 0) {
-                    params.setMargins(valSPI, 0, 0, 0);
-                }
+        for (int xx = 0; xx < sortOrd.length; xx++) {
+            for (int i = 0; i < campuri; i++) {
+                if (standElem.getTipNumar().get(index).getDemo_ordinea()[i] == sortOrd[xx]) {
 
-                if ((i + 1) < campuri) {
-                    if (standElem.getTipNumar().get(index).getTip_tip()[i + 1].equals("LISTA")) {
-                        params.setMargins(valSPI, 0, valSPI, 0);
+
+                    if (standElem.getTipNumar().get(index).getTip_maxlength()[i] < 3) {
+                        minTrei = standElem.getTipNumar().get(index).getTip_maxlength()[i] + 1;
+                    } else {
+                        minTrei = standElem.getTipNumar().get(index).getTip_maxlength()[i];
                     }
-                }
-                field.setLayoutParams(params);
-                field.setWidth(valRealUml * minTrei);
-                field.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
-                field.setTextSize(25);
-                field.setTextColor(getResources().getColor(R.color.text_layout_custom));
-                field.setBackgroundResource(R.drawable.plate_border);
 
-                if (standElem.getTipNumar().get(index).getTip_tip()[i].equals("CIFRE")) {
-                    if (standElem.getTipNumar().get(index).getTip_editabil()[i] == 0) {
+                    if (standElem.getTipNumar().get(index).getTip_tip()[i].equals("LISTA")) {
                         first_focus++;
-                        field.setText(standElem.getTipNumar().get(index).getTip_valori()[i].replace("[", "").replace("]", ""));
+                        ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
+                        //Spinner mySpinner = new Spinner (new ContextThemeWrapper(this, R.style.spinner_style), null, 0);
+                        Spinner mySpinner = new Spinner(this);
+                        mySpinner.setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1, standElem.getTipNumar().get(index).getLista_cod().get(i)));
+                        params.width = minTrei * valRealUml;
+                        mySpinner.setLayoutParams(params);
+                        linearLayout.addView(mySpinner);
+                    } else {
+                        field = new FontTitilliumBold(this);
+                        field.setId(i);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
 
-                        field.setWidth(valRealUml * standElem.getTipNumar().get(index).getTip_maxlength()[i]);
-                        field.setBackgroundResource(R.drawable.plate_border_white);
-                        field.setEnabled(false);
+                        if (i != 0) {
+                            params.setMargins(valSPI, 0, 0, 0);
+                        }
+
+                        if ((i + 1) < campuri) {
+                            if (standElem.getTipNumar().get(index).getTip_tip()[i + 1].equals("LISTA")) {
+                                params.setMargins(valSPI, 0, valSPI, 0);
+                            }
+                        }
+                        field.setLayoutParams(params);
+                        field.setWidth(valRealUml * minTrei);
+                        field.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
+                        field.setTextSize(25);
+                        field.setTextColor(getResources().getColor(R.color.text_layout_custom));
+                        field.setBackgroundResource(R.drawable.plate_border);
+
+                        if (standElem.getTipNumar().get(index).getTip_tip()[i].equals("CIFRE")) {
+                            if (standElem.getTipNumar().get(index).getTip_editabil()[i] == 0) {
+                                first_focus++;
+                                field.setText(standElem.getTipNumar().get(index).getTip_valori()[i].replace("[", "").replace("]", ""));
+
+                                field.setWidth(valRealUml * standElem.getTipNumar().get(index).getTip_maxlength()[i]);
+                                field.setBackgroundResource(R.drawable.plate_border_white);
+                                field.setEnabled(false);
+                            }
+
+                            field.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
+                            field.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(standElem.getTipNumar().get(index).getTip_maxlength()[i])});
+                            field.setSelected(false);
+                        }
+                        if (standElem.getTipNumar().get(index).getTip_tip()[i].equals("LITERE")) {
+                            if (standElem.getTipNumar().get(index).getTip_editabil()[i] == 0) {
+                                first_focus++;
+                                field.setText(standElem.getTipNumar().get(index).getTip_valori()[i].replace("[", "").replace("]", ""));
+                                field.setEnabled(false);
+                                field.setWidth(valRealUml * standElem.getTipNumar().get(index).getTip_maxlength()[i]);
+                                field.setBackgroundResource(R.drawable.plate_border_white);
+                            }
+                            field.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+                            field.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(standElem.getTipNumar().get(index).getTip_maxlength()[i])});
+                            field.setSelected(false);
+                        }
+                        field.setSelected(false);
+                        if ((first_focus == 0) && (standElem.getTipNumar().get(index).getTip_editabil()[i] == 1)) {
+                            field.requestFocus();
+                            first_focus++;
+                            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                        }
+
+                        linearLayout.addView(field);
+
+
                     }
-
-                    field.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
-                    field.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(standElem.getTipNumar().get(index).getTip_maxlength()[i])});
-                    field.setSelected(false);
                 }
-                if (standElem.getTipNumar().get(index).getTip_tip()[i].equals("LITERE")) {
-                    if (standElem.getTipNumar().get(index).getTip_editabil()[i] == 0) {
-                        first_focus++;
-                        field.setText(standElem.getTipNumar().get(index).getTip_valori()[i].replace("[", "").replace("]", ""));
-                        field.setEnabled(false);
-                        field.setWidth(valRealUml * standElem.getTipNumar().get(index).getTip_maxlength()[i]);
-                        field.setBackgroundResource(R.drawable.plate_border_white);
-                    }
-                    field.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
-                    field.setFilters(new InputFilter[]{filter1, new InputFilter.LengthFilter(standElem.getTipNumar().get(index).getTip_maxlength()[i])});
-                    field.setSelected(false);
-                }
-                field.setSelected(false);
-                if ((first_focus == 0) && (standElem.getTipNumar().get(index).getTip_editabil()[i] == 1)) {
-                    field.requestFocus();
-                    first_focus++;
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-                }
-
-                linearLayout.addView(field);
-
-
             }
-
         }
         // name_tip_inmatriculare = taraElem.getTip_nume();
 

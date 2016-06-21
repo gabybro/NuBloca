@@ -56,10 +56,10 @@ public class Ecran26Activity extends AppCompatActivity {
     ProgressBar progressBar;
 
     AllElem[] allelem;
-    int[] id_tip_element,Ids_tipuri_inmatriculare_tipuri_elemente;
+    int[] id_tip_element, Ids_tipuri_inmatriculare_tipuri_elemente;
     List<Response> response2, response3;
     int id_exemplu;
-    int dim =30;
+    int dim = 30;
     String url = "http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
     String url2 = "http://api.nubloca.ro/tipuri_elemente/";
     String url3 = "http://api.nubloca.ro/tipuri_inmatriculare/";
@@ -159,65 +159,78 @@ public class Ecran26Activity extends AppCompatActivity {
         linearLayout.setPadding(valSPL, 0, valSPL, 0);
         RelativeLayout relativeLayout1 = (RelativeLayout) findViewById(R.id.relative1);
         relativeLayout1.setVisibility(View.VISIBLE);
+
+        int[] ordinea = new int[campuri];
         for (int i = 0; i < campuri; i++) {
-            if (standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i] < 3) {
-                minTrei = standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i] + 1;
-                if (standElem.getTipNumar().get(id_exemplu).getTip_editabil()[i]==0){
-                    minTrei = standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i];
-                }
-            } else {
-                minTrei = standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i];
-            }
-
-
-            CustomFontTitilliumBold field = new CustomFontTitilliumBold(this);
-            field.setId(i);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
-
-            if (i != 0) {
-                params.setMargins(valSPI, 0, 0, 0);
-            }
-
-            field.setLayoutParams(params);
-            field.setWidth(valRealUml * minTrei);
-            field.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
-            field.setTextSize(30);
-            field.setBackgroundResource(R.drawable.plate_border);
-            field.setText(standElem.getTipNumar().get(id_exemplu).getDemo_valoare()[i]);
-            if (standElem.getTipNumar().get(id_exemplu).getTip_editabil()[i] == 0) {
-                field.setBackgroundResource(R.drawable.plate_border_white);
-            }
-            linearLayout.addView(field);
-            CustomFontTitilliumBold tip_inmatriculare_nume = (CustomFontTitilliumBold) findViewById(R.id.nume_tip_inmatriculare);
-            tip_inmatriculare_nume.setVisibility(View.VISIBLE);
-            tip_inmatriculare_nume.setText(standElem.getTipNumar().get(id_exemplu).getNume());
-            CustomFontTitilliumRegular text1 = (CustomFontTitilliumRegular) findViewById(R.id.textView20);
-            text1.setVisibility(View.VISIBLE);
-            ImageView image = (ImageView) findViewById(R.id.imageView9);
-
-            baite = standElem.getSteag();
-            Bitmap bmp = BitmapFactory.decodeByteArray(baite, 0, baite.length);
-            image.setImageBitmap(bmp);
-            image.getLayoutParams().height=convDp(dim);
-            image.getLayoutParams().width=convDp(dim);
-            image.requestLayout();
-            image.setVisibility(View.VISIBLE);
-
-            baite1 = standElem.getBackgDemo();
-            ImageView image1 = (ImageView) findViewById(R.id.car_exemplu);
-            Bitmap bmp1 = BitmapFactory.decodeByteArray(baite1, 0, baite1.length);
-            image1.setImageBitmap(bmp1);
-            image1.requestLayout();
-
-            baite2 = standElem.getPlateDemo();
-            ImageView image2 = (ImageView) findViewById(R.id.plate);
-            Bitmap bmp2 = BitmapFactory.decodeByteArray(baite2, 0, baite2.length);
-            Bitmap bMapScaled = Bitmap.createScaledBitmap(bmp2, convDp(430/2), convDp(103/2), true);
-
-            image2.setImageBitmap(bMapScaled);
-
+            ordinea[i] = standElem.getTipNumar().get(id_exemplu).getDemo_ordinea()[i];
         }
+        Arrays.sort(ordinea);
+        int[] sortOrd = ordinea;
 
+        for (int xx = 0; xx < sortOrd.length; xx++) {
+            for (int i = 0; i < campuri; i++) {
+                if (standElem.getTipNumar().get(id_exemplu).getDemo_ordinea()[i] == sortOrd[xx]) {
+
+                    if (standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i] < 3) {
+                        minTrei = standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i] + 1;
+                        if (standElem.getTipNumar().get(id_exemplu).getTip_editabil()[i] == 0) {
+                            minTrei = standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i];
+                        }
+                    } else {
+                        minTrei = standElem.getTipNumar().get(id_exemplu).getTip_maxlength()[i];
+                    }
+
+
+                    CustomFontTitilliumBold field = new CustomFontTitilliumBold(this);
+                    field.setId(i);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
+
+                    if (i != 0) {
+                        params.setMargins(valSPI, 0, 0, 0);
+                    }
+
+                    field.setLayoutParams(params);
+                    field.setWidth(valRealUml * minTrei);
+                    field.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
+                    field.setTextSize(30);
+                    field.setBackgroundResource(R.drawable.plate_border);
+                    field.setText(standElem.getTipNumar().get(id_exemplu).getDemo_valoare()[i]);
+                    if (standElem.getTipNumar().get(id_exemplu).getTip_editabil()[i] == 0) {
+                        field.setBackgroundResource(R.drawable.plate_border_white);
+                    }
+                    linearLayout.addView(field);
+                    CustomFontTitilliumBold tip_inmatriculare_nume = (CustomFontTitilliumBold) findViewById(R.id.nume_tip_inmatriculare);
+                    tip_inmatriculare_nume.setVisibility(View.VISIBLE);
+                    tip_inmatriculare_nume.setText(standElem.getTipNumar().get(id_exemplu).getNume());
+                    CustomFontTitilliumRegular text1 = (CustomFontTitilliumRegular) findViewById(R.id.textView20);
+                    text1.setVisibility(View.VISIBLE);
+                    ImageView image = (ImageView) findViewById(R.id.imageView9);
+
+                    baite = standElem.getSteag();
+                    Bitmap bmp = BitmapFactory.decodeByteArray(baite, 0, baite.length);
+                    image.setImageBitmap(bmp);
+                    image.getLayoutParams().height = convDp(dim);
+                    image.getLayoutParams().width = convDp(dim);
+                    image.requestLayout();
+                    image.setVisibility(View.VISIBLE);
+
+                    baite1 = standElem.getBackgDemo();
+                    ImageView image1 = (ImageView) findViewById(R.id.car_exemplu);
+                    Bitmap bmp1 = BitmapFactory.decodeByteArray(baite1, 0, baite1.length);
+                    image1.setImageBitmap(bmp1);
+                    image1.requestLayout();
+
+                    baite2 = standElem.getPlateDemo();
+                    ImageView image2 = (ImageView) findViewById(R.id.plate);
+                    Bitmap bmp2 = BitmapFactory.decodeByteArray(baite2, 0, baite2.length);
+                    Bitmap bMapScaled = Bitmap.createScaledBitmap(bmp2, convDp(430 / 2), convDp(103 / 2), true);
+
+                    image2.setImageBitmap(bMapScaled);
+
+                }
+            }
+        }
+//////
     }
 
     int convDp(float sizeInDp) {
