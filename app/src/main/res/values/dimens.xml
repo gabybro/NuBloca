@@ -3,4 +3,25 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="toolbar">56.25dp</dimen>
+    <dimen name="marginTop_catreCeNumarId">20.8125dp</dimen>
+    <dimen name="marginLeft_catreCeNumarId">18dp</dimen>
+    <dimen name="marginBottom_catreCeNumarId">14.0625dp</dimen>
+    <dimen name="textSize_catreCeNumarId">15.75dp</dimen>
+    <dimen name="textSize_tipInmatriculare">17.4375dp</dimen>
+    <dimen name="marginTop_alegeTipInmatriculare">29.8125dp</dimen>
+    <dimen name="paddingLeft_alegeTipInmatriculare">18dp</dimen>
+    <dimen name="textSize_TipInmatriculare">15.75dp</dimen>
+    <dimen name="textSize_NumeTipInmatriculare">15.75dp</dimen>
+    <dimen name="paddingBottom_NumeTipInmatriculare">25.3125dp</dimen>
+    <dimen name="paddingLeftRight_NumeTipInmatriculare">5.625dp</dimen>
+    <dimen name="paddingLeft_Flag">11.250dp</dimen>
+    <dimen name="marginLeft_ChevronOrange">16.875dp</dimen>
+    <dimen name="heightLayout_salutAiParcat">56.25dp</dimen>
+    <dimen name="textSize_salutAiParcat">21.9375dp</dimen>
+    <dimen name="paddingTopBottom_salutAiParcat">17.4375dp</dimen>
+    <dimen name="height_bar">28.125dp</dimen>
+    <dimen name="paddingLeftRight_bar">11.25dp</dimen>
+    <dimen name="paddingLeftRight_Cumfunctioneaza">11.25dp</dimen>
+
 </resources>

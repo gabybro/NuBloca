@@ -30,14 +30,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Pattern;
 
-import ro.nubloca.Networking.Response;
 import ro.nubloca.Networking.StandElem;
 import ro.nubloca.extras.FontTitilliumBold;
 import ro.nubloca.extras.Global;
@@ -176,7 +171,7 @@ public class Ecran20Activity extends AppCompatActivity {
         int minTrei = 0;
 
 
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linear_contact1);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linear_plate_holder);
         //linearLayout.setPadding(convDp(valSPL), 0, convDp(valSPL), 0);
         linearLayout.setPadding(valSPL, 0, valSPL, 0);
         filter = new InputFilter() {
@@ -298,7 +293,7 @@ public class Ecran20Activity extends AppCompatActivity {
 
         TextView tip_inmatriculare_nume = (TextView) findViewById(R.id.nume_tip_inmatriculare);
         tip_inmatriculare_nume.setText(standElem.getTipNumar().get(index).getNume());
-        ImageView image = (ImageView) findViewById(R.id.imageView9);
+        ImageView image = (ImageView) findViewById(R.id.flag1);
         baite = standElem.getSteag();
         Bitmap bmp = BitmapFactory.decodeByteArray(baite, 0, baite.length);
         image.setImageBitmap(bmp);
@@ -310,221 +305,6 @@ public class Ecran20Activity extends AppCompatActivity {
 
     }
 
-   /* private void makePostRequestOnNewThread() {
-
-        Thread t0 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try {
-                    if (id_shared == 0) {
-                        makePostRequest0();
-                    }
-                    makePostRequest1();
-                    makePostRequest2();
-                    makePostRequest3();
-                    makePostRequest4();
-                    makePostRequest5();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        t0.start();
-        try {
-            t0.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void makePostRequest0() throws JSONException {
-        //url = "http://api.nubloca.ro/tipuri_inmatriculare/";
-        *//*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
-           "resursa": {"id_tara": [147],"ordinea":[1]}},
-           "cerute": ["id"	]}*//*
-
-        GetRequest elemm = new GetRequest();
-        JSONArray idTara = new JSONArray().put(id_tara);
-        JSONArray ordinea = new JSONArray().put(order);
-        JSONObject resursa = new JSONObject().put("id_tara", idTara).put("ordinea", ordinea);
-        JSONArray cerute = new JSONArray().put("id");
-        String result_string = elemm.getRaspuns(Ecran20Activity.this, url, resursa, cerute);
-
-        *//*[{            "id": 1        }]*//*
-
-        Gson gson = new Gson();
-        Type listeType = new TypeToken<List<Response>>() {
-        }.getType();
-        List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-        idd = response.get(0).getId();
-        ((Global) getApplicationContext()).setId_shared(idd);
-    }
-
-    private void makePostRequest1() throws JSONException {
-        //url = "http://api.nubloca.ro/tipuri_inmatriculare/";
-        *//*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
-           "resursa": {"id":[2]}},
-           "cerute": ["id","nume","ids_tipuri_inmatriculare_tipuri_elemente"]}*//*
-
-        id_shared = ((Global) this.getApplication()).getId_shared();
-        GetRequest elemm = new GetRequest();
-        JSONArray cerute = new JSONArray().put("id").put("nume").put("ids_tipuri_inmatriculare_tipuri_elemente");
-        JSONArray idTara = new JSONArray().put(id_shared);
-        JSONObject resursa = new JSONObject().put("id", idTara);
-
-        String result_string = elemm.getRaspuns(Ecran20Activity.this, url, resursa, cerute);
-        *//*[{            "id": 2,
-                        "nume": "Temporară",
-                        "ids_tipuri_inmatriculare_tipuri_elemente":[4,5]        }]*//*
-        Gson gson = new Gson();
-        Type listeType = new TypeToken<List<Response>>() {
-        }.getType();
-        List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-        name_tip_inmatriculare = response.get(0).getNume();
-        ids_tipuri_inmatriculare_tipuri_elemente = response.get(0).getIds_tipuri_inmatriculare_tipuri_elemente();
-        campuri = ids_tipuri_inmatriculare_tipuri_elemente.length;
-        ((Global) getApplicationContext()).setName_tip_inmatriculare(name_tip_inmatriculare);
-    }
-
-    private void makePostRequest2() throws JSONException {
-        //url1 = "http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
-        *//*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
-           "resursa": {"id": [1,2,3]}},
-           "cerute":["id","id_tip_element","ordinea","valoare_demo_imagine"]}*//*
-
-        JSONArray arr = new JSONArray();
-        for (int i = 0; i < ids_tipuri_inmatriculare_tipuri_elemente.length; i++) {
-            arr.put(ids_tipuri_inmatriculare_tipuri_elemente[i]);
-        }
-
-        JSONObject resursa = new JSONObject().put("id", arr);
-        JSONArray cerute = new JSONArray().put("id").put("id_tip_element").put("ordinea");
-        GetRequest elem = new GetRequest();
-        String result_string = elem.getRaspuns(Ecran20Activity.this, url1, resursa, cerute);
-
-        Gson gson = new Gson();
-        Type listeType = new TypeToken<List<Response>>() {
-        }.getType();
-        List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
-        allelem = new AllElem[response.size()];
-        for (int i = 0; i < response.size(); i++) {
-            allelem[i] = new AllElem();
-            allelem[i].setId(response.get(i).getId());
-            allelem[i].setId_tip_element(response.get(i).getId_tip_element());
-            allelem[i].setOrdinea(response.get(i).getOrdinea());
-            allelem[i].setValoare_demo_imagine(response.get(i).getValoare_demo_imagine());
-        }
-         *//*[{   "id": 1, // 2  // etc..
-                "id_tip_element": 1,
-                "ordinea": 1  // 2  //  etc..
-                valoare_demo_imagine": "B" // 255 // 255        }]*//*
-        //Todo orinea
-        //ordinea
-
-        id_tip_element = new int[response.size()];
-        for (int i = 0; i < response.size(); i++) {
-            int j = response.get(i).getId_tip_element();
-            id_tip_element[i] = j;
-        }
-
-    }
-
-    private void makePostRequest3() throws JSONException {
-        //url2 = "http://api.nubloca.ro/tipuri_elemente/";
-       *//* {"identificare": {"user": {"app_code": "abcdefghijkl123456"},
-           "resursa":{"id":[5,6,6]}},
-           "cerute":["id", "tip", "editabil_user", "maxlength", "valori"]  }*//*
-
-        GetRequest elemm = new GetRequest();
-        Type listeType = new TypeToken<List<Response>>() {
-        }.getType();
-        JSONArray id = new JSONArray();
-        for (int i = 0; i < id_tip_element.length; i++) {
-            id.put(id_tip_element[i]);
-        }
-        JSONObject resursa = new JSONObject().put("id", id);
-        JSONArray cerute = new JSONArray().put("id").put("tip").put("editabil_user").put("maxlength").put("valori");
-
-        String result_string = elemm.getRaspuns(Ecran20Activity.this, url2, resursa, cerute);
-        Gson gson = new Gson();
-        response2 = (List<Response>) gson.fromJson(result_string, listeType);
-
-        for (int i = 0; i < allelem.length; i++) {
-            for (int j = 0; j < response2.size(); j++) {
-                if (allelem[i].getId_tip_element() == response2.get(j).getId()) {
-                    allelem[i].setEditabil_user(response2.get(j).getEditabil_user());
-                    allelem[i].setMaxlength(response2.get(j).getMaxlength());
-                    allelem[i].setTip(response2.get(j).getTip());
-                    String s = new JSONArray(result_string).getJSONObject(j).getString("valori");
-
-                    if (allelem[i].getTip().equals("LISTA")) {
-                        valoareArr = new JSONArray(s);
-                        allelem[i].setValoriArray(valoareArr);
-                        lista_cod = new String[valoareArr.length()];
-                        allelem[i].setLista_cod(lista_cod);
-                        for (int z = 0; z < valoareArr.length(); z++) {
-                            lista_cod[z] = valoareArr.getJSONObject(z).getString("cod");
-                        }
-                    } else {
-                        allelem[i].setValoriString(s);
-                    }
-                }
-            }
-        }
-
-        Arrays.sort(allelem);
-
-        *//*[{"id": 5,  //  6
-            "tip": "LISTA",  //  "CIFRE"   //   "LITERE"
-            "editabil_user": 1,   //   0
-            "maxlength": 2,
-            "valori":[{"id": 1,"cod": "CD"},{"id": 2,"cod": "CO"},{"id": 3,"cod": "TC"}]},  //  "^[0-9]{3}$"   }]*//*
-
-
-    }
-
-    private void makePostRequest4() throws JSONException {
-        //url3 = http://api.nubloca.ro/tipuri_inmatriculare/;
-        *//*{"identificare":{"user":{"app_code": "abcdefghijkl123456"},
-           "resursa":{"id": [1]}},
-           "cerute": ["id", "nume", "id_tara", "foto_background", "url_imagine", "ids_tipuri_inmatriculare_tipuri_elemente"]  }*//*
-
-        GetRequest elemm = new GetRequest();
-        Gson gson = new Gson();
-        Type listeType = new TypeToken<List<Response>>() {
-        }.getType();
-        JSONArray id = new JSONArray().put(id_shared);
-        JSONObject resursa = new JSONObject().put("id", id);
-        JSONArray cerute = new JSONArray().put("id").put("nume").put("id_tara").put("foto_background").put("url_imagine").put("ids_tipuri_inmatriculare_tipuri_elemente");
-
-        String result_string = elemm.getRaspuns(Ecran20Activity.this, url, resursa, cerute);
-        response3 = (List<Response>) gson.fromJson(result_string, listeType);
-
-        numeSteag = response3.get(0).getId_tara() + ".png";
-        *//*[{"id": 1,
-            "nume": "Permanentă",
-            "id_tara": 147,
-            "foto_background": "1.jpg",
-            "url_imagine": "147-1.png",
-            "ids_tipuri_inmatriculare_tipuri_elemente":[1,2,3]}]*//*
-
-    }
-
-    private void makePostRequest5() throws JSONException {
-        //url4 = "http://api.nubloca.ro/imagini/";
-        *//*{"identificare": {"user": {"app_code": "abcdefghijkl123456"},
-           "resursa": {"pentru": "tari", "tip": "steaguri", "nume": "147.png", "dimensiuni": [43]}}}*//*
-
-        //Accept:image/png
-
-        JSONArray dimensiuni = new JSONArray().put(dim);
-        JSONObject resursa = new JSONObject().put("pentru", "tari").put("tip", "steaguri").put("nume", numeSteag).put("dimensiuni", dimensiuni);
-
-        GetRequestImg elem = new GetRequestImg();
-        baite = elem.getRaspuns(Ecran20Activity.this, url3, "image/png", resursa);
-    }*/
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu5, menu);

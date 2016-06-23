@@ -107,22 +107,21 @@ public class Ecran23Activity extends AppCompatActivity {
 
         baite1 = standElem.getSteag();
         Bitmap bmp1 = BitmapFactory.decodeByteArray(baite1, 0, baite1.length);
-        Bitmap bMapScaled = Bitmap.createScaledBitmap(bmp1, convDp(dim1 * 1.7), convDp(dim1), true);
+        //Bitmap bMapScaled = Bitmap.createScaledBitmap(bmp1, convDp(dim1 * 1.7), convDp(dim1), true);
 
-        flag.setImageBitmap(bMapScaled);
-        //flag.setImageBitmap(bmp1);
+        //flag.setImageBitmap(bMapScaled);
+        flag.setImageBitmap(bmp1);
 
-        final Animation animation = new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
+        /*final Animation animation = new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
         animation.setDuration(1500); // duration - half a second
         animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
         animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
         animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
 
         final ImageView arw = (ImageView) findViewById(R.id.arrow);
-        arw.startAnimation(animation);
+        arw.startAnimation(animation);*/
 
         RelativeLayout relBkg = (RelativeLayout) findViewById(R.id.rel_bkg);
-
 
         if (relBkg != null)
             relBkg.setOnClickListener(new View.OnClickListener() {

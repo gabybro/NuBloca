@@ -2,13 +2,11 @@ package ro.nubloca;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,26 +17,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
 import ro.nubloca.Networking.AllElem;
-import ro.nubloca.Networking.GetRequest;
-import ro.nubloca.Networking.GetRequestImg;
 import ro.nubloca.Networking.Response;
 import ro.nubloca.Networking.StandElem;
 import ro.nubloca.extras.CustomFontTitilliumBold;
@@ -202,7 +189,7 @@ public class Ecran26Activity extends AppCompatActivity {
                     CustomFontTitilliumBold tip_inmatriculare_nume = (CustomFontTitilliumBold) findViewById(R.id.nume_tip_inmatriculare);
                     tip_inmatriculare_nume.setVisibility(View.VISIBLE);
                     tip_inmatriculare_nume.setText(standElem.getTipNumar().get(id_exemplu).getNume());
-                    CustomFontTitilliumRegular text1 = (CustomFontTitilliumRegular) findViewById(R.id.textView20);
+                    CustomFontTitilliumRegular text1 = (CustomFontTitilliumRegular) findViewById(R.id.text_TipInmatriculare);
                     text1.setVisibility(View.VISIBLE);
                     ImageView image = (ImageView) findViewById(R.id.imageView9);
 

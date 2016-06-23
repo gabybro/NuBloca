@@ -2,6 +2,8 @@ package ro.nubloca.Networking;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.TypedValue;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,7 +26,8 @@ public class RequestTara extends Activity {
     byte[] baite;
     int index;
     String countryCode;
-    int dim = 30;
+    //int dim = 43;
+    int dim = 215;
     Context context;
 
     public StandElem makePostRequestOnNewThread(Context c, String country) {
@@ -340,8 +343,10 @@ public class RequestTara extends Activity {
         String url = "http://api.nubloca.ro/imagini/";
         String numeSteag = standElem.getId() + ".png";
 
+
         JSONArray dimensiuni = new JSONArray().put(dim);
         JSONObject resursa = new JSONObject().put("pentru", "tari").put("tip", "steaguri").put("nume", numeSteag).put("dimensiuni", dimensiuni);
+        //JSONObject resursa = new JSONObject().put("pentru", "tari").put("tip", "steaguri").put("nume", numeSteag);
 
         GetRequestImg elem = new GetRequestImg();
         baite = elem.getRaspuns(context, url, "image/png", resursa);
@@ -390,4 +395,5 @@ public class RequestTara extends Activity {
         baite = elem.getRaspuns(context, url, "image/png", resursa);
         standElem.setPlateDemo(baite);
     }
+
 }
