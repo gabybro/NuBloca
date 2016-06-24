@@ -26,7 +26,7 @@
                 android:layout_gravity="center"
                 android:text="@string/title_activity_ecran20"
                 android:textColor="#FFFFFF"
-                android:textSize="25sp" />
+                android:textSize="@dimen/size_title" />
 
         </android.support.v7.widget.Toolbar>
 

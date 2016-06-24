@@ -47,6 +47,7 @@
         android:layout_marginTop="@dimen/marginTop_alegeTipInmatriculare"
         android:orientation="vertical"
         android:paddingLeft="@dimen/marginLeft_catreCeNumarId"
+        android:paddingRight="@dimen/marginLeft_catreCeNumarId"
         android:paddingStart="@dimen/marginLeft_catreCeNumarId">
 
         <LinearLayout
@@ -66,6 +67,14 @@
                 android:id="@+id/nume_tip_inmatriculare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="@dimen/maxWidth_TipInmatriculare"
+                android:lines="1"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:layout_marginLeft="@dimen/paddingLeftRight_NumeTipInmatriculare"
                 android:layout_marginStart="@dimen/paddingLeftRight_NumeTipInmatriculare"
                 android:text="@string/contact_3"

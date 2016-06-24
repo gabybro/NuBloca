@@ -15,6 +15,7 @@
     <dimen name="textSize_NumeTipInmatriculare">15.75dp</dimen>
     <dimen name="paddingBottom_NumeTipInmatriculare">25.3125dp</dimen>
     <dimen name="paddingLeftRight_NumeTipInmatriculare">5.625dp</dimen>
+    <dimen name="maxWidth_TipInmatriculare">160dp</dimen>
     <dimen name="paddingLeft_Flag">11.250dp</dimen>
     <dimen name="marginLeft_ChevronOrange">16.875dp</dimen>
     <dimen name="heightLayout_salutAiParcat">56.25dp</dimen>
@@ -23,5 +24,16 @@
     <dimen name="height_bar">28.125dp</dimen>
     <dimen name="paddingLeftRight_bar">11.25dp</dimen>
     <dimen name="paddingLeftRight_Cumfunctioneaza">11.25dp</dimen>
+    <dimen name="textSize_ecran25_listaTari">17.4375dp</dimen>
+    <dimen name="radioSize">19.125dp</dimen>
+    <dimen name="paddingLeftRadio_ecran25">13.5dp</dimen>
+    <dimen name="paddingRightRadio_ecran25">20.8125dp</dimen>
+    <dimen name="height_rowList">46.125dp</dimen>
+    <dimen name="size_title">23.0625dp</dimen>
+    <dimen name="size_toolbar">59.0625dp</dimen>
+    <dimen name="textSize_rowListaExemplu">11.81dp</dimen>
+    <dimen name="height_chevron23">23.06dp</dimen>
+    <dimen name="width_chevron23">8.4375dp</dimen>
+
 
 </resources>

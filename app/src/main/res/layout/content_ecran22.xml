@@ -15,7 +15,7 @@
         android:id="@+id/rel1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border2"
+        android:background="@drawable/border_row_list25"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -100,7 +100,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rel1"
-        android:background="@drawable/border2">
+        android:background="@drawable/border_row_list25">
 
         <RelativeLayout
             android:id="@+id/rel_bar2"
@@ -175,7 +175,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rel2"
-        android:background="@drawable/border2">
+        android:background="@drawable/border_row_list25">
 
         <RelativeLayout
             android:id="@+id/rel_bar3"
@@ -250,7 +250,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rel3"
-        android:background="@drawable/border2">
+        android:background="@drawable/border_row_list25">
 
         <RelativeLayout
             android:id="@+id/rel_bar4"
@@ -325,7 +325,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rel4"
-        android:background="@drawable/border2">
+        android:background="@drawable/border_row_list25">
 
         <RelativeLayout
             android:id="@+id/rel_bar5"
@@ -400,7 +400,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rel5"
-        android:background="@drawable/border2">
+        android:background="@drawable/border_row_list25">
 
         <RelativeLayout
             android:id="@+id/rel_bar6"
@@ -475,7 +475,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rel6"
-        android:background="@drawable/border2">
+        android:background="@drawable/border_row_list25">
 
         <RelativeLayout
             android:id="@+id/rel_bar7"
@@ -550,7 +550,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rel7"
-        android:background="@drawable/border2">
+        android:background="@drawable/border_row_list25">
 
         <RelativeLayout
             android:id="@+id/rel_bar8"

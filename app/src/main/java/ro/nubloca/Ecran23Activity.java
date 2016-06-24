@@ -51,7 +51,7 @@ public class Ecran23Activity extends AppCompatActivity {
     int dim1 = 50;
     int dim;
     byte[] baite, baite1;
-    ProgressBar progressBar;
+    //ProgressBar progressBar;
     StandElem standElem;
     boolean active = false;
 
@@ -67,9 +67,9 @@ public class Ecran23Activity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_IN);
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        //progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_IN);
+        //progressBar.setVisibility(View.VISIBLE);
 
         positionExemplu = ((Global) this.getApplication()).getPositionExemplu();
         standElem = ((Global) getApplicationContext()).getStandElem();
@@ -112,14 +112,6 @@ public class Ecran23Activity extends AppCompatActivity {
         //flag.setImageBitmap(bMapScaled);
         flag.setImageBitmap(bmp1);
 
-        /*final Animation animation = new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
-        animation.setDuration(1500); // duration - half a second
-        animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
-        animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
-        animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
-
-        final ImageView arw = (ImageView) findViewById(R.id.arrow);
-        arw.startAnimation(animation);*/
 
         RelativeLayout relBkg = (RelativeLayout) findViewById(R.id.rel_bkg);
 
@@ -164,7 +156,7 @@ public class Ecran23Activity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
 
-            progressBar.setVisibility(View.GONE);
+            //progressBar.setVisibility(View.GONE);
 
 
         }

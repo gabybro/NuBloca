@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -174,7 +175,7 @@ public class Ecran25Activity extends AppCompatActivity {
 
             textul.setText(singleElem);
 
-            RelativeLayout rel = (RelativeLayout) customView.findViewById(R.id.rel_bar1);
+            LinearLayout rel = (LinearLayout) customView.findViewById(R.id.linear);
             if (standElem.getId() == ids[position]) {
                 imaginea.setImageResource(R.drawable.radio_press);
             } else {

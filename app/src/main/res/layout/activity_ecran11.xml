@@ -27,7 +27,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/title_activity_ecran11"
                 android:textColor="#FFFFFF"
-                android:textSize="25dp" />
+                android:textSize="@dimen/size_title" />
 
         </android.support.v7.widget.Toolbar>
 
