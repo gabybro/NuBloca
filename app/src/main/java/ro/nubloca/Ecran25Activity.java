@@ -58,6 +58,7 @@ public class Ecran25Activity extends AppCompatActivity {
     String result_string;
     String url = "http://api.nubloca.ro/tari/";
     private ProgressDialog m_ProgressDialog = null;
+    ProgressDialog progress;
     private ArrayList<Response> m_orders = null;
     private Runnable viewOrders;
     String countryCode;
@@ -83,6 +84,10 @@ public class Ecran25Activity extends AppCompatActivity {
         upArrow.setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        progress = new ProgressDialog(this, R.style.ProgressDialog);
+        progress.setCancelable(false);
+        progress.setProgressStyle(android.R.style.Widget_ProgressBar_Large);
 
         //sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         //id_tara = ((Global) this.getApplication()).getId_tara();
@@ -112,7 +117,7 @@ public class Ecran25Activity extends AppCompatActivity {
         List<Response> response = (List<Response>) gson.fromJson(result_string, listeType);
 
         String[] values = new String[response.size()];
-         ids = new int[response.size()];
+        ids = new int[response.size()];
         String[] code = new String[response.size()];
         for (int i = 0; i < response.size(); i++) {
             values[i] = response.get(i).getNume();
@@ -189,31 +194,29 @@ public class Ecran25Activity extends AppCompatActivity {
                     public void onClick(View view) {
                         //createHandler(position);
 
+
                         Gson gson = new Gson();
                         SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                        if (sharedpreferences.getString("TARA"+ids[position], "").equals("")) {
-                            // true
-                            RequestTara make = new RequestTara();
-                            standElem = make.makePostRequestOnNewThread(Ecran25Activity.this, code[position]);
 
-                            String json = gson.toJson(standElem);
-                            editor.putString("TARA"+standElem.getId(), json);
-                            editor.putString("STANDELEM", json);
-                            editor.commit();
-                        }else{
+                        if (sharedpreferences.getString("TARA" + ids[position], "").equals("")) {
+                            /*progress = ProgressDialog.show(Ecran25Activity.this, "dialog title",
+                                    "dialog message", true);*/
+                            progress.show();
+                            createHandler(position);
+                        } else {
 
-                            String json1 = sharedpreferences.getString("TARA"+ids[position], "");
+                            String json1 = sharedpreferences.getString("TARA" + ids[position], "");
                             standElem = gson.fromJson(json1, StandElem.class);
                             editor.putString("STANDELEM", json1);
                             editor.commit();
+                            ((Global) getApplicationContext()).setStandElem(standElem);
 
+                            startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
+                            finish();
 
                         }
-                        ((Global) getApplicationContext()).setStandElem(standElem);
 
-                        startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
-                        finish();
 
                     }
                 });
@@ -234,21 +237,21 @@ public class Ecran25Activity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            // Do Work
                             Gson gson = new Gson();
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
                             RequestTara make = new RequestTara();
                             standElem = make.makePostRequestOnNewThread(Ecran25Activity.this, code[position]);
-                            standElem.setPositionExemplu(-1);
-                            ((Global) getApplicationContext()).setStandElem(standElem);
-                            SharedPreferences.Editor editor = sharedpreferences.edit();
                             String json = gson.toJson(standElem);
+                            editor.putString("TARA" + standElem.getId(), json);
                             editor.putString("STANDELEM", json);
-                            editor.apply();
+                            editor.commit();
                             handler.removeCallbacks(this);
                             Looper.myLooper().quit();
+                            progress.dismiss();
+                            ((Global) getApplicationContext()).setStandElem(standElem);
 
-
-
+                            startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
+                            finish();
                         }
                     }, 1000);
 

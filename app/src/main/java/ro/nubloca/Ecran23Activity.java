@@ -204,8 +204,9 @@ public class Ecran23Activity extends AppCompatActivity {
                         standElem.setSelected(position);
                         standElem.setPositionExemplu(-1);
                         ((Global) getApplicationContext()).setStandElem(standElem);
-                        startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
                         finish();
+                        startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
+
                     }
                 });
             }

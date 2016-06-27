@@ -34,24 +34,16 @@ import ro.nubloca.extras.Global;
 
 public class Ecran26Activity extends AppCompatActivity {
 
-    String result_string;
     int campuri = 3;
-    String nume_tip_inmatriculare;
-    String get_order_ids_tip;
     private ProgressDialog pd;
-    ProgressDialog dialog;
-    ProgressBar progressBar;
+    //ProgressDialog dialog;
+    //ProgressBar progressBar;
 
     AllElem[] allelem;
     int[] id_tip_element, Ids_tipuri_inmatriculare_tipuri_elemente;
     List<Response> response2, response3;
     int id_exemplu;
     int dim = 30;
-    String url = "http://api.nubloca.ro/tipuri_inmatriculare_tipuri_elemente/";
-    String url2 = "http://api.nubloca.ro/tipuri_elemente/";
-    String url3 = "http://api.nubloca.ro/tipuri_inmatriculare/";
-    String url4 = "http://api.nubloca.ro/imagini/";
-    String numeSteag;
     byte[] baite, baite1, baite2;
     StandElem standElem;
 
@@ -65,14 +57,7 @@ public class Ecran26Activity extends AppCompatActivity {
 
         id_exemplu = standElem.getPositionExemplu();
 
-
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
-        //get_order_ids_tip = ((Global) this.getApplication()).getGet_order_ids_tip();
-        //nume_tip_inmatriculare = ((Global) this.getApplication()).getNume_tip_inmatriculare();
-        //Ids_tipuri_inmatriculare_tipuri_elemente=((Global) this.getApplication()).getIds_tipuri_inmatriculare_tipuri_elemente();
-        //id_exemplu=((Global) this.getApplication()).getId_exemplu();
-
+        //progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -94,7 +79,7 @@ public class Ecran26Activity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
 
-            progressBar.setVisibility(View.GONE);
+          //  progressBar.setVisibility(View.GONE);
             //showElements();
 
 
@@ -179,7 +164,7 @@ public class Ecran26Activity extends AppCompatActivity {
                     field.setLayoutParams(params);
                     field.setWidth(valRealUml * minTrei);
                     field.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
-                    field.setTextSize(30);
+                    field.setTextSize(28);
                     field.setBackgroundResource(R.drawable.plate_border);
                     field.setText(standElem.getTipNumar().get(id_exemplu).getDemo_valoare()[i]);
                     if (standElem.getTipNumar().get(id_exemplu).getTip_editabil()[i] == 0) {

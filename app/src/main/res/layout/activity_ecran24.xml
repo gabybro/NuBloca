@@ -29,6 +29,17 @@
                 android:textColor="#FFFFFF"
                 android:textSize="@dimen/size_title" />
 
+            <ro.nubloca.extras.CustomFontTitilliumBold
+                android:id="@+id/sterge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/istoric_numere_sterge"
+                android:textColor="@color/ecran24sterge"
+                android:textSize="@dimen/size_title"
+                android:paddingRight="@dimen/marginRight_stergeEcran24"
+                android:paddingEnd="@dimen/marginRight_stergeEcran24"/>
+
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>

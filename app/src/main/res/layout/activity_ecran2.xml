@@ -44,7 +44,7 @@
                 android:layout_gravity="right"
                 android:text="OK"
                 android:textColor="#FFEA00"
-                android:textSize="24dp"
+                android:textSize="@dimen/size_title"
                 android:paddingRight="20dp" />
 
         </android.support.v7.widget.Toolbar>

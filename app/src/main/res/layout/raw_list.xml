@@ -2,23 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linear"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_rowList"
-    android:background="@drawable/border_row_list25"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="@drawable/border_row_list"
     android:baselineAligned="false"
     android:clickable="true"
-    android:layout_gravity="center_vertical"
     android:focusable="true"
     android:gravity="end"
     android:weightSum="1">
 
     <LinearLayout
         android:id="@+id/linear1"
-        style="@style/relative_custom"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.00"
+        android:layout_height="@dimen/height_rowList"
         android:layout_gravity="center_vertical"
-        android:clickable="false"
+        android:layout_weight="1.00"
+        android:background="@drawable/list_ripple_effect"
+        android:clickable="true"
         android:focusable="false"
         android:orientation="horizontal">
 
@@ -26,6 +26,7 @@
             android:id="@+id/radioButton"
             android:layout_width="@dimen/radioSize"
             android:layout_height="@dimen/radioSize"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/paddingLeftRadio_ecran25"
             android:layout_marginStart="@dimen/paddingLeftRadio_ecran25"
             android:background="@drawable/radio"
@@ -37,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/paddingRightRadio_ecran25"
             android:layout_marginStart="@dimen/paddingRightRadio_ecran25"
+            android:layout_gravity="center_vertical"
             android:clickable="false"
             android:ellipsize="marquee"
             android:focusable="true"
@@ -53,19 +55,19 @@
         android:id="@+id/linear2"
         style="@style/relative_custom"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/height_rowList"
+        android:layout_gravity="center_vertical"
         android:clickable="true"
         android:focusable="true"
-        android:layout_gravity="center_vertical"
         android:gravity="end"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_height="30dp"
-            android:background="@drawable/bar" />
+            android:background="@drawable/bar1" />
 
         <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/exemplu1"
@@ -85,9 +87,9 @@
             android:id="@+id/chevron"
             android:layout_width="@dimen/width_chevron23"
             android:layout_height="@dimen/height_chevron23"
+            android:layout_gravity="center_vertical"
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
             android:background="@drawable/chevron" />
 
     </LinearLayout>

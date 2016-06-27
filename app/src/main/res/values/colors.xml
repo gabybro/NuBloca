@@ -23,9 +23,10 @@
     <color name="contact_67_color">#1D75D9</color>
     <color name="mesaje_standard">#8C8C8C</color>
     <color name="mesaje_standard_text">#BA2C64</color>
-
-
-
+    <color name="transparent">#00000000</color>
+    <color name="ecran20Trimite">#FFEA00</color>
+    <!--ecran24-->
+    <color name="ecran24sterge">#000000</color>
 
 
 

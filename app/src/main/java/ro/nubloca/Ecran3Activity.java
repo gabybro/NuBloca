@@ -42,17 +42,6 @@ public class Ecran3Activity extends AppCompatActivity implements ScrollViewListe
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        /*TextView textCustomFont = (TextView) findViewById(R.id.editText2);
-        Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/TitilliumText22L003.otf");
-        textCustomFont.setTypeface(myCustomFont);*/
-
-       /* TextView textCustomFont1 = (TextView) findViewById(R.id.refuz);
-        Typeface myCustomFont1 = Typeface.createFromAsset(getAssets(), "fonts/TitilliumText22L005.otf");
-        textCustomFont1.setTypeface(myCustomFont1);
-
-        TextView textCustomFont2 = (TextView) findViewById(R.id.acord);
-        Typeface myCustomFont2 = Typeface.createFromAsset(getAssets(), "fonts/TitilliumText22L005.otf");
-        textCustomFont2.setTypeface(myCustomFont2);*/
 
 
 

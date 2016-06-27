@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -126,8 +127,6 @@ public class Ecran20Activity extends AppCompatActivity {
                 }
             });
 
-        //TODO firefighters show on one row - italy
-        //TODO lista dupa lista - spain .. corp diplomatic
         showElements();
     }
 
@@ -220,6 +219,12 @@ public class Ecran20Activity extends AppCompatActivity {
 
                     if (standElem.getTipNumar().get(index).getTip_tip()[i].equals("LISTA")) {
                         first_focus++;
+                        if (i != 0) {
+                            TextView field1 = new TextView(this);
+                            field1.setHeight(0);
+                            field1.setWidth(valSPI);
+                            linearLayout.addView(field1);
+                        }
                         ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
                         //Spinner mySpinner = new Spinner (new ContextThemeWrapper(this, R.style.spinner_style), null, 0);
                         Spinner mySpinner = new Spinner(this);
@@ -227,6 +232,8 @@ public class Ecran20Activity extends AppCompatActivity {
                         params.width = minTrei * valRealUml;
                         mySpinner.setLayoutParams(params);
                         linearLayout.addView(mySpinner);
+
+
                     } else {
                         field = new FontTitilliumBold(this);
                         field.setId(i);
@@ -236,11 +243,11 @@ public class Ecran20Activity extends AppCompatActivity {
                             params.setMargins(valSPI, 0, 0, 0);
                         }
 
-                        if ((i + 1) < campuri) {
+                        /*if ((i + 1) < campuri) {
                             if (standElem.getTipNumar().get(index).getTip_tip()[i + 1].equals("LISTA")) {
                                 params.setMargins(valSPI, 0, valSPI, 0);
                             }
-                        }
+                        }*/
                         field.setLayoutParams(params);
                         field.setWidth(valRealUml * minTrei);
                         field.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
@@ -307,28 +314,45 @@ public class Ecran20Activity extends AppCompatActivity {
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu5, menu);
+        //getMenuInflater().inflate(R.menu.menu5, menu);
+        View button = (View) this.findViewById(R.id.trimite);
+        if(button!=null)
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                LinearLayout layout = (LinearLayout)findViewById(R.id.linear_plate_holder);
+                int count = layout.getChildCount();
+                View v = null;
+                String s="";
+                for(int i=0; i<count; i++) {
+                    v = layout.getChildAt(i);
+                    if (v instanceof Spinner){
+                        s+= ((Spinner) v).getSelectedItem().toString();
+                     }else {
+                        s+=((FontTitilliumBold) v).getText().toString();
+                    }
+                    if(i<count-1){
+                        s+=" ";
+                    }
+                }
+
+                int size_LSNumere = sharedpreferences.getInt("SizeLSNumere",0);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("LSNumere"+size_LSNumere,s);
+                size_LSNumere++;
+                editor.putInt("SizeLSNumere",size_LSNumere);
+                editor.apply();
+
+                Toast toast = Toast.makeText(Ecran20Activity.this, s, Toast.LENGTH_LONG);
+                toast.show();
+                finish();
+            }
+        });
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu1) {
-            Context context = getApplicationContext();
-            CharSequence text = "request done!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-            //finish();
-        }
-        if ((item.getItemId()) == R.id.home) {
 
-
-            Ecran20Activity.this.onBackPressed();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     int convDp(float sizeInDp) {
         float scale = getResources().getDisplayMetrics().density;
@@ -340,7 +364,6 @@ public class Ecran20Activity extends AppCompatActivity {
     public void onBackPressed() {
 
         startActivity(new Intent(Ecran20Activity.this, Ecran7Activity.class));
-
         finish();
         super.onBackPressed();
     }

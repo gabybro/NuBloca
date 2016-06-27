@@ -4,6 +4,26 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="toolbar">56.25dp</dimen>
+    <dimen name="height_bar">28.125dp</dimen>
+    <dimen name="paddingLeftRight_bar">11.25dp</dimen>
+    <dimen name="radioSize">19.125dp</dimen>
+    <dimen name="height_rowList">46.125dp</dimen>
+    <dimen name="size_title">23.0625dp</dimen>
+    <dimen name="size_toolbar">59.0625dp</dimen>
+    <dimen name="textSize_rowListaExemplu">11.81dp</dimen>
+
+
+    <!--    ecran20     -->
+    <dimen name="marginTop_cumfunctioneazaEcran20">15.625dp</dimen>
+    <dimen name="textSize_trimiteEcran20">20.25dp</dimen>
+    <dimen name="marginRight_trimiteEcran20">20.25dp</dimen>
+    <dimen name="paddingLeftRight_Cumfunctioneaza">11.25dp</dimen>
+    <dimen name="maxWidth_TipInmatriculare">160dp</dimen>
+    <dimen name="paddingLeft_Flag">11.250dp</dimen>
+    <dimen name="marginLeft_ChevronOrange">16.875dp</dimen>
+    <dimen name="heightLayout_salutAiParcat">50.25dp</dimen>
+    <dimen name="textSize_salutAiParcat">21.9375dp</dimen>
+    <dimen name="paddingTopBottom_salutAiParcat">17.4375dp</dimen>
     <dimen name="marginTop_catreCeNumarId">20.8125dp</dimen>
     <dimen name="marginLeft_catreCeNumarId">18dp</dimen>
     <dimen name="marginBottom_catreCeNumarId">14.0625dp</dimen>
@@ -15,25 +35,25 @@
     <dimen name="textSize_NumeTipInmatriculare">15.75dp</dimen>
     <dimen name="paddingBottom_NumeTipInmatriculare">25.3125dp</dimen>
     <dimen name="paddingLeftRight_NumeTipInmatriculare">5.625dp</dimen>
-    <dimen name="maxWidth_TipInmatriculare">160dp</dimen>
-    <dimen name="paddingLeft_Flag">11.250dp</dimen>
-    <dimen name="marginLeft_ChevronOrange">16.875dp</dimen>
-    <dimen name="heightLayout_salutAiParcat">56.25dp</dimen>
-    <dimen name="textSize_salutAiParcat">21.9375dp</dimen>
-    <dimen name="paddingTopBottom_salutAiParcat">17.4375dp</dimen>
-    <dimen name="height_bar">28.125dp</dimen>
-    <dimen name="paddingLeftRight_bar">11.25dp</dimen>
-    <dimen name="paddingLeftRight_Cumfunctioneaza">11.25dp</dimen>
-    <dimen name="textSize_ecran25_listaTari">17.4375dp</dimen>
-    <dimen name="radioSize">19.125dp</dimen>
-    <dimen name="paddingLeftRadio_ecran25">13.5dp</dimen>
-    <dimen name="paddingRightRadio_ecran25">20.8125dp</dimen>
-    <dimen name="height_rowList">46.125dp</dimen>
-    <dimen name="size_title">23.0625dp</dimen>
-    <dimen name="size_toolbar">59.0625dp</dimen>
-    <dimen name="textSize_rowListaExemplu">11.81dp</dimen>
+
+    <!--    ecran23     -->
     <dimen name="height_chevron23">23.06dp</dimen>
     <dimen name="width_chevron23">8.4375dp</dimen>
+
+    <!--    ecran24     -->
+    <dimen name="marginRight_stergeEcran24">19.68dp</dimen>
+    <dimen name="marginTop_listViewEcran24">23.625dp</dimen>
+    <dimen name="height_rowList24">48.375dp</dimen>
+    <dimen name="radioSize_radio24">20.25dp</dimen>
+    <dimen name="paddingLeftRadio_ecran24">14.06dp</dimen>
+    <dimen name="paddingRightRadio_ecran24">22.5dp</dimen>
+    <dimen name="textSize_ecran24_listaNumere">17.43dp</dimen>
+
+    <!--    ecran25     -->
+    <dimen name="paddingLeftRadio_ecran25">13.5dp</dimen>
+    <dimen name="paddingRightRadio_ecran25">20.8125dp</dimen>
+    <dimen name="textSize_ecran25_listaTari">17.4375dp</dimen>
+
 
 
 </resources>

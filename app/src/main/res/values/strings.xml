@@ -123,6 +123,7 @@
 
 
     <!--string ecran24 <=> Istoric numere-->
+    <string name="istoric_numere_sterge">Sterge</string>
     <string name="istoric_numere_1">B 23 GGF</string>
     <string name="istoric_numere_2">TL 87 NGH</string>
     <string name="istoric_numere_3">CD 101 109</string>

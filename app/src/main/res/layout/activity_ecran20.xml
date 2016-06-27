@@ -28,6 +28,17 @@
                 android:textColor="#FFFFFF"
                 android:textSize="@dimen/size_title" />
 
+            <ro.nubloca.extras.CustomFontTitilliumBold
+                android:id="@+id/trimite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/trimite"
+                android:textColor="@color/ecran20Trimite"
+                android:textSize="@dimen/size_title"
+                android:paddingRight="@dimen/marginRight_trimiteEcran20"
+                android:paddingEnd="@dimen/marginRight_trimiteEcran20"/>
+
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>

@@ -22,17 +22,7 @@ public class Ecran4Activity extends AppCompatActivity {
         toolbar.setTitleTextColor(0xFFFFFFFF);*/
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        /*TextView textCustomFont = (TextView) findViewById(R.id.editText);
-        Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/TitilliumText22L003.otf");
-        textCustomFont.setTypeface(myCustomFont);*/
 
-       /* TextView textCustomFont1 = (TextView) findViewById(R.id.button);
-        Typeface myCustomFont1 = Typeface.createFromAsset(getAssets(), "fonts/TitilliumText22L005.otf");
-        textCustomFont1.setTypeface(myCustomFont1);
-
-        TextView textCustomFont2 = (TextView) findViewById(R.id.button3);
-        Typeface myCustomFont2 = Typeface.createFromAsset(getAssets(), "fonts/TitilliumText22L005.otf");
-        textCustomFont2.setTypeface(myCustomFont2);*/
 
        View button = (View) findViewById(R.id.button);
 
