@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start|center_vertical"
+    android:background="@drawable/border_row_list"
+    android:baselineAligned="false"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_rowList24"
+        android:background="@drawable/list_ripple_effect"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/radioButton"
+            android:layout_width="@dimen/radioSize_radio24"
+            android:layout_height="@dimen/radioSize_radio24"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/paddingLeftRadio_ecran24"
+            android:layout_marginStart="@dimen/paddingLeftRadio_ecran24"
+            android:background="@drawable/abc_btn" />
+
+        <ro.nubloca.extras.CustomFontTitilliumRegular
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/paddingRightRadio_ecran24"
+            android:layout_marginStart="@dimen/paddingRightRadio_ecran24"
+            android:textColor="@color/text_layout_custom"
+            android:textSize="@dimen/textSize_ecran24_listaNumere" />
+
+    </LinearLayout>
+</LinearLayout>

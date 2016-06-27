@@ -21,7 +21,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <ro.nubloca.extras.CustomFontTitilliumRegular
-                android:id="@+id/toolbar_title1"
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -30,12 +30,12 @@
                 android:textSize="@dimen/size_title" />
 
             <ro.nubloca.extras.CustomFontTitilliumBold
-                android:id="@+id/sterge"
+                android:id="@+id/edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="@string/istoric_numere_sterge"
-                android:textColor="@color/ecran24sterge"
+                android:text="@string/istoric_numere_edit"
+                android:textColor="@color/ecran24edit"
                 android:textSize="@dimen/size_title"
                 android:paddingRight="@dimen/marginRight_stergeEcran24"
                 android:paddingEnd="@dimen/marginRight_stergeEcran24"/>
