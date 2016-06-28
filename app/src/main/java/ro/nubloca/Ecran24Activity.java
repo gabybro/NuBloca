@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -48,6 +49,9 @@ public class Ecran24Activity extends AppCompatActivity {
     ListAdapter customAdapter = null;
     Drawable upArrow = null;
     boolean interfata = false;
+    boolean all_select = false;
+    ListView lv;
+    public boolean box_checked=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +82,7 @@ public class Ecran24Activity extends AppCompatActivity {
             text.setText(textShared);*/
 
             customAdapter = new CustomAdapterNumere(this, listNumere);
-            ListView lv = (ListView) findViewById(R.id.list);
+            lv = (ListView) findViewById(R.id.list);
             lv.setAdapter(customAdapter);
 
         }
@@ -105,6 +109,12 @@ public class Ecran24Activity extends AppCompatActivity {
                 textul.setText(singleElem);
                 LinearLayout layout = (LinearLayout) customView.findViewById(R.id.linear);
                 final ImageView imaginea = (ImageView) customView.findViewById(R.id.radioButton);
+                if (all_select) {
+                    for (int i = 0; i < click.length; i++) {
+                        imaginea.setImageResource(R.drawable.abc_btn_press);
+                        click[position] = 1;
+                    }
+                }
                 if (layout != null) {
                     layout.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -133,21 +143,7 @@ public class Ecran24Activity extends AppCompatActivity {
                 LinearLayout layout = (LinearLayout) customView.findViewById(R.id.linear);
 
                 imaginea.setImageResource(R.drawable.radio);
-                /*if (layout != null) {
-                    layout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (click[position] == 0) {
-                                imaginea.setImageResource(R.drawable.radio_press);
-                                click[position] = 1;
 
-                            } else {
-                                imaginea.setImageResource(R.drawable.radio);
-                                click[position] = 0;
-                            }
-                        }
-                    });
-                }*/
                 if (layout != null) {
                     layout.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -169,20 +165,81 @@ public class Ecran24Activity extends AppCompatActivity {
         }
     }
 
-    /*public boolean onCreateOptionsMenu(Menu menu) {
-        View button = (View) this.findViewById(R.id.sterge);
-        int size_LSNumere = sharedpreferences.getInt("SizeLSNumere", 0);
-        if (size_LSNumere > 0) {
-            if (button != null)
-                button.setOnClickListener(new View.OnClickListener() {
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(Ecran24Activity.this, Ecran20Activity.class));
+        finish();
+        super.onBackPressed();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        final CustomFontTitilliumBold btn_edit = (CustomFontTitilliumBold) this.findViewById(R.id.edit);
+        final CustomFontTitilliumBold btn_sterge = (CustomFontTitilliumBold) this.findViewById(R.id.sterge);
+        final CustomFontTitilliumRegular title = (CustomFontTitilliumRegular) this.findViewById(R.id.toolbar_title);
+        final ImageView boxTop = (ImageView) findViewById(R.id.box);
+
+        if (listNumere != null) {
+            btn_edit.setVisibility(View.VISIBLE);
+
+            if (btn_edit != null)
+                btn_edit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        btn_edit.setVisibility(View.GONE);
+                        boxTop.setVisibility(View.VISIBLE);
+                        btn_sterge.setVisibility(View.VISIBLE);
+                        title.setVisibility(View.GONE);
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
+                        boxTop.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (box_checked==false){
+                                    boxTop.setBackgroundResource(R.drawable.abc_btn_press_yellow);
+                                    box_checked = true;
+                                    all_select = true;
+                                    customAdapter = new CustomAdapterNumere(getApplication(), listNumere);
+                                    lv.setAdapter(customAdapter);
+                                }else {
+                                    boxTop.setBackgroundResource(R.drawable.abc_btn);
+                                    box_checked = false;
+                                    all_select = false;
+                                    customAdapter = new CustomAdapterNumere(getApplication(), listNumere);
+                                    lv.setAdapter(customAdapter);
+                                }
+                            }
+                        });
+
+
+                        interfata = true;
+                        customAdapter = new CustomAdapterNumere(getApplication(), listNumere);
+                        lv.setAdapter(customAdapter);
+
+                    }
+                });
+
+
+        if (btn_sterge != null)
+            btn_sterge.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    title.setVisibility(View.VISIBLE);
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+                    btn_sterge.setVisibility(View.GONE);
+                    if (boxTop != null) {
+                        boxTop.setVisibility(View.GONE);
+                    }
+
+                    int size_LSNumere = sharedpreferences.getInt("SizeLSNumere", 0);
+                    if (size_LSNumere > 0) {
 
                         int sum = 0;
 
-                        for (int i = 0; i < click.length; i++) {
-                            sum += click[i];
+                        for (int i : click) {
+                            sum += i;
                         }
 
                         String[] trans = new String[listNumere.length - sum];
@@ -208,126 +265,20 @@ public class Ecran24Activity extends AppCompatActivity {
                         }
                         editor.commit();
 
-                        customAdapter = new CustomAdapterNumere(getApplicationContext(), listNumere);
-                        ListView lv = (ListView) findViewById(R.id.list);
+                        interfata = false;
+
+                        customAdapter = new CustomAdapterNumere(getApplication(), listNumere);
                         lv.setAdapter(customAdapter);
 
-                    Toast toast = Toast.makeText(Ecran24Activity.this, "", Toast.LENGTH_LONG);
-                    toast.show();
-
-                    }
-                });
-        }
-        return true;
-    }*/
-
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(Ecran24Activity.this, Ecran20Activity.class));
-        finish();
-        super.onBackPressed();
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        final CustomFontTitilliumBold button = (CustomFontTitilliumBold) this.findViewById(R.id.edit);
-        final CustomFontTitilliumRegular title = (CustomFontTitilliumRegular) this.findViewById(R.id.toolbar_title);
-
-        if (button != null)
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (button.getText().equals("Edit")) {
-                        button.setTextColor(Color.parseColor("#000000"));
-                        button.setText("Sterge");
-                        title.setVisibility(View.GONE);
-                        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                        Toolbar layout = (Toolbar) findViewById(R.id.toolbar);
-                        LinearLayout boxTop = new LinearLayout(Ecran24Activity.this);
-                        boxTop.setId(R.id.my_edit_box);
-                        boxTop.setBackgroundResource(R.drawable.abc_btn);
-                        boxTop.setClickable(true);
-                        boxTop.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-
-                            }
-                        });
-                        boxTop.setLayoutParams(new ViewGroup.LayoutParams(
-                                ViewGroup.LayoutParams.WRAP_CONTENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT));
-                        layout.addView(boxTop);
-
-
-                        interfata = true;
-                        customAdapter = new CustomAdapterNumere(getApplicationContext(), listNumere);
-                        ListView lv = (ListView) findViewById(R.id.list);
-                        lv.setAdapter(customAdapter);
-                    }
-                    if (button.getText().equals("Sterge")) {
-
-                        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                        //LinearLayout boxTop = new LinearLayout(Ecran24Activity.this);
-                        //boxTop.findViewById(R.id.my_edit_box);
-                        //boxTop.setVisibility(View.GONE);
-                        //TODO
-                        button.setTextColor(Color.parseColor("#FFEA00"));
-                        button.setText("Edit");
-
-                        int size_LSNumere = sharedpreferences.getInt("SizeLSNumere", 0);
-                        if (size_LSNumere > 0) {
-                            //if (button != null)
-                                //button.setOnClickListener(new View.OnClickListener() {
-                                  //  @Override
-                                   // public void onClick(View view) {
-
-
-
-                                        int sum = 0;
-
-                                        for (int i = 0; i < click.length; i++) {
-                                            sum += click[i];
-                                        }
-
-                                        String[] trans = new String[listNumere.length - sum];
-                                        int j = 0;
-                                        for (int i = 0; i < listNumere.length; i++) {
-                                            if (click[i] == 0) {
-                                                trans[j] = listNumere[i];
-                                                j++;
-                                            }
-                                        }
-                                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                                        for (int i = 0; i < listNumere.length; i++) {
-                                            editor.remove("LSNumere" + i);
-                                        }
-                                        editor.putInt("SizeLSNumere", trans.length);
-                                        editor.commit();
-
-                                        listNumere = new String[trans.length];
-                                        listNumere = trans;
-
-                                        for (int i = 0; i < listNumere.length; i++) {
-                                            editor.putString("LSNumere" + i, listNumere[i]);
-                                        }
-                                        editor.commit();
-
-                                        interfata = false;
-                                        customAdapter = new CustomAdapterNumere(getApplicationContext(), listNumere);
-                                        ListView lv = (ListView) findViewById(R.id.list);
-                                        lv.setAdapter(customAdapter);
-
-                                        //Toast toast = Toast.makeText(Ecran24Activity.this, "", Toast.LENGTH_LONG);
-                                        //toast.show();
-
-                                    //}
-                                //});
+                        if (listNumere.length>0) {
+                            btn_edit.setVisibility(View.VISIBLE);
                         }
-
                     }
+
+
                 }
             });
-
+        }
 
         return true;
     }
