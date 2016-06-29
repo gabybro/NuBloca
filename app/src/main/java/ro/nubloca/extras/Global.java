@@ -11,6 +11,25 @@ import ro.nubloca.Networking.TipElem;
  * Created by gaby on 6/6/16.
  */
 public class Global extends Application{
+    public int[] getIds() {
+        return ids;
+    }
+
+    public void setIds(int[] ids) {
+        this.ids = ids;
+    }
+
+    public String getNumarSelected() {
+        return numarSelected;
+    }
+
+    public void setNumarSelected(String numarSelected) {
+        this.numarSelected = numarSelected;
+    }
+
+    private String numarSelected;
+
+    private int[] ids;
 
     public int getSelected() {
         return selected;

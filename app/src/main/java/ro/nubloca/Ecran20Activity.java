@@ -31,7 +31,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import ro.nubloca.Networking.StandElem;
@@ -49,8 +53,9 @@ public class Ecran20Activity extends AppCompatActivity {
     FontTitilliumBold field;
     int preselected = 0;
     int selected = 0;
-    StandElem standElem;
+    StandElem standElem, standElem1;
     int index;
+    boolean check_reg = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,26 @@ public class Ecran20Activity extends AppCompatActivity {
 
         index = standElem.getSelected();
 
+       /* int[] ids = ((Global) getApplicationContext()).getIds();
+
+        if (ids != null) {
+            String numarselected = ((Global) getApplicationContext()).getNumarSelected();
+            String numarSelected = numarselected.split("\\.")[0];
+            String dateSelected = numarselected.split("\\.")[1];
+            String codeSelected = numarselected.split("\\.")[2];
+
+            Gson gson = new Gson();
+            for (int i = 0; i < ids.length; i++) {
+                String json1 = sharedpreferences.getString("TARA" + ids[i], "");
+                standElem1 = gson.fromJson(json1, StandElem.class);
+                if (standElem1.getCod().equals(codeSelected)) {
+                    standElem = standElem1;
+                    ((Global) getApplicationContext()).setStandElem(standElem);
+                }
+
+            }
+
+        }*/
 
         View btn_istoric_numere = (View) findViewById(R.id.istoricNumere);
         if (btn_istoric_numere != null)
@@ -315,43 +340,69 @@ public class Ecran20Activity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         //getMenuInflater().inflate(R.menu.menu5, menu);
+
         View button = (View) this.findViewById(R.id.trimite);
-        if(button!=null)
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if (button != null)
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                LinearLayout layout = (LinearLayout)findViewById(R.id.linear_plate_holder);
-                int count = layout.getChildCount();
-                View v = null;
-                String s="";
-                for(int i=0; i<count; i++) {
-                    v = layout.getChildAt(i);
-                    if (v instanceof Spinner){
-                        s+= ((Spinner) v).getSelectedItem().toString();
-                     }else {
-                        s+=((FontTitilliumBold) v).getText().toString();
+                    LinearLayout layout = (LinearLayout) findViewById(R.id.linear_plate_holder);
+                    int count = layout.getChildCount();
+                    View v = null;
+                    String s = "";
+                    for (int i = 0; i < count; i++) {
+                        v = layout.getChildAt(i);
+                        if (v instanceof Spinner) {
+                            s += ((Spinner) v).getSelectedItem().toString();
+
+                        } else {
+                            // s+=((FontTitilliumBold) v).getText().toString();
+
+                            if (standElem.getTipNumar().get(index).getTip_editabil()[i] == 1) {
+                                String REGEX = standElem.getTipNumar().get(index).getTip_valori()[i];
+                                String INPUT = ((FontTitilliumBold) v).getText().toString();
+                                //TODO font titiliumbold cast error italy
+                                check_reg = INPUT.matches(REGEX);
+                                if (!check_reg) break;
+                                s += INPUT;
+                            } else {
+                                s += ((FontTitilliumBold) v).getText().toString();
+                            }
+
+
+                        }
+                        if (i < count - 1) {
+                            s += " ";
+                        }
                     }
-                    if(i<count-1){
-                        s+=" ";
+                    if (check_reg) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM, HH:mm");
+                        String currentDateandTime = sdf.format(new Date());
+
+                        int size_LSNumere = sharedpreferences.getInt("SizeLSNumere", 0);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                        editor.putString("LSNumere" + size_LSNumere, s + "." + currentDateandTime + "." + standElem.getCod());
+                        size_LSNumere++;
+                        editor.putInt("SizeLSNumere", size_LSNumere);
+                        editor.apply();
+
+
+                        Toast toast = Toast.makeText(Ecran20Activity.this, s, Toast.LENGTH_LONG);
+                        //Toast toast = Toast.makeText(Ecran20Activity.this, asdasd, Toast.LENGTH_LONG);
+
+                        toast.show();
+                        finish();
+                    } else {
+                        Toast toast = Toast.makeText(Ecran20Activity.this, "Invalid number format!", Toast.LENGTH_LONG);
+                        toast.show();
                     }
+
                 }
-
-                int size_LSNumere = sharedpreferences.getInt("SizeLSNumere",0);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("LSNumere"+size_LSNumere,s);
-                size_LSNumere++;
-                editor.putInt("SizeLSNumere",size_LSNumere);
-                editor.apply();
-
-                Toast toast = Toast.makeText(Ecran20Activity.this, s, Toast.LENGTH_LONG);
-                toast.show();
-                finish();
-            }
-        });
+            });
         return true;
     }
-
 
 
     int convDp(float sizeInDp) {

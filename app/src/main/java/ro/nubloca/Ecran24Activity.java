@@ -44,7 +44,7 @@ import ro.nubloca.extras.Global;
 public class Ecran24Activity extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
-    String[] listNumere;
+    String[] listNumere, listDate;
     int[] click;
     ListAdapter customAdapter = null;
     Drawable upArrow = null;
@@ -52,7 +52,9 @@ public class Ecran24Activity extends AppCompatActivity {
     boolean all_select = false;
     ListView lv;
     public boolean box_checked=false;
-
+    CustomFontTitilliumBold btn_sterge;
+    int summ=0;
+    ImageView boxTop;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -61,7 +63,8 @@ public class Ecran24Activity extends AppCompatActivity {
         setContentView(R.layout.activity_ecran24);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        btn_sterge = (CustomFontTitilliumBold) this.findViewById(R.id.sterge);
+        boxTop = (ImageView) findViewById(R.id.box);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -72,10 +75,13 @@ public class Ecran24Activity extends AppCompatActivity {
 
 
         int size_LSNumere = sharedpreferences.getInt("SizeLSNumere", 0);
+
         if (size_LSNumere > 0) {
+
             listNumere = new String[size_LSNumere];
             for (int i = 0; i < size_LSNumere; i++) {
                 listNumere[i] = sharedpreferences.getString("LSNumere" + i, "");
+
             }
             /*CustomFontTitilliumRegular text = (CustomFontTitilliumRegular) findViewById(R.id.text1);
             String textShared = listNumere[0];
@@ -94,7 +100,7 @@ public class Ecran24Activity extends AppCompatActivity {
 
 
         public CustomAdapterNumere(Context context, String[] elemente) {
-            super(context, R.layout.raw_list1, elemente);
+            super(context, R.layout.raw_list24, elemente);
             click = new int[elemente.length];
         }
 
@@ -102,18 +108,26 @@ public class Ecran24Activity extends AppCompatActivity {
         public View getView(final int position, final View convertView, final ViewGroup parent) {
 
             LayoutInflater dapter = LayoutInflater.from(getContext());
+
             if (interfata) {
                 final View customView = dapter.inflate(R.layout.raw_list_interfata24, parent, false);
                 String singleElem = getItem(position);
-                CustomFontTitilliumRegular textul = (CustomFontTitilliumRegular) customView.findViewById(R.id.text);
-                textul.setText(singleElem);
+
+
+                String beforeFirstDot = singleElem.split("\\.")[0];
+
+
+                CustomFontTitilliumBold textul = (CustomFontTitilliumBold) customView.findViewById(R.id.text);
+                textul.setText(beforeFirstDot);
                 LinearLayout layout = (LinearLayout) customView.findViewById(R.id.linear);
                 final ImageView imaginea = (ImageView) customView.findViewById(R.id.radioButton);
                 if (all_select) {
                     for (int i = 0; i < click.length; i++) {
                         imaginea.setImageResource(R.drawable.abc_btn_press);
                         click[position] = 1;
+
                     }
+                    //btn_sterge.setText(R.string.istoric_numere_sterge);
                 }
                 if (layout != null) {
                     layout.setOnClickListener(new View.OnClickListener() {
@@ -122,39 +136,65 @@ public class Ecran24Activity extends AppCompatActivity {
                             if (click[position] == 0) {
                                 imaginea.setImageResource(R.drawable.abc_btn_press);
                                 click[position] = 1;
+                                btn_sterge.setText(R.string.istoric_numere_sterge);
+                                int summa=0;
+                                for (int j=0;j<click.length;j++) {
+                                    summa+=click[j];
+                                }
+
+                                if (summa==click.length){
+                                    boxTop.setBackgroundResource(R.drawable.abc_btn_press_yellow);
+                                }
 
                             } else {
                                 imaginea.setImageResource(R.drawable.abc_btn);
+                                boxTop.setBackgroundResource(R.drawable.abc_btn_yellow);
                                 click[position] = 0;
+                                int summa=0;
+                                for (int j=0;j<click.length;j++) {
+                                    summa+=click[j];
+                                }
+                                if (summa==0){
+                                    btn_sterge.setText(R.string.istoric_numere_renunta);
+                                }
+
+
+
                             }
+
                         }
                     });
                 }
 
+
                 return customView;
             } else {
+
                 final View customView = dapter.inflate(R.layout.raw_list24, parent, false);
+
                 String singleElem = getItem(position);
+                String beforeFirstDot = singleElem.split("\\.")[0];
+                String afterFirstDot = singleElem.split("\\.")[1];
+
+                ((Global) getApplicationContext()).setNumarSelected(singleElem);
+
                 CustomFontTitilliumRegular textul = (CustomFontTitilliumRegular) customView.findViewById(R.id.text);
+                CustomFontTitilliumRegular date = (CustomFontTitilliumRegular) customView.findViewById(R.id.date);
                 final ImageView imaginea = (ImageView) customView.findViewById(R.id.radioButton);
 
-                textul.setText(singleElem);
+                textul.setText(beforeFirstDot);
+                date.setText(afterFirstDot);
 
                 LinearLayout layout = (LinearLayout) customView.findViewById(R.id.linear);
-
                 imaginea.setImageResource(R.drawable.radio);
 
                 if (layout != null) {
                     layout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
                             imaginea.setImageResource(R.drawable.radio_press);
-
                             finish();
                             startActivity(new Intent(Ecran24Activity.this, Ecran20Activity.class));
-
-
                         }
                     });
                 }
@@ -176,9 +216,9 @@ public class Ecran24Activity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         final CustomFontTitilliumBold btn_edit = (CustomFontTitilliumBold) this.findViewById(R.id.edit);
-        final CustomFontTitilliumBold btn_sterge = (CustomFontTitilliumBold) this.findViewById(R.id.sterge);
+
         final CustomFontTitilliumRegular title = (CustomFontTitilliumRegular) this.findViewById(R.id.toolbar_title);
-        final ImageView boxTop = (ImageView) findViewById(R.id.box);
+
 
         if (listNumere != null) {
             btn_edit.setVisibility(View.VISIBLE);
@@ -189,6 +229,7 @@ public class Ecran24Activity extends AppCompatActivity {
                     public void onClick(View view) {
                         btn_edit.setVisibility(View.GONE);
                         boxTop.setVisibility(View.VISIBLE);
+                        btn_sterge.setText(R.string.istoric_numere_renunta);
                         btn_sterge.setVisibility(View.VISIBLE);
                         title.setVisibility(View.GONE);
                         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -197,13 +238,15 @@ public class Ecran24Activity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 if (box_checked==false){
+                                    btn_sterge.setText(R.string.istoric_numere_sterge);
                                     boxTop.setBackgroundResource(R.drawable.abc_btn_press_yellow);
                                     box_checked = true;
                                     all_select = true;
                                     customAdapter = new CustomAdapterNumere(getApplication(), listNumere);
                                     lv.setAdapter(customAdapter);
                                 }else {
-                                    boxTop.setBackgroundResource(R.drawable.abc_btn);
+                                    boxTop.setBackgroundResource(R.drawable.abc_btn_yellow);
+                                    btn_sterge.setText(R.string.istoric_numere_renunta);
                                     box_checked = false;
                                     all_select = false;
                                     customAdapter = new CustomAdapterNumere(getApplication(), listNumere);

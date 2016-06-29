@@ -124,6 +124,8 @@ public class Ecran25Activity extends AppCompatActivity {
             ids[i] = response.get(i).getId();
             code[i] = response.get(i).getCod();
         }
+        ((Global) getApplicationContext()).setIds(ids);
+
 
         ListAdapter customAdapter = new CustomAdapterTari(this, values, code);
         ListView lv = (ListView) findViewById(R.id.list1);

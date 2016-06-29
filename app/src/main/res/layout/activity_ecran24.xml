@@ -27,7 +27,7 @@
                 android:layout_gravity="start"
                 android:clickable="true"
                 android:visibility="gone"
-                android:background="@drawable/abc_btn" />
+                android:background="@drawable/abc_btn_yellow" />
 
             <ro.nubloca.extras.CustomFontTitilliumRegular
                 android:id="@+id/toolbar_title"

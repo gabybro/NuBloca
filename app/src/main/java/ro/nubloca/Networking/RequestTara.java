@@ -116,8 +116,9 @@ public class RequestTara extends Activity {
            "cerute": ["id", "nume", "ordinea", "ids_tipuri_inmatriculare_tipuri_elemente"]}*/
 
         String url = "http://api.nubloca.ro/tipuri_inmatriculare/";
+        JSONArray status = new JSONArray().put("ACTIV");
         JSONArray idTara = new JSONArray().put(standElem.getId());
-        JSONObject resursa = new JSONObject().put("id_tara", idTara);
+        JSONObject resursa = new JSONObject().put("id_tara", idTara).put("status",status);
         JSONArray cerute = new JSONArray().put("id").put("nume").put("ordinea").put("ids_tipuri_inmatriculare_tipuri_elemente");
 
         result_string = elem.getRaspuns(context, url, resursa, cerute);

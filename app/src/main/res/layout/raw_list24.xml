@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_rowList24"
         android:background="@drawable/list_ripple_effect"
+        android:orientation="horizontal"
         android:clickable="true">
 
         <ImageView
@@ -36,5 +37,22 @@
             android:textColor="@color/text_layout_custom"
             android:textSize="@dimen/textSize_ecran24_listaNumere" />
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_gravity="center_vertical"
+    android:gravity="end"
+    android:layout_height="wrap_content">
+
+
+        <ro.nubloca.extras.CustomFontTitilliumRegular
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/marginEnd_ecran24_listaDate"
+            android:gravity="end"
+            android:textColor="@color/text_layout_custom"
+            android:textSize="@dimen/textSize_ecran24_listaDate" />
+</LinearLayout>
     </LinearLayout>
 </LinearLayout>

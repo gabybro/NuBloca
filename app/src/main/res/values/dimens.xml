@@ -44,10 +44,13 @@
     <dimen name="marginRight_stergeEcran24">19.68dp</dimen>
     <dimen name="marginTop_listViewEcran24">23.625dp</dimen>
     <dimen name="height_rowList24">48.375dp</dimen>
+    <dimen name="radioSize_radio24square">33dp</dimen>
     <dimen name="radioSize_radio24">20.25dp</dimen>
     <dimen name="paddingLeftRadio_ecran24">14.06dp</dimen>
     <dimen name="paddingRightRadio_ecran24">22.5dp</dimen>
     <dimen name="textSize_ecran24_listaNumere">17.43dp</dimen>
+    <dimen name="textSize_ecran24_listaDate">11.815dp</dimen>
+    <dimen name="marginEnd_ecran24_listaDate">80dp</dimen>
 
     <!--    ecran25     -->
     <dimen name="paddingLeftRadio_ecran25">13.5dp</dimen>
