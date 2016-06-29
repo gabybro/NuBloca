@@ -56,6 +56,7 @@ public class Ecran20Activity extends AppCompatActivity {
     StandElem standElem, standElem1;
     int index;
     boolean check_reg = true;
+    int iddd=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +81,35 @@ public class Ecran20Activity extends AppCompatActivity {
 
         index = standElem.getSelected();
 
-       /* int[] ids = ((Global) getApplicationContext()).getIds();
 
+        String numarSelected = "";
+        String dateSelected = "";
+        String codeSelected = "";
+        int indexSelected = 0;
+        Gson gson = new Gson();
+
+        String selectedNumar = ((Global) getApplicationContext()).getNumarSelected();
+        if (selectedNumar != null) {
+            ((Global) getApplicationContext()).setNumarSelected(null);
+            numarSelected = selectedNumar.split("\\.")[0];
+            dateSelected = selectedNumar.split("\\.")[1];
+            codeSelected = selectedNumar.split("\\.")[2];
+            indexSelected = Integer.parseInt(selectedNumar.split("\\.")[3]);
+
+            String json1 = sharedpreferences.getString("TARA" + codeSelected, "");
+            standElem = gson.fromJson(json1, StandElem.class);
+            index = indexSelected;
+            selected = index;
+            standElem.setSelected(selected);
+            ((Global) getApplicationContext()).setSelected(selected);
+
+        }
+
+        //Toast toast = Toast.makeText(this, numarSelected, Toast.LENGTH_LONG);
+        //toast.show();
+
+
+       /*
         if (ids != null) {
             String numarselected = ((Global) getApplicationContext()).getNumarSelected();
             String numarSelected = numarselected.split("\\.")[0];
@@ -179,11 +207,9 @@ public class Ecran20Activity extends AppCompatActivity {
             // calculam lunngimea inputului
 
             if (standElem.getTipNumar().get(index).getTip_maxlength()[i] < 3) {
-                //  int rr = allelem.length;
-                //  int oo = allelem[i].getMaxlength();
+
                 nrUML += 3;
             } else {
-                //  int xx = allelem[i].getMaxlength();
                 nrUML += standElem.getTipNumar().get(index).getTip_maxlength()[i];
             }
 
@@ -196,7 +222,6 @@ public class Ecran20Activity extends AppCompatActivity {
 
 
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linear_plate_holder);
-        //linearLayout.setPadding(convDp(valSPL), 0, convDp(valSPL), 0);
         linearLayout.setPadding(valSPL, 0, valSPL, 0);
         filter = new InputFilter() {
             @Override
@@ -354,6 +379,7 @@ public class Ecran20Activity extends AppCompatActivity {
                     for (int i = 0; i < count; i++) {
                         v = layout.getChildAt(i);
                         if (v instanceof Spinner) {
+                            //iddd = ((Spinner) v).getId();
                             s += ((Spinner) v).getSelectedItem().toString();
 
                         } else {
@@ -383,19 +409,17 @@ public class Ecran20Activity extends AppCompatActivity {
                         int size_LSNumere = sharedpreferences.getInt("SizeLSNumere", 0);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                        editor.putString("LSNumere" + size_LSNumere, s + "." + currentDateandTime + "." + standElem.getCod());
+                        editor.putString("LSNumere" + size_LSNumere, s + "." + currentDateandTime + "." + standElem.getCod() + "." + index);
                         size_LSNumere++;
                         editor.putInt("SizeLSNumere", size_LSNumere);
                         editor.apply();
 
-
                         Toast toast = Toast.makeText(Ecran20Activity.this, s, Toast.LENGTH_LONG);
-                        //Toast toast = Toast.makeText(Ecran20Activity.this, asdasd, Toast.LENGTH_LONG);
-
                         toast.show();
                         finish();
                     } else {
                         Toast toast = Toast.makeText(Ecran20Activity.this, "Invalid number format!", Toast.LENGTH_LONG);
+                        //Toast toast = Toast.makeText(Ecran20Activity.this, iddd+"", Toast.LENGTH_LONG);
                         toast.show();
                     }
 

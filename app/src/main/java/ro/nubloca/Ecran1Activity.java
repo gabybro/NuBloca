@@ -70,7 +70,7 @@ public class Ecran1Activity extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sharedpreferences.edit();
                                 json = gson.toJson(standElem); // standElem - instance of StandElem
                                 editor.putString("STANDELEM", json);
-                                editor.putString("TARA"+standElem.getId(), json);
+                                editor.putString("TARA"+standElem.getCod(), json);
                                 editor.apply();
 
                            // }

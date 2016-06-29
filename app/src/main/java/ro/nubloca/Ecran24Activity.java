@@ -172,11 +172,11 @@ public class Ecran24Activity extends AppCompatActivity {
 
                 final View customView = dapter.inflate(R.layout.raw_list24, parent, false);
 
-                String singleElem = getItem(position);
+               final String singleElem = getItem(position);
                 String beforeFirstDot = singleElem.split("\\.")[0];
                 String afterFirstDot = singleElem.split("\\.")[1];
 
-                ((Global) getApplicationContext()).setNumarSelected(singleElem);
+
 
                 CustomFontTitilliumRegular textul = (CustomFontTitilliumRegular) customView.findViewById(R.id.text);
                 CustomFontTitilliumRegular date = (CustomFontTitilliumRegular) customView.findViewById(R.id.date);
@@ -193,6 +193,7 @@ public class Ecran24Activity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             imaginea.setImageResource(R.drawable.radio_press);
+                            ((Global) getApplicationContext()).setNumarSelected(singleElem);
                             finish();
                             startActivity(new Intent(Ecran24Activity.this, Ecran20Activity.class));
                         }

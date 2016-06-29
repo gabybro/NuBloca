@@ -124,7 +124,6 @@ public class Ecran25Activity extends AppCompatActivity {
             ids[i] = response.get(i).getId();
             code[i] = response.get(i).getCod();
         }
-        ((Global) getApplicationContext()).setIds(ids);
 
 
         ListAdapter customAdapter = new CustomAdapterTari(this, values, code);
@@ -201,14 +200,16 @@ public class Ecran25Activity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedpreferences.edit();
 
 
-                        if (sharedpreferences.getString("TARA" + ids[position], "").equals("")) {
+                        //if (sharedpreferences.getString("TARA" + ids[position], "").equals("")) {
+                        if (sharedpreferences.getString("TARA" + code[position], "").equals("")) {
                             /*progress = ProgressDialog.show(Ecran25Activity.this, "dialog title",
                                     "dialog message", true);*/
                             progress.show();
                             createHandler(position);
                         } else {
 
-                            String json1 = sharedpreferences.getString("TARA" + ids[position], "");
+                            //String json1 = sharedpreferences.getString("TARA" + ids[position], "");
+                            String json1 = sharedpreferences.getString("TARA" + code[position], "");
                             standElem = gson.fromJson(json1, StandElem.class);
                             editor.putString("STANDELEM", json1);
                             editor.commit();
@@ -244,7 +245,8 @@ public class Ecran25Activity extends AppCompatActivity {
                             RequestTara make = new RequestTara();
                             standElem = make.makePostRequestOnNewThread(Ecran25Activity.this, code[position]);
                             String json = gson.toJson(standElem);
-                            editor.putString("TARA" + standElem.getId(), json);
+//                            editor.putString("TARA" + standElem.getId(), json);
+                            editor.putString("TARA" + standElem.getCod(), json);
                             editor.putString("STANDELEM", json);
                             editor.commit();
                             handler.removeCallbacks(this);
