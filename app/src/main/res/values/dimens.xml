@@ -21,7 +21,7 @@
     <dimen name="maxWidth_TipInmatriculare">160dp</dimen>
     <dimen name="paddingLeft_Flag">11.250dp</dimen>
     <dimen name="marginLeft_ChevronOrange">16.875dp</dimen>
-    <dimen name="heightLayout_salutAiParcat">50.25dp</dimen>
+    <dimen name="heightLayout_salutAiParcat">57.25dp</dimen>
     <dimen name="textSize_salutAiParcat">21.9375dp</dimen>
     <dimen name="paddingTopBottom_salutAiParcat">17.4375dp</dimen>
     <dimen name="marginTop_catreCeNumarId">20.8125dp</dimen>

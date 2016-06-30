@@ -127,11 +127,12 @@
         <LinearLayout
             android:id="@+id/lin_bar1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/heightLayout_salutAiParcat"
             android:background="@drawable/list_ripple_effect"
-            android:clickable="true"
-            android:paddingBottom="@dimen/paddingTopBottom_salutAiParcat"
-            android:paddingTop="@dimen/paddingTopBottom_salutAiParcat">
+            android:gravity="center_vertical"
+            android:clickable="true">
+            <!--android:paddingBottom="@dimen/paddingTopBottom_salutAiParcat"
+            android:paddingTop="@dimen/paddingTopBottom_salutAiParcat"-->
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -148,6 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/contact_5"
+                    android:gravity="center_vertical"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize_salutAiParcat" />
 
@@ -165,6 +167,7 @@
                 <ImageView
                     android:id="@+id/imageView11"
                     android:layout_width="wrap_content"
+                    android:gravity="center_vertical"
                     android:layout_height="@dimen/height_bar"
                     android:layout_marginLeft="@dimen/paddingLeftRight_bar"
                     android:layout_marginRight="@dimen/paddingLeftRight_bar"
@@ -174,6 +177,7 @@
                 <ImageView
                     android:id="@+id/chevron1"
                     android:layout_width="7dp"
+                    android:gravity="center_vertical"
                     android:layout_height="@dimen/height_bar"
                     android:layout_marginLeft="@dimen/paddingLeftRight_bar"
                     android:layout_marginRight="@dimen/paddingLeftRight_bar"

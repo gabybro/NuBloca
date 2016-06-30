@@ -56,7 +56,9 @@ public class Ecran20Activity extends AppCompatActivity {
     StandElem standElem, standElem1;
     int index;
     boolean check_reg = true;
-    int iddd=0;
+    int iddd = 0;
+    String[] camp;
+    boolean numberSelected=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +82,11 @@ public class Ecran20Activity extends AppCompatActivity {
         selected = ((Global) getApplicationContext()).getSelected();
 
         index = standElem.getSelected();
-
+        campuri = standElem.getTipNumar().get(index).getTip_size();
+        camp = new String[campuri];
+        for (int i = 0; i < campuri; i++) {
+            camp[i] = "";
+        }
 
         String numarSelected = "";
         String dateSelected = "";
@@ -90,6 +96,7 @@ public class Ecran20Activity extends AppCompatActivity {
 
         String selectedNumar = ((Global) getApplicationContext()).getNumarSelected();
         if (selectedNumar != null) {
+            numberSelected=true;
             ((Global) getApplicationContext()).setNumarSelected(null);
             numarSelected = selectedNumar.split("\\.")[0];
             dateSelected = selectedNumar.split("\\.")[1];
@@ -102,11 +109,16 @@ public class Ecran20Activity extends AppCompatActivity {
             selected = index;
             standElem.setSelected(selected);
             ((Global) getApplicationContext()).setSelected(selected);
+            campuri = standElem.getTipNumar().get(index).getTip_size();
+
+            for (int i = 0; i < campuri; i++) {
+                camp[i] = numarSelected.split(" ")[i];
+            }
 
         }
 
-        //Toast toast = Toast.makeText(this, numarSelected, Toast.LENGTH_LONG);
-        //toast.show();
+
+
 
 
        /*
@@ -278,7 +290,17 @@ public class Ecran20Activity extends AppCompatActivity {
                         ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f);
                         //Spinner mySpinner = new Spinner (new ContextThemeWrapper(this, R.style.spinner_style), null, 0);
                         Spinner mySpinner = new Spinner(this);
-                        mySpinner.setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1, standElem.getTipNumar().get(index).getLista_cod().get(i)));
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1, standElem.getTipNumar().get(index).getLista_cod().get(i));
+                        mySpinner.setAdapter(adapter);
+                        if (numberSelected) {
+                            int spinnerPosition = adapter.getPosition(camp[i]);
+                            mySpinner.setSelection(spinnerPosition);
+                        }
+
+
+                        //mySpinner.setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1, standElem.getTipNumar().get(index).getLista_cod().get(i)));
+
                         params.width = minTrei * valRealUml;
                         mySpinner.setLayoutParams(params);
                         linearLayout.addView(mySpinner);
@@ -339,6 +361,12 @@ public class Ecran20Activity extends AppCompatActivity {
                             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                         }
 
+                        if((standElem.getTipNumar().get(index).getTip_editabil()[i] == 1)&&(!standElem.getTipNumar().get(index).getTip_tip()[i].equals("LISTA"))){
+                            //if((standElem.getTipNumar().get(index).getTip_editabil()[i] == 1)){
+                            field.setText(camp[i]);
+                            /*Toast toast = Toast.makeText(this, "sds", Toast.LENGTH_LONG);
+                            toast.show();*/
+                        }
                         linearLayout.addView(field);
 
 
