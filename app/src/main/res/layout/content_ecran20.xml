@@ -129,8 +129,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/heightLayout_salutAiParcat"
             android:background="@drawable/list_ripple_effect"
-            android:gravity="center_vertical"
-            android:clickable="true">
+            android:clickable="true"
+            android:gravity="center_vertical">
             <!--android:paddingBottom="@dimen/paddingTopBottom_salutAiParcat"
             android:paddingTop="@dimen/paddingTopBottom_salutAiParcat"-->
 
@@ -148,8 +148,8 @@
                     android:id="@+id/textSalutAiParcat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/contact_5"
                     android:gravity="center_vertical"
+                    android:text="@string/contact_5"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize_salutAiParcat" />
 
@@ -167,21 +167,21 @@
                 <ImageView
                     android:id="@+id/imageView11"
                     android:layout_width="wrap_content"
-                    android:gravity="center_vertical"
                     android:layout_height="@dimen/height_bar"
                     android:layout_marginLeft="@dimen/paddingLeftRight_bar"
                     android:layout_marginRight="@dimen/paddingLeftRight_bar"
-                    android:background="@drawable/bar" />
+                    android:background="@drawable/bar"
+                    android:gravity="center_vertical" />
 
 
                 <ImageView
                     android:id="@+id/chevron1"
                     android:layout_width="7dp"
-                    android:gravity="center_vertical"
                     android:layout_height="@dimen/height_bar"
                     android:layout_marginLeft="@dimen/paddingLeftRight_bar"
                     android:layout_marginRight="@dimen/paddingLeftRight_bar"
-                    android:background="@drawable/chevron" />
+                    android:background="@drawable/chevron"
+                    android:gravity="center_vertical" />
 
             </LinearLayout>
         </LinearLayout>
@@ -196,7 +196,7 @@
         android:layout_marginTop="1dp"
         android:background="@drawable/blue_car1">
 
-        <TextView
+        <LinearLayout
             android:id="@+id/cumFunctioneaza"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -205,13 +205,18 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="@dimen/paddingLeftRight_Cumfunctioneaza"
             android:layout_marginStart="@dimen/paddingLeftRight_Cumfunctioneaza"
-            android:clickable="true"
-            android:paddingTop="@dimen/marginTop_cumfunctioneazaEcran20"
-            android:text="@string/contact_6"
-            android:textColor="@color/contact_67_color"
-            android:textSize="@dimen/textSize_NumeTipInmatriculare" />
+            android:clickable="true">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/marginTop_cumfunctioneazaEcran20"
+                android:text="@string/contact_6"
+                android:textColor="@color/contact_67_color"
+                android:textSize="@dimen/textSize_NumeTipInmatriculare" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/istoricNumere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -220,12 +225,16 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="@dimen/paddingLeftRight_Cumfunctioneaza"
             android:layout_marginRight="@dimen/paddingLeftRight_Cumfunctioneaza"
-            android:clickable="true"
-            android:paddingTop="@dimen/marginTop_cumfunctioneazaEcran20"
-            android:text="@string/contact_7"
-            android:textColor="@color/contact_67_color"
-            android:textSize="@dimen/textSize_NumeTipInmatriculare" />
+            android:clickable="true">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/marginTop_cumfunctioneazaEcran20"
+                android:text="@string/contact_7"
+                android:textColor="@color/contact_67_color"
+                android:textSize="@dimen/textSize_NumeTipInmatriculare" />
+        </LinearLayout>
 
     </RelativeLayout>
 </RelativeLayout>

@@ -5,40 +5,24 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
+import java.util.LinkedList;
 
-import ro.nubloca.Networking.CustomAdapter;
-import ro.nubloca.Networking.RequestTara;
-import ro.nubloca.Networking.StandElem;
 import ro.nubloca.extras.CustomFontTitilliumBold;
 import ro.nubloca.extras.CustomFontTitilliumRegular;
-import ro.nubloca.extras.FontTitilliumBold;
 import ro.nubloca.extras.Global;
 
 public class Ecran24Activity extends AppCompatActivity {
@@ -55,6 +39,8 @@ public class Ecran24Activity extends AppCompatActivity {
     CustomFontTitilliumBold btn_sterge;
     int summ=0;
     ImageView boxTop;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -74,18 +60,23 @@ public class Ecran24Activity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
 
-        int size_LSNumere = sharedpreferences.getInt("SizeLSNumere", 0);
 
+        int size_LSNumere = sharedpreferences.getInt("SizeLSNumere", 0);
+        /*for(int j=0;j<size_LSNumere;j++){
+            linkedlist.add(sharedpreferences.getString("LSNumere"+j, ""));
+        }*/
+
+
+        //TODO list in ecran 20
+        //code change with date
         if (size_LSNumere > 0) {
 
             listNumere = new String[size_LSNumere];
+
             for (int i = 0; i < size_LSNumere; i++) {
                 listNumere[i] = sharedpreferences.getString("LSNumere" + i, "");
-
             }
-            /*CustomFontTitilliumRegular text = (CustomFontTitilliumRegular) findViewById(R.id.text1);
-            String textShared = listNumere[0];
-            text.setText(textShared);*/
+
 
             customAdapter = new CustomAdapterNumere(this, listNumere);
             lv = (ListView) findViewById(R.id.list);
@@ -326,4 +317,6 @@ public class Ecran24Activity extends AppCompatActivity {
 
         return true;
     }
+
+
 }

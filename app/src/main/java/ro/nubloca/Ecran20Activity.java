@@ -36,6 +36,7 @@ import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.regex.Pattern;
 
 import ro.nubloca.Networking.StandElem;
@@ -59,6 +60,8 @@ public class Ecran20Activity extends AppCompatActivity {
     int iddd = 0;
     String[] camp;
     boolean numberSelected=false;
+    LinkedList<String> linkedlist = new LinkedList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -415,13 +418,12 @@ public class Ecran20Activity extends AppCompatActivity {
 
                             if (standElem.getTipNumar().get(index).getTip_editabil()[i] == 1) {
                                 String REGEX = standElem.getTipNumar().get(index).getTip_valori()[i];
-                                String INPUT = ((FontTitilliumBold) v).getText().toString();
-                                //TODO font titiliumbold cast error italy
+                                String INPUT = ((TextView) v).getText().toString();
                                 check_reg = INPUT.matches(REGEX);
                                 if (!check_reg) break;
                                 s += INPUT;
                             } else {
-                                s += ((FontTitilliumBold) v).getText().toString();
+                                s += ((TextView) v).getText().toString();
                             }
 
 
@@ -435,11 +437,30 @@ public class Ecran20Activity extends AppCompatActivity {
                         String currentDateandTime = sdf.format(new Date());
 
                         int size_LSNumere = sharedpreferences.getInt("SizeLSNumere", 0);
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        for(int j=0;j<size_LSNumere;j++){
+                            linkedlist.add(sharedpreferences.getString("LSNumere"+j, ""));
+                        }
 
-                        editor.putString("LSNumere" + size_LSNumere, s + "." + currentDateandTime + "." + standElem.getCod() + "." + index);
-                        size_LSNumere++;
-                        editor.putInt("SizeLSNumere", size_LSNumere);
+                        for (int j=0;j<linkedlist.size();j++){
+
+                            String plus=s + "." + standElem.getCod();
+                            String arrNumar = linkedlist.get(j).split("\\.")[0];
+                            String arrCode = linkedlist.get(j).split("\\.")[2];
+                            String pluss = arrNumar +"."+ arrCode;
+                            if (plus.equals(pluss)){
+                                linkedlist.remove(j);
+                                break;
+                            }
+                        }
+
+
+                        linkedlist.addFirst(s + "." + currentDateandTime + "." + standElem.getCod() + "." + index);
+
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        for (int j=0;j<linkedlist.size();j++){
+                        editor.putString("LSNumere" + j, linkedlist.get(j));
+                        }
+                        editor.putInt("SizeLSNumere", linkedlist.size());
                         editor.apply();
 
                         Toast toast = Toast.makeText(Ecran20Activity.this, s, Toast.LENGTH_LONG);

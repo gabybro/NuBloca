@@ -90,8 +90,8 @@ public class Ecran26Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(Ecran26Activity.this, Ecran23Activity.class));
         finish();
+        startActivity(new Intent(Ecran26Activity.this, Ecran23Activity.class));
         super.onBackPressed();
     }
 

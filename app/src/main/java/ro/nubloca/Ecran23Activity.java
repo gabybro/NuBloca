@@ -120,7 +120,7 @@ public class Ecran23Activity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(Ecran23Activity.this, Ecran25Activity.class));
-                    //finish();
+                    finish();
                 }
             });
 
@@ -129,8 +129,8 @@ public class Ecran23Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
         finish();
+        startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
         super.onBackPressed();
     }
 
@@ -138,7 +138,7 @@ public class Ecran23Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                //finish();
+                finish();
                 Ecran23Activity.this.onBackPressed();
                 return true;
             default:
@@ -218,6 +218,7 @@ public class Ecran23Activity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         standElem.setPositionExemplu(position);
+                        finish();
                         startActivity(new Intent(Ecran23Activity.this, Ecran26Activity.class));
                     }
                 });
