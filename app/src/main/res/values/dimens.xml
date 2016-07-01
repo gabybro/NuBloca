@@ -8,7 +8,8 @@
     <dimen name="paddingLeftRight_bar">11.25dp</dimen>
     <dimen name="radioSize">19.125dp</dimen>
     <dimen name="height_rowList">46.125dp</dimen>
-    <dimen name="size_title">23.0625dp</dimen>
+    <dimen name="size_title_left">20.25dp</dimen>
+    <dimen name="size_title_center">23.06dp</dimen>
     <dimen name="size_toolbar">59.0625dp</dimen>
     <dimen name="textSize_rowListaExemplu">11.81dp</dimen>
 
@@ -50,7 +51,9 @@
     <dimen name="paddingRightRadio_ecran24">22.5dp</dimen>
     <dimen name="textSize_ecran24_listaNumere">17.43dp</dimen>
     <dimen name="textSize_ecran24_listaDate">11.815dp</dimen>
-    <dimen name="marginEnd_ecran24_listaDate">80dp</dimen>
+    <dimen name="marginEnd_ecran24_listaDate">20dp</dimen>
+    <dimen name="boxSize_ecran24">40dp</dimen>
+    <dimen name="marginEnd_ecran24_flag">20dp</dimen>
 
     <!--    ecran25     -->
     <dimen name="paddingLeftRadio_ecran25">13.5dp</dimen>

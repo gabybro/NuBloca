@@ -130,7 +130,8 @@
     <string name="istoric_numere_3">CD 101 109</string>
     <string name="istoric_numere_4">B 66534</string>
     <string name="istoric_numere_5">Șterge</string>
-    <string name="istoric_numere_renunta">Renunta</string>
+    <string name="istoric_numere_renunta">Renunță</string>
+    <string name="items_selected"> elem.</string>
 
     <!--string ecran25 <=> Alege Tara-->
     <string name="tara_1">Alege țara:</string>

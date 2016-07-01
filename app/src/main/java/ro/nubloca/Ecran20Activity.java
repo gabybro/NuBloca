@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
+import android.util.Base64;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.Menu;
@@ -48,7 +49,7 @@ public class Ecran20Activity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     int campuri = 3;
     int dim = 30;
-    byte[] baite;
+    byte[] baite, baiteArray;
 
     InputFilter filter, filter1;
     FontTitilliumBold field;
@@ -59,8 +60,9 @@ public class Ecran20Activity extends AppCompatActivity {
     boolean check_reg = true;
     int iddd = 0;
     String[] camp;
-    boolean numberSelected=false;
+    boolean numberSelected = false;
     LinkedList<String> linkedlist = new LinkedList<String>();
+    LinkedList<byte[]> linkedliststeag = new LinkedList<byte[]>();
 
 
     @Override
@@ -99,7 +101,7 @@ public class Ecran20Activity extends AppCompatActivity {
 
         String selectedNumar = ((Global) getApplicationContext()).getNumarSelected();
         if (selectedNumar != null) {
-            numberSelected=true;
+            numberSelected = true;
             ((Global) getApplicationContext()).setNumarSelected(null);
             numarSelected = selectedNumar.split("\\.")[0];
             dateSelected = selectedNumar.split("\\.")[1];
@@ -364,7 +366,7 @@ public class Ecran20Activity extends AppCompatActivity {
                             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                         }
 
-                        if((standElem.getTipNumar().get(index).getTip_editabil()[i] == 1)&&(!standElem.getTipNumar().get(index).getTip_tip()[i].equals("LISTA"))){
+                        if ((standElem.getTipNumar().get(index).getTip_editabil()[i] == 1) && (!standElem.getTipNumar().get(index).getTip_tip()[i].equals("LISTA"))) {
                             //if((standElem.getTipNumar().get(index).getTip_editabil()[i] == 1)){
                             field.setText(camp[i]);
                             /*Toast toast = Toast.makeText(this, "sds", Toast.LENGTH_LONG);
@@ -437,28 +439,36 @@ public class Ecran20Activity extends AppCompatActivity {
                         String currentDateandTime = sdf.format(new Date());
 
                         int size_LSNumere = sharedpreferences.getInt("SizeLSNumere", 0);
-                        for(int j=0;j<size_LSNumere;j++){
-                            linkedlist.add(sharedpreferences.getString("LSNumere"+j, ""));
+                        for (int j = 0; j < size_LSNumere; j++) {
+                            linkedlist.add(sharedpreferences.getString("LSNumere" + j, ""));
+                            //baiteArray = Base64.decode(sharedpreferences.getString("LSSteag" + j, ""), Base64.DEFAULT);
+                            //linkedliststeag.add(baiteArray);
                         }
 
-                        for (int j=0;j<linkedlist.size();j++){
-
-                            String plus=s + "." + standElem.getCod();
+                        for (int j = 0; j < linkedlist.size(); j++) {
+                            String plus = s + "." + standElem.getCod();
                             String arrNumar = linkedlist.get(j).split("\\.")[0];
                             String arrCode = linkedlist.get(j).split("\\.")[2];
-                            String pluss = arrNumar +"."+ arrCode;
-                            if (plus.equals(pluss)){
+                            String pluss = arrNumar + "." + arrCode;
+                            if (plus.equals(pluss)) {
                                 linkedlist.remove(j);
+                               // linkedliststeag.remove(j);
                                 break;
                             }
                         }
+                        if (linkedlist.size()==50){
+                            linkedlist.removeLast();
+                        }
 
-
-                        linkedlist.addFirst(s + "." + currentDateandTime + "." + standElem.getCod() + "." + index);
+                        String saveThis = Base64.encodeToString(baite, Base64.DEFAULT);
+                        linkedlist.addFirst(s + "." + currentDateandTime + "." + standElem.getCod() + "." + index + "." + saveThis);
+                        //linkedliststeag.addFirst(baite);
 
                         SharedPreferences.Editor editor = sharedpreferences.edit();
-                        for (int j=0;j<linkedlist.size();j++){
-                        editor.putString("LSNumere" + j, linkedlist.get(j));
+                        for (int j = 0; j < linkedlist.size(); j++) {
+                            editor.putString("LSNumere" + j, linkedlist.get(j));
+                           // String saveThis = Base64.encodeToString(linkedliststeag.get(j), Base64.DEFAULT);
+                            //editor.putString("LSSteag" + j, saveThis);
                         }
                         editor.putInt("SizeLSNumere", linkedlist.size());
                         editor.apply();

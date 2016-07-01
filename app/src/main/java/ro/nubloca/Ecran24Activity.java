@@ -3,12 +3,15 @@ package ro.nubloca;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -21,6 +24,7 @@ import android.widget.ListView;
 
 import java.util.LinkedList;
 
+import ro.nubloca.Networking.StandElem;
 import ro.nubloca.extras.CustomFontTitilliumBold;
 import ro.nubloca.extras.CustomFontTitilliumRegular;
 import ro.nubloca.extras.Global;
@@ -39,6 +43,11 @@ public class Ecran24Activity extends AppCompatActivity {
     CustomFontTitilliumBold btn_sterge;
     int summ=0;
     ImageView boxTop;
+    int dim = 30;
+    StandElem standElem;
+    byte[] arrayaa;
+    int selectedItems = 0;
+    CustomFontTitilliumRegular itemSelected;
 
 
     @Override
@@ -50,6 +59,7 @@ public class Ecran24Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         btn_sterge = (CustomFontTitilliumBold) this.findViewById(R.id.sterge);
+        itemSelected = (CustomFontTitilliumRegular) this.findViewById(R.id.item_selected);
         boxTop = (ImageView) findViewById(R.id.box);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -59,6 +69,7 @@ public class Ecran24Activity extends AppCompatActivity {
         upArrow.setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
+        standElem = ((Global) getApplicationContext()).getStandElem();
 
 
         int size_LSNumere = sharedpreferences.getInt("SizeLSNumere", 0);
@@ -76,7 +87,6 @@ public class Ecran24Activity extends AppCompatActivity {
             for (int i = 0; i < size_LSNumere; i++) {
                 listNumere[i] = sharedpreferences.getString("LSNumere" + i, "");
             }
-
 
             customAdapter = new CustomAdapterNumere(this, listNumere);
             lv = (ListView) findViewById(R.id.list);
@@ -106,18 +116,37 @@ public class Ecran24Activity extends AppCompatActivity {
 
 
                 String beforeFirstDot = singleElem.split("\\.")[0];
+                String afterFirstDot = singleElem.split("\\.")[1];
+                String arrayFlag = singleElem.split("\\.")[4];
 
 
-                CustomFontTitilliumBold textul = (CustomFontTitilliumBold) customView.findViewById(R.id.text);
+                CustomFontTitilliumRegular textul = (CustomFontTitilliumRegular) customView.findViewById(R.id.text);
+                CustomFontTitilliumRegular date = (CustomFontTitilliumRegular) customView.findViewById(R.id.date);
+                ImageView image = (ImageView) customView.findViewById(R.id.flag);
+
                 textul.setText(beforeFirstDot);
+
                 LinearLayout layout = (LinearLayout) customView.findViewById(R.id.linear);
                 final ImageView imaginea = (ImageView) customView.findViewById(R.id.radioButton);
+
+
+                textul.setText(beforeFirstDot);
+                date.setText(afterFirstDot);
+
+                byte[] arrayaa = Base64.decode(arrayFlag, Base64.DEFAULT);
+                Bitmap bmp = BitmapFactory.decodeByteArray(arrayaa, 0, arrayaa.length);
+                image.setImageBitmap(bmp);
+                image.getLayoutParams().height = convDp(dim);
+                image.getLayoutParams().width = convDp(dim);
+                image.requestLayout();
+
                 if (all_select) {
                     for (int i = 0; i < click.length; i++) {
                         imaginea.setImageResource(R.drawable.abc_btn_press);
                         click[position] = 1;
 
                     }
+                    selectedItems = click.length;
                     //btn_sterge.setText(R.string.istoric_numere_sterge);
                 }
                 if (layout != null) {
@@ -136,6 +165,9 @@ public class Ecran24Activity extends AppCompatActivity {
                                 if (summa==click.length){
                                     boxTop.setBackgroundResource(R.drawable.abc_btn_press_yellow);
                                 }
+                                selectedItems = summa;
+                                String sel = selectedItems +" "+ getString(R.string.items_selected);
+                                itemSelected.setText(sel);
 
                             } else {
                                 imaginea.setImageResource(R.drawable.abc_btn);
@@ -149,8 +181,9 @@ public class Ecran24Activity extends AppCompatActivity {
                                     btn_sterge.setText(R.string.istoric_numere_renunta);
                                 }
 
-
-
+                                selectedItems = summa;
+                                String sel = selectedItems +" "+ getString(R.string.items_selected);
+                                itemSelected.setText(sel);
                             }
 
                         }
@@ -166,15 +199,27 @@ public class Ecran24Activity extends AppCompatActivity {
                final String singleElem = getItem(position);
                 String beforeFirstDot = singleElem.split("\\.")[0];
                 String afterFirstDot = singleElem.split("\\.")[1];
+                String arrayFlag = singleElem.split("\\.")[4];
 
-
-
+                final ImageView imaginea = (ImageView) customView.findViewById(R.id.radioButton);
                 CustomFontTitilliumRegular textul = (CustomFontTitilliumRegular) customView.findViewById(R.id.text);
                 CustomFontTitilliumRegular date = (CustomFontTitilliumRegular) customView.findViewById(R.id.date);
-                final ImageView imaginea = (ImageView) customView.findViewById(R.id.radioButton);
+
+                ImageView image = (ImageView) customView.findViewById(R.id.flag);
+
 
                 textul.setText(beforeFirstDot);
                 date.setText(afterFirstDot);
+
+                byte[] arrayaa = Base64.decode(arrayFlag, Base64.DEFAULT);
+                Bitmap bmp = BitmapFactory.decodeByteArray(arrayaa, 0, arrayaa.length);
+                image.setImageBitmap(bmp);
+                image.getLayoutParams().height = convDp(dim);
+                image.getLayoutParams().width = convDp(dim);
+                image.requestLayout();
+
+
+
 
                 LinearLayout layout = (LinearLayout) customView.findViewById(R.id.linear);
                 imaginea.setImageResource(R.drawable.radio);
@@ -212,6 +257,8 @@ public class Ecran24Activity extends AppCompatActivity {
         final CustomFontTitilliumRegular title = (CustomFontTitilliumRegular) this.findViewById(R.id.toolbar_title);
 
 
+
+
         if (listNumere != null) {
             btn_edit.setVisibility(View.VISIBLE);
 
@@ -219,8 +266,12 @@ public class Ecran24Activity extends AppCompatActivity {
                 btn_edit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        all_select = false;
                         btn_edit.setVisibility(View.GONE);
                         boxTop.setVisibility(View.VISIBLE);
+                        String sel = selectedItems +" "+ getString(R.string.items_selected);
+                        itemSelected.setText(sel);
+                        itemSelected.setVisibility(View.VISIBLE);
                         btn_sterge.setText(R.string.istoric_numere_renunta);
                         btn_sterge.setVisibility(View.VISIBLE);
                         title.setVisibility(View.GONE);
@@ -236,6 +287,10 @@ public class Ecran24Activity extends AppCompatActivity {
                                     all_select = true;
                                     customAdapter = new CustomAdapterNumere(getApplication(), listNumere);
                                     lv.setAdapter(customAdapter);
+                                    selectedItems=listNumere.length;
+                                    String sel = selectedItems +" "+ getString(R.string.items_selected);
+                                    itemSelected.setText(sel);
+
                                 }else {
                                     boxTop.setBackgroundResource(R.drawable.abc_btn_yellow);
                                     btn_sterge.setText(R.string.istoric_numere_renunta);
@@ -243,6 +298,9 @@ public class Ecran24Activity extends AppCompatActivity {
                                     all_select = false;
                                     customAdapter = new CustomAdapterNumere(getApplication(), listNumere);
                                     lv.setAdapter(customAdapter);
+                                    String sel = 0 +" "+ getString(R.string.items_selected);
+                                    itemSelected.setText(sel);
+
                                 }
                             }
                         });
@@ -260,6 +318,9 @@ public class Ecran24Activity extends AppCompatActivity {
             btn_sterge.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    itemSelected.setVisibility(View.GONE);
+                    selectedItems = 0;
                     title.setVisibility(View.VISIBLE);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -318,5 +379,9 @@ public class Ecran24Activity extends AppCompatActivity {
         return true;
     }
 
-
+    int convDp(float sizeInDp) {
+        float scale = getResources().getDisplayMetrics().density;
+        int dpAsPixels = (int) (sizeInDp * scale + 0.5f);
+        return dpAsPixels;
+    }
 }

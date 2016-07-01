@@ -35,7 +35,7 @@
                 android:layout_gravity="center"
                 android:text="Inscrie Auto"
                 android:textColor="#FFFFFF"
-                android:textSize="@dimen/size_title" />
+                android:textSize="@dimen/size_title_center" />
 
             <ro.nubloca.extras.CustomFontTitilliumBold
                 android:id="@+id/toolbar_title2"
@@ -44,7 +44,7 @@
                 android:layout_gravity="right"
                 android:text="OK"
                 android:textColor="#FFEA00"
-                android:textSize="@dimen/size_title"
+                android:textSize="@dimen/size_title_center"
                 android:paddingRight="20dp" />
 
         </android.support.v7.widget.Toolbar>
