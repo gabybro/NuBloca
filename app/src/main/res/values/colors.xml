@@ -11,6 +11,8 @@
     <color name="btn_white">#ffffff</color>
     <color name="btn_grey_text">#333333</color>
     <color name="btn_grey_text1">#8B8B8B</color>
+    <color name="btnBlue_ecran22">#00B5F9</color>
+    <color name="btnBlueDark_ecran22">#0082C6</color>
     <color name="progressBar">#fcd116</color>
     <color name="bkg_setari">#F0F0F0</color>
     <color name="colorHighlight">#B6B6B6</color>
@@ -25,9 +27,17 @@
     <color name="mesaje_standard_text">#BA2C64</color>
     <color name="transparent">#00000000</color>
     <color name="ecran20Trimite">#FFEA00</color>
+
     <!--ecran24-->
     <color name="ecran24sterge">#000000</color>
     <color name="ecran24edit">#FFEA00</color>
+
+    <!--ecran28-->
+    <color name="textColor_ecran28">#666666</color>
+    <color name="editColor_ecran28">#999999</color>
+    <color name="textColor_trimiteEcran28">#ffffff</color>
+    <color name="borderColor_ecran28">#D1D1CF</color>
+    <color name="textBorderColor_ecran28">#1D74D8</color>
 
 
 

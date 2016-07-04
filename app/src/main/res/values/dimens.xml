@@ -37,6 +37,16 @@
     <dimen name="paddingBottom_NumeTipInmatriculare">25.3125dp</dimen>
     <dimen name="paddingLeftRight_NumeTipInmatriculare">5.625dp</dimen>
 
+    <!--    ecran22     -->
+    <dimen name="btnMarginTop_propuneMsgEcran22">42.18dp</dimen>
+    <dimen name="btnTextSize_propuneMsgEcran22">22.5dp</dimen>
+    <dimen name="paddingLeftRight_propuneMsgEcran22">40.5dp</dimen>
+    <dimen name="layoutHeight_propuneMsgEcran22">50.625dp</dimen>
+    <dimen name="plicMarginTop_ecran22">130.375dp</dimen>
+    <dimen name="plicWidth_ecran22">63dp</dimen>
+    <dimen name="plicHeight_ecran22">48dp</dimen>
+
+
     <!--    ecran23     -->
     <dimen name="height_chevron23">23.06dp</dimen>
     <dimen name="width_chevron23">8.4375dp</dimen>
@@ -59,6 +69,28 @@
     <dimen name="paddingLeftRadio_ecran25">13.5dp</dimen>
     <dimen name="paddingRightRadio_ecran25">20.8125dp</dimen>
     <dimen name="textSize_ecran25_listaTari">17.4375dp</dimen>
+
+    <!--    ecran28     -->
+    <dimen name="marginTop_textEcran28">33.75dp</dimen>
+    <dimen name="marginLeftRight_textEcran28">28.12dp</dimen>
+    <dimen name="textSize_textEcran28">17.43dp</dimen>
+    <dimen name="marginTop_editEcran28">47.81dp</dimen>
+    <dimen name="marginLeftRight_editEcran28">22.5dp</dimen>
+    <dimen name="minHeight_editEcran28">120dp</dimen>
+    <dimen name="textSize_editEcran28">16.87dp</dimen>
+    <dimen name="textPading_editEcran28">11.25dp</dimen>
+    <dimen name="textPadingRight_editEcran28">10dp</dimen>
+    <dimen name="padingTopBottom_trimiteEcran28">14.06dp</dimen>
+    <dimen name="textSize_trimiteEcran28">20.25dp</dimen>
+    <dimen name="layoutHeight_trimiteEcran28">50.62dp</dimen>
+    <dimen name="layoutWidth_trimiteEcran28">260.43dp</dimen>
+    <dimen name="imageWidth_trimiteEcran28">30dp</dimen>
+    <dimen name="imageHeight_trimiteEcran28">30dp</dimen>
+    <dimen name="imageRight_trimiteEcran28">5dp</dimen>
+    <dimen name="marginLeft_cumEcran28">17.43dp</dimen>
+    <dimen name="marginTop_cumEcran28">12.37dp</dimen>
+
+
 
 
 

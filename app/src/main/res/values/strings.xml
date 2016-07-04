@@ -58,12 +58,20 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <!--string ecran9 <=> despre-->
+    <!--string ecran9 <=> Despre-->
     <string name="despre_1">Aplicația nuBloca conectează conducătorii auto pentru diverse probleme după numerele de masină. \n \n</string>
     <string name="despre_2">Accesează secțiunea</string>
     <string name="despre_3"> Ajutor </string>
     <string name="despre_4">pentru a </string>
     <string name="despre_5">afla despre funcționalitațile ei.</string>
+
+    <!--string ecran10 <=> Contact-->
+    <string name="contact__1">Email: contact@nubloca.ro</string>
+    <string name="contact__2">Ne puteti contacta si prin formularul de mai jos.</string>
+    <string name="contact__3">Nume: </string>
+    <string name="contact__4">Telefon: </string>
+    <string name="contact__5">E-mail: </string>
+    <string name="contact__6">Mesaj: </string>
 
 
     <!--string ecran11 <=> Ajutor-->
@@ -106,7 +114,7 @@
     <string name="mesaje__standard_6">Notificări</string>
     <string name="mesaje__standard_7">Istoric conversații</string>
     <string name="mesaje__standard_8">Despre</string>
-    <string name="mesaje__standard_9">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
+    <string name="mesaje__standard_9">Propune un mesaj</string>
     <string name="mesaje__standard_10">Vezi tot</string>
 
     <!--string ecran23 <=> Tip inmatriculare-->
@@ -157,6 +165,9 @@
     <string name="propune_mesaj_3">Trimite</string>
     <string name="propune_mesaj_4">Află mai multe</string>
 
+
+
+
     <!--string ecran29 <=> Limba aplicatiei-->
     <string name="limba_aplicatie_1">Română</string>
     <string name="limba_aplicatie_2">Engleză</string>
@@ -172,4 +183,5 @@
     <string name="nu">Nu</string>
     <string name="da">Da</string>
     <string name="blue_car_background">blue car background</string>
+
 </resources>
