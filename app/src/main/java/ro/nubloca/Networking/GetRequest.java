@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -22,7 +23,7 @@ public class GetRequest {
     SharedPreferences sharedpreferences;
     private String result, acc_lang, cont_lang, app_code;
 
-    public String getRaspuns(Context context, String url, JSONObject resursa, JSONArray cerute) {
+    public String getRaspuns(Context context, String url, JSONObject resursa, JSONArray cerute, String... method) {
 
         sharedpreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
@@ -53,38 +54,105 @@ public class GetRequest {
             e.printStackTrace();
         }
 
-
         HttpClient httpClient = new DefaultHttpClient();
-        HttpBodyGet httpPost = new HttpBodyGet(url);
-        httpPost.setHeader("Content-Type", "application/json");
-        httpPost.setHeader("Content-Language", cont_lang);
-        httpPost.setHeader("Accept-Language", acc_lang);
+
+        if (method.length>0) {
+            if (method[0].equals("POST")) {
+
+                JSONObject js1 = new JSONObject();
+                try {
+                    js1=jsonPrep();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
 
-        //Encoding POST data
-        try {
+                HttpPost httpPost = new HttpPost(url);
+                httpPost.setHeader("Content-Type", "application/json");
+                httpPost.setHeader("Content-Language", cont_lang);
+                httpPost.setHeader("Accept-Language", acc_lang);
 
-            httpPost.setEntity(new ByteArrayEntity(js.toString().getBytes("UTF8")));
+                //Encoding POST data
+                try {
 
-        } catch (UnsupportedEncodingException e) {
-            // log exception
-            e.printStackTrace();
+                    httpPost.setEntity(new ByteArrayEntity(js1.toString().getBytes("UTF8")));
+
+                } catch (UnsupportedEncodingException e) {
+                    // log exception
+                    e.printStackTrace();
+                }
+
+                //making POST request.
+                try {
+                    HttpResponse response = httpClient.execute(httpPost);
+                    result = EntityUtils.toString(response.getEntity());
+
+                } catch (ClientProtocolException e) {
+                    // Log exception
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // Log exception
+                    e.printStackTrace();
+                }
+
+            }
+        } else {
+            HttpBodyGet httpPost = new HttpBodyGet(url);
+            httpPost.setHeader("Content-Type", "application/json");
+            httpPost.setHeader("Content-Language", cont_lang);
+            httpPost.setHeader("Accept-Language", acc_lang);
+
+            //Encoding POST data
+            try {
+
+                httpPost.setEntity(new ByteArrayEntity(js.toString().getBytes("UTF8")));
+
+            } catch (UnsupportedEncodingException e) {
+                // log exception
+                e.printStackTrace();
+            }
+
+            //making POST request.
+            try {
+                HttpResponse response = httpClient.execute(httpPost);
+                result = EntityUtils.toString(response.getEntity());
+
+            } catch (ClientProtocolException e) {
+                // Log exception
+                e.printStackTrace();
+            } catch (IOException e) {
+                // Log exception
+                e.printStackTrace();
+            }
+
+
         }
 
-        //making POST request.
-        try {
-            HttpResponse response = httpClient.execute(httpPost);
-            result = EntityUtils.toString(response.getEntity());
-
-        } catch (ClientProtocolException e) {
-            // Log exception
-            e.printStackTrace();
-        } catch (IOException e) {
-            // Log exception
-            e.printStackTrace();
-        }
 
         return result;
+    }
+
+    private JSONObject jsonPrep() throws JSONException {
+        JSONObject jsTrim = new JSONObject();
+        JSONObject jsIdent1 = new JSONObject();
+
+        JSONObject js = new JSONObject();
+        JSONObject jsIdent = new JSONObject();
+        jsIdent.put("app_code", "abcdefghijkl123456");
+        jsIdent1.put("user", jsIdent);
+
+        jsTrim.put("id_instalare", 12);
+        jsTrim.put("pentru_id_tara", 147);
+        jsTrim.put("mesaj", "mesajTest");
+
+
+
+        js.put("identificare", jsIdent1);
+
+        js.put("trimise", jsTrim);
+        
+        return js;
+        
     }
 
 }

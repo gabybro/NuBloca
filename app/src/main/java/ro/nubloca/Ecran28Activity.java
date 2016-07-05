@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -27,20 +30,16 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.util.List;
 
+import ro.nubloca.Networking.GetRequest;
+import ro.nubloca.Networking.Response;
 import ro.nubloca.extras.Global;
 
 public class Ecran28Activity extends AppCompatActivity {
     Drawable upArrow = null;
-    public String url = "http://api.nubloca.ro/propuneri_mesaje/";
-    JSONArray jsonobject_Three = new JSONArray();
-    JSONObject jsonobject_TWO = new JSONObject();
-    JSONObject jsonobject_one_one = new JSONObject();
-    JSONObject js = new JSONObject();
     String mesajText;
-    String acc_lang = "en";
-    String cont_lang = "ro";
-    int resp=0;
     String result;
 
     @Override
@@ -72,13 +71,7 @@ public class Ecran28Activity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     mesajText = mesajEdit.getText().toString();
-
-                    prepJsonSend();
-                    makePostRequestOnNewThread();
-
-
-                    Toast toast = Toast.makeText(Ecran28Activity.this, result, Toast.LENGTH_LONG);
-                    toast.show();
+                    makeRequest();
                 }
             });
 
@@ -103,74 +96,24 @@ public class Ecran28Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void prepJsonSend() {
 
-        try {
-            JSONObject jsonobject_one = new JSONObject();
-            jsonobject_one.put("app_code", "abcdefghijkl123456");
-            jsonobject_one_one.put("user", jsonobject_one);
-
-            jsonobject_TWO.put("id_instalare", 12);
-            jsonobject_TWO.put("pentru_id_tara", 147);
-            jsonobject_TWO.put("mesaj", mesajText);
-
-
-
-            js.put("identificare", jsonobject_one_one);
-
-            js.put("trimise", jsonobject_TWO);
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void makePostRequestOnNewThread() {
+    private void makeRequest() {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                makePostRequest();
-                //handler.sendEmptyMessage(0);
-
+                 /*{
+            "identificare": {            "user": {                "admin": "abcdefghijkl123456"            }        },
+            "trimise": {            "id_instalare": 12,                    "pentru_id_tara": 147,                    "mesaj": "Mesaj"        }
+        }*/
+                String url = "http://api.nubloca.ro/propuneri_mesaje/";
+                GetRequest elem = new GetRequest();
+                JSONArray cerute = new JSONArray();
+                JSONObject resursa = new JSONObject();
+                result = elem.getRaspuns(Ecran28Activity.this, url, resursa, cerute, "POST");
             }
         });
         t.start();
     }
-
-    private void makePostRequest() {
-
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(url);
-        httpPost.setHeader("Content-Type", "application/json");
-        httpPost.setHeader("Content-Language", cont_lang);
-        httpPost.setHeader("Accept-Language", acc_lang);
-
-
-        //Encoding POST data
-        try {
-
-            httpPost.setEntity(new ByteArrayEntity(js.toString().getBytes("UTF8")));
-
-        } catch (UnsupportedEncodingException e) {
-            // log exception
-            e.printStackTrace();
-        }
-        try {
-            HttpResponse response = httpClient.execute(httpPost);
-            result = EntityUtils.toString(response.getEntity());
-        } catch (ClientProtocolException e) {
-            // Log exception
-            e.printStackTrace();
-        } catch (IOException e) {
-            // Log exception
-            e.printStackTrace();
-        }
-
-
-    }
-
 
 }
 
