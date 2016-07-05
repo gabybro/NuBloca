@@ -15,17 +15,17 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
+            android:layout_height="@dimen/toolbar"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <ro.nubloca.extras.CustomFontTitilliumBold
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="Anulati"
-                android:textColor="#FFEA00"
-                android:textSize="24dp"
+                android:layout_gravity="start"
+                android:text="@string/inscrie_auto_title1"
+                android:textColor="@color/yellow_title"
+                android:textSize="@dimen/title_textSize1"
                 android:clickable="true" />
 
             <ro.nubloca.extras.CustomFontTitilliumRegular
@@ -33,19 +33,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Inscrie Auto"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/size_title_center" />
+                android:text="@string/inscrie_auto_title2"
+                android:textColor="@color/white_title"
+                android:textSize="@dimen/title_centerSize" />
 
             <ro.nubloca.extras.CustomFontTitilliumBold
                 android:id="@+id/toolbar_title2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="OK"
-                android:textColor="#FFEA00"
+                android:layout_gravity="end"
+                android:text="@string/inscrie_auto_title3"
+                android:textColor="@color/yellow_title"
                 android:textSize="@dimen/size_title_center"
-                android:paddingRight="20dp" />
+                android:paddingRight="@dimen/title_paddingRight" />
 
         </android.support.v7.widget.Toolbar>
 

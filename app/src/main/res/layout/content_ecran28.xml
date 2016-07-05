@@ -52,11 +52,13 @@
             <EditText
                 android:id="@+id/editText"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_gravity="top"
+                android:gravity="top"
                 android:background="@android:color/transparent"
                 android:focusable="true"
                 android:hint="@string/propune_mesaj_2"
+                android:imeOptions="actionDone"
                 android:inputType="textMultiLine"
                 android:maxLength="150"
                 android:maxLines="4"
@@ -101,10 +103,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rel1"
-        android:layout_marginTop="@dimen/marginTop_cumEcran28"
         android:layout_marginLeft="@dimen/marginLeft_cumEcran28"
         android:layout_marginStart="@dimen/marginLeft_cumEcran28"
-        android:textColor="@color/textBorderColor_ecran28"
-        android:text="@string/propune_mesaj_4" />
+        android:layout_marginTop="@dimen/marginTop_cumEcran28"
+        android:text="@string/propune_mesaj_4"
+        android:textColor="@color/textBorderColor_ecran28" />
 
 </RelativeLayout>

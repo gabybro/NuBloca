@@ -14,6 +14,11 @@
     <dimen name="textSize_rowListaExemplu">11.81dp</dimen>
 
 
+    <!--    ecran3     -->
+    <dimen name="paddingTopLeftRight">22dp</dimen>
+    <dimen name="textSize_ecran3">20sp</dimen>
+
+
     <!--    ecran20     -->
     <dimen name="marginTop_cumfunctioneazaEcran20">15.625dp</dimen>
     <dimen name="textSize_trimiteEcran20">20.25dp</dimen>
@@ -71,10 +76,10 @@
     <dimen name="textSize_ecran25_listaTari">17.4375dp</dimen>
 
     <!--    ecran28     -->
-    <dimen name="marginTop_textEcran28">33.75dp</dimen>
+    <dimen name="marginTop_textEcran28">27.75dp</dimen>
     <dimen name="marginLeftRight_textEcran28">28.12dp</dimen>
     <dimen name="textSize_textEcran28">17.43dp</dimen>
-    <dimen name="marginTop_editEcran28">47.81dp</dimen>
+    <dimen name="marginTop_editEcran28">27.81dp</dimen>
     <dimen name="marginLeftRight_editEcran28">22.5dp</dimen>
     <dimen name="minHeight_editEcran28">120dp</dimen>
     <dimen name="textSize_editEcran28">16.87dp</dimen>
@@ -90,6 +95,28 @@
     <dimen name="marginLeft_cumEcran28">17.43dp</dimen>
     <dimen name="marginTop_cumEcran28">12.37dp</dimen>
 
+    <!--    ecran282    -->
+    <dimen name="marginTop_textEcran282">28.12dp</dimen>
+    <dimen name="textSize_ecran282">17.43dp</dimen>
+    <dimen name="text_paddingLeftRight">28.12dp</dimen>
+
+    <!--    dialogBox ecran28    -->
+    <dimen name="marginLeftRight_dialog">11.81dp</dimen>
+    <dimen name="textSize_dialog">17.43sp</dimen>
+    <dimen name="marginTopBotText1_dialog">20.81dp</dimen>
+    <dimen name="marginLeftRightText_dialog">10dp</dimen>
+    <dimen name="heightBox_dialog">50.62dp</dimen>
+    <dimen name="widthBox_dialog">92.81dp</dimen>
+    <dimen name="marginTopBox_dialog">33.75dp</dimen>
+    <dimen name="marginBotBox_dialog">25.31dp</dimen>
+    <dimen name="textSizeBox_dialog">22.05sp</dimen>
+
+
+
+    <!--    Title Size     -->
+    <dimen name="title_textSize1">24sp</dimen>
+    <dimen name="title_centerSize">23.06dp</dimen>
+    <dimen name="title_paddingRight">20dp</dimen>
 
 
 

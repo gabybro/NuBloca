@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F0F0"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Ecran282Activity"
+    tools:showIn="@layout/activity_ecran282">
+
+
+    <ro.nubloca.extras.CustomFontTitilliumRegular
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginTop_textEcran282"
+        android:layout_marginLeft="@dimen/text_paddingLeftRight"
+        android:layout_marginRight="@dimen/text_paddingLeftRight"
+        android:layout_marginTop="@dimen/marginTop_textEcran282"
+        android:text="@string/propune_mesaj_282"
+        android:textColor="@color/textColor_ecran282"
+        android:textSize="@dimen/textSize_ecran282" />
+
+    <ro.nubloca.extras.CustomFontTitilliumBold
+        android:id="@+id/propune_mesaj"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/layoutHeight_propuneMsgEcran22"
+        android:layout_below="@+id/text"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ecran22blue_btn"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/paddingLeftRight_propuneMsgEcran22"
+        android:paddingRight="@dimen/paddingLeftRight_propuneMsgEcran22"
+        android:text="@string/propune_alt_mesaj_282"
+        android:textColor="@color/white_title"
+        android:textSize="@dimen/btnTextSize_propuneMsgEcran22" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/propune_mesaj"
+        android:background="@drawable/bkg282">
+
+    </ImageView>
+</RelativeLayout>

@@ -7,7 +7,6 @@
     <color name="main_bkg">#FF0E53</color>
     <color name="btn_green">#2FDB9E</color>
     <color name="btn_grey">#CCCCCC</color>
-    <color name="tos_text_color">#595959</color>
     <color name="btn_white">#ffffff</color>
     <color name="btn_grey_text">#333333</color>
     <color name="btn_grey_text1">#8B8B8B</color>
@@ -28,6 +27,9 @@
     <color name="transparent">#00000000</color>
     <color name="ecran20Trimite">#FFEA00</color>
 
+    <!--ecran23-->
+    <color name="tos_text_color">#595959</color>
+
     <!--ecran24-->
     <color name="ecran24sterge">#000000</color>
     <color name="ecran24edit">#FFEA00</color>
@@ -38,6 +40,21 @@
     <color name="textColor_trimiteEcran28">#ffffff</color>
     <color name="borderColor_ecran28">#D1D1CF</color>
     <color name="textBorderColor_ecran28">#1D74D8</color>
+
+    <!--ecran28 dialog-->
+    <color name="textColor_dialog">#FF0C52</color>
+    <color name="textColor1_dialog">#303030</color>
+
+
+    <!--ecran282-->
+    <color name="textColor_ecran282">#333333</color>
+
+
+
+
+    <!--Title Color-->
+    <color name="yellow_title">#FFEA00</color>
+    <color name="white_title">#FFFFFF</color>
 
 
 

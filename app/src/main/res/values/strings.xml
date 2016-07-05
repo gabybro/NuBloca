@@ -14,9 +14,6 @@
     <string name="termeni">Termeni și condiții</string>
     <string name="tos_text2">Aplicația poate funcționa doar dacă accepți Termenii si Condițiile de Utilizare.
         \n \n Te asigurăm că aceștia sunt în concordanța cu legile statului român.</string>
-    <string name="tos_text">Lorem ipsum dolor sit amet, facilis sensibus intellegebat ex quo, et tale duis per. An odio reformidans intellegebat ius, etiam oratio abhorreant usu ei. In officiis gubergren honestatis vim. Omnis putant option pri ei, libris deterruisset delicatissimi in cum. Veri tation est eu, singulis accusata ei cum. Partem vituperata eu mel.
-        \n \n Movet quidam id per. Habeo ubique detracto in pri, te iusto soluta antiopam mei. Eum no elit nobis soleat, mutat tollit vix ut. Pro ex atomorum conclusionemque, hinc disputationi ut vim. Eam ex decore volutpat, ad vero adipiscing nec. Cu verterem urbanitas vim, per in essent sententiae.
-        \n \n Ad per alia fabellas corrumpit, his labore tamquam accusata ne, est clita perpetua ad. Est an ubique comprehensam, id persecuti assueverit nec, sumo singulis cum in. Id quot regione necessitatibus quo, probo viris pertinax pro eu, falli nobis est ex. Et meis audire inermis vim, rebum timeam indoctum nam in, tota aperiam qualisque eos in. In vix alii eripuit invidunt, quo ei malorum ocurreret urbanitas, vim eu nisl oratio option. Mel no libris ridens utroque, euismod deseruisse eos at. \n \n \n </string>
     <string name="title_activity_ecran2">Inscrie auto</string>
     <string name="title_activity_ecran5">Ecran5Activity</string>
     <string name="title_activity_screen">Screen</string>
@@ -57,6 +54,19 @@
     <!--******-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <!--string ecran2 <=> Inscrie Auto-->
+    <string name="inscrie_auto_title1">Anulati</string>
+    <string name="inscrie_auto_title2">Inscrie Auto</string>
+    <string name="inscrie_auto_title3">OK</string>
+
+    <!--string ecran3 <=> Termeni si Conditii-->
+    <string name="termeni_si_conditii_title1">Termeni si Conditii</string>
+        <string name="termeni_si_conditii_tos_text">Lorem ipsum dolor sit amet, facilis sensibus intellegebat ex quo, et tale duis per. An odio reformidans intellegebat ius, etiam oratio abhorreant usu ei. In officiis gubergren honestatis vim. Omnis putant option pri ei, libris deterruisset delicatissimi in cum. Veri tation est eu, singulis accusata ei cum. Partem vituperata eu mel.
+        \n \n Movet quidam id per. Habeo ubique detracto in pri, te iusto soluta antiopam mei. Eum no elit nobis soleat, mutat tollit vix ut. Pro ex atomorum conclusionemque, hinc disputationi ut vim. Eam ex decore volutpat, ad vero adipiscing nec. Cu verterem urbanitas vim, per in essent sententiae.
+        \n \n Ad per alia fabellas corrumpit, his labore tamquam accusata ne, est clita perpetua ad. Est an ubique comprehensam, id persecuti assueverit nec, sumo singulis cum in. Id quot regione necessitatibus quo, probo viris pertinax pro eu, falli nobis est ex. Et meis audire inermis vim, rebum timeam indoctum nam in, tota aperiam qualisque eos in. In vix alii eripuit invidunt, quo ei malorum ocurreret urbanitas, vim eu nisl oratio option. Mel no libris ridens utroque, euismod deseruisse eos at. \n \n \n </string>
+
 
     <!--string ecran9 <=> Despre-->
     <string name="despre_1">Aplicația nuBloca conectează conducătorii auto pentru diverse probleme după numerele de masină. \n \n</string>
@@ -160,21 +170,26 @@
     <string name="mesaj_intreg_1">Salut, ai parcat pe locul meu. Vino te rog și mută mașina.</string>
 
     <!--string ecran28 <=> Propune mesaj-->
-    <string name="propune_mesaj_1">Dacă mesajul pe care vrei să-l trimiți nu se află în listă, îl poți propune spre implementare mai jos:</string>
+    <string name="propune_mesaj_1">Dacă mesajul pe care vrei să-l trimiţi nu se află în listă, îl poţi propune spre implementare mai jos:</string>
     <string name="propune_mesaj_2">Mesaj:</string>
     <string name="propune_mesaj_3">Trimite</string>
     <string name="propune_mesaj_4">Află mai multe</string>
+    <string name="toast_msg">Mesaj Trimis!</string>
 
+    <!--string ecran282 <=> Propune mesaj-->
+    <string name="propune_mesaj_282">Multumim pentru implicare! \n \nPropunerea ta va fi analizata, iar daca mesajul va fi implementat, vei fi anuntat pe adresa de email.</string>
+    <string name="propune_alt_mesaj_282">Propune alt mesaj</string>
 
+    <!--string ecran282 <=> dialog-->
+    <string name="ok_dialog28">OK</string>
+    <string name="alerta_dialog28">ALERTA</string>
+    <string name="text_dialog28">A intervenit o eroare in trimiterea propunerii, te rugam, incearca din nou.</string>
 
 
     <!--string ecran29 <=> Limba aplicatiei-->
     <string name="limba_aplicatie_1">Română</string>
     <string name="limba_aplicatie_2">Engleză</string>
-
-
-    <!-- TODO: nice to know -->
-    <string name="TODO1">TODO text</string>
+    
 
     <!--string ecran99 <=> Global Settings(admin)-->
     <string name="title_activity_ecran99">Global Settings</string>

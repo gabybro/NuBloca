@@ -23,7 +23,7 @@ public class GetRequest {
     SharedPreferences sharedpreferences;
     private String result, acc_lang, cont_lang, app_code;
 
-    public String getRaspuns(Context context, String url, JSONObject resursa, JSONArray cerute, String... method) {
+    public String getRaspuns(Context context, String url, JSONObject resursa, JSONArray cerute, String... mesaj) {
 
         sharedpreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         acc_lang = (sharedpreferences.getString("acc_lang", "en"));
@@ -56,12 +56,12 @@ public class GetRequest {
 
         HttpClient httpClient = new DefaultHttpClient();
 
-        if (method.length>0) {
-            if (method[0].equals("POST")) {
+        if (mesaj.length>0) {
+
 
                 JSONObject js1 = new JSONObject();
                 try {
-                    js1=jsonPrep();
+                    js1=jsonPrep(mesaj[0]);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -96,7 +96,7 @@ public class GetRequest {
                 }
 
             }
-        } else {
+         else {
             HttpBodyGet httpPost = new HttpBodyGet(url);
             httpPost.setHeader("Content-Type", "application/json");
             httpPost.setHeader("Content-Language", cont_lang);
@@ -132,7 +132,7 @@ public class GetRequest {
         return result;
     }
 
-    private JSONObject jsonPrep() throws JSONException {
+    private JSONObject jsonPrep(String mesaj) throws JSONException {
         JSONObject jsTrim = new JSONObject();
         JSONObject jsIdent1 = new JSONObject();
 
@@ -143,12 +143,9 @@ public class GetRequest {
 
         jsTrim.put("id_instalare", 12);
         jsTrim.put("pentru_id_tara", 147);
-        jsTrim.put("mesaj", "mesajTest");
-
-
+        jsTrim.put("mesaj", mesaj);
 
         js.put("identificare", jsIdent1);
-
         js.put("trimise", jsTrim);
         
         return js;

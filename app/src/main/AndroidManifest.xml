@@ -219,6 +219,15 @@
                 android:value="ro.nubloca.Ecran22Activity" />
         </activity>
         <activity
+            android:name=".Ecran282Activity"
+            android:label="@string/title_activity_ecran28"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ro.nubloca.Ecran24Activity" />
+        </activity>
+        <activity
             android:name=".Ecran99Activity"
             android:label="@string/title_activity_ecran99"
             android:screenOrientation="portrait"
