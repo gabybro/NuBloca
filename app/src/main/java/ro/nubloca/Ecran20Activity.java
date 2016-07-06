@@ -123,35 +123,12 @@ public class Ecran20Activity extends AppCompatActivity {
         }
 
 
-
-
-
-       /*
-        if (ids != null) {
-            String numarselected = ((Global) getApplicationContext()).getNumarSelected();
-            String numarSelected = numarselected.split("\\.")[0];
-            String dateSelected = numarselected.split("\\.")[1];
-            String codeSelected = numarselected.split("\\.")[2];
-
-            Gson gson = new Gson();
-            for (int i = 0; i < ids.length; i++) {
-                String json1 = sharedpreferences.getString("TARA" + ids[i], "");
-                standElem1 = gson.fromJson(json1, StandElem.class);
-                if (standElem1.getCod().equals(codeSelected)) {
-                    standElem = standElem1;
-                    ((Global) getApplicationContext()).setStandElem(standElem);
-                }
-
-            }
-
-        }*/
-
         View btn_istoric_numere = (View) findViewById(R.id.istoricNumere);
         if (btn_istoric_numere != null)
             btn_istoric_numere.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    finish();
                     startActivity(new Intent(Ecran20Activity.this, Ecran24Activity.class));
 
                 }
@@ -163,9 +140,9 @@ public class Ecran20Activity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-
-                    startActivity(new Intent(Ecran20Activity.this, Ecran13Activity.class));
                     finish();
+                    startActivity(new Intent(Ecran20Activity.this, Ecran13Activity.class));
+
                 }
             });
 
@@ -177,23 +154,23 @@ public class Ecran20Activity extends AppCompatActivity {
                 public void onClick(View v) {
                     standElem.setPositionExemplu(-1);
                     ((Global) getApplicationContext()).setStandElem(standElem);
-
-                    startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
                     finish();
+                    startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
+
 
                 }
             });
 
 
-        LinearLayout btn1 = (LinearLayout) this.findViewById(R.id.lin_bar1);
+        LinearLayout btn1 = (LinearLayout) this.findViewById(R.id.textSalutAiParcat);
         if (btn1 != null)
             btn1.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-
-                    startActivity(new Intent(Ecran20Activity.this, Ecran22Activity.class));
                     finish();
+                    startActivity(new Intent(Ecran20Activity.this, Ecran22Activity.class));
+
                 }
             });
 
@@ -397,7 +374,6 @@ public class Ecran20Activity extends AppCompatActivity {
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.menu5, menu);
 
         View button = (View) this.findViewById(R.id.trimite);
         if (button != null)
@@ -476,6 +452,7 @@ public class Ecran20Activity extends AppCompatActivity {
                         Toast toast = Toast.makeText(Ecran20Activity.this, s, Toast.LENGTH_LONG);
                         toast.show();
                         finish();
+                        startActivity(new Intent(Ecran20Activity.this, Ecran7Activity.class));
                     } else {
                         Toast toast = Toast.makeText(Ecran20Activity.this, "Invalid number format!", Toast.LENGTH_LONG);
                         //Toast toast = Toast.makeText(Ecran20Activity.this, iddd+"", Toast.LENGTH_LONG);
@@ -496,11 +473,17 @@ public class Ecran20Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
-        startActivity(new Intent(Ecran20Activity.this, Ecran7Activity.class));
         finish();
+        startActivity(new Intent(Ecran20Activity.this, Ecran7Activity.class));
         super.onBackPressed();
     }
 
 
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        Intent myIntent = new Intent(getApplicationContext(), Ecran7Activity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
+    }
 }

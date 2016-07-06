@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -383,5 +384,13 @@ public class Ecran24Activity extends AppCompatActivity {
         float scale = getResources().getDisplayMetrics().density;
         int dpAsPixels = (int) (sizeInDp * scale + 0.5f);
         return dpAsPixels;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        Intent myIntent = new Intent(getApplicationContext(), Ecran20Activity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 }

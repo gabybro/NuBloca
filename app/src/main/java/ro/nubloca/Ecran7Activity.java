@@ -47,7 +47,6 @@ public class Ecran7Activity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.logo1);
         //getSupportActionBar().setDisplayUseLogoEnabled(true);
@@ -74,32 +73,30 @@ public class Ecran7Activity extends AppCompatActivity
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        LinearLayout lay = (LinearLayout) this.findViewById(R.id.linearLayout);
+        LinearLayout lay = (LinearLayout) this.findViewById(R.id.contactProprietarAuto);
+        if (lay != null) {
+            lay.setOnClickListener(new View.OnClickListener() {
+                ImageView iv = (ImageView) findViewById(R.id.imageView5);
+                @Override
+                public void onClick(View v) {
+                    iv.setImageResource(R.drawable.car_small71);
+                    finish();
+                    startActivity(new Intent(Ecran7Activity.this, Ecran20Activity.class));
 
-        lay.setOnClickListener(new View.OnClickListener() {
-
-            ImageView iv = (ImageView) findViewById(R.id.imageView5);
-
-            @Override
-            public void onClick(View v) {
-                iv.setImageResource(R.drawable.car_small71);
-                //Toast.makeText(Ecran7Activity.this, ":(", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(Ecran7Activity.this, Ecran20Activity.class));
-
-            }
-        });
-
+                }
+            });
+        }
         LinearLayout lay1 = (LinearLayout) this.findViewById(R.id.linearLayout1);
+        if (lay1 != null) {
+            lay1.setOnClickListener(new View.OnClickListener() {
 
-        lay1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(Ecran7Activity.this, Ecran2Activity.class));
 
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Ecran7Activity.this, Ecran2Activity.class));
-
-            }
-        });
-
+                }
+            });
+        }
     }
 
     @Override
@@ -124,6 +121,7 @@ public class Ecran7Activity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -135,6 +133,7 @@ public class Ecran7Activity extends AppCompatActivity
 
         }
     }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -165,14 +164,13 @@ public class Ecran7Activity extends AppCompatActivity
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if ((keyCode == KeyEvent.KEYCODE_BACK))
-        {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             finish();
             moveTaskToBack(true);
 
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }
