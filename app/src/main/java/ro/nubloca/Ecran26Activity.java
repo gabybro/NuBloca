@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -211,5 +212,12 @@ public class Ecran26Activity extends AppCompatActivity {
         return dpAsPixels;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        Intent myIntent = new Intent(getApplicationContext(), Ecran23Activity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
 
+    }
 }

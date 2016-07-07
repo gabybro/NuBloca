@@ -27,7 +27,6 @@ import ro.nubloca.extras.CustomFontTitilliumRegular;
 import ro.nubloca.extras.Global;
 
 public class Ecran22Activity extends AppCompatActivity {
-    Drawable upArrow = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +39,7 @@ public class Ecran22Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         upArrow.setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
@@ -90,23 +89,7 @@ public class Ecran22Activity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-        startActivity(new Intent(Ecran22Activity.this, Ecran20Activity.class));
-        super.onBackPressed();
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                Ecran22Activity.this.onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+
 
     public class CustomAdapter extends ArrayAdapter<String> {
 
@@ -154,4 +137,23 @@ public class Ecran22Activity extends AppCompatActivity {
             return customView;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        //finish();
+        //startActivity(new Intent(Ecran22Activity.this, Ecran20Activity.class));
+        super.onBackPressed();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                Ecran22Activity.this.onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

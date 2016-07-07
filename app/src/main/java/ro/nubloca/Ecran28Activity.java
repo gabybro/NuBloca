@@ -158,6 +158,7 @@ public class Ecran28Activity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     private void openAlert(View view) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Ecran28Activity.this);
         LayoutInflater inflater = this.getLayoutInflater();

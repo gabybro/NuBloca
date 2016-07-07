@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -213,10 +214,11 @@ public class Ecran25Activity extends AppCompatActivity {
                             standElem = gson.fromJson(json1, StandElem.class);
                             editor.putString("STANDELEM", json1);
                             editor.commit();
+                            standElem.setPositionExemplu(-2);
                             ((Global) getApplicationContext()).setStandElem(standElem);
-
-                            startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
                             finish();
+                            startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
+
 
                         }
 
@@ -253,7 +255,7 @@ public class Ecran25Activity extends AppCompatActivity {
                             Looper.myLooper().quit();
                             progress.dismiss();
                             ((Global) getApplicationContext()).setStandElem(standElem);
-
+                            standElem.setPositionExemplu(-2);
                             startActivity(new Intent(Ecran25Activity.this, Ecran23Activity.class));
                             finish();
                         }
@@ -267,5 +269,12 @@ public class Ecran25Activity extends AppCompatActivity {
 
 
     }
+    /*@Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        Intent myIntent = new Intent(getApplicationContext(), Ecran23Activity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
 
+    }*/
 }

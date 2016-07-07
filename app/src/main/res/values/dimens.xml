@@ -94,6 +94,7 @@
     <dimen name="imageRight_trimiteEcran28">5dp</dimen>
     <dimen name="marginLeft_cumEcran28">17.43dp</dimen>
     <dimen name="marginTop_cumEcran28">12.37dp</dimen>
+    <dimen name="textSize_aflaMaiMulteEcran28">17.43dp</dimen>
 
     <!--    ecran282    -->
     <dimen name="marginTop_textEcran282">28.12dp</dimen>

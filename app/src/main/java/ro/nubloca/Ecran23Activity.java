@@ -119,31 +119,12 @@ public class Ecran23Activity extends AppCompatActivity {
             relBkg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //finish();
                     startActivity(new Intent(Ecran23Activity.this, Ecran25Activity.class));
-                    finish();
+
                 }
             });
 
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        finish();
-        startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
-        super.onBackPressed();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                Ecran23Activity.this.onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     int convDp(double sizeInDp) {
@@ -155,23 +136,15 @@ public class Ecran23Activity extends AppCompatActivity {
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-
             //progressBar.setVisibility(View.GONE);
-
-
         }
-
-
     };
-
 
     public class CustomAdapter extends ArrayAdapter<String> {
 
 
         public CustomAdapter(Context context, String[] elemente) {
             super(context, R.layout.raw_list, elemente);
-
-
         }
 
         @Override
@@ -201,16 +174,19 @@ public class Ecran23Activity extends AppCompatActivity {
                 ll.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        standElem.setSelected(position);
+
+                        if ((standElem.getSelected()==position)&&(standElem.getPositionExemplu()!=-2)){
+                            finish();
+                        }else{
+                            standElem.setSelected(position);
+                            startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
+                        }
                         standElem.setPositionExemplu(-1);
                         ((Global) getApplicationContext()).setStandElem(standElem);
-                        finish();
-                        startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
 
                     }
                 });
             }
-
 
             if (lll != null) {
 
@@ -227,4 +203,29 @@ public class Ecran23Activity extends AppCompatActivity {
             return customView;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        if (standElem.getPositionExemplu()==-2){
+            standElem.setPositionExemplu(-1);
+            startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
+        }
+                super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                standElem.setPositionExemplu(-1);
+                finish();
+                Ecran23Activity.this.onBackPressed();
+                return true;
+            default:
+                standElem.setPositionExemplu(-1);
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

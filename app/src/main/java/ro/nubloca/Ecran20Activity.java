@@ -10,6 +10,7 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
@@ -116,6 +117,7 @@ public class Ecran20Activity extends AppCompatActivity {
             ((Global) getApplicationContext()).setSelected(selected);
             campuri = standElem.getTipNumar().get(index).getTip_size();
 
+            camp = new String[campuri];
             for (int i = 0; i < campuri; i++) {
                 camp[i] = numarSelected.split(" ")[i];
             }
@@ -128,7 +130,6 @@ public class Ecran20Activity extends AppCompatActivity {
             btn_istoric_numere.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    finish();
                     startActivity(new Intent(Ecran20Activity.this, Ecran24Activity.class));
 
                 }
@@ -140,7 +141,7 @@ public class Ecran20Activity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    finish();
+                    //finish();
                     startActivity(new Intent(Ecran20Activity.this, Ecran13Activity.class));
 
                 }
@@ -154,7 +155,7 @@ public class Ecran20Activity extends AppCompatActivity {
                 public void onClick(View v) {
                     standElem.setPositionExemplu(-1);
                     ((Global) getApplicationContext()).setStandElem(standElem);
-                    finish();
+                    //finish();
                     startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
 
 
@@ -168,7 +169,7 @@ public class Ecran20Activity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    finish();
+                    //finish();
                     startActivity(new Intent(Ecran20Activity.this, Ecran22Activity.class));
 
                 }
@@ -428,11 +429,11 @@ public class Ecran20Activity extends AppCompatActivity {
                             String pluss = arrNumar + "." + arrCode;
                             if (plus.equals(pluss)) {
                                 linkedlist.remove(j);
-                               // linkedliststeag.remove(j);
+                                // linkedliststeag.remove(j);
                                 break;
                             }
                         }
-                        if (linkedlist.size()==50){
+                        if (linkedlist.size() == 50) {
                             linkedlist.removeLast();
                         }
 
@@ -443,7 +444,7 @@ public class Ecran20Activity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         for (int j = 0; j < linkedlist.size(); j++) {
                             editor.putString("LSNumere" + j, linkedlist.get(j));
-                           // String saveThis = Base64.encodeToString(linkedliststeag.get(j), Base64.DEFAULT);
+                            // String saveThis = Base64.encodeToString(linkedliststeag.get(j), Base64.DEFAULT);
                             //editor.putString("LSSteag" + j, saveThis);
                         }
                         editor.putInt("SizeLSNumere", linkedlist.size());
@@ -479,7 +480,7 @@ public class Ecran20Activity extends AppCompatActivity {
     }
 
 
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         Intent myIntent = new Intent(getApplicationContext(), Ecran7Activity.class);
         startActivityForResult(myIntent, 0);

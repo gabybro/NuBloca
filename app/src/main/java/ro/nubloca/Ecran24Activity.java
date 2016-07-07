@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -94,6 +95,7 @@ public class Ecran24Activity extends AppCompatActivity {
             lv.setAdapter(customAdapter);
 
         }
+
 
 
     }
@@ -197,7 +199,7 @@ public class Ecran24Activity extends AppCompatActivity {
 
                 final View customView = dapter.inflate(R.layout.raw_list24, parent, false);
 
-               final String singleElem = getItem(position);
+                final String singleElem = getItem(position);
                 String beforeFirstDot = singleElem.split("\\.")[0];
                 String afterFirstDot = singleElem.split("\\.")[1];
                 String arrayFlag = singleElem.split("\\.")[4];
@@ -244,17 +246,9 @@ public class Ecran24Activity extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(Ecran24Activity.this, Ecran20Activity.class));
-        finish();
-        super.onBackPressed();
-    }
-
     public boolean onCreateOptionsMenu(Menu menu) {
 
         final CustomFontTitilliumBold btn_edit = (CustomFontTitilliumBold) this.findViewById(R.id.edit);
-
         final CustomFontTitilliumRegular title = (CustomFontTitilliumRegular) this.findViewById(R.id.toolbar_title);
 
 
@@ -386,11 +380,38 @@ public class Ecran24Activity extends AppCompatActivity {
         return dpAsPixels;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
+    @Override
+    public void onBackPressed() {
+        //startActivity(new Intent(Ecran24Activity.this, Ecran20Activity.class));
+        //finish();
+        super.onBackPressed();
+    }
+    /*@Override
+    public boolean onNavigateUp () {
+        onBackPressed();
+        return true;
+    }*/
+    @Override
+    public Intent getSupportParentActivityIntent() {
+        Intent intent = super.getSupportParentActivityIntent();
+        return intent;
+    }
+    /*public boolean onOptionsItemSelected(MenuItem item){
         finish();
         Intent myIntent = new Intent(getApplicationContext(), Ecran20Activity.class);
         startActivityForResult(myIntent, 0);
         return true;
 
+    }*/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                Ecran24Activity.this.onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
