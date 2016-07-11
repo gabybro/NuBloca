@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/auto_down"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Ecran28Activity"
     tools:showIn="@layout/activity_ecran28">
@@ -11,8 +12,9 @@
     <RelativeLayout
         android:id="@+id/rel1"
         android:layout_width="match_parent"
-        android:background="@color/white_title"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:paddingBottom="@dimen/marginTop_textEcran28">
 
         <ro.nubloca.extras.CustomFontTitilliumRegular
             android:id="@+id/text"
@@ -42,6 +44,7 @@
             android:layout_marginTop="@dimen/marginTop_editEcran28"
             android:background="@drawable/border1"
             android:gravity="center_vertical"
+            android:focusableInTouchMode="true"
             android:minHeight="@dimen/minHeight_editEcran28"
             android:paddingBottom="@dimen/textPading_editEcran28"
             android:paddingLeft="@dimen/textPading_editEcran28"
@@ -54,9 +57,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_gravity="top"
-                android:gravity="top"
                 android:background="@android:color/transparent"
                 android:focusable="true"
+                android:gravity="top"
                 android:hint="@string/propune_mesaj_2"
                 android:imeOptions="actionDone"
                 android:inputType="textMultiLine"
@@ -66,19 +69,27 @@
                 android:textSize="@dimen/textSize_editEcran28" />
         </LinearLayout>
 
-        <ro.nubloca.extras.CustomFontTitilliumRegular
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lay_mesaj"
-            android:layout_marginLeft="@dimen/marginLeft_cumEcran28"
-            android:layout_marginStart="@dimen/marginLeft_cumEcran28"
-            android:layout_marginTop="@dimen/marginTop_cumEcran28"
-            android:text="@string/propune_mesaj_4"
-            android:textSize="@dimen/textSize_aflaMaiMulteEcran28"
-            android:textColor="@color/textBorderColor_ecran28" />
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/lin"
+        android:layout_below="@+id/rel1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#D1D1CF">
 
+    </RelativeLayout>
+
+    <ro.nubloca.extras.CustomFontTitilliumRegular
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lin"
+        android:layout_marginLeft="@dimen/marginLeft_cumEcran28"
+        android:layout_marginStart="@dimen/marginLeft_cumEcran28"
+        android:layout_marginTop="@dimen/marginTop_cumEcran28"
+        android:text="@string/propune_mesaj_4"
+        android:textColor="@color/textBorderColor_ecran28"
+        android:textSize="@dimen/textSize_aflaMaiMulteEcran28" />
 
 </RelativeLayout>

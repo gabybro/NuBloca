@@ -54,13 +54,25 @@ public class Ecran23Activity extends AppCompatActivity {
     //ProgressBar progressBar;
     StandElem standElem;
     boolean active = false;
-
+    Intent intent1;
+    String valueIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_ecran23);
+
+        /*Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String valueIntent = extras.getString("intent");
+            //The key argument here must match that used in the other activity
+            intent1 = new Intent(valueIntent);
+        }*/
+
+        valueIntent = ((Global) this.getApplication()).getIntent();
+        //intent1 = new Intent(valueIntent);
+
         View view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -179,10 +191,19 @@ public class Ecran23Activity extends AppCompatActivity {
                             finish();
                         }else{
                             standElem.setSelected(position);
-                            startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
+                            //startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
+                            if (valueIntent.equals("Ecran20Activity")){
+                                startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
+                            }
+                            if (valueIntent.equals("Ecran2Activity")){
+                                startActivity(new Intent(Ecran23Activity.this, Ecran2Activity.class));
+                            }
+
+                            //startActivity(intent1);
                         }
                         standElem.setPositionExemplu(-1);
                         ((Global) getApplicationContext()).setStandElem(standElem);
+
 
                     }
                 });
@@ -209,7 +230,15 @@ public class Ecran23Activity extends AppCompatActivity {
         finish();
         if (standElem.getPositionExemplu()==-2){
             standElem.setPositionExemplu(-1);
-            startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
+            //startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
+            //startActivity(intent1);
+            finish();
+            if (valueIntent.equals("Ecran20Activity")){
+                startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
+            }
+            if (valueIntent.equals("Ecran2Activity")){
+                startActivity(new Intent(Ecran23Activity.this, Ecran2Activity.class));
+            }
         }
                 super.onBackPressed();
     }

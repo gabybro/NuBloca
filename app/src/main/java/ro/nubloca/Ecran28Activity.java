@@ -61,7 +61,7 @@ public class Ecran28Activity extends AppCompatActivity {
         textview.setTypeface(textview.getTypeface(), Typeface.ITALIC);
 
 
-        LinearLayout lin = (LinearLayout) findViewById(R.id.trimite);
+        CustomFontTitilliumBold lin = (CustomFontTitilliumBold) findViewById(R.id.trimite);
         if (lin != null)
             lin.setOnClickListener(new View.OnClickListener() {
 
@@ -119,21 +119,20 @@ public class Ecran28Activity extends AppCompatActivity {
 
 
 
-    public boolean onCreateOptionsMenu(Menu menu) {
+    /*public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu5, menu);
 
 
         return true;
-    }
+    }*/
 
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu1) {
             finish();
         }
-
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
 
     private void makeRequest() {

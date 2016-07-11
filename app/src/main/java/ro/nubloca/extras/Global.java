@@ -201,4 +201,14 @@ public class Global extends Application{
 
     private int id_exemplu;
 
+    public String getIntent() {
+        return intent;
+    }
+
+    public void setIntent(String intent) {
+        this.intent = intent;
+    }
+
+    private String intent;
+
 }

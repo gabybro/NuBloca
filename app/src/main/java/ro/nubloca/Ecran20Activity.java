@@ -156,7 +156,13 @@ public class Ecran20Activity extends AppCompatActivity {
                     standElem.setPositionExemplu(-1);
                     ((Global) getApplicationContext()).setStandElem(standElem);
                     //finish();
+                    ((Global) getApplicationContext()).setIntent("Ecran20Activity");
                     startActivity(new Intent(Ecran20Activity.this, Ecran23Activity.class));
+
+                    /*Intent i = new Intent(getApplicationContext(), Ecran23Activity.class);
+                    i.putExtra("intent","Ecran20Activity");
+                    startActivity(i);*/
+
 
 
                 }

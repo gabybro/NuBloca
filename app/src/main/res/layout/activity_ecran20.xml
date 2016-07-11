@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/title_activity_ecran20"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white_title"
                 android:textSize="@dimen/size_title_center" />
 
             <ro.nubloca.extras.CustomFontTitilliumBold

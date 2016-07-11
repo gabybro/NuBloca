@@ -60,6 +60,8 @@
     <string name="inscrie_auto_title1">Anulati</string>
     <string name="inscrie_auto_title2">Inscrie Auto</string>
     <string name="inscrie_auto_title3">OK</string>
+    <string name="inscrie_ecran2">Inscrie numărul mașinii tale:</string>
+    <string name="nuAmMasina_ecran2">Nu am mașină</string>
 
     <!--string ecran3 <=> Termeni si Conditii-->
     <string name="termeni_si_conditii_title1">Termeni si Conditii</string>

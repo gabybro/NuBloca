@@ -4,13 +4,185 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/auto_down"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Ecran2Activity"
-    tools:showIn="@layout/activity_ecran2"
-    android:background="@drawable/screen1">
+    tools:showIn="@layout/activity_ecran2">
 
+    <RelativeLayout
+        android:id="@+id/container1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_title">
+
+        <ro.nubloca.extras.CustomFontTitilliumRegular
+            android:id="@+id/catreCeNumarId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="@dimen/marginBottom_catreCeNumarId"
+            android:paddingLeft="@dimen/marginLeft_catreCeNumarId"
+            android:paddingStart="@dimen/marginLeft_catreCeNumarId"
+            android:paddingTop="@dimen/marginTop_catreCeNumarId"
+            android:text="@string/inscrie_ecran2"
+            android:textSize="@dimen/textSize_catreCeNumarId" />
+
+        <LinearLayout
+            android:id="@+id/linear_plate_holder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/catreCeNumarId"
+            android:layout_centerInParent="true"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/alegeTipInmatriculare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear_plate_holder"
+            android:layout_marginBottom="@dimen/paddingBottom_NumeTipInmatriculare"
+            android:layout_marginTop="@dimen/marginTop_alegeTipInmatriculare"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/marginLeft_catreCeNumarId"
+            android:paddingRight="@dimen/marginLeft_catreCeNumarId"
+            android:paddingStart="@dimen/marginLeft_catreCeNumarId">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal">
+
+                <ro.nubloca.extras.CustomFontTitilliumRegular
+                    android:id="@+id/text_TipInmatriculare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_2"
+                    android:textSize="@dimen/textSize_TipInmatriculare" />
+
+                <ro.nubloca.extras.CustomFontTitilliumBold
+                    android:id="@+id/nume_tip_inmatriculare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/paddingLeftRight_NumeTipInmatriculare"
+                    android:layout_marginStart="@dimen/paddingLeftRight_NumeTipInmatriculare"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:lines="1"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxWidth="@dimen/maxWidth_TipInmatriculare"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/contact_3"
+                    android:textSize="@dimen/textSize_tipInmatriculare" />
+
+                <ImageView
+                    android:id="@+id/flag1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/paddingLeft_Flag"
+                    android:layout_marginStart="@dimen/paddingLeft_Flag" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/alegeAltTip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_4"
+                    android:textColor="@color/contact_4_color"
+                    android:textSize="@dimen/textSize_tipInmatriculare" />
+
+                <ImageView
+                    android:id="@+id/chevron_orange"
+                    android:layout_width="10dp"
+                    android:layout_height="14dp"
+                    android:layout_marginLeft="@dimen/marginLeft_ChevronOrange"
+                    android:layout_marginStart="@dimen/marginLeft_ChevronOrange"
+                    android:background="@drawable/chevron_orange_right"
+                    android:clickable="true" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lin"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/container1"
+        android:background="#D1D1CF">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/lin"
+        android:layout_marginTop="1dp">
+
+        <LinearLayout
+            android:id="@+id/cumFunctioneaza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:clickable="true"
+            android:paddingEnd="@dimen/paddingLeftRight_Cumfunctioneaza"
+            android:paddingLeft="@dimen/paddingLeftRight_Cumfunctioneaza"
+            android:paddingRight="@dimen/paddingLeftRight_Cumfunctioneaza"
+            android:paddingStart="@dimen/paddingLeftRight_Cumfunctioneaza">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/marginTop_cumfunctioneazaEcran20"
+                android:paddingTop="@dimen/marginTop_cumfunctioneazaEcran20"
+                android:text="@string/contact_6"
+                android:textColor="@color/contact_67_color"
+                android:textSize="@dimen/textSize_NumeTipInmatriculare" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/istoricNumere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:clickable="true"
+            android:paddingEnd="@dimen/paddingLeftRight_Cumfunctioneaza"
+            android:paddingLeft="@dimen/paddingLeftRight_Cumfunctioneaza"
+            android:paddingRight="@dimen/paddingLeftRight_Cumfunctioneaza"
+            android:paddingStart="@dimen/paddingLeftRight_Cumfunctioneaza">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/marginTop_cumfunctioneazaEcran20"
+                android:paddingTop="@dimen/marginTop_cumfunctioneazaEcran20"
+                android:text="@string/nuAmMasina_ecran2"
+                android:textColor="@color/contact_67_color"
+                android:textSize="@dimen/textSize_NumeTipInmatriculare" />
+        </LinearLayout>
+
+    </RelativeLayout>
 </RelativeLayout>
