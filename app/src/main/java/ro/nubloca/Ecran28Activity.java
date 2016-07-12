@@ -32,7 +32,7 @@ import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.extras.CustomFontTitilliumBold;
 
 public class Ecran28Activity extends AppCompatActivity {
-    Drawable upArrow = null;
+
     String mesajText;
     String result;
 
@@ -47,7 +47,7 @@ public class Ecran28Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        upArrow = ResourcesCompat.getDrawable(getResources(), R.drawable.abc_ic_ab_back_mtrl_am_alpha, null);
+        Drawable upArrow = ResourcesCompat.getDrawable(getResources(), R.drawable.abc_ic_ab_back_mtrl_am_alpha, null);
         upArrow.setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 

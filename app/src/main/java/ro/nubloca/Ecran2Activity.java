@@ -27,10 +27,25 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+import ro.nubloca.Networking.GetRequest;
 import ro.nubloca.Networking.StandElem;
 import ro.nubloca.extras.FontTitilliumBold;
 import ro.nubloca.extras.Global;
@@ -61,7 +76,6 @@ public class Ecran2Activity extends AppCompatActivity {
         upArrow.setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
 
 
         standElem = ((Global) getApplicationContext()).getStandElem();
@@ -191,7 +205,6 @@ public class Ecran2Activity extends AppCompatActivity {
                         mySpinner.setAdapter(adapter);
 
 
-
                         //mySpinner.setAdapter(new ArrayAdapter<String>(Ecran20Activity.this, R.layout.raw_list_1, standElem.getTipNumar().get(index).getLista_cod().get(i)));
 
                         params.width = minTrei * valRealUml;
@@ -283,7 +296,133 @@ public class Ecran2Activity extends AppCompatActivity {
 
     }
 
+    private void makeRequest(final JSONObject jsonob) {
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                 /*{ "id_tip": 12,
+                    "elemente": {"id_tip_element": 8,"tip_input": "CIFRE",  "valoare": "143" }}*/
 
+                HttpClient httpClient = new DefaultHttpClient();
+
+                String url = "http://api.nubloca.ro/numere/";
+
+                HttpPost httpPost = new HttpPost(url);
+                httpPost.setHeader("Content-Type", "application/json");
+                httpPost.setHeader("Content-Language", "ro");
+                httpPost.setHeader("Accept-Language", "ro");
+
+
+                try {
+
+                    httpPost.setEntity(new ByteArrayEntity(jsonob.toString().getBytes("UTF8")));
+
+                } catch (UnsupportedEncodingException e) {
+                    // log exception
+                    e.printStackTrace();
+                }
+
+                try {
+                    HttpResponse response = httpClient.execute(httpPost);
+                    //result = EntityUtils.toString(response.getEntity());
+
+                } catch (ClientProtocolException e) {
+                    // Log exception
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // Log exception
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public JSONObject getInputJson() {
+        JSONObject prepJson=new JSONObject();
+        int id = standElem.getTipNumar().get(index).getId();
+
+        try {
+            prepJson.put("id_tip",id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JSONArray elemente = new JSONArray();
+
+        LinearLayout layout = (LinearLayout) findViewById(R.id.linear_plate_holder);
+        int count = layout.getChildCount();
+        View v = null;
+
+        //
+
+        for (int i = 0; i < count; i++) {
+            JSONObject json_elem = new JSONObject();
+            v = layout.getChildAt(i);
+            if (v instanceof Spinner) {
+                //iddd = ((Spinner) v).getId();
+
+                int id_elem = standElem.getTipNumar().get(index).getTip_idd_loc(i);
+
+                try {
+                    json_elem.put("id_tip_element",id_elem);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    json_elem.put("tip_input","LISTA");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                int id_select_spinner = ((Spinner) v).getId();
+                try {
+                    json_elem.put("valoare",id_select_spinner);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                //s += ((Spinner) v).getSelectedItem().toString();
+
+            } else {
+                int id_elem = standElem.getTipNumar().get(index).getTip_idd_loc(i);
+
+                try {
+                    json_elem.put("id_tip_element",id_elem);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String s = standElem.getTipNumar().get(index).getTip_tip()[i];
+                try {
+                    json_elem.put("tip_input",s);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String input = ((TextView) v).getText().toString();
+                try {
+                    json_elem.put("valoare",input);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+            elemente.put(json_elem);
+        }
+        try {
+            prepJson.put("elemente",elemente);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return prepJson;
+
+    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         View btn = this.findViewById(R.id.btn_ok);
@@ -291,7 +430,12 @@ public class Ecran2Activity extends AppCompatActivity {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(Ecran2Activity.this, Ecran16Activity.class));
+                    JSONObject js = new JSONObject();
+                    String s = getInputJson().toString();
+                    //startActivity(new Intent(Ecran2Activity.this, Ecran16Activity.class));
+                    Toast toast = Toast.makeText(getApplication(), s, Toast.LENGTH_LONG);
+                    toast.show();
+                    makeRequest(js);
                 }
             });
         }
@@ -304,14 +448,12 @@ public class Ecran2Activity extends AppCompatActivity {
         return dpAsPixels;
     }
 
-
     @Override
     public void onBackPressed() {
         finish();
         startActivity(new Intent(Ecran2Activity.this, Ecran7Activity.class));
         super.onBackPressed();
     }
-
 
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();

@@ -379,6 +379,11 @@ public class Ecran20Activity extends AppCompatActivity {
 
     }
 
+    int convDp(float sizeInDp) {
+        float scale = getResources().getDisplayMetrics().density;
+        int dpAsPixels = (int) (sizeInDp * scale + 0.5f);
+        return dpAsPixels;
+    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -471,13 +476,6 @@ public class Ecran20Activity extends AppCompatActivity {
         return true;
     }
 
-
-    int convDp(float sizeInDp) {
-        float scale = getResources().getDisplayMetrics().density;
-        int dpAsPixels = (int) (sizeInDp * scale + 0.5f);
-        return dpAsPixels;
-    }
-
     @Override
     public void onBackPressed() {
         finish();
@@ -485,11 +483,10 @@ public class Ecran20Activity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         Intent myIntent = new Intent(getApplicationContext(), Ecran7Activity.class);
-        startActivityForResult(myIntent, 0);
+        startActivity(myIntent);
         return true;
 
     }
