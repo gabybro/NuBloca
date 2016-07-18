@@ -249,7 +249,13 @@ public class Ecran23Activity extends AppCompatActivity {
             case android.R.id.home:
                 standElem.setPositionExemplu(-1);
                 finish();
-                Ecran23Activity.this.onBackPressed();
+                //Ecran23Activity.this.onBackPressed();
+                if (valueIntent.equals("Ecran20Activity")){
+                    startActivity(new Intent(Ecran23Activity.this, Ecran20Activity.class));
+                }
+                if (valueIntent.equals("Ecran2Activity")){
+                    startActivity(new Intent(Ecran23Activity.this, Ecran2Activity.class));
+                }
                 return true;
             default:
                 standElem.setPositionExemplu(-1);
