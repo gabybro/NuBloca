@@ -301,7 +301,7 @@ public class Ecran2Activity extends AppCompatActivity {
             @Override
             public void run() {
                  /*{ "id_tip": 12,
-                    "elemente": {"id_tip_element": 8,"tip_input": "CIFRE",  "valoare": "143" }}*/
+                    "elemente": {"id_tip_element": 8,  "valoare": "143" }}*/
 
                 HttpClient httpClient = new DefaultHttpClient();
 
@@ -345,15 +345,28 @@ public class Ecran2Activity extends AppCompatActivity {
         }
     }
 
-    public JSONObject getInputJson() {
-        JSONObject prepJson=new JSONObject();
-        int id = standElem.getTipNumar().get(index).getId();
+    public JSONObject getInputJson() throws JSONException {
+        /*{
+            "identificare": {            "user": {                "app_code": "abcdefghijkl123456"            }        },
+            "trimise": {"id_tip": 1,
+                        "elemente": [
+                            {"id_tip_element": 1,
+                             "valoare": 2173},
+                            {"id_tip_element": 2,
+                             "valoare": "01"},
+                            {"id_tip_element": 3,
+                             "valoare": "JTL"}]}}*/
 
-        try {
-            prepJson.put("id_tip",id);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        JSONObject prepJson=new JSONObject();
+        JSONObject prepIdent=new JSONObject();
+        JSONObject prepElem=new JSONObject();
+
+        JSONObject prepUser=new JSONObject();
+        prepUser.put("app_code", "abcdefghijkl123456" );
+        prepIdent.put("user",prepUser);
+
+        int id = standElem.getTipNumar().get(index).getId();
+        prepJson.put("id_tip",id);
         JSONArray elemente = new JSONArray();
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.linear_plate_holder);
@@ -369,57 +382,22 @@ public class Ecran2Activity extends AppCompatActivity {
                 //iddd = ((Spinner) v).getId();
 
                 int id_elem = standElem.getTipNumar().get(index).getTip_idd_loc(i);
-
-                try {
-                    json_elem.put("id_tip_element",id_elem);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    json_elem.put("tip_input","LISTA");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                json_elem.put("id_tip_element",id_elem);
                 int id_select_spinner = ((Spinner) v).getId();
-                try {
-                    json_elem.put("valoare",id_select_spinner);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                //s += ((Spinner) v).getSelectedItem().toString();
-
+                json_elem.put("valoare",id_select_spinner);
             } else {
                 int id_elem = standElem.getTipNumar().get(index).getTip_idd_loc(i);
-
-                try {
-                    json_elem.put("id_tip_element",id_elem);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String s = standElem.getTipNumar().get(index).getTip_tip()[i];
-                try {
-                    json_elem.put("tip_input",s);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                json_elem.put("id_tip_element",id_elem);
                 String input = ((TextView) v).getText().toString();
-                try {
-                    json_elem.put("valoare",input);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+                json_elem.put("valoare",input);
 
             }
             elemente.put(json_elem);
         }
-        try {
-            prepJson.put("elemente",elemente);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            prepElem.put("elemente",elemente);
 
+        prepJson.put("identificare",prepIdent);
+        prepJson.put("trimise",prepElem);
         return prepJson;
 
     }
@@ -431,7 +409,12 @@ public class Ecran2Activity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     JSONObject js = new JSONObject();
-                    String s = getInputJson().toString();
+                    String s="";
+                    try {
+                        s = getInputJson().toString();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     //startActivity(new Intent(Ecran2Activity.this, Ecran16Activity.class));
                     Toast toast = Toast.makeText(getApplication(), s, Toast.LENGTH_LONG);
                     toast.show();
