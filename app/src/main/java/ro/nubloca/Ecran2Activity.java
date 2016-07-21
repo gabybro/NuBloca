@@ -51,6 +51,7 @@ import ro.nubloca.extras.FontTitilliumBold;
 import ro.nubloca.extras.Global;
 
 public class Ecran2Activity extends AppCompatActivity {
+    String result;
     StandElem standElem;
     int selected = 0;
     int index;
@@ -59,6 +60,7 @@ public class Ecran2Activity extends AppCompatActivity {
     FontTitilliumBold field;
     byte[] baite;
     int dim = 30;
+    JSONObject obj = new JSONObject();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -296,12 +298,14 @@ public class Ecran2Activity extends AppCompatActivity {
 
     }
 
-    private void makeRequest(final JSONObject jsonob) {
+    private void makeRequest(JSONObject jsonob) {
+
+        obj = jsonob;
+
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                 /*{ "id_tip": 12,
-                    "elemente": {"id_tip_element": 8,  "valoare": "143" }}*/
+
 
                 HttpClient httpClient = new DefaultHttpClient();
 
@@ -309,13 +313,13 @@ public class Ecran2Activity extends AppCompatActivity {
 
                 HttpPost httpPost = new HttpPost(url);
                 httpPost.setHeader("Content-Type", "application/json");
-                httpPost.setHeader("Content-Language", "ro");
-                httpPost.setHeader("Accept-Language", "ro");
+                /*httpPost.setHeader("Content-Language", "ro");
+                httpPost.setHeader("Accept-Language", "ro");*/
 
 
                 try {
 
-                    httpPost.setEntity(new ByteArrayEntity(jsonob.toString().getBytes("UTF8")));
+                    httpPost.setEntity(new ByteArrayEntity(obj.toString().getBytes("UTF8")));
 
                 } catch (UnsupportedEncodingException e) {
                     // log exception
@@ -324,7 +328,7 @@ public class Ecran2Activity extends AppCompatActivity {
 
                 try {
                     HttpResponse response = httpClient.execute(httpPost);
-                    //result = EntityUtils.toString(response.getEntity());
+                    result = EntityUtils.toString(response.getEntity());
 
                 } catch (ClientProtocolException e) {
                     // Log exception
@@ -366,7 +370,7 @@ public class Ecran2Activity extends AppCompatActivity {
         prepIdent.put("user",prepUser);
 
         int id = standElem.getTipNumar().get(index).getId();
-        prepJson.put("id_tip",id);
+        prepElem.put("id_tip",id);
         JSONArray elemente = new JSONArray();
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.linear_plate_holder);
@@ -384,7 +388,8 @@ public class Ecran2Activity extends AppCompatActivity {
                 int id_elem = standElem.getTipNumar().get(index).getTip_idd_loc(i);
                 json_elem.put("id_tip_element",id_elem);
                 int id_select_spinner = ((Spinner) v).getId();
-                json_elem.put("valoare",id_select_spinner);
+                //json_elem.put("valoare",id_select_spinner);
+                json_elem.put("valoare",2165);
             } else {
                 int id_elem = standElem.getTipNumar().get(index).getTip_idd_loc(i);
                 json_elem.put("id_tip_element",id_elem);
@@ -418,6 +423,11 @@ public class Ecran2Activity extends AppCompatActivity {
                     //startActivity(new Intent(Ecran2Activity.this, Ecran16Activity.class));
                     Toast toast = Toast.makeText(getApplication(), s, Toast.LENGTH_LONG);
                     toast.show();
+                    try {
+                        js = getInputJson();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     makeRequest(js);
                 }
             });
