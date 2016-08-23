@@ -7,6 +7,7 @@ import android.app.Application;
  */
 public class GlobalVar extends Application {
     private int id_tara = 147;
+    public static final String urlShare = "http://nubloca.ro";
 
     public int getNume_tip_inmatriculare_id() {
         return nume_tip_inmatriculare_id;

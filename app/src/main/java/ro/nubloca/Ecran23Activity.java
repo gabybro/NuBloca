@@ -92,7 +92,7 @@ public class Ecran23Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
         upArrow.setColorFilter(Color.parseColor("#fcd116"), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
@@ -100,6 +100,7 @@ public class Ecran23Activity extends AppCompatActivity {
         for (int i = 0; i < standElem.getSize(); i++) {
             values[i] = standElem.getTipNumar().get(i).getNume();
         }
+
 
 
         ListAdapter customAdapter = new CustomAdapter(this, values);

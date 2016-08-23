@@ -18,6 +18,10 @@
     <dimen name="paddingTopLeftRight">22dp</dimen>
     <dimen name="textSize_ecran3">20sp</dimen>
 
+    <!--    ecran13     -->
+    <dimen name="font31">17.5dp</dimen>
+    <dimen name="font40">22.5dp</dimen>
+
 
     <!--    ecran20     -->
     <dimen name="marginTop_cumfunctioneazaEcran20">15.625dp</dimen>

@@ -36,7 +36,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <ro.nubloca.extras.CustomFontTitilliumBold
+    <!--<ro.nubloca.extras.CustomFontTitilliumBold
         android:id="@+id/textView91"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,9 +50,9 @@
         android:clickable="true"
         android:layout_alignBottom="@+id/textView7"
         android:layout_toRightOf="@+id/textView8"
-        android:layout_toEndOf="@+id/textView8" />
+        android:layout_toEndOf="@+id/textView8" />-->
 
-    <ro.nubloca.extras.CustomFontTitilliumRegular
+    <!--<ro.nubloca.extras.CustomFontTitilliumRegular
         android:id="@+id/textView92"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,9 +62,9 @@
         android:textSize="20dp"
         android:layout_alignBottom="@+id/textView7"
         android:layout_toRightOf="@+id/textView91"
-        android:layout_toEndOf="@+id/textView91" />
+        android:layout_toEndOf="@+id/textView91" />-->
 
-    <ro.nubloca.extras.CustomFontTitilliumRegular
+    <!--<ro.nubloca.extras.CustomFontTitilliumRegular
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/despre_5"
@@ -74,19 +74,18 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="-2dp"
-        android:id="@+id/view2" />
+        android:id="@+id/view2" />-->
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-
         android:background="@color/list_delimit"
         android:layout_alignTop="@+id/rel_bar1" />
 
     <RelativeLayout
         android:id="@+id/rel_bar1"
         style="@style/relative_custom"
-        android:layout_below="@+id/view2"
+        android:layout_below="@+id/textView8"
         android:layout_marginTop="21dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
@@ -172,7 +171,7 @@
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rel_bar3"
@@ -185,9 +184,9 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView7"
+        android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:text="Spune unui prieten"
+        android:text="@string/despre_6"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#3DC6FE"
         android:textStyle="bold" />

@@ -56,6 +56,18 @@ public class Response {
     @SerializedName("id")
     private int id;
 
+    @SerializedName("titlu")
+    private String titlu;
+
+    @SerializedName("id_parinte")
+    private int idParinte;
+
+    @SerializedName("text")
+    private String text;
+
+    @SerializedName("copii")
+    private int copii;
+
     @SerializedName("nume")
     private String nume;
 
@@ -147,6 +159,23 @@ public class Response {
 
     public int getId() {
         return id;
+    }
+
+    public String getTitlu() {
+
+        return titlu;
+    }
+
+    public int getIdParinte() {
+        return idParinte;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public int getCopii() {
+        return copii;
     }
 
     public void setId(int id) {
